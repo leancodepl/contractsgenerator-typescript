@@ -40,7 +40,7 @@
     "proto:definitions": "pbts -o src/protocol/index.d.ts src/protocol/index.js"
   },
   "dependencies": {
-    "@types/node": "^16.0.0",
+    "@types/node": "^17.0.21",
     "cosmiconfig": "^7.0.0",
     "jest-validate": "^27.0.0",
     "lodash": "^4.0.0",
