@@ -55,6 +55,17 @@ export default class GeneratorErrorCodes {
         ];
     }
 
+    /**
+     * This function prepares error codes in a structured way. Error codes are received in a list where each item can be
+     * an error code or a group of codes where in each group can again contain nested groups.
+     * Given that there's possibility that error codes name conflict with each other. Purpose of the code below is to
+     * resolve potential conflicts. First it will flatten the list of error codes. Then it will iteratively try to fix
+     * this list by:
+     *  - finding conflicts by name,
+     *  - for each conflicted name it tries to fix each conflicting name by prefixing it with most recent of its groups
+     *    updateing the original list of error codes. At this point it might happen that we ran out of groups - in this
+     *    case it means that there's not solution and an error is thrown.
+     */
     private static convertErrorCodes(errorCodes: leancode.contracts.IErrorCode[]): { name: string; code: number }[] {
         type CodeWithGroups = { name: string; groups: string[]; code: number };
 
