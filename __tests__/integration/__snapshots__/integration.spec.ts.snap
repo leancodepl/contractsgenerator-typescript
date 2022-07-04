@@ -286,6 +286,28 @@ export namespace Single {
 }
 `;
 
+exports[`integration works for example properties-binary correctly 1`] = `
+Object {
+  "client.ts": "/*eslint-disable*/
+import CQRS from \\"./cqrsClient\\";
+import {} from \\"./types\\";
+export default function (cqrsClient: CQRS) {
+    return {};
+}
+",
+  "types.ts": "/*eslint-disable*/
+export type Query<TResult> = {};
+export type Command = {};
+export interface Dto {
+    A: string;
+    B?: string;
+    C: string[];
+    D: Record<string, string>;
+}
+",
+}
+`;
+
 exports[`integration works for example properties-composite_types correctly 1`] = `
 Object {
   "client.ts": "/*eslint-disable*/
