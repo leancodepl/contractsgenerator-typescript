@@ -34,6 +34,7 @@ export namespace leancode {
             Query = 1000,
             Command = 1001,
             CommandResult = 1002,
+            Operation = 1003,
             Attribute = 1100,
             AuthorizeWhenAttribute = 1101,
             AuthorizeWhenHasAnyOfAttribute = 1102,
@@ -1717,6 +1718,9 @@ export namespace leancode {
 
             /** Statement command */
             command?: (leancode.contracts.Statement.ICommand|null);
+
+            /** Statement operation */
+            operation?: (leancode.contracts.Statement.IOperation|null);
         }
 
         /** Represents a Statement. */
@@ -1749,8 +1753,11 @@ export namespace leancode {
             /** Statement command. */
             public command?: (leancode.contracts.Statement.ICommand|null);
 
+            /** Statement operation. */
+            public operation?: (leancode.contracts.Statement.IOperation|null);
+
             /** Statement content. */
-            public content?: ("dto"|"enum"|"query"|"command");
+            public content?: ("dto"|"enum"|"query"|"command"|"operation");
 
             /**
              * Decodes a Statement message from the specified reader or buffer.
@@ -2077,6 +2084,79 @@ export namespace leancode {
 
                 /**
                  * Converts this Command to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of an Operation. */
+            interface IOperation {
+
+                /** Operation typeDescriptor */
+                typeDescriptor?: (leancode.contracts.ITypeDescriptor|null);
+
+                /** Operation returnType */
+                returnType?: (leancode.contracts.ITypeRef|null);
+            }
+
+            /** Represents an Operation. */
+            class Operation implements IOperation {
+
+                /**
+                 * Constructs a new Operation.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: leancode.contracts.Statement.IOperation);
+
+                /** Operation typeDescriptor. */
+                public typeDescriptor?: (leancode.contracts.ITypeDescriptor|null);
+
+                /** Operation returnType. */
+                public returnType?: (leancode.contracts.ITypeRef|null);
+
+                /**
+                 * Decodes an Operation message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns Operation
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): leancode.contracts.Statement.Operation;
+
+                /**
+                 * Decodes an Operation message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns Operation
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): leancode.contracts.Statement.Operation;
+
+                /**
+                 * Verifies an Operation message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates an Operation message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns Operation
+                 */
+                public static fromObject(object: { [k: string]: any }): leancode.contracts.Statement.Operation;
+
+                /**
+                 * Creates a plain object from an Operation message. Also converts values to other types if specified.
+                 * @param message Operation
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: leancode.contracts.Statement.Operation, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this Operation to JSON.
                  * @returns JSON object
                  */
                 public toJSON(): { [k: string]: any };

@@ -6,3 +6,4 @@ export { default as GeneratorQuery } from "./GeneratorQuery";
 export { default as GeneratorStatement } from "./GeneratorStatement";
 export { default as GeneratorTypesDictionary } from "./GeneratorTypesDictionary";
 export { default as GeneratorCommand } from "./GeneratorCommand";
+export { default as GeneratorOperation } from "./GeneratorOperation";

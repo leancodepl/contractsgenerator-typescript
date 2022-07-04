@@ -83,9 +83,103 @@ export default function (cqrsClient: CQRS) {
 export type Query<TResult> = {};
 export type Command = {};
 /**
- * @attribute LeanCode.CQRS.Security.AllowUnauthorizedAttribute
+ * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
  */
 export interface A extends Command {
+}
+",
+}
+`;
+
+exports[`integration works for example project-aggregated-combined correctly 1`] = `
+Object {
+  "client.ts": "/*eslint-disable*/
+import CQRS from \\"./cqrsClient\\";
+import { A, B } from \\"./types\\";
+export default function (cqrsClient: CQRS) {
+    return {
+        A: {
+            Command: cqrsClient.createCommand<A.Command, {}>(\\"A.Command\\", {})
+        },
+        B: {
+            Query: cqrsClient.createQuery<B.Query, number>(\\"B.Query\\")
+        }
+    };
+}
+",
+  "types.ts": "/*eslint-disable*/
+export type Query<TResult> = {};
+export type Command = {};
+export namespace A {
+    /**
+     * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+     */
+    export interface Command extends Command {
+    }
+}
+export namespace B {
+    /**
+     * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+     */
+    export interface Query extends Query<number> {
+    }
+}
+",
+}
+`;
+
+exports[`integration works for example project-aggregated-multiple correctly 1`] = `
+Object {
+  "client.ts": "/*eslint-disable*/
+import CQRS from \\"./cqrsClient\\";
+import { A, B } from \\"./types\\";
+export default function (cqrsClient: CQRS) {
+    return {
+        A: {
+            Command: cqrsClient.createCommand<A.Command, {}>(\\"A.Command\\", {})
+        },
+        B: {
+            Query: cqrsClient.createQuery<B.Query, number>(\\"B.Query\\")
+        }
+    };
+}
+",
+  "types.ts": "/*eslint-disable*/
+export type Query<TResult> = {};
+export type Command = {};
+export namespace A {
+    /**
+     * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+     */
+    export interface Command extends Command {
+    }
+}
+export namespace B {
+    /**
+     * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+     */
+    export interface Query extends Query<number> {
+    }
+}
+",
+}
+`;
+
+exports[`integration works for example project-embedded correctly 1`] = `
+Object {
+  "client.ts": "/*eslint-disable*/
+import CQRS from \\"./cqrsClient\\";
+import {} from \\"./types\\";
+export default function (cqrsClient: CQRS) {
+    return {};
+}
+",
+  "types.ts": "/*eslint-disable*/
+export type Query<TResult> = {};
+export type Command = {};
+export namespace Embedded {
+    export interface DTO {
+    }
 }
 ",
 }
@@ -103,6 +197,91 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+",
+}
+`;
+
+exports[`integration works for example project-implicitusings correctly 1`] = `
+Object {
+  "client.ts": "/*eslint-disable*/
+import CQRS from \\"./cqrsClient\\";
+import {} from \\"./types\\";
+export default function (cqrsClient: CQRS) {
+    return {};
+}
+",
+  "types.ts": "/*eslint-disable*/
+export type Query<TResult> = {};
+export type Command = {};
+export namespace ImplicitUsings {
+    export interface DTO {
+        Id: string;
+    }
+}
+",
+}
+`;
+
+exports[`integration works for example project-packagereference correctly 1`] = `
+Object {
+  "client.ts": "/*eslint-disable*/
+import CQRS from \\"./cqrsClient\\";
+import {} from \\"./types\\";
+export default function (cqrsClient: CQRS) {
+    return {};
+}
+",
+  "types.ts": "/*eslint-disable*/
+export type Query<TResult> = {};
+export type Command = {};
+export namespace PackageReference {
+    export interface OrderDTO {
+        Id: number;
+    }
+}
+",
+}
+`;
+
+exports[`integration works for example project-referencetoembedded correctly 1`] = `
+Object {
+  "client.ts": "/*eslint-disable*/
+import CQRS from \\"./cqrsClient\\";
+import {} from \\"./types\\";
+export default function (cqrsClient: CQRS) {
+    return {};
+}
+",
+  "types.ts": "/*eslint-disable*/
+export type Query<TResult> = {};
+export type Command = {};
+",
+}
+`;
+
+exports[`integration works for example project-single correctly 1`] = `
+Object {
+  "client.ts": "/*eslint-disable*/
+import CQRS from \\"./cqrsClient\\";
+import { Single } from \\"./types\\";
+export default function (cqrsClient: CQRS) {
+    return {
+        Single: {
+            Command: cqrsClient.createCommand<Single.Command, {}>(\\"Single.Command\\", {})
+        }
+    };
+}
+",
+  "types.ts": "/*eslint-disable*/
+export type Query<TResult> = {};
+export type Command = {};
+export namespace Single {
+    /**
+     * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+     */
+    export interface Command extends Command {
+    }
+}
 ",
 }
 `;
@@ -142,6 +321,7 @@ export default function (cqrsClient: CQRS) {
 }
 ",
   "types.ts": "/*eslint-disable*/
+import type { CommandResult } from \\"@leancode/cqrs-client-base\\";
 export type Query<TResult> = {};
 export type Command = {};
 export interface Dto {
@@ -155,9 +335,12 @@ export interface Dto {
     H: string;
     I: string;
     J: string;
-    K: number;
-    L: number;
-    M: string;
+    K: string;
+    L: string;
+    M: number;
+    N: number;
+    O: string;
+    P: CommandResult<any>;
 }
 ",
 }
@@ -167,22 +350,43 @@ exports[`integration works for example simple correctly 1`] = `
 Object {
   "client.ts": "/*eslint-disable*/
 import CQRS from \\"./cqrsClient\\";
-import { Command, Query } from \\"./types\\";
+import { Command, Operation, Query, Query1, Query2 } from \\"./types\\";
 export default function (cqrsClient: CQRS) {
     return {
         Command: cqrsClient.createCommand<Command, {}>(\\"Command\\", {}),
-        Query: cqrsClient.createQuery<Query, number>(\\"Query\\")
+        Operation: cqrsClient.createOperation<Operation, number>(\\"Operation\\"),
+        Query: cqrsClient.createQuery<Query, number>(\\"Query\\"),
+        Query1: cqrsClient.createQuery<Query1, number>(\\"Query1\\"),
+        Query2: cqrsClient.createQuery<Query2, number>(\\"Query2\\")
     };
 }
 ",
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export interface A {
+    PropA: number;
+}
+export interface B {
+    PropB: number;
+}
+export interface C extends A, B {
+    PropC: number;
+}
 export interface Command extends Command {
 }
 export interface DTO {
 }
+export interface Operation {
+}
 export interface Query extends Query<number> {
+}
+/**
+ * Test comment.
+ */
+export interface Query1 extends Query<number> {
+}
+export interface Query2 extends Query<number> {
 }
 export enum SimpleEnum {
     A = 0,

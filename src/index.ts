@@ -35,7 +35,7 @@ const argv = yargs(hideBin(process.argv))
 
 const { join, resolve } = posix;
 
-const serverContractsGeneratorVersion = "1.0.0";
+const serverContractsGeneratorVersion = "2.0.0-alpha.1";
 const moduleName = "ts-generator";
 
 const config = argv.config

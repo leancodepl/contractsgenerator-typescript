@@ -9,6 +9,7 @@ import {
     GeneratorEnum,
     GeneratorInterface,
     GeneratorNamespace,
+    GeneratorOperation,
     GeneratorQuery,
     GeneratorStatement,
     GeneratorTypesDictionary,
@@ -144,7 +145,7 @@ export default async function generateContracts({
     );
 
     const statements: GeneratorStatement[] = definition.statements.map(statement => {
-        if (statement.dto || statement.query || statement.command) {
+        if (statement.dto || statement.query || statement.command || statement.operation) {
             let generatorInterface: GeneratorInterface;
 
             if (statement.query) {
@@ -155,6 +156,12 @@ export default async function generateContracts({
                 });
             } else if (statement.command) {
                 generatorInterface = new GeneratorCommand({
+                    statement,
+                    typesDictionary,
+                    nameTransform: composedNameTransform,
+                });
+            } else if (statement.operation) {
+                generatorInterface = new GeneratorOperation({
                     statement,
                     typesDictionary,
                     nameTransform: composedNameTransform,
@@ -180,7 +187,7 @@ export default async function generateContracts({
             return generatorEnum;
         }
 
-        throw new Error("Unkown statement type");
+        throw new Error("Unknown statement type");
     });
 
     const referencedImports: ImportReference[] = [];
