@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../A/A.csproj" />
-    <ProjectReference Include="../B/B.csproj" />
+    <EmbeddedResource Include="LeanCode.Contracts.pb">
+      <LogicalName>%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

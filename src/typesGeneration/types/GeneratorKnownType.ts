@@ -56,6 +56,10 @@ const defaultTypesMap: Record<
         ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Query"), [
             ensureNotEmpty(typeArguments[0]).generateType(context),
         ]),
+    [leancode.contracts.KnownType.Operation]: ({ typeArguments, context }) =>
+        ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Operation"), [
+            ensureNotEmpty(typeArguments[0]).generateType(context),
+        ]),
     [leancode.contracts.KnownType.Command]: () =>
         ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Command")),
     [leancode.contracts.KnownType.CommandResult]: ({ context }) => {

@@ -1,6 +1,7 @@
 import ts from "typescript";
 import { leancode } from "../protocol";
 import type GeneratorCommand from "./GeneratorCommand";
+import GeneratorOperation from "./GeneratorOperation";
 import type GeneratorQuery from "./GeneratorQuery";
 import type GeneratorInternalType from "./types/GeneratorInternalType";
 
@@ -32,7 +33,10 @@ export type ImportReference = {
           };
 };
 
-export type ClientMethodFilter = (id: string, commandOrQuery: GeneratorQuery | GeneratorCommand) => boolean;
+export type ClientMethodFilter = (
+    id: string,
+    commandOrQuery: GeneratorQuery | GeneratorCommand | GeneratorOperation,
+) => boolean;
 
 export type CustomTypesMap = Partial<Record<OverridableCustomType, () => ts.TypeNode>>;
 

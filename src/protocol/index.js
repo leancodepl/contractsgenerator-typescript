@@ -58,6 +58,7 @@ $root.leancode = (function() {
          * @property {number} Query=1000 Query value
          * @property {number} Command=1001 Command value
          * @property {number} CommandResult=1002 CommandResult value
+         * @property {number} Operation=1003 Operation value
          * @property {number} Attribute=1100 Attribute value
          * @property {number} AuthorizeWhenAttribute=1101 AuthorizeWhenAttribute value
          * @property {number} AuthorizeWhenHasAnyOfAttribute=1102 AuthorizeWhenHasAnyOfAttribute value
@@ -92,6 +93,7 @@ $root.leancode = (function() {
             values[valuesById[1000] = "Query"] = 1000;
             values[valuesById[1001] = "Command"] = 1001;
             values[valuesById[1002] = "CommandResult"] = 1002;
+            values[valuesById[1003] = "Operation"] = 1003;
             values[valuesById[1100] = "Attribute"] = 1100;
             values[valuesById[1101] = "AuthorizeWhenAttribute"] = 1101;
             values[valuesById[1102] = "AuthorizeWhenHasAnyOfAttribute"] = 1102;
@@ -1826,6 +1828,7 @@ $root.leancode = (function() {
                         case 1000:
                         case 1001:
                         case 1002:
+                        case 1003:
                         case 1100:
                         case 1101:
                         case 1102:
@@ -1964,6 +1967,10 @@ $root.leancode = (function() {
                     case "CommandResult":
                     case 1002:
                         message.type = 1002;
+                        break;
+                    case "Operation":
+                    case 1003:
+                        message.type = 1003;
                         break;
                     case "Attribute":
                     case 1100:
@@ -4409,6 +4416,7 @@ $root.leancode = (function() {
              * @property {leancode.contracts.Statement.IEnum|null} ["enum"] Statement enum
              * @property {leancode.contracts.Statement.IQuery|null} [query] Statement query
              * @property {leancode.contracts.Statement.ICommand|null} [command] Statement command
+             * @property {leancode.contracts.Statement.IOperation|null} [operation] Statement operation
              */
 
             /**
@@ -4483,17 +4491,25 @@ $root.leancode = (function() {
              */
             Statement.prototype.command = null;
 
+            /**
+             * Statement operation.
+             * @member {leancode.contracts.Statement.IOperation|null|undefined} operation
+             * @memberof leancode.contracts.Statement
+             * @instance
+             */
+            Statement.prototype.operation = null;
+
             // OneOf field names bound to virtual getters and setters
             var $oneOfFields;
 
             /**
              * Statement content.
-             * @member {"dto"|"enum"|"query"|"command"|undefined} content
+             * @member {"dto"|"enum"|"query"|"command"|"operation"|undefined} content
              * @memberof leancode.contracts.Statement
              * @instance
              */
             Object.defineProperty(Statement.prototype, "content", {
-                get: $util.oneOfGetter($oneOfFields = ["dto", "enum", "query", "command"]),
+                get: $util.oneOfGetter($oneOfFields = ["dto", "enum", "query", "command", "operation"]),
                 set: $util.oneOfSetter($oneOfFields)
             });
 
@@ -4537,6 +4553,9 @@ $root.leancode = (function() {
                         break;
                     case 13:
                         message.command = $root.leancode.contracts.Statement.Command.decode(reader, reader.uint32());
+                        break;
+                    case 14:
+                        message.operation = $root.leancode.contracts.Statement.Operation.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -4627,6 +4646,16 @@ $root.leancode = (function() {
                             return "command." + error;
                     }
                 }
+                if (message.operation != null && message.hasOwnProperty("operation")) {
+                    if (properties.content === 1)
+                        return "content: multiple values";
+                    properties.content = 1;
+                    {
+                        var error = $root.leancode.contracts.Statement.Operation.verify(message.operation);
+                        if (error)
+                            return "operation." + error;
+                    }
+                }
                 return null;
             };
 
@@ -4675,6 +4704,11 @@ $root.leancode = (function() {
                     if (typeof object.command !== "object")
                         throw TypeError(".leancode.contracts.Statement.command: object expected");
                     message.command = $root.leancode.contracts.Statement.Command.fromObject(object.command);
+                }
+                if (object.operation != null) {
+                    if (typeof object.operation !== "object")
+                        throw TypeError(".leancode.contracts.Statement.operation: object expected");
+                    message.operation = $root.leancode.contracts.Statement.Operation.fromObject(object.operation);
                 }
                 return message;
             };
@@ -4726,6 +4760,11 @@ $root.leancode = (function() {
                     object.command = $root.leancode.contracts.Statement.Command.toObject(message.command, options);
                     if (options.oneofs)
                         object.content = "command";
+                }
+                if (message.operation != null && message.hasOwnProperty("operation")) {
+                    object.operation = $root.leancode.contracts.Statement.Operation.toObject(message.operation, options);
+                    if (options.oneofs)
+                        object.content = "operation";
                 }
                 return object;
             };
@@ -5421,6 +5460,182 @@ $root.leancode = (function() {
                 };
 
                 return Command;
+            })();
+
+            Statement.Operation = (function() {
+
+                /**
+                 * Properties of an Operation.
+                 * @memberof leancode.contracts.Statement
+                 * @interface IOperation
+                 * @property {leancode.contracts.ITypeDescriptor|null} [typeDescriptor] Operation typeDescriptor
+                 * @property {leancode.contracts.ITypeRef|null} [returnType] Operation returnType
+                 */
+
+                /**
+                 * Constructs a new Operation.
+                 * @memberof leancode.contracts.Statement
+                 * @classdesc Represents an Operation.
+                 * @implements IOperation
+                 * @constructor
+                 * @param {leancode.contracts.Statement.IOperation=} [properties] Properties to set
+                 */
+                function Operation(properties) {
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Operation typeDescriptor.
+                 * @member {leancode.contracts.ITypeDescriptor|null|undefined} typeDescriptor
+                 * @memberof leancode.contracts.Statement.Operation
+                 * @instance
+                 */
+                Operation.prototype.typeDescriptor = null;
+
+                /**
+                 * Operation returnType.
+                 * @member {leancode.contracts.ITypeRef|null|undefined} returnType
+                 * @memberof leancode.contracts.Statement.Operation
+                 * @instance
+                 */
+                Operation.prototype.returnType = null;
+
+                /**
+                 * Decodes an Operation message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof leancode.contracts.Statement.Operation
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {leancode.contracts.Statement.Operation} Operation
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Operation.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.Statement.Operation();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
+                            break;
+                        case 2:
+                            message.returnType = $root.leancode.contracts.TypeRef.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes an Operation message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof leancode.contracts.Statement.Operation
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {leancode.contracts.Statement.Operation} Operation
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Operation.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies an Operation message.
+                 * @function verify
+                 * @memberof leancode.contracts.Statement.Operation
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Operation.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.typeDescriptor != null && message.hasOwnProperty("typeDescriptor")) {
+                        var error = $root.leancode.contracts.TypeDescriptor.verify(message.typeDescriptor);
+                        if (error)
+                            return "typeDescriptor." + error;
+                    }
+                    if (message.returnType != null && message.hasOwnProperty("returnType")) {
+                        var error = $root.leancode.contracts.TypeRef.verify(message.returnType);
+                        if (error)
+                            return "returnType." + error;
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates an Operation message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof leancode.contracts.Statement.Operation
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {leancode.contracts.Statement.Operation} Operation
+                 */
+                Operation.fromObject = function fromObject(object) {
+                    if (object instanceof $root.leancode.contracts.Statement.Operation)
+                        return object;
+                    var message = new $root.leancode.contracts.Statement.Operation();
+                    if (object.typeDescriptor != null) {
+                        if (typeof object.typeDescriptor !== "object")
+                            throw TypeError(".leancode.contracts.Statement.Operation.typeDescriptor: object expected");
+                        message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.fromObject(object.typeDescriptor);
+                    }
+                    if (object.returnType != null) {
+                        if (typeof object.returnType !== "object")
+                            throw TypeError(".leancode.contracts.Statement.Operation.returnType: object expected");
+                        message.returnType = $root.leancode.contracts.TypeRef.fromObject(object.returnType);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from an Operation message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof leancode.contracts.Statement.Operation
+                 * @static
+                 * @param {leancode.contracts.Statement.Operation} message Operation
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Operation.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.defaults) {
+                        object.typeDescriptor = null;
+                        object.returnType = null;
+                    }
+                    if (message.typeDescriptor != null && message.hasOwnProperty("typeDescriptor"))
+                        object.typeDescriptor = $root.leancode.contracts.TypeDescriptor.toObject(message.typeDescriptor, options);
+                    if (message.returnType != null && message.hasOwnProperty("returnType"))
+                        object.returnType = $root.leancode.contracts.TypeRef.toObject(message.returnType, options);
+                    return object;
+                };
+
+                /**
+                 * Converts this Operation to JSON.
+                 * @function toJSON
+                 * @memberof leancode.contracts.Statement.Operation
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Operation.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Operation;
             })();
 
             return Statement;

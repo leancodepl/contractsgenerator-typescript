@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../A/A.csproj" />
-    <ProjectReference Include="../B/B.csproj" />
+    <PackageReference Include="LeanCode.Contracts" Version="1.0.1" />
+    <PackageReference Include="LeanCode.DomainModels" Version="6.0.1576" />
   </ItemGroup>
 
 </Project>
