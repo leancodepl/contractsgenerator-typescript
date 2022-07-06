@@ -35,6 +35,7 @@ export namespace leancode {
             Command = 1001,
             CommandResult = 1002,
             Operation = 1003,
+            Binary = 1004,
             Attribute = 1100,
             AuthorizeWhenAttribute = 1101,
             AuthorizeWhenHasAnyOfAttribute = 1102,

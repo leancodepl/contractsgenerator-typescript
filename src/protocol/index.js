@@ -59,6 +59,7 @@ $root.leancode = (function() {
          * @property {number} Command=1001 Command value
          * @property {number} CommandResult=1002 CommandResult value
          * @property {number} Operation=1003 Operation value
+         * @property {number} Binary=1004 Binary value
          * @property {number} Attribute=1100 Attribute value
          * @property {number} AuthorizeWhenAttribute=1101 AuthorizeWhenAttribute value
          * @property {number} AuthorizeWhenHasAnyOfAttribute=1102 AuthorizeWhenHasAnyOfAttribute value
@@ -94,6 +95,7 @@ $root.leancode = (function() {
             values[valuesById[1001] = "Command"] = 1001;
             values[valuesById[1002] = "CommandResult"] = 1002;
             values[valuesById[1003] = "Operation"] = 1003;
+            values[valuesById[1004] = "Binary"] = 1004;
             values[valuesById[1100] = "Attribute"] = 1100;
             values[valuesById[1101] = "AuthorizeWhenAttribute"] = 1101;
             values[valuesById[1102] = "AuthorizeWhenHasAnyOfAttribute"] = 1102;
@@ -1829,6 +1831,7 @@ $root.leancode = (function() {
                         case 1001:
                         case 1002:
                         case 1003:
+                        case 1004:
                         case 1100:
                         case 1101:
                         case 1102:
@@ -1971,6 +1974,10 @@ $root.leancode = (function() {
                     case "Operation":
                     case 1003:
                         message.type = 1003;
+                        break;
+                    case "Binary":
+                    case 1004:
+                        message.type = 1004;
                         break;
                     case "Attribute":
                     case 1100:
