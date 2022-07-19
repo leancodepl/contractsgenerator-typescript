@@ -12,6 +12,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 /**
  * @attribute CustomAttribute
  */
@@ -35,6 +36,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 /**
  * @deprecated
  */
@@ -58,6 +60,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export interface A extends Command {
     /**
      * @deprecated
@@ -82,6 +85,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 /**
  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
  */
@@ -110,6 +114,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export namespace A {
     /**
      * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
@@ -147,6 +152,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export namespace A {
     /**
      * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
@@ -177,6 +183,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export namespace Embedded {
     export interface DTO {
     }
@@ -197,6 +204,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 ",
 }
 `;
@@ -213,6 +221,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export namespace ImplicitUsings {
     export interface DTO {
         Id: string;
@@ -234,6 +243,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export namespace PackageReference {
     export interface OrderDTO {
         Id: number;
@@ -255,6 +265,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 ",
 }
 `;
@@ -275,6 +286,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export namespace Single {
     /**
      * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
@@ -298,6 +310,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export interface Dto {
     A: string;
     B?: string;
@@ -320,6 +333,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export interface Dto {
     A: number[];
     B: number[];
@@ -346,6 +360,7 @@ export default function (cqrsClient: CQRS) {
 import type { CommandResult } from \\"@leancode/cqrs-client-base\\";
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export interface Dto {
     A: number;
     B: number;
@@ -386,6 +401,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export interface A {
     PropA: number;
 }
@@ -399,7 +415,8 @@ export interface Command extends Command {
 }
 export interface DTO {
 }
-export interface Operation {
+export interface Operation extends Operation<number> {
+    Arg: string;
 }
 export interface Query extends Query<number> {
 }
@@ -431,6 +448,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export namespace Exclusions {
     export interface IncludedDTO {
         IncludedProperty: number;
@@ -461,6 +479,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export namespace First {
     export interface Command extends Command {
     }
@@ -495,6 +514,7 @@ export default function (cqrsClient: CQRS) {
   "types.ts": "/*eslint-disable*/
 export type Query<TResult> = {};
 export type Command = {};
+export type Operation<TResult> = {};
 export interface Command extends Command {
     NeededDTO: DTO;
 }

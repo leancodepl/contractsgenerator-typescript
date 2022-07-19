@@ -38,6 +38,7 @@ export default class GeneratorInterface implements GeneratorStatement {
             ...statement.dto?.typeDescriptor,
             ...statement.query?.typeDescriptor,
             ...statement.command?.typeDescriptor,
+            ...statement.operation?.typeDescriptor,
         };
 
         const id = ensureNotEmpty(statement.name);
@@ -76,7 +77,9 @@ export default class GeneratorInterface implements GeneratorStatement {
             return [];
         }
 
-        const typeParameters = this.genericParameters.map(p => ts.factory.createTypeParameterDeclaration(p));
+        const typeParameters = this.genericParameters.map(p =>
+            ts.factory.createTypeParameterDeclaration(/* modifiers */ undefined, p),
+        );
 
         const extendTypes =
             this.extendTypes.map(extendType => GeneratorTypeFactory.convertToExtendType(extendType, context)) ?? [];
