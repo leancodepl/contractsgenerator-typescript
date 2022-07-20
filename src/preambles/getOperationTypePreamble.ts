@@ -1,10 +1,10 @@
 import ts from "typescript";
 
-export default function getQueryTypePreamble() {
+export default function getOperationTypePreamble() {
     return ts.factory.createTypeAliasDeclaration(
         /* decorators */ undefined,
         /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-        /* name */ "Query",
+        /* name */ "Operation",
         /* typeParameters */ [
             ts.factory.createTypeParameterDeclaration(
                 /* modifiers */ undefined,

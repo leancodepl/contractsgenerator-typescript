@@ -11,6 +11,7 @@ import generateContracts, { ensureIsOverridableCustomTypeName } from "./generate
 import getCommandTypePreamble from "./preambles/getCommandTypePreamble";
 import getCommonTypePreamble from "./preambles/getCommonTypePreamble";
 import getCustomTypesPreamble from "./preambles/getCustomTypesPreamble";
+import getOperationTypePreamble from "./preambles/getOperationTypePreamble";
 import getQueryTypePreamble from "./preambles/getQueryTypePreamble";
 import getReferencedImportsPreamble from "./preambles/getReferencedImportsPreamble";
 import getReferencedInternalTypesPreamble from "./preambles/getReferencedInternalTypesPreamble";
@@ -251,12 +252,12 @@ exec(
                         if (!customTypes) return [];
 
                         return Object.entries(customTypes).map<ImportReference>(
-                            ([, { location, name, exportName }]) => ({
+                            ([, { location, name, exportName, isDefault }]) => ({
                                 name,
-                                from: {
-                                    path: location,
-                                },
-                                export: exportName
+                                from: typeof location === "string" ? { path: location } : location,
+                                export: isDefault
+                                    ? { default: true }
+                                    : exportName
                                     ? {
                                           name: exportName,
                                       }
@@ -317,11 +318,38 @@ exec(
                         ];
                     })();
 
+                    const operationReferencedImports = ((): ImportReference[] => {
+                        const { operation } = config;
+                        if (!operation) return [];
+
+                        if (typeof operation === "string") {
+                            return [
+                                {
+                                    from: { path: operation },
+                                    name: "Operation",
+                                },
+                            ];
+                        }
+
+                        return [
+                            {
+                                from: { path: operation.location },
+                                name: "Opeartion",
+                                export: operation.exportName
+                                    ? {
+                                          name: operation.exportName,
+                                      }
+                                    : { default: true },
+                            },
+                        ];
+                    })();
+
                     const referencedImports = [
                         ...externalReferencedImports,
                         ...customTypesReferencedImports,
                         ...queryReferencedImports,
                         ...commandReferencedImports,
+                        ...operationReferencedImports,
                     ];
 
                     return [
@@ -332,6 +360,7 @@ exec(
                         }),
                         ...(config.query ? [] : [getQueryTypePreamble()]),
                         ...(config.command ? [] : [getCommandTypePreamble()]),
+                        ...(config.operation ? [] : [getOperationTypePreamble()]),
                     ];
                 },
                 eslintExclusions: typesEslintExclusions,

@@ -1,5 +1,5 @@
 import { OverridableCustomTypeName } from "./generateContracts";
-import { ClientMethodFilter } from "./typesGeneration/GeneratorContext";
+import { ClientMethodFilter, ImportReference } from "./typesGeneration/GeneratorContext";
 
 export type GenerateFileConfiguration =
     | {
@@ -18,8 +18,9 @@ export interface GeneratorInput {
 
 export type CustomTypeConfiguration = {
     name: string;
-    location: string;
+    location: string | ImportReference["from"];
     exportName?: string;
+    isDefault?: boolean;
 };
 
 export type CommonTypesConfiguration =
@@ -47,6 +48,7 @@ export interface ContractsGeneratorConfiguration {
     baseNamespace?: string;
     query?: CommonTypesConfiguration;
     command?: CommonTypesConfiguration;
+    operation?: CommonTypesConfiguration;
     customTypes?: CustomTypesConfiguration;
     typesFile?: GenerateFileConfiguration;
     clientFile?: GenerateClientFileConfiguration | GenerateClientFileConfiguration[];
