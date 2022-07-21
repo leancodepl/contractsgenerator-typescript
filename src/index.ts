@@ -167,10 +167,10 @@ const command = (() => {
     params += ` --output=-`;
 
     const serverVersion = `SERVER_VERSION=${config.overrideGeneratorServerVersion ?? serverContractsGeneratorVersion}`;
-    const script = config.overrideGeneratorServerScript ?? resolve(__dirname, "generate.sh");
-    const crossEnv = resolve(__dirname, "../node_modules/.bin/cross-env");
 
-    return `${crossEnv}  ${serverVersion} "${script}" ${params}`;
+    const script = config.overrideGeneratorServerScript ?? resolve(__dirname, "generate.sh");
+
+    return `env ${serverVersion} "${script}" ${params}`;
 })();
 
 exec(
@@ -191,7 +191,6 @@ exec(
             config.typesFile,
         );
         const typesFilename = ensureDefined(_typesFilename, "Types file filename must be provided");
-
         generateContracts({
             contracts: protobuf.Reader.create(stdout),
             nameTransform: config.nameTransform,

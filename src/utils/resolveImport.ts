@@ -9,7 +9,7 @@ export default function resolveImport({
     fileLocation: string;
     location: string;
 }) {
-    const relativePath = relative(dirname(fileLocation), resolve(baseDir, location)).replace(/\\/g, "/");
+    const relativePath = relative(dirname(fileLocation), resolve(baseDir, location));
 
     let unixRelativePath = relativePath.replace(/\\/g, "/");
 
