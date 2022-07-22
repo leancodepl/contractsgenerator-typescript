@@ -194,6 +194,7 @@ exec(
             config.typesFile,
         );
         const typesFilename = ensureDefined(_typesFilename, "Types file filename must be provided");
+
         generateContracts({
             contracts: protobuf.Reader.create(stdout),
             nameTransform: config.nameTransform,
