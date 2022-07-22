@@ -165,17 +165,21 @@ const command = (() => {
 
     params += ` --output=-`;
 
-    const serverVersion = `SERVER_VERSION=${config.overrideGeneratorServerVersion ?? serverContractsGeneratorVersion}`;
-
     const script = config.overrideGeneratorServerScript ?? resolve(__dirname, "generate.sh");
 
-    return `env ${serverVersion} "${script}" ${params}`;
+    return `bash "${script}" ${params}`;
 })();
+
+const serverVersion = config.overrideGeneratorServerVersion ?? serverContractsGeneratorVersion;
 
 exec(
     command,
     {
         encoding: "buffer",
+        env: {
+            ...process.env,
+            SERVER_VERSION: serverVersion,
+        },
     },
     (error, stdout) => {
         if (error) {
