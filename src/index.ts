@@ -167,7 +167,7 @@ const command = (() => {
 
     const script = config.overrideGeneratorServerScript ?? resolve(__dirname, "generate.sh");
 
-    return `bash "${script}" ${params}`;
+    return `"${script}" ${params} `;
 })();
 
 const serverVersion = config.overrideGeneratorServerVersion ?? serverContractsGeneratorVersion;
@@ -180,6 +180,7 @@ exec(
             ...process.env,
             SERVER_VERSION: serverVersion,
         },
+        shell: "bash",
     },
     (error, stdout) => {
         if (error) {
