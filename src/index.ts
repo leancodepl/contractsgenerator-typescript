@@ -3,7 +3,7 @@
 import { exec } from "child_process";
 import { cosmiconfigSync } from "cosmiconfig";
 import { multipleValidOptions, validate } from "jest-validate";
-import { posix } from "path";
+import { resolve, join } from "path";
 import protobuf from "protobufjs";
 import { hideBin } from "yargs/helpers";
 import yargs from "yargs/yargs";
@@ -33,8 +33,6 @@ const argv = yargs(hideBin(process.argv))
         description: "Config file location",
     })
     .parseSync();
-
-const { join, resolve } = posix;
 
 const serverContractsGeneratorVersion = "2.0.0-alpha.1";
 const moduleName = "ts-generator";
@@ -168,16 +166,22 @@ const command = (() => {
 
     params += ` --output=-`;
 
-    const serverVersion = `SERVER_VERSION=${config.overrideGeneratorServerVersion ?? serverContractsGeneratorVersion}`;
     const script = config.overrideGeneratorServerScript ?? resolve(__dirname, "generate.sh");
 
-    return `${serverVersion} "${script}" ${params}`;
+    return `"${script}" ${params} `;
 })();
+
+const serverVersion = config.overrideGeneratorServerVersion ?? serverContractsGeneratorVersion;
 
 exec(
     command,
     {
         encoding: "buffer",
+        env: {
+            ...process.env,
+            SERVER_VERSION: serverVersion,
+        },
+        shell: "bash",
     },
     (error, stdout) => {
         if (error) {

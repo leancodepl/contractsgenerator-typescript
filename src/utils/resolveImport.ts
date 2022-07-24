@@ -1,6 +1,4 @@
-import { posix } from "path";
-
-const { dirname, extname, relative, resolve } = posix;
+import { dirname, extname, relative, resolve } from "path";
 
 export default function resolveImport({
     baseDir,
@@ -11,13 +9,15 @@ export default function resolveImport({
     fileLocation: string;
     location: string;
 }) {
-    let relativePath = relative(dirname(fileLocation), resolve(baseDir, location));
+    const relativePath = relative(dirname(fileLocation), resolve(baseDir, location));
 
-    if (!relativePath.startsWith(".")) {
-        relativePath = "./" + relativePath;
+    let unixRelativePath = relativePath.replace(/\\/g, "/");
+
+    if (!unixRelativePath.startsWith(".")) {
+        unixRelativePath = "./" + unixRelativePath;
     }
 
-    const ext = extname(relativePath);
+    const ext = extname(unixRelativePath);
 
-    return relativePath.slice(0, -ext.length);
+    return unixRelativePath.slice(0, -ext.length);
 }
