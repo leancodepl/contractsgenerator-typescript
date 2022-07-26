@@ -54,7 +54,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
-    "@types/concat-stream": "^1.6.0",
+    "@types/concat-stream": "^2.0.0",
     "@types/download": "^8.0.0",
     "@types/eslint": "^8.0.0",
     "@types/jest": "^27.0.0",
