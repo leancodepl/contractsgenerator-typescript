@@ -1,4 +1,5 @@
 import { posix } from "path";
+import { ImportReference } from "../typesGeneration/GeneratorContext";
 
 const { dirname, extname, relative, resolve } = posix;
 
@@ -9,15 +10,21 @@ export default function resolveImport({
 }: {
     baseDir: string;
     fileLocation: string;
-    location: string;
+    location: string | ImportReference["from"];
 }) {
-    let relativePath = relative(dirname(fileLocation), resolve(baseDir, location));
+    if (typeof location === "string" || "path" in location) {
+        const effectiveLocation = typeof location === "string" ? location : location.path;
 
-    if (!relativePath.startsWith(".")) {
-        relativePath = "./" + relativePath;
+        let relativePath = relative(dirname(fileLocation), resolve(baseDir, effectiveLocation));
+
+        if (!relativePath.startsWith(".")) {
+            relativePath = "./" + relativePath;
+        }
+
+        const ext = extname(relativePath);
+
+        return relativePath.slice(0, -ext.length);
     }
 
-    const ext = extname(relativePath);
-
-    return relativePath.slice(0, -ext.length);
+    return location.lib;
 }
