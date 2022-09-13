@@ -9,8 +9,6 @@ import { hideBin } from "yargs/helpers";
 import yargs from "yargs/yargs";
 import generateContracts, { ensureIsOverridableCustomTypeName } from "./generateContracts";
 import getCommandTypePreamble from "./preambles/getCommandTypePreamble";
-import getCommonTypePreamble from "./preambles/getCommonTypePreamble";
-import getCustomTypesPreamble from "./preambles/getCustomTypesPreamble";
 import getOperationTypePreamble from "./preambles/getOperationTypePreamble";
 import getQueryTypePreamble from "./preambles/getQueryTypePreamble";
 import getReferencedImportsPreamble from "./preambles/getReferencedImportsPreamble";
@@ -22,7 +20,7 @@ import {
     GenerateClientFileConfiguration,
     GenerateFileConfiguration,
 } from "./types";
-import { ClientMethodFilter, ImportReference, overridableCustomTypes } from "./typesGeneration/GeneratorContext";
+import { ClientMethodFilter, overridableCustomTypes } from "./typesGeneration/GeneratorContext";
 import ensureDefined from "./utils/ensureDefined";
 import writeProcessor from "./utils/writeProcessor";
 
@@ -36,7 +34,7 @@ const argv = yargs(hideBin(process.argv))
 
 const { join, resolve } = posix;
 
-const serverContractsGeneratorVersion = "2.0.0-alpha.1";
+const serverContractsGeneratorVersion = "2.0.0-alpha.2";
 const moduleName = "ts-generator";
 
 const config = argv.config
@@ -62,14 +60,15 @@ function validateConfig(config: any): config is ContractsGeneratorConfiguration 
 
     const exampleCustomTypeDefinition = {
         name: "ApiTime",
-        location: "../utils/time.ts",
-        exportName: "apiTime",
+        from: multipleValidOptions({ path: "../utils/time.ts" }, { lib: "@leancode/api-date-dayjs" }),
+        export: multipleValidOptions({ default: true }, { name: "apiTime" }),
     };
 
-    const exampleCommonTypeDefinition = multipleValidOptions("../client/CQRS.ts", {
-        location: "../client/CQRS.ts",
-        exportName: "rxCqrs",
-    });
+    const exampleCommonTypeDefinition = {
+        name: "Query",
+        from: multipleValidOptions({ path: "../client/CQRS.ts" }, { lib: "@leancode/cqrs-client-base" }),
+        export: multipleValidOptions({ default: true }, { name: "QueryType" }),
+    };
 
     const exampleGenerateClientFileOptions = {
         eslintExclusions: multipleValidOptions("disable", ["prettier/prettier"]),
@@ -199,30 +198,27 @@ exec(
             clientFiles: config.clientFile
                 ? (Array.isArray(config.clientFile) ? config.clientFile : [config.clientFile]).map(clientFile => {
                       const {
-                          filename: _filename,
+                          filename: filename_,
                           eslintExclusions,
                           include,
                           exclude,
                           cqrsClient,
                       } = processGenerateClientFileOptions(baseDir, clientFile);
 
-                      const filename = ensureDefined(_filename, "Client file filename must be provided");
+                      const filename = ensureDefined(filename_, "Client file filename must be provided");
 
                       return {
                           preamble: ({ referencedInternalTypes }) => [
-                              getCommonTypePreamble({
+                              ...getReferencedImportsPreamble({
                                   baseDir,
-                                  typeName: "CQRS",
+                                  referencedImports: [
+                                      {
+                                          name: "CQRS",
+                                          ...ensureDefined(cqrsClient, "Cqrs Client configuration must be provided"),
+                                      },
+                                      ...(config.customTypes ? Object.values(config.customTypes) : []),
+                                  ],
                                   fileLocation: filename,
-                                  commonTypeConfiguration: ensureDefined(
-                                      cqrsClient,
-                                      "Cqrs Client configuration must be provided",
-                                  ),
-                              }),
-                              ...getCustomTypesPreamble({
-                                  baseDir,
-                                  fileLocation: filename,
-                                  customTypes: config.customTypes,
                               }),
                               getReferencedInternalTypesPreamble({
                                   baseDir,
@@ -247,102 +243,10 @@ exec(
             ),
             typesFile: {
                 preamble: ({ referencedImports: externalReferencedImports }) => {
-                    const customTypesReferencedImports = (() => {
-                        const { customTypes } = config;
-                        if (!customTypes) return [];
-
-                        return Object.entries(customTypes).map<ImportReference>(
-                            ([, { location, name, exportName, isDefault }]) => ({
-                                name,
-                                from: typeof location === "string" ? { path: location } : location,
-                                export: isDefault
-                                    ? { default: true }
-                                    : exportName
-                                    ? {
-                                          name: exportName,
-                                      }
-                                    : undefined,
-                            }),
-                        );
-                    })();
-
-                    const queryReferencedImports = ((): ImportReference[] => {
-                        const { query } = config;
-                        if (!query) return [];
-
-                        if (typeof query === "string") {
-                            return [
-                                {
-                                    from: { path: query },
-                                    name: "Query",
-                                },
-                            ];
-                        }
-
-                        return [
-                            {
-                                from: { path: query.location },
-                                name: "Query",
-                                export: query.exportName
-                                    ? {
-                                          name: query.exportName,
-                                      }
-                                    : { default: true },
-                            },
-                        ];
-                    })();
-
-                    const commandReferencedImports = ((): ImportReference[] => {
-                        const { command } = config;
-                        if (!command) return [];
-
-                        if (typeof command === "string") {
-                            return [
-                                {
-                                    from: { path: command },
-                                    name: "Command",
-                                },
-                            ];
-                        }
-
-                        return [
-                            {
-                                from: { path: command.location },
-                                name: "Command",
-                                export: command.exportName
-                                    ? {
-                                          name: command.exportName,
-                                      }
-                                    : { default: true },
-                            },
-                        ];
-                    })();
-
-                    const operationReferencedImports = ((): ImportReference[] => {
-                        const { operation } = config;
-                        if (!operation) return [];
-
-                        if (typeof operation === "string") {
-                            return [
-                                {
-                                    from: { path: operation },
-                                    name: "Operation",
-                                },
-                            ];
-                        }
-
-                        return [
-                            {
-                                from: { path: operation.location },
-                                name: "Opeartion",
-                                export: operation.exportName
-                                    ? {
-                                          name: operation.exportName,
-                                      }
-                                    : { default: true },
-                            },
-                        ];
-                    })();
+                    const customTypesReferencedImports = config.customTypes ? Object.values(config.customTypes) : [];
+                    const queryReferencedImports = config.query ? [config.query] : [];
+                    const commandReferencedImports = config.command ? [config.command] : [];
+                    const operationReferencedImports = config.operation ? [config.operation] : [];
 
                     const referencedImports = [
                         ...externalReferencedImports,

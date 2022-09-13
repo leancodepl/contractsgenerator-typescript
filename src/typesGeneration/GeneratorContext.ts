@@ -15,22 +15,28 @@ export default interface GeneratorContext {
     referencedImports: ImportReference[];
 }
 
+export type ImportReferenceLocationConfiguration =
+    | string
+    | {
+          path: string;
+      }
+    | {
+          lib: string;
+      };
+
+export type ImportReferenceExportConfiguration =
+    | string
+    | {
+          default: true;
+      }
+    | {
+          name: string;
+      };
+
 export type ImportReference = {
     name: string;
-    from:
-        | {
-              path: string;
-          }
-        | {
-              lib: string;
-          };
-    export?:
-        | {
-              default: true;
-          }
-        | {
-              name: string;
-          };
+    from: ImportReferenceLocationConfiguration;
+    export?: ImportReferenceExportConfiguration;
 };
 
 export type ClientMethodFilter = (

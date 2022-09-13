@@ -16,23 +16,9 @@ export interface GeneratorInput {
     project?: string | string[];
 }
 
-export type CustomTypeConfiguration = {
-    name: string;
-    location: string | ImportReference["from"];
-    exportName?: string;
-    isDefault?: boolean;
-};
-
-export type CommonTypesConfiguration =
-    | {
-          location: string;
-          exportName?: string;
-      }
-    | string;
-
 export type GenerateClientFileConfiguration = {
     filename: string;
-    cqrsClient: CommonTypesConfiguration;
+    cqrsClient: Omit<CommonTypesConfiguration, "name">;
     eslintExclusions?: string[] | "disable";
     include?: ClientMethodFilterConfiguration;
     exclude?: ClientMethodFilterConfiguration;
@@ -40,7 +26,8 @@ export type GenerateClientFileConfiguration = {
 
 export type ClientMethodFilterConfiguration = string | string[] | ClientMethodFilter;
 
-export type CustomTypesConfiguration = Partial<Record<OverridableCustomTypeName, CustomTypeConfiguration>>;
+export type CommonTypesConfiguration = ImportReference;
+export type CustomTypesConfiguration = Partial<Record<OverridableCustomTypeName, ImportReference>>;
 
 export interface ContractsGeneratorConfiguration {
     input?: GeneratorInput;
