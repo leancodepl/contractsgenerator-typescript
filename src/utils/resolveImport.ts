@@ -6,14 +6,14 @@ const { dirname, extname, relative, resolve } = posix;
 export default function resolveImport({
     baseDir,
     fileLocation,
-    location,
+    from,
 }: {
     baseDir: string;
     fileLocation: string;
-    location: string | ImportReference["from"];
+    from: ImportReference["from"];
 }) {
-    if (typeof location === "string" || "path" in location) {
-        const effectiveLocation = typeof location === "string" ? location : location.path;
+    if (typeof from === "string" || "path" in from) {
+        const effectiveLocation = typeof from === "string" ? from : from.path;
 
         let relativePath = relative(dirname(fileLocation), resolve(baseDir, effectiveLocation));
 
@@ -26,5 +26,5 @@ export default function resolveImport({
         return relativePath.slice(0, -ext.length);
     }
 
-    return location.lib;
+    return from.lib;
 }

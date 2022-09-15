@@ -16,7 +16,7 @@ module.exports = (testFileName, input) => ({
         {
             eslintExclusions: "disable",
             filename: "client.ts",
-            cqrsClient: "cqrsClient.ts",
+            cqrsClient: { from: "cqrsClient.ts" },
         },
     ],
     baseDir: path.resolve(__dirname, `configs/.tmp_out/${path.parse(testFileName).name.split(".")[0]}`),

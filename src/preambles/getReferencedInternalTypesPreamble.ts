@@ -17,7 +17,7 @@ export default function getReferencedInternalTypesPreamble({
     baseNamespace?: string;
 }) {
     const importPath = resolveImport({
-        location: typesFilename,
+        from: typesFilename,
         fileLocation,
         baseDir,
     });

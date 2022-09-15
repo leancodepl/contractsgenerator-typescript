@@ -1,4 +1,4 @@
-import { groupBy } from "lodash";
+import _, { groupBy } from "lodash";
 import ts from "typescript";
 import { ImportReference } from "../typesGeneration/GeneratorContext";
 import resolveImport from "../utils/resolveImport";
@@ -12,73 +12,43 @@ export default function getReferencedImportsPreamble({
     fileLocation: string;
     referencedImports: ImportReference[];
 }): ts.Statement[] {
-    const importsByType = groupBy(referencedImports, ref => ("path" in ref.from ? "path" : "lib"));
-    const libImportsByName = groupBy(importsByType["lib"], ref => "lib" in ref.from && ref.from.lib);
-    const pathImportsByPath = groupBy(importsByType["path"], ref => "path" in ref.from && ref.from.path);
+    return _(referencedImports)
+        .groupBy(ref => resolveImport({ baseDir, fileLocation, from: ref.from }))
+        .map((importReferences, importPath) => {
+            const { default: default_, nonDefault } = groupBy(importReferences, ({ export: export_ }) =>
+                export_ && typeof export_ !== "string" && "default" in export_ && export_.default
+                    ? "default"
+                    : "nonDefault",
+            );
 
-    const libsStatements = Object.entries(libImportsByName).map(([name, libs]) => {
-        const libsByName = groupBy(libs, lib => lib.name);
-
-        const defaultImport = Object.values(libsByName).find(l =>
-            l.some(l => l.export && "default" in l.export && l.export.default),
-        )?.[0];
-
-        return ts.factory.createImportDeclaration(
-            /* decorators */ undefined,
-            /* modifiers */ undefined,
-            /* importClause */ ts.factory.createImportClause(
-                /* isTypeOnly */ true,
-                /* name */ defaultImport ? ts.factory.createIdentifier(defaultImport.name) : undefined,
-                /* namedBinding */ ts.factory.createNamedImports(
-                    /* elements */ Object.entries(libsByName).map(([name, [{ export: exportData }]]) =>
-                        ts.factory.createImportSpecifier(
-                            /* isTypeOnly */ false,
-                            /* propertyName */ exportData && "name" in exportData
-                                ? ts.factory.createIdentifier(exportData.name)
-                                : undefined,
-                            /* name */ ts.factory.createIdentifier(name),
-                        ),
-                    ),
+            return ts.factory.createImportDeclaration(
+                /* decorators */ undefined,
+                /* modifiers */ undefined,
+                /* importClause */ ts.factory.createImportClause(
+                    /* isTypeOnly */ true,
+                    /* name */ default_ ? ts.factory.createIdentifier(default_[0].name) : undefined,
+                    /* namedBinding */ (nonDefault?.length ?? 0) > 0
+                        ? ts.factory.createNamedImports(
+                              /* elements */ nonDefault.map(({ export: export_, name }) =>
+                                  ts.factory.createImportSpecifier(
+                                      /* isTypeOnly */ false,
+                                      /* propertyName */ export_
+                                          ? ts.factory.createIdentifier(
+                                                typeof export_ === "string"
+                                                    ? export_
+                                                    : "name" in export_
+                                                    ? export_.name
+                                                    : "",
+                                            )
+                                          : undefined,
+                                      /* name */ ts.factory.createIdentifier(name),
+                                  ),
+                              ),
+                          )
+                        : undefined,
                 ),
-            ),
-            /* moduleSpecifier */ ts.factory.createStringLiteral(/* text */ name, /* isSingleQuote */ false),
-        );
-    });
-
-    const pathStatements = Object.entries(pathImportsByPath).map(([path, libs]) => {
-        const libsByName = groupBy(libs, lib => lib.name);
-
-        const defaultImport = Object.values(libsByName).find(l =>
-            l.some(l => l.export && "default" in l.export && l.export.default),
-        )?.[0];
-
-        const importPath = resolveImport({
-            location: path,
-            fileLocation,
-            baseDir,
-        });
-
-        return ts.factory.createImportDeclaration(
-            /* decorators */ undefined,
-            /* modifiers */ undefined,
-            /* importClause */ ts.factory.createImportClause(
-                /* isTypeOnly */ true,
-                /* name */ defaultImport ? ts.factory.createIdentifier(defaultImport.name) : undefined,
-                /* namedBinding */ ts.factory.createNamedImports(
-                    /* elements */ Object.entries(libsByName).map(([name, [{ export: exportData }]]) =>
-                        ts.factory.createImportSpecifier(
-                            /* isTypeOnly */ false,
-                            /* propertyName */ exportData && "name" in exportData
-                                ? ts.factory.createIdentifier(exportData.name)
-                                : undefined,
-                            /* name */ ts.factory.createIdentifier(name),
-                        ),
-                    ),
-                ),
-            ),
-            /* moduleSpecifier */ ts.factory.createStringLiteral(/* text */ importPath, /* isSingleQuote */ false),
-        );
-    });
-
-    return [...libsStatements, ...pathStatements];
+                /* moduleSpecifier */ ts.factory.createStringLiteral(/* text */ importPath, /* isSingleQuote */ false),
+            );
+        })
+        .value();
 }
