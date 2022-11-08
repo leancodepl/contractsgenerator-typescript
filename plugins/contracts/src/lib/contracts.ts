@@ -1,3 +1,3 @@
 export function contracts(): string {
-  return 'contracts';
+    return "contracts";
 }

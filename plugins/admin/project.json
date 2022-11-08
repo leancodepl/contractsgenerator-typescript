@@ -1,23 +1,23 @@
 {
-  "name": "client",
+  "name": "admin",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/client/src",
+  "sourceRoot": "plugins/admin/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/esbuild:esbuild",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/client",
-        "main": "packages/client/src/index.ts",
-        "tsConfig": "packages/client/tsconfig.lib.json",
-        "assets": ["packages/client/*.md"]
+        "outputPath": "dist/plugins/admin",
+        "main": "plugins/admin/src/index.ts",
+        "tsConfig": "plugins/admin/tsconfig.lib.json",
+        "assets": ["plugins/admin/*.md"]
       }
     },
     "publish": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node tools/scripts/publish.mjs client {args.ver} {args.tag}"
+        "command": "node tools/scripts/publish.mjs admin {args.ver} {args.tag}"
       },
       "dependsOn": ["build"]
     },
@@ -25,14 +25,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/client/**/*.ts"]
+        "lintFilePatterns": ["plugins/admin/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/client/jest.config.ts",
+        "jestConfig": "plugins/admin/jest.config.ts",
         "passWithNoTests": true
       }
     }

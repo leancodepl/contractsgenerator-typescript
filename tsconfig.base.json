@@ -17,9 +17,10 @@
     "baseUrl": ".",
     "paths": {
       "@leancodepl/contractsgenerator-typescript": ["packages/generator/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-admin": ["packages/admin/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-client": ["packages/client/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-contracts": ["packages/contracts/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-admin": ["plugins/admin/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-client": ["plugins/client/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-contracts": ["plugins/contracts/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin": ["libs/plugin/src/index.ts"],
       "@leancodepl/contractsgenerator-typescript-schema": ["libs/schema/src/index.ts"],
       "@leancodepl/contractsgenerator-typescript-utils": ["libs/utils/src/index.ts"]
     }

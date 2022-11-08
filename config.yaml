@@ -1,4 +1,4 @@
 generates:
-  hello.ts:
-    plugins:
-      - abc
+    hello.ts:
+        plugins:
+            - ../../plugins/contracts/index.js

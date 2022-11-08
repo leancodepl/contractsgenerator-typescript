@@ -1,10 +1,11 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "plugins": ["@nrwl/nx", "import", "unused-imports", "prettier"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "extends": ["plugin:prettier/recommended", "prettier"],
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
@@ -18,15 +19,67 @@
               }
             ]
           }
+        ],
+
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/prefer-interface": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off",
+        "@typescript-eslint/no-parameter-properties": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/camelcase": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/ban-types": "off",
+
+        "arrow-body-style": "error",
+        "no-useless-rename": "error",
+
+        "prettier/prettier": "warn",
+
+        "import/first": "error",
+        "import/newline-after-import": "error",
+        "import/no-anonymous-default-export": "error",
+        "import/no-duplicates": "error",
+        "import/no-named-default": "error",
+        "import/no-self-import": "error",
+        "import/no-useless-path-segments": [
+          "error",
+          {
+            "noUselessIndex": true
+          }
+        ],
+        "import/order": [
+          "error",
+          {
+            "groups": [["builtin", "external"], "internal", ["index", "sibling", "parent"], "object"],
+            "pathGroups": [
+              {
+                "pattern": "react",
+                "group": "external",
+                "position": "before"
+              }
+            ],
+            "newlines-between": "never",
+            "alphabetize": { "order": "asc", "caseInsensitive": true }
+          }
+        ],
+
+        "unused-imports/no-unused-imports-ts": "error",
+        "unused-imports/no-unused-vars-ts": [
+          "warn",
+          { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
         ]
       }
     },
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {
-        "no-useless-rename": "error"
-      }
+      "rules": {}
     },
     {
       "files": ["*.js", "*.jsx"],

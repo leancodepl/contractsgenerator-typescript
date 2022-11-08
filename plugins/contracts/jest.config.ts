@@ -13,5 +13,5 @@ export default {
     '^.+\\.[tj]s$': ['@swc/jest', swcJestConfig],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/packages/contracts',
+  coverageDirectory: '../../coverage/plugins/contracts',
 };
