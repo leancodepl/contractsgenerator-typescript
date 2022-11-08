@@ -1,0 +1,52 @@
+{
+  "name": "schema",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/schema/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/schema",
+        "main": "libs/schema/src/index.ts",
+        "tsConfig": "libs/schema/tsconfig.lib.json",
+        "assets": ["libs/schema/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/schema/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/schema/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "proto-update": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/schema",
+        "command": "download -o src/lib/protocol --filename contracts.proto https://raw.githubusercontent.com/leancodepl/contractsgenerator/main/contracts.proto"
+      }
+    },
+    "proto": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/schema",
+        "commands": [
+          "pbjs -t static-module -w commonjs -o src/lib/protocol/index.js src/lib/protocol/contracts.proto --no-create --no-encode --lint \"eslint-disable no-undef,no-prototype-builtins,no-redeclare\"",
+          "pbts -o src/lib/protocol/index.d.ts src/lib/protocol/index.js"
+        ],
+        "parallel": false
+      }
+    }
+  },
+  "tags": []
+}

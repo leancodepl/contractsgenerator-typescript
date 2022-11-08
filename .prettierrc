@@ -1,0 +1,18 @@
+{
+  "printWidth": 120,
+  "useTabs": false,
+  "arrowParens": "avoid",
+  "trailingComma": "all",
+  "semicolons": false,
+  "tabWidth": 4,
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": ["*.json", ".prettierrc", ".eslintrc", ".yml"],
+      "options": {
+        "tabWidth": 2
+      }
+    }
+  ],
+  "proseWrap": "always"
+}

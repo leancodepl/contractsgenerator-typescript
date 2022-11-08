@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["ESNext"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@leancodepl/contractsgenerator-typescript": ["packages/generator/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-admin": ["packages/admin/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-client": ["packages/client/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-contracts": ["packages/contracts/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-schema": ["libs/schema/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-utils": ["libs/utils/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
