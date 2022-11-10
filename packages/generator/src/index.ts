@@ -8,6 +8,7 @@ import {
 import { GeneratorSchema, parseSchema } from "@leancodepl/contractsgenerator-typescript-schema";
 import { lilconfigSync, OptionsSync as LilconfigOptionsSync } from "lilconfig";
 import { exec } from "node:child_process";
+import { readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import yaml from "yaml";
 import { hideBin } from "yargs/helpers";
@@ -57,7 +58,11 @@ const config = contractsGeneratorConfigurationSchema.parse(unsafeConfig);
 
 (async () => {
     const sessionContext: GeneratorSessionContext = {
-        getSchema,
+        async getSchema() {
+            const schema = readFileSync("/home/sebastian/dev/contractsgenerator-typescript2/kontomierz.bin");
+
+            return parseSchema(schema);
+        },
         metadata: {},
     };
 
@@ -92,7 +97,7 @@ const config = contractsGeneratorConfigurationSchema.parse(unsafeConfig);
                 { session: sessionContext, file: fileContext, plugin: fileContext },
             );
 
-            fileOutput += pluginInstance.generate();
+            fileOutput += await pluginInstance.generate();
         }
 
         console.log(fileOutput);

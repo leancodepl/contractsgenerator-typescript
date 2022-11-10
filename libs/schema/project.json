@@ -11,7 +11,8 @@
         "outputPath": "dist/libs/schema",
         "main": "libs/schema/src/index.ts",
         "tsConfig": "libs/schema/tsconfig.lib.json",
-        "assets": ["libs/schema/*.md"]
+        "assets": ["libs/schema/*.md"],
+        "external": ["lodash", "protobufjs", "long"]
       }
     },
     "lint": {

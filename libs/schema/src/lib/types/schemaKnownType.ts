@@ -4,6 +4,8 @@ import { leancode } from "../protocol";
 import { SchemaType } from "./schemaType";
 
 export class SchemaKnownType implements SchemaType {
+    kind = schemaKnownTypeKind;
+
     type;
     typeArguments;
     isNullable;
@@ -21,4 +23,10 @@ export class SchemaKnownType implements SchemaType {
         this.typeArguments = known.arguments?.map(argument => createType({ type: argument })) ?? [];
         this.isNullable = isNullable ?? false;
     }
+}
+
+const schemaKnownTypeKind = "known";
+
+export function isSchemaKnownType(type: SchemaType): type is SchemaKnownType {
+    return type.kind === schemaKnownTypeKind;
 }

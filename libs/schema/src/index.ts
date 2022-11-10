@@ -12,6 +12,7 @@ export * from "./lib/schemaQuery";
 export * from "./lib/types/schemaGenericType";
 export * from "./lib/types/schemaInternalType";
 export * from "./lib/types/schemaKnownType";
+export * from "./lib/types/schemaType";
 
 export * from "./lib/values/schemaBooleanValue";
 export * from "./lib/values/schemaNullValue";
@@ -19,3 +20,5 @@ export * from "./lib/values/schemaNumberValue";
 export * from "./lib/values/schemaStringValue";
 
 export * from "./lib/parseSchema";
+
+export * from "./lib/protocol";

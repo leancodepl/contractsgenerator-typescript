@@ -11,7 +11,8 @@
         "outputPath": "dist/plugins/contracts",
         "main": "plugins/contracts/src/index.ts",
         "tsConfig": "plugins/contracts/tsconfig.lib.json",
-        "assets": ["plugins/contracts/*.md"]
+        "assets": ["plugins/contracts/*.md"],
+        "external": ["typescript", "zod", "lodash", "long"]
       }
     },
     "publish": {

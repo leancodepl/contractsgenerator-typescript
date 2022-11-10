@@ -7,7 +7,8 @@ import { SchemaOperation } from "./schemaOperation";
 import { SchemaQuery } from "./schemaQuery";
 
 export interface GeneratorSchema {
-    statements: (SchemaInterface | SchemaEnum)[];
+    interfaces: SchemaInterface[];
+    enums: SchemaEnum[];
 }
 
 export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
@@ -15,17 +16,21 @@ export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
 
     const schema = leancode.contracts.Export.decode(reader);
 
-    const statements = schema.statements.map(statement => {
-        if (statement.query) return new SchemaQuery({ statement });
-        if (statement.command) return new SchemaCommand({ statement });
-        if (statement.operation) return new SchemaOperation({ statement });
-        if (statement.dto) return new SchemaInterface({ statement });
-        if (statement.enum) return new SchemaEnum({ statement });
+    const interfaces: SchemaInterface[] = [];
+    const enums: SchemaEnum[] = [];
+
+    schema.statements.forEach(statement => {
+        if (statement.query) return interfaces.push(new SchemaQuery({ statement }));
+        if (statement.command) return interfaces.push(new SchemaCommand({ statement }));
+        if (statement.operation) return interfaces.push(new SchemaOperation({ statement }));
+        if (statement.dto) return interfaces.push(new SchemaInterface({ statement }));
+        if (statement.enum) return enums.push(new SchemaEnum({ statement }));
 
         throw new Error("Unknown statement type");
     });
 
     return {
-        statements,
+        interfaces,
+        enums,
     };
 }

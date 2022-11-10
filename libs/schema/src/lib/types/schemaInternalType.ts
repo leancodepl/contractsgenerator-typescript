@@ -4,6 +4,8 @@ import { leancode } from "../protocol";
 import { SchemaType } from "./schemaType";
 
 export class SchemaInternalType implements SchemaType {
+    kind = schemaInternalTypeKind;
+
     id;
     isNullable;
     typeArguments;
@@ -18,4 +20,10 @@ export class SchemaInternalType implements SchemaType {
         this.typeArguments = internal.arguments?.map(argument => createType({ type: argument })) ?? [];
         this.isNullable = isNullable ?? false;
     }
+}
+
+const schemaInternalTypeKind = "internal";
+
+export function isSchemaInternalType(type: SchemaType): type is SchemaInternalType {
+    return type.kind === schemaInternalTypeKind;
 }
