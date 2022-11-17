@@ -5,21 +5,15 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/esbuild:esbuild",
+      "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/plugins/client",
-        "main": "plugins/client/src/index.ts",
         "tsConfig": "plugins/client/tsconfig.lib.json",
+        "packageJson": "plugins/client/package.json",
+        "main": "plugins/client/src/index.ts",
         "assets": ["plugins/client/*.md"]
       }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "node tools/scripts/publish.mjs client {args.ver} {args.tag}"
-      },
-      "dependsOn": ["build"]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

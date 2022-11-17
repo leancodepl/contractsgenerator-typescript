@@ -1,5 +1,4 @@
 {
-  "name": "@leancodepl/contractsgenerator-typescript-admin",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "name": "@leancodepl/contractsgenerator-typescript-plugin-admin",
+  "version": "0.0.1"
 }

@@ -33,7 +33,8 @@
     "sharedGlobals": []
   },
   "workspaceLayout": {
-    "appsDir": "packages",
-    "libsDir": "libs"
-  }
+    "appsDir": "test",
+    "libsDir": "plugins"
+  },
+  "defaultProject": "generator"
 }

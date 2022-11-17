@@ -1,15 +1,16 @@
 /* eslint-disable */
-import { readFileSync } from "fs";
-
-// Reading the SWC compilation config and remove the "exclude"
-// for the test files to be compiled by SWC
-const { exclude: _, ...swcJestConfig } = JSON.parse(readFileSync(`${__dirname}/.lib.swcrc`, "utf-8"));
 export default {
     displayName: "plugin",
     preset: "../../jest.preset.js",
-    transform: {
-        "^.+\\.[tj]s$": ["@swc/jest", swcJestConfig],
+    globals: {
+        "ts-jest": {
+            tsconfig: "<rootDir>/tsconfig.spec.json",
+        },
     },
-    moduleFileExtensions: ["ts", "js", "html"],
+    testEnvironment: "node",
+    transform: {
+        "^.+\\.[tj]sx?$": "ts-jest",
+    },
+    moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
     coverageDirectory: "../../coverage/libs/plugin",
 };

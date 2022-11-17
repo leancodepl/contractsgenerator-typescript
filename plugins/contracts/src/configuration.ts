@@ -3,6 +3,7 @@ export type ContractsGeneratorPluginConfiguration = {
 };
 
 export interface GeneratorInput {
+    raw?: string;
     base?: string;
     file?: string;
     include?: string | string[];

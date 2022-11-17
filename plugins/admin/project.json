@@ -5,21 +5,15 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/esbuild:esbuild",
+      "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/plugins/admin",
-        "main": "plugins/admin/src/index.ts",
         "tsConfig": "plugins/admin/tsconfig.lib.json",
+        "packageJson": "plugins/admin/package.json",
+        "main": "plugins/admin/src/index.ts",
         "assets": ["plugins/admin/*.md"]
       }
-    },
-    "publish": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "node tools/scripts/publish.mjs admin {args.ver} {args.tag}"
-      },
-      "dependsOn": ["build"]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

@@ -5,6 +5,7 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
+    "allowJs": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -17,10 +18,11 @@
     "baseUrl": ".",
     "paths": {
       "@leancodepl/contractsgenerator-typescript": ["packages/generator/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-admin": ["plugins/admin/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-client": ["plugins/client/src/index.ts"],
       "@leancodepl/contractsgenerator-typescript-contracts": ["plugins/contracts/src/index.ts"],
       "@leancodepl/contractsgenerator-typescript-plugin": ["libs/plugin/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin-admin": ["plugins/admin/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin-client": ["plugins/client/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin-contracts": ["plugins/contracts/src/index.ts"],
       "@leancodepl/contractsgenerator-typescript-schema": ["libs/schema/src/index.ts"],
       "@leancodepl/contractsgenerator-typescript-utils": ["libs/utils/src/index.ts"]
     }

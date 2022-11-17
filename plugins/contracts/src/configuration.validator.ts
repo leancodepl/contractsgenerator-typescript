@@ -2,6 +2,7 @@
 import { z } from "zod";
 
 export const generatorInputSchema = z.object({
+    raw: z.string().optional(),
     base: z.string().optional(),
     file: z.string().optional(),
     include: z.union([z.string(), z.array(z.string())]).optional(),

@@ -21,4 +21,5 @@ export * from "./lib/values/schemaStringValue";
 
 export * from "./lib/parseSchema";
 
-export * from "./lib/protocol";
+// eslint-disable-next-line import/no-useless-path-segments
+export { leancode } from "./lib/protocol/index.js";

@@ -5,12 +5,13 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/esbuild:esbuild",
+      "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/plugin",
-        "main": "libs/plugin/src/index.ts",
         "tsConfig": "libs/plugin/tsconfig.lib.json",
+        "packageJson": "libs/plugin/package.json",
+        "main": "libs/plugin/src/index.ts",
         "assets": ["libs/plugin/*.md"]
       }
     },

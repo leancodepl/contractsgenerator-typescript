@@ -1,7 +1,9 @@
 import { leancode, SchemaKnownType, SchemaType } from "@leancodepl/contractsgenerator-typescript-schema";
 import { ensureNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
 import ts from "typescript";
-import { ContractsContext, generateType, withNullability } from "..";
+import { ContractsContext } from "../ContractsContext";
+import { withNullability } from "../utils/withNullability";
+import { generateType } from "./generateType";
 
 const defaultTypesMap: Record<
     leancode.contracts.KnownType,

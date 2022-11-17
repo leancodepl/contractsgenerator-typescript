@@ -3,6 +3,7 @@ import { GeneratorSchema } from "@leancodepl/contractsgenerator-typescript-schem
 import { GeneratorPluginInstance } from "./generatorPluginInstance";
 
 export interface GeneratorInput {
+    raw?: string;
     base?: string;
     file?: string;
     include?: string | string[];

@@ -1,3 +1,3 @@
 export function client(): string {
-  return 'client';
+    return "client";
 }

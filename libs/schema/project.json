@@ -5,14 +5,14 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/esbuild:esbuild",
+      "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/schema",
-        "main": "libs/schema/src/index.ts",
         "tsConfig": "libs/schema/tsconfig.lib.json",
-        "assets": ["libs/schema/*.md"],
-        "external": ["lodash", "protobufjs", "long"]
+        "packageJson": "libs/schema/package.json",
+        "main": "libs/schema/src/index.ts",
+        "assets": ["libs/schema/*.md"]
       }
     },
     "lint": {
