@@ -7,6 +7,8 @@ import { createType } from "./types";
 import { getNameFromFullName } from "./utils/getNameFromFullName";
 
 export class SchemaInterface {
+    kind = schemaInterfaceKind;
+
     id;
     name;
     fullName;
@@ -46,3 +48,5 @@ export class SchemaInterface {
         this.comment = statement.comment ?? undefined;
     }
 }
+
+const schemaInterfaceKind = "interface";

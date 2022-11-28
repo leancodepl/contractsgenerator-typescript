@@ -6,7 +6,7 @@ describe("kontomierz", () => {
     it("should work", async () => {
         const result = await generate({
             generates: {
-                "abc.ts": { plugins: ["contracts"] },
+                "abc.ts": { plugins: ["contracts", "client"] },
             },
             config: {
                 input: {

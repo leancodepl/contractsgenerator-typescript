@@ -1,3 +1,4 @@
+import { sortBy } from "lodash";
 import protobuf from "protobufjs";
 import { leancode } from "./protocol";
 import { SchemaCommand } from "./schemaCommand";
@@ -16,8 +17,8 @@ export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
 
     const schema = leancode.contracts.Export.decode(reader);
 
-    const interfaces: SchemaInterface[] = [];
-    const enums: SchemaEnum[] = [];
+    let interfaces: SchemaInterface[] = [];
+    let enums: SchemaEnum[] = [];
 
     schema.statements.forEach(statement => {
         if (statement.query) return interfaces.push(new SchemaQuery({ statement }));
@@ -28,6 +29,9 @@ export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
 
         throw new Error("Unknown statement type");
     });
+
+    interfaces = sortBy(interfaces, ({ id }) => id);
+    enums = sortBy(enums, ({ id }) => id);
 
     return {
         interfaces,

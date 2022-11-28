@@ -5,7 +5,7 @@ import {
 } from "@leancodepl/contractsgenerator-typescript-plugin";
 import ts from "typescript";
 import { contractsGeneratorPluginConfigurationSchema } from "./configuration.validator";
-import { ContractsContext } from "./ContractsContext";
+import { ContractsContext } from "./contractsContext";
 import { generateInterface } from "./generators/generateInterface";
 
 class ContractsGeneratorPlugin implements GeneratorPluginInstance {

@@ -1,10 +1,10 @@
 import { SchemaInternalType } from "@leancodepl/contractsgenerator-typescript-schema";
 import ts from "typescript";
-import { ContractsContext } from "../ContractsContext";
-import { extractMinimalReferenceTypeName } from "../utils/extractMinimalReferenceTypeName";
+import { GenerateContext } from "./generateContext";
 import { generateType } from "./generateType";
+import { extractMinimalReferenceTypeName } from "./utils/extractMinimalReferenceTypeName";
 
-export function generateInternalType(internalType: SchemaInternalType, context: ContractsContext) {
+export function generateInternalType(internalType: SchemaInternalType, context: GenerateContext) {
     const name = extractMinimalReferenceTypeName(internalType.id, context.currentNamespace);
 
     return ts.factory.createTypeReferenceNode(

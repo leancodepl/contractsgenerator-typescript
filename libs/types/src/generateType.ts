@@ -5,12 +5,12 @@ import {
     SchemaType,
 } from "@leancodepl/contractsgenerator-typescript-schema";
 import ts from "typescript";
-import { ContractsContext } from "../ContractsContext";
+import { GenerateContext } from "./generateContext";
 import { generateGenericType } from "./generateGenericType";
 import { generateInternalType } from "./generateInternalType";
 import { generateKnownType } from "./generateKnownType";
 
-export function generateType(type: SchemaType, context: ContractsContext): ts.TypeNode {
+export function generateType(type: SchemaType, context: GenerateContext): ts.TypeNode {
     if (isSchemaGenericType(type)) return generateGenericType(type, context);
     if (isSchemaInternalType(type)) return generateInternalType(type, context);
     if (isSchemaKnownType(type)) return generateKnownType(type, context);

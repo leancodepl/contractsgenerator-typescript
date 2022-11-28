@@ -1,13 +1,13 @@
 import { leancode, SchemaKnownType, SchemaType } from "@leancodepl/contractsgenerator-typescript-schema";
 import { ensureNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
 import ts from "typescript";
-import { ContractsContext } from "../ContractsContext";
-import { withNullability } from "../utils/withNullability";
+import { GenerateContext } from "./generateContext";
 import { generateType } from "./generateType";
+import { withNullability } from "./utils/withNullability";
 
 const defaultTypesMap: Record<
     leancode.contracts.KnownType,
-    (config: { typeArguments: SchemaType[]; context: ContractsContext }) => ts.TypeNode | undefined
+    (config: { typeArguments: SchemaType[]; context: GenerateContext }) => ts.TypeNode | undefined
 > = {
     [leancode.contracts.KnownType.Object]: () =>
         ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Partial"), [
@@ -77,7 +77,7 @@ const defaultTypesMap: Record<
     [leancode.contracts.KnownType.Attribute]: () => undefined,
 };
 
-export function generateKnownType(knownType: SchemaKnownType, context: ContractsContext) {
+export function generateKnownType(knownType: SchemaKnownType, context: GenerateContext) {
     const typesMap = { ...defaultTypesMap };
 
     const outputType = typesMap[knownType.type]({ typeArguments: knownType.typeArguments, context });

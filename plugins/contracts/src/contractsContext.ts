@@ -1,8 +1,8 @@
+import { GenerateContext } from "libs/types/src";
 import ts from "typescript";
 import { ContractsGeneratorPluginConfiguration } from "./configuration";
 
-export type ContractsContext = {
+export interface ContractsContext extends GenerateContext {
     printNode: (node: ts.Node) => string;
-    currentNamespace: string[];
     configuration: ContractsGeneratorPluginConfiguration;
-};
+}

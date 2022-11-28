@@ -4,6 +4,8 @@ import { SchemaInterface } from "./schemaInterface";
 import { createType } from "./types";
 
 export class SchemaQuery extends SchemaInterface {
+    kind = schemaQueryKind;
+
     returnType;
     queryType;
 
@@ -25,4 +27,10 @@ export class SchemaQuery extends SchemaInterface {
             },
         });
     }
+}
+
+const schemaQueryKind = "query";
+
+export function isSchemaQuery(schemaInterface: SchemaInterface): schemaInterface is SchemaQuery {
+    return schemaInterface.kind === schemaQueryKind;
 }

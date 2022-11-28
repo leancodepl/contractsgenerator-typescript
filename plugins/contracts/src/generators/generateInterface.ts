@@ -1,11 +1,11 @@
 import { SchemaInterface } from "@leancodepl/contractsgenerator-typescript-schema";
+import { generateType } from "@leancodepl/contractsgenerator-typescript-types";
 import ts from "typescript";
-import { ContractsContext } from "../ContractsContext";
+import { ContractsContext } from "../contractsContext";
 import { withExtends } from "../utils/withExtends";
 import { withJsDoc } from "../utils/withJsDoc";
 import { generateAttribute } from "./generateAttribute";
 import { generateProperty } from "./generateProperty";
-import { generateType } from "./generateType";
 
 export function generateInterface(schemaInterface: SchemaInterface, context: ContractsContext) {
     const typeParameters = schemaInterface.genericParameters.map(p =>

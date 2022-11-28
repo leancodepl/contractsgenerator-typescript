@@ -5,6 +5,8 @@ import { SchemaInterface } from "./schemaInterface";
 import { createType } from "./types";
 
 export class SchemaCommand extends SchemaInterface {
+    kind = schemaCommandKind;
+
     errorCodes;
     commandType;
 
@@ -28,4 +30,10 @@ export class SchemaCommand extends SchemaInterface {
             },
         });
     }
+}
+
+const schemaCommandKind = "command";
+
+export function isSchemaCommand(schemaCommand: SchemaInterface): schemaCommand is SchemaCommand {
+    return schemaCommand.kind === schemaCommandKind;
 }

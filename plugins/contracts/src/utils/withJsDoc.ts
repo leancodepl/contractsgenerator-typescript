@@ -1,5 +1,5 @@
 import ts from "typescript";
-import { ContractsContext } from "../ContractsContext";
+import { ContractsContext } from "../contractsContext";
 
 export function withJsDoc<TNode extends ts.Node>(
     node: TNode,

@@ -4,6 +4,8 @@ import { SchemaInterface } from "./schemaInterface";
 import { createType } from "./types";
 
 export class SchemaOperation extends SchemaInterface {
+    kind = schemaOperationKind;
+
     returnType;
     operationType;
 
@@ -25,4 +27,10 @@ export class SchemaOperation extends SchemaInterface {
             },
         });
     }
+}
+
+const schemaOperationKind = "operation";
+
+export function isSchemaOperation(schemaOperation: SchemaInterface): schemaOperation is SchemaOperation {
+    return schemaOperation.kind === schemaOperationKind;
 }
