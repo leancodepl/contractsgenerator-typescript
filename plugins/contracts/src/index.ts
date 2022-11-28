@@ -6,6 +6,7 @@ import {
 import ts from "typescript";
 import { contractsGeneratorPluginConfigurationSchema } from "./configuration.validator";
 import { ContractsContext } from "./contractsContext";
+import { generateEnum } from "./generators/generateEnum";
 import { generateInterface } from "./generators/generateInterface";
 
 class ContractsGeneratorPlugin implements GeneratorPluginInstance {
@@ -40,9 +41,10 @@ class ContractsGeneratorPlugin implements GeneratorPluginInstance {
         };
 
         const interfaces = schema.interfaces.map(schemaInterface => generateInterface(schemaInterface, context));
+        const enums = schema.enums.map(schemaEnum => generateEnum(schemaEnum, context));
 
         const sourceFile = ts.factory.createSourceFile(
-            interfaces,
+            [...interfaces, ...enums],
             ts.factory.createToken(ts.SyntaxKind.EndOfFileToken),
             ts.NodeFlags.Synthesized,
         );

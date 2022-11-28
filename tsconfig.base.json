@@ -25,7 +25,8 @@
       "@leancodepl/contractsgenerator-typescript-plugin-contracts": ["plugins/contracts/src/index.ts"],
       "@leancodepl/contractsgenerator-typescript-schema": ["libs/schema/src/index.ts"],
       "@leancodepl/contractsgenerator-typescript-types": ["libs/types/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-utils": ["libs/utils/src/index.ts"]
+      "@leancodepl/contractsgenerator-typescript-utils": ["libs/utils/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-values": ["libs/values/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

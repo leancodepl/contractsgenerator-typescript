@@ -34,7 +34,7 @@
   },
   "workspaceLayout": {
     "appsDir": "test",
-    "libsDir": "plugins"
+    "libsDir": "libs"
   },
   "defaultProject": "generator"
 }

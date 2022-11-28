@@ -18,6 +18,7 @@ export * from "./lib/values/schemaBooleanValue";
 export * from "./lib/values/schemaNullValue";
 export * from "./lib/values/schemaNumberValue";
 export * from "./lib/values/schemaStringValue";
+export * from "./lib/values/schemaValue";
 
 export * from "./lib/parseSchema";
 

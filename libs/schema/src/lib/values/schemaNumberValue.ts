@@ -4,6 +4,8 @@ import { leancode } from "../protocol";
 import { SchemaValue } from "./schemaValue";
 
 export class SchemaNumberValue implements SchemaValue<number> {
+    kind = schemaNumberValueKind;
+
     value;
 
     constructor({
@@ -18,4 +20,10 @@ export class SchemaNumberValue implements SchemaValue<number> {
 
         this.value = Long.isLong(value) ? value.toNumber() : value;
     }
+}
+
+const schemaNumberValueKind = "number";
+
+export function isSchemaNumberValue(value: SchemaValue): value is SchemaNumberValue {
+    return value.kind === schemaNumberValueKind;
 }

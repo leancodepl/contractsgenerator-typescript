@@ -1429,6 +1429,9 @@ export namespace leancode {
 
             /** EnumValue comment */
             comment?: (string|null);
+
+            /** EnumValue attributes */
+            attributes?: (leancode.contracts.IAttributeRef[]|null);
         }
 
         /** Represents an EnumValue. */
@@ -1448,6 +1451,9 @@ export namespace leancode {
 
             /** EnumValue comment. */
             public comment: string;
+
+            /** EnumValue attributes. */
+            public attributes: leancode.contracts.IAttributeRef[];
 
             /**
              * Decodes an EnumValue message from the specified reader or buffer.

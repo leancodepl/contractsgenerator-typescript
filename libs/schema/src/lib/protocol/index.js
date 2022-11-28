@@ -3633,6 +3633,7 @@ $root.leancode = (function() {
              * @property {string|null} [name] EnumValue name
              * @property {number|Long|null} [value] EnumValue value
              * @property {string|null} [comment] EnumValue comment
+             * @property {Array.<leancode.contracts.IAttributeRef>|null} [attributes] EnumValue attributes
              */
 
             /**
@@ -3644,6 +3645,7 @@ $root.leancode = (function() {
              * @param {leancode.contracts.IEnumValue=} [properties] Properties to set
              */
             function EnumValue(properties) {
+                this.attributes = [];
                 if (properties)
                     for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -3675,6 +3677,14 @@ $root.leancode = (function() {
             EnumValue.prototype.comment = "";
 
             /**
+             * EnumValue attributes.
+             * @member {Array.<leancode.contracts.IAttributeRef>} attributes
+             * @memberof leancode.contracts.EnumValue
+             * @instance
+             */
+            EnumValue.prototype.attributes = $util.emptyArray;
+
+            /**
              * Decodes an EnumValue message from the specified reader or buffer.
              * @function decode
              * @memberof leancode.contracts.EnumValue
@@ -3702,6 +3712,12 @@ $root.leancode = (function() {
                         }
                     case 3: {
                             message.comment = reader.string();
+                            break;
+                        }
+                    case 4: {
+                            if (!(message.attributes && message.attributes.length))
+                                message.attributes = [];
+                            message.attributes.push($root.leancode.contracts.AttributeRef.decode(reader, reader.uint32()));
                             break;
                         }
                     default:
@@ -3748,6 +3764,15 @@ $root.leancode = (function() {
                 if (message.comment != null && message.hasOwnProperty("comment"))
                     if (!$util.isString(message.comment))
                         return "comment: string expected";
+                if (message.attributes != null && message.hasOwnProperty("attributes")) {
+                    if (!Array.isArray(message.attributes))
+                        return "attributes: array expected";
+                    for (var i = 0; i < message.attributes.length; ++i) {
+                        var error = $root.leancode.contracts.AttributeRef.verify(message.attributes[i]);
+                        if (error)
+                            return "attributes." + error;
+                    }
+                }
                 return null;
             };
 
@@ -3776,6 +3801,16 @@ $root.leancode = (function() {
                         message.value = new $util.LongBits(object.value.low >>> 0, object.value.high >>> 0).toNumber();
                 if (object.comment != null)
                     message.comment = String(object.comment);
+                if (object.attributes) {
+                    if (!Array.isArray(object.attributes))
+                        throw TypeError(".leancode.contracts.EnumValue.attributes: array expected");
+                    message.attributes = [];
+                    for (var i = 0; i < object.attributes.length; ++i) {
+                        if (typeof object.attributes[i] !== "object")
+                            throw TypeError(".leancode.contracts.EnumValue.attributes: object expected");
+                        message.attributes[i] = $root.leancode.contracts.AttributeRef.fromObject(object.attributes[i]);
+                    }
+                }
                 return message;
             };
 
@@ -3792,6 +3827,8 @@ $root.leancode = (function() {
                 if (!options)
                     options = {};
                 var object = {};
+                if (options.arrays || options.defaults)
+                    object.attributes = [];
                 if (options.defaults) {
                     object.name = "";
                     if ($util.Long) {
@@ -3810,6 +3847,11 @@ $root.leancode = (function() {
                         object.value = options.longs === String ? $util.Long.prototype.toString.call(message.value) : options.longs === Number ? new $util.LongBits(message.value.low >>> 0, message.value.high >>> 0).toNumber() : message.value;
                 if (message.comment != null && message.hasOwnProperty("comment"))
                     object.comment = message.comment;
+                if (message.attributes && message.attributes.length) {
+                    object.attributes = [];
+                    for (var j = 0; j < message.attributes.length; ++j)
+                        object.attributes[j] = $root.leancode.contracts.AttributeRef.toObject(message.attributes[j], options);
+                }
                 return object;
             };
 
