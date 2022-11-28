@@ -40,7 +40,7 @@ class ContractsGeneratorPlugin implements GeneratorPluginInstance {
             configuration: this.configuration,
         };
 
-        const interfaces = schema.interfaces.map(schemaInterface => generateInterface(schemaInterface, context));
+        const interfaces = schema.interfaces.flatMap(schemaInterface => generateInterface(schemaInterface, context));
         const enums = schema.enums.map(schemaEnum => generateEnum(schemaEnum, context));
 
         const sourceFile = ts.factory.createSourceFile(

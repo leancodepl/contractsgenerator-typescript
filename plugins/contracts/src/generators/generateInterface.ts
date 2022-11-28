@@ -1,10 +1,12 @@
-import { SchemaInterface } from "@leancodepl/contractsgenerator-typescript-schema";
+import { isSchemaCommand, SchemaInterface } from "@leancodepl/contractsgenerator-typescript-schema";
 import { generateType } from "@leancodepl/contractsgenerator-typescript-types";
 import ts from "typescript";
 import { ContractsContext } from "../contractsContext";
 import { withExtends } from "../utils/withExtends";
 import { withJsDoc } from "../utils/withJsDoc";
 import { generateAttribute } from "./generateAttribute";
+import { generateConsts } from "./generateConsts";
+import { generateErrorCodes } from "./generateErrorCodes";
 import { generateProperty } from "./generateProperty";
 
 export function generateInterface(schemaInterface: SchemaInterface, context: ContractsContext) {
@@ -32,5 +34,8 @@ export function generateInterface(schemaInterface: SchemaInterface, context: Con
               )
             : undefined;
 
-    return withJsDoc(interfaceStatement, jsDoc, context);
+    const constStatement = generateConsts(schemaInterface, context);
+    const errorCodesStatement = isSchemaCommand(schemaInterface) ? generateErrorCodes(schemaInterface) : [];
+
+    return [withJsDoc(interfaceStatement, jsDoc, context), ...constStatement, ...errorCodesStatement];
 }

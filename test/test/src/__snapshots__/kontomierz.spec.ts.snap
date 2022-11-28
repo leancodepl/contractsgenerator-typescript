@@ -262,6 +262,15 @@ export interface ICategoryOrCategoryGroupRelated {
 export interface ICategoryRelated {
     CategoryId: string;
 }
+export interface ISubtransactionRelated {
+    SubtransactionId: string;
+}
+export interface ITransactionRelated {
+    TransactionId: string;
+}
+export interface IWalletRelated {
+    WalletId: string;
+}
 export interface KontomatikImportRequestExceptionDTO {
     Error: Kontomierz.Core.Contracts.Imports.KontomatikImportRequestErrorDTO;
     InternalKontomatikError: string;
@@ -293,15 +302,6 @@ export interface RequestImportFromKontomatikResponseDTO {
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  */
 export interface StartImportingAllBankAccountsWithMultipleAccess extends Command {
-}
-export interface ISubtransactionRelated {
-    SubtransactionId: string;
-}
-export interface ITransactionRelated {
-    TransactionId: string;
-}
-export interface IWalletRelated {
-    WalletId: string;
 }
 export interface MoneyDTO {
     AmountSmallestUnit: number;
@@ -339,16 +339,6 @@ export interface BalanceInBillingCycleDTO {
     IncomesPlnSmallestUnit: number;
 }
 /**
- * Up to 12 billing cycles ordered ascending.
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface BalancesByBillingCycles extends Query<Kontomierz.Core.Contracts.Transactions.BalanceInBillingCycleDTO[]> {
-    /**
-     * Day is ignored
-     */
-    BillingCycle: string;
-}
-/**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  */
 export interface BalanceSummary extends Query<Kontomierz.Core.Contracts.Transactions.BalanceSummaryDTO> {
@@ -363,6 +353,16 @@ export interface BalanceSummaryDTO {
     ExpensesLastBillingCycleDifferencePercent?: number;
     IncomesPlnSmallestUnit: number;
     IncomesLastBillingCycleDifferencePercent?: number;
+}
+/**
+ * Up to 12 billing cycles ordered ascending.
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface BalancesByBillingCycles extends Query<Kontomierz.Core.Contracts.Transactions.BalanceInBillingCycleDTO[]> {
+    /**
+     * Day is ignored
+     */
+    BillingCycle: string;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -537,6 +537,127 @@ export interface WalletDTO {
     Name: string;
     Balance: Kontomierz.Core.Contracts.MoneyDTO;
     DateCreated: string;
+}
+export enum BankAccountTypeDTO {
+    Account = 0,
+    CreditCard = 1
+}
+export enum MultipleAccessTypeDTO {
+    Active = 0,
+    Expired = 1,
+    Unsupported = 2
+}
+export enum CategoryBudgetTypeDTO {
+    Category = 0,
+    CategoryGroup = 1
+}
+export enum CopyBudgetValidationDTO {
+    Valid = 0,
+    BudgetPlanAlreadyExistsForTheBillingCycle = 1,
+    NoPreviousBudgetPlansExist = 2
+}
+export enum AfterCategoryDeletionCategorizationHandlingDTO {
+    MoveToAnotherCategory = 0,
+    Recategorize = 1
+}
+export enum CategoryGroupIconDTO {
+    ShoppingBag = 0,
+    Home = 1,
+    Kid = 2,
+    Personal = 3,
+    Balance = 4,
+    Gift = 5,
+    Briefcase = 6,
+    CircleFull = 7,
+    CircleEmpty = 8,
+    GamingPad = 9,
+    Flag = 10,
+    FaceSmile = 11,
+    Key = 12,
+    Star = 13,
+    Atom = 14,
+    ActivityHeart = 15,
+    MedicalCross = 16,
+    PuzzlePiece = 17,
+    GraduationHat = 18,
+    Plane = 19,
+    Sun = 20,
+    Image = 21,
+    Palette = 22,
+    Building = 23,
+    Tag = 24,
+    Anchor = 25,
+    Mail = 26,
+    HeartRounded = 27,
+    Camera = 28,
+    ShoppingCart = 29,
+    File = 30,
+    MusicNote = 31,
+    CoinsHand = 32,
+    Car = 33
+}
+export enum CategoryKindDTO {
+    Expense = 0,
+    Income = 1
+}
+export enum KontomatikImportRequestErrorDTO {
+    General = 0,
+    SessionExpired = 1,
+    ConcurrentSessionsLimitExceed = 2,
+    ServiceMaintenance = 3,
+    MultipleAccessLimitExceeded = 4
+}
+export enum TransactionStatusDTO {
+    Done = 0,
+    Pending = 1,
+    Rejected = 2,
+    Scheduled = 3,
+    Hold = 4
+}
+export default function (cqrsClient: CQRS) {
+    return {
+        DeleteBankAccount: cqrsClient.createCommand<Kontomierz.Core.Contracts.BankAccounts.DeleteBankAccount, Kontomierz.Core.Contracts.BankAccounts.DeleteBankAccount.ErrorCodes>(\\"Kontomierz.Core.Contracts.BankAccounts.DeleteBankAccount\\", Kontomierz.Core.Contracts.BankAccounts.DeleteBankAccount.ErrorCodes),
+        MyBankAccounts: cqrsClient.createQuery<Kontomierz.Core.Contracts.BankAccounts.MyBankAccounts, Kontomierz.Core.Contracts.BankAccounts.BankAccountsDTO[]>(\\"Kontomierz.Core.Contracts.BankAccounts.MyBankAccounts\\"),
+        CopyBudgetValidation: cqrsClient.createQuery<Kontomierz.Core.Contracts.Budgets.CopyBudgetValidation, Kontomierz.Core.Contracts.Budgets.CopyBudgetValidationDTO>(\\"Kontomierz.Core.Contracts.Budgets.CopyBudgetValidation\\"),
+        CopyMostRecentBudgetPlan: cqrsClient.createCommand<Kontomierz.Core.Contracts.Budgets.CopyMostRecentBudgetPlan, Kontomierz.Core.Contracts.Budgets.CopyMostRecentBudgetPlan.ErrorCodes>(\\"Kontomierz.Core.Contracts.Budgets.CopyMostRecentBudgetPlan\\", Kontomierz.Core.Contracts.Budgets.CopyMostRecentBudgetPlan.ErrorCodes),
+        DeleteCategoryBudgetPlan: cqrsClient.createCommand<Kontomierz.Core.Contracts.Budgets.DeleteCategoryBudgetPlan, Kontomierz.Core.Contracts.Budgets.DeleteCategoryBudgetPlan.ErrorCodes>(\\"Kontomierz.Core.Contracts.Budgets.DeleteCategoryBudgetPlan\\", Kontomierz.Core.Contracts.Budgets.DeleteCategoryBudgetPlan.ErrorCodes),
+        MyBudgetInBillingCycle: cqrsClient.createQuery<Kontomierz.Core.Contracts.Budgets.MyBudgetInBillingCycle, Kontomierz.Core.Contracts.Budgets.BudgetDTO | null | undefined>(\\"Kontomierz.Core.Contracts.Budgets.MyBudgetInBillingCycle\\"),
+        PlanCategoryBudget: cqrsClient.createCommand<Kontomierz.Core.Contracts.Budgets.PlanCategoryBudget, Kontomierz.Core.Contracts.Budgets.PlanCategoryBudget.ErrorCodes>(\\"Kontomierz.Core.Contracts.Budgets.PlanCategoryBudget\\", Kontomierz.Core.Contracts.Budgets.PlanCategoryBudget.ErrorCodes),
+        PlanOtherCategoriesBudget: cqrsClient.createCommand<Kontomierz.Core.Contracts.Budgets.PlanOtherCategoriesBudget, Kontomierz.Core.Contracts.Budgets.PlanOtherCategoriesBudget.ErrorCodes>(\\"Kontomierz.Core.Contracts.Budgets.PlanOtherCategoriesBudget\\", Kontomierz.Core.Contracts.Budgets.PlanOtherCategoriesBudget.ErrorCodes),
+        AddCategory: cqrsClient.createCommand<Kontomierz.Core.Contracts.Categories.AddCategory, Kontomierz.Core.Contracts.Categories.AddCategory.ErrorCodes>(\\"Kontomierz.Core.Contracts.Categories.AddCategory\\", Kontomierz.Core.Contracts.Categories.AddCategory.ErrorCodes),
+        AddCategoryGroup: cqrsClient.createCommand<Kontomierz.Core.Contracts.Categories.AddCategoryGroup, Kontomierz.Core.Contracts.Categories.AddCategoryGroup.ErrorCodes>(\\"Kontomierz.Core.Contracts.Categories.AddCategoryGroup\\", Kontomierz.Core.Contracts.Categories.AddCategoryGroup.ErrorCodes),
+        CategoryBalances: cqrsClient.createQuery<Kontomierz.Core.Contracts.Categories.CategoryBalances, Kontomierz.Core.Contracts.Categories.CategoryBalancesDTO>(\\"Kontomierz.Core.Contracts.Categories.CategoryBalances\\"),
+        CategoryBalancesSummary: cqrsClient.createQuery<Kontomierz.Core.Contracts.Categories.CategoryBalancesSummary, Kontomierz.Core.Contracts.Categories.CategoryGroupBalanceSummaryDTO[]>(\\"Kontomierz.Core.Contracts.Categories.CategoryBalancesSummary\\"),
+        DeleteCategory: cqrsClient.createCommand<Kontomierz.Core.Contracts.Categories.DeleteCategory, Kontomierz.Core.Contracts.Categories.DeleteCategory.ErrorCodes>(\\"Kontomierz.Core.Contracts.Categories.DeleteCategory\\", Kontomierz.Core.Contracts.Categories.DeleteCategory.ErrorCodes),
+        DeleteCategoryGroup: cqrsClient.createCommand<Kontomierz.Core.Contracts.Categories.DeleteCategoryGroup, Kontomierz.Core.Contracts.Categories.DeleteCategoryGroup.ErrorCodes>(\\"Kontomierz.Core.Contracts.Categories.DeleteCategoryGroup\\", Kontomierz.Core.Contracts.Categories.DeleteCategoryGroup.ErrorCodes),
+        EditCategoriesRelations: cqrsClient.createCommand<Kontomierz.Core.Contracts.Categories.EditCategoriesRelations, Kontomierz.Core.Contracts.Categories.EditCategoriesRelations.ErrorCodes>(\\"Kontomierz.Core.Contracts.Categories.EditCategoriesRelations\\", Kontomierz.Core.Contracts.Categories.EditCategoriesRelations.ErrorCodes),
+        EditCategory: cqrsClient.createCommand<Kontomierz.Core.Contracts.Categories.EditCategory, Kontomierz.Core.Contracts.Categories.EditCategory.ErrorCodes>(\\"Kontomierz.Core.Contracts.Categories.EditCategory\\", Kontomierz.Core.Contracts.Categories.EditCategory.ErrorCodes),
+        EditCategoryGroup: cqrsClient.createCommand<Kontomierz.Core.Contracts.Categories.EditCategoryGroup, Kontomierz.Core.Contracts.Categories.EditCategoryGroup.ErrorCodes>(\\"Kontomierz.Core.Contracts.Categories.EditCategoryGroup\\", Kontomierz.Core.Contracts.Categories.EditCategoryGroup.ErrorCodes),
+        MyCategories: cqrsClient.createQuery<Kontomierz.Core.Contracts.Categories.MyCategories, Kontomierz.Core.Contracts.Categories.MyCategoriesDTO>(\\"Kontomierz.Core.Contracts.Categories.MyCategories\\"),
+        RequestImportFromKontomatik: cqrsClient.createQuery<Kontomierz.Core.Contracts.Imports.RequestImportFromKontomatik, Kontomierz.Core.Contracts.Imports.RequestImportFromKontomatikResponseDTO>(\\"Kontomierz.Core.Contracts.Imports.RequestImportFromKontomatik\\"),
+        StartImportingAllBankAccountsWithMultipleAccess: cqrsClient.createCommand<Kontomierz.Core.Contracts.Imports.StartImportingAllBankAccountsWithMultipleAccess, Kontomierz.Core.Contracts.Imports.StartImportingAllBankAccountsWithMultipleAccess.ErrorCodes>(\\"Kontomierz.Core.Contracts.Imports.StartImportingAllBankAccountsWithMultipleAccess\\", Kontomierz.Core.Contracts.Imports.StartImportingAllBankAccountsWithMultipleAccess.ErrorCodes),
+        AssignCustomSubtransactionTitle: cqrsClient.createCommand<Kontomierz.Core.Contracts.Transactions.AssignCustomSubtransactionTitle, Kontomierz.Core.Contracts.Transactions.AssignCustomSubtransactionTitle.ErrorCodes>(\\"Kontomierz.Core.Contracts.Transactions.AssignCustomSubtransactionTitle\\", Kontomierz.Core.Contracts.Transactions.AssignCustomSubtransactionTitle.ErrorCodes),
+        AssignCustomTransactionTitle: cqrsClient.createCommand<Kontomierz.Core.Contracts.Transactions.AssignCustomTransactionTitle, Kontomierz.Core.Contracts.Transactions.AssignCustomTransactionTitle.ErrorCodes>(\\"Kontomierz.Core.Contracts.Transactions.AssignCustomTransactionTitle\\", Kontomierz.Core.Contracts.Transactions.AssignCustomTransactionTitle.ErrorCodes),
+        BalanceSummary: cqrsClient.createQuery<Kontomierz.Core.Contracts.Transactions.BalanceSummary, Kontomierz.Core.Contracts.Transactions.BalanceSummaryDTO>(\\"Kontomierz.Core.Contracts.Transactions.BalanceSummary\\"),
+        BalancesByBillingCycles: cqrsClient.createQuery<Kontomierz.Core.Contracts.Transactions.BalancesByBillingCycles, Kontomierz.Core.Contracts.Transactions.BalanceInBillingCycleDTO[]>(\\"Kontomierz.Core.Contracts.Transactions.BalancesByBillingCycles\\"),
+        ConfirmTransactionCategory: cqrsClient.createCommand<Kontomierz.Core.Contracts.Transactions.ConfirmTransactionCategory, Kontomierz.Core.Contracts.Transactions.ConfirmTransactionCategory.ErrorCodes>(\\"Kontomierz.Core.Contracts.Transactions.ConfirmTransactionCategory\\", Kontomierz.Core.Contracts.Transactions.ConfirmTransactionCategory.ErrorCodes),
+        CreateWalletTransaction: cqrsClient.createCommand<Kontomierz.Core.Contracts.Transactions.CreateWalletTransaction, Kontomierz.Core.Contracts.Transactions.CreateWalletTransaction.ErrorCodes>(\\"Kontomierz.Core.Contracts.Transactions.CreateWalletTransaction\\", Kontomierz.Core.Contracts.Transactions.CreateWalletTransaction.ErrorCodes),
+        DeleteTransaction: cqrsClient.createCommand<Kontomierz.Core.Contracts.Transactions.DeleteTransaction, Kontomierz.Core.Contracts.Transactions.DeleteTransaction.ErrorCodes>(\\"Kontomierz.Core.Contracts.Transactions.DeleteTransaction\\", Kontomierz.Core.Contracts.Transactions.DeleteTransaction.ErrorCodes),
+        EditWalletTransaction: cqrsClient.createCommand<Kontomierz.Core.Contracts.Transactions.EditWalletTransaction, Kontomierz.Core.Contracts.Transactions.EditWalletTransaction.ErrorCodes>(\\"Kontomierz.Core.Contracts.Transactions.EditWalletTransaction\\", Kontomierz.Core.Contracts.Transactions.EditWalletTransaction.ErrorCodes),
+        MarkAsIrrelevant: cqrsClient.createCommand<Kontomierz.Core.Contracts.Transactions.MarkAsIrrelevant, Kontomierz.Core.Contracts.Transactions.MarkAsIrrelevant.ErrorCodes>(\\"Kontomierz.Core.Contracts.Transactions.MarkAsIrrelevant\\", Kontomierz.Core.Contracts.Transactions.MarkAsIrrelevant.ErrorCodes),
+        MarkAsRelevant: cqrsClient.createCommand<Kontomierz.Core.Contracts.Transactions.MarkAsRelevant, Kontomierz.Core.Contracts.Transactions.MarkAsRelevant.ErrorCodes>(\\"Kontomierz.Core.Contracts.Transactions.MarkAsRelevant\\", Kontomierz.Core.Contracts.Transactions.MarkAsRelevant.ErrorCodes),
+        OverrideTransactionCategory: cqrsClient.createCommand<Kontomierz.Core.Contracts.Transactions.OverrideTransactionCategory, Kontomierz.Core.Contracts.Transactions.OverrideTransactionCategory.ErrorCodes>(\\"Kontomierz.Core.Contracts.Transactions.OverrideTransactionCategory\\", Kontomierz.Core.Contracts.Transactions.OverrideTransactionCategory.ErrorCodes),
+        PaginatedTransactions: cqrsClient.createQuery<Kontomierz.Core.Contracts.Transactions.PaginatedTransactions, Kontomierz.Core.Contracts.PaginatedResult<Kontomierz.Core.Contracts.Transactions.TransactionDTO>>(\\"Kontomierz.Core.Contracts.Transactions.PaginatedTransactions\\"),
+        SplitTransaction: cqrsClient.createCommand<Kontomierz.Core.Contracts.Transactions.SplitTransaction, Kontomierz.Core.Contracts.Transactions.SplitTransaction.ErrorCodes>(\\"Kontomierz.Core.Contracts.Transactions.SplitTransaction\\", Kontomierz.Core.Contracts.Transactions.SplitTransaction.ErrorCodes),
+        UpdateTransactionComment: cqrsClient.createCommand<Kontomierz.Core.Contracts.Transactions.UpdateTransactionComment, Kontomierz.Core.Contracts.Transactions.UpdateTransactionComment.ErrorCodes>(\\"Kontomierz.Core.Contracts.Transactions.UpdateTransactionComment\\", Kontomierz.Core.Contracts.Transactions.UpdateTransactionComment.ErrorCodes),
+        CreateDemoSession: cqrsClient.createQuery<Kontomierz.Core.Contracts.Users.CreateDemoSession, string>(\\"Kontomierz.Core.Contracts.Users.CreateDemoSession\\"),
+        NewTestUserSession: cqrsClient.createQuery<Kontomierz.Core.Contracts.Users.NewTestUserSession, string | null | undefined>(\\"Kontomierz.Core.Contracts.Users.NewTestUserSession\\"),
+        RegulationsLinks: cqrsClient.createQuery<Kontomierz.Core.Contracts.Users.RegulationsLinks, Kontomierz.Core.Contracts.Users.RegulationsDTO>(\\"Kontomierz.Core.Contracts.Users.RegulationsLinks\\"),
+        CreateWallet: cqrsClient.createCommand<Kontomierz.Core.Contracts.Wallets.CreateWallet, Kontomierz.Core.Contracts.Wallets.CreateWallet.ErrorCodes>(\\"Kontomierz.Core.Contracts.Wallets.CreateWallet\\", Kontomierz.Core.Contracts.Wallets.CreateWallet.ErrorCodes),
+        DeleteWallet: cqrsClient.createCommand<Kontomierz.Core.Contracts.Wallets.DeleteWallet, Kontomierz.Core.Contracts.Wallets.DeleteWallet.ErrorCodes>(\\"Kontomierz.Core.Contracts.Wallets.DeleteWallet\\", Kontomierz.Core.Contracts.Wallets.DeleteWallet.ErrorCodes),
+        EditWallet: cqrsClient.createCommand<Kontomierz.Core.Contracts.Wallets.EditWallet, Kontomierz.Core.Contracts.Wallets.EditWallet.ErrorCodes>(\\"Kontomierz.Core.Contracts.Wallets.EditWallet\\", Kontomierz.Core.Contracts.Wallets.EditWallet.ErrorCodes),
+        MyWallets: cqrsClient.createQuery<Kontomierz.Core.Contracts.Wallets.MyWallets, Kontomierz.Core.Contracts.Wallets.WalletDTO[]>(\\"Kontomierz.Core.Contracts.Wallets.MyWallets\\")
+    };
 }
 "
 `;
