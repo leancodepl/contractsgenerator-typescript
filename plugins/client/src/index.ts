@@ -3,6 +3,7 @@ import {
     GeneratorPluginInstance,
     GeneratorSessionContext,
 } from "@leancodepl/contractsgenerator-typescript-plugin";
+import { isSchemaInterface } from "@leancodepl/contractsgenerator-typescript-schema";
 import ts from "typescript";
 import { ClientContext } from "./clientContext";
 import { contractsGeneratorPluginConfigurationSchema } from "./configuration.validator";
@@ -39,7 +40,7 @@ class ClientGeneratorPlugin implements GeneratorPluginInstance {
             configuration: this.configuration,
         };
 
-        const client = generateClient(schema.interfaces, context);
+        const client = generateClient(schema.entities.filter(isSchemaInterface), context);
 
         const sourceFile = ts.factory.createSourceFile(
             [client],

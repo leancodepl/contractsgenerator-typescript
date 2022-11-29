@@ -7,9 +7,9 @@ import { SchemaInterface } from "./schemaInterface";
 import { SchemaOperation } from "./schemaOperation";
 import { SchemaQuery } from "./schemaQuery";
 
+export type SchemaEntity = SchemaInterface | SchemaEnum;
 export interface GeneratorSchema {
-    interfaces: SchemaInterface[];
-    enums: SchemaEnum[];
+    entities: SchemaEntity[];
 }
 
 export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
@@ -17,24 +17,21 @@ export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
 
     const schema = leancode.contracts.Export.decode(reader);
 
-    let interfaces: SchemaInterface[] = [];
-    let enums: SchemaEnum[] = [];
+    let entities: SchemaEntity[] = [];
 
     schema.statements.forEach(statement => {
-        if (statement.query) return interfaces.push(new SchemaQuery({ statement }));
-        if (statement.command) return interfaces.push(new SchemaCommand({ statement }));
-        if (statement.operation) return interfaces.push(new SchemaOperation({ statement }));
-        if (statement.dto) return interfaces.push(new SchemaInterface({ statement }));
-        if (statement.enum) return enums.push(new SchemaEnum({ statement }));
+        if (statement.query) return entities.push(new SchemaQuery({ statement }));
+        if (statement.command) return entities.push(new SchemaCommand({ statement }));
+        if (statement.operation) return entities.push(new SchemaOperation({ statement }));
+        if (statement.dto) return entities.push(new SchemaInterface({ statement }));
+        if (statement.enum) return entities.push(new SchemaEnum({ statement }));
 
         throw new Error("Unknown statement type");
     });
 
-    interfaces = sortBy(interfaces, ({ id }) => id);
-    enums = sortBy(enums, ({ id }) => id);
+    entities = sortBy(entities, ({ id }) => id);
 
     return {
-        interfaces,
-        enums,
+        entities,
     };
 }

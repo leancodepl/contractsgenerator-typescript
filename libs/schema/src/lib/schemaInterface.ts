@@ -1,7 +1,9 @@
 import { ensureNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
+import { SchemaEntity } from "./parseSchema";
 import { leancode } from "./protocol";
 import { SchemaAttribute } from "./schemaAttribute";
 import { SchemaConstant } from "./schemaConstant";
+import { isSchemaEnum } from "./schemaEnum";
 import { SchemaProperty } from "./schemaProperty";
 import { createType } from "./types";
 import { getNameFromFullName } from "./utils/getNameFromFullName";
@@ -50,3 +52,7 @@ export class SchemaInterface {
 }
 
 const schemaInterfaceKind = "interface";
+
+export function isSchemaInterface(schemaEntity: SchemaEntity): schemaEntity is SchemaInterface {
+    return !isSchemaEnum(schemaEntity);
+}

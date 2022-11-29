@@ -1,4 +1,4 @@
-import { GenerateContext } from "libs/types/src";
+import { GenerateContext } from "@leancodepl/contractsgenerator-typescript-types";
 import ts from "typescript";
 import { ContractsGeneratorPluginConfiguration } from "./configuration";
 

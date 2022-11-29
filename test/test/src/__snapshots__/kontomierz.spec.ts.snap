@@ -1,618 +1,923 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`kontomierz should work 1`] = `
-"export interface Auth {
-}
-export interface Clients {
-}
-export interface KnownClaims {
-}
-export interface Permissions {
-}
-export interface Roles {
-}
-export interface Scopes {
-}
-export interface IOwnBankAccount {
-}
-export interface IOwnCategory {
-}
-export interface IOwnCategoryGroup {
-}
-export interface IOwnCategoryOrCategoryGroup {
-}
-export interface IOwnSubtransaction {
-}
-export interface IOwnTransaction {
-}
-export interface IOwnWallet {
-}
-export interface BankAccountDTO {
-    Id: string;
-    Type: Kontomierz.Core.Contracts.BankAccounts.BankAccountTypeDTO;
-    Iban: string;
-    Name: string;
-    FriendlyName?: string;
-    CreditCardNumber?: string;
-    CurrencyCode: string;
-    BalanceSmallestUnit?: number;
-    MultipleAccessType: Kontomierz.Core.Contracts.BankAccounts.MultipleAccessTypeDTO;
-    MostRecentImportDate: string;
-}
-export interface BankAccountsDTO {
-    Bank: Kontomierz.Core.Contracts.BankAccounts.BankDTO;
-    Accounts: Kontomierz.Core.Contracts.BankAccounts.BankAccountDTO[];
-}
-export interface BankDTO {
-    Target: string;
-    Name: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsBankAccountAttribute
- */
-export interface DeleteBankAccount extends Command, Kontomierz.Core.Contracts.IBankAccountRelated {
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface MyBankAccounts extends Query<Kontomierz.Core.Contracts.BankAccounts.BankAccountsDTO[]> {
-}
-export interface BudgetDTO {
-    CategoryBudgets: Kontomierz.Core.Contracts.Budgets.CategoryBudgetDTO[];
-    OtherCategoriesPlannedBalancePlnSmallestUnit: number;
-    OtherCategoriesBalancePlnSmallestUnit: number;
-    OtherCategoryBalances: Kontomierz.Core.Contracts.Categories.CategoryBalanceDTO[];
-}
-export interface CategoryBudgetDTO {
-    /**
-     * May be a CategoryGroup ID
-     */
-    CategoryId: string;
-    PlannedBalancePlnSmallestUnit: number;
-    Comment?: string;
-    Type: Kontomierz.Core.Contracts.Budgets.CategoryBudgetTypeDTO;
-    BalancePlnSmallestUnit: number;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface CopyBudgetValidation extends Query<Kontomierz.Core.Contracts.Budgets.CopyBudgetValidationDTO> {
-    /**
-     * Day is ignored
-     */
-    NewBillingCycle: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface CopyMostRecentBudgetPlan extends Command {
-    /**
-     * Day is ignored
-     */
-    NewBillingCycle: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryOrCategoryGroupAttribute
- */
-export interface DeleteCategoryBudgetPlan extends Command, Kontomierz.Core.Contracts.ICategoryOrCategoryGroupRelated {
-    /**
-     * Day is ignored
-     */
-    BillingCycle: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface MyBudgetInBillingCycle extends Query<Kontomierz.Core.Contracts.Budgets.BudgetDTO> {
-    /**
-     * Day is ignored
-     */
-    BillingCycle: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryOrCategoryGroupAttribute
- */
-export interface PlanCategoryBudget extends Command, Kontomierz.Core.Contracts.ICategoryOrCategoryGroupRelated {
-    /**
-     * Day is ignored
-     */
-    BillingCycle: string;
-    PlannedBalancePlnSmallestUnit: number;
-    Comment?: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface PlanOtherCategoriesBudget extends Command {
-    /**
-     * Day is ignored
-     */
-    BillingCycle: string;
-    PlannedBalancePlnSmallestUnit: number;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryGroupAttribute
- */
-export interface AddCategory extends Command, Kontomierz.Core.Contracts.ICategoryGroupRelated {
-    Name: string;
-    Kind: Kontomierz.Core.Contracts.Categories.CategoryKindDTO;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface AddCategoryGroup extends Command {
-    Name: string;
-    Color: string;
-    Icon: Kontomierz.Core.Contracts.Categories.CategoryGroupIconDTO;
-}
-export interface CategoryBalanceDTO {
-    Id: string;
-    PlnBalanceSmallestUnit: number;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface CategoryBalances extends Query<Kontomierz.Core.Contracts.Categories.CategoryBalancesDTO> {
-    TransactionDateInclusiveFrom?: string;
-    TransactionDateInclusiveTo?: string;
-    BankAccountIdsFilter?: string[];
-    WalletIdsFilter?: string[];
-}
-export interface CategoryBalancesDTO {
-    TotalPlnBalanceSmallestUnit: number;
-    CategoryGroups: Kontomierz.Core.Contracts.Categories.CategoryGroupBalanceDTO[];
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface CategoryBalancesSummary extends Query<Kontomierz.Core.Contracts.Categories.CategoryGroupBalanceSummaryDTO[]> {
-    /**
-     * Day is ignored
-     */
-    BillingCycle: string;
-}
-export interface CategoryDTO {
-    Id: string;
-    Name: string;
-    Kind: Kontomierz.Core.Contracts.Categories.CategoryKindDTO;
-}
-export interface CategoryGroupBalanceDTO {
-    Id: string;
-    PlnBalanceSmallestUnit: number;
-    Categories: Kontomierz.Core.Contracts.Categories.CategoryBalanceDTO[];
-}
-export interface CategoryGroupBalanceSummaryDTO {
-    /**
-     * Other categories if null
-     */
-    Id?: string;
-    PlnBalanceSmallestUnit: number;
-    TotalBalancePercent: number;
-}
-export interface CategoryGroupDTO {
-    Id: string;
-    Name: string;
-    Color: string;
-    Icon: Kontomierz.Core.Contracts.Categories.CategoryGroupIconDTO;
-    Categories: Kontomierz.Core.Contracts.Categories.CategoryDTO[];
-}
-export interface CategoryGroupRelationsDTO {
-    Id: string;
-    CategoryIds: string[];
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryAttribute
- */
-export interface DeleteCategory extends Command, Kontomierz.Core.Contracts.ICategoryRelated {
-    CategorizationHandling: Kontomierz.Core.Contracts.Categories.AfterCategoryDeletionCategorizationHandlingDTO;
-    MoveTransactionsToCategoryId?: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryGroupAttribute
- */
-export interface DeleteCategoryGroup extends Command, Kontomierz.Core.Contracts.ICategoryGroupRelated {
-}
-/**
- * Order in the lists resembles expected order.
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface EditCategoriesRelations extends Command {
-    CategoriesRelations: Kontomierz.Core.Contracts.Categories.CategoryGroupRelationsDTO[];
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryAttribute
- */
-export interface EditCategory extends Command, Kontomierz.Core.Contracts.ICategoryRelated {
-    Name: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryGroupAttribute
- */
-export interface EditCategoryGroup extends Command, Kontomierz.Core.Contracts.ICategoryGroupRelated {
-    Name: string;
-    Color: string;
-    Icon: Kontomierz.Core.Contracts.Categories.CategoryGroupIconDTO;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface MyCategories extends Query<Kontomierz.Core.Contracts.Categories.MyCategoriesDTO> {
-}
-export interface MyCategoriesDTO {
-    Uncategorized: Kontomierz.Core.Contracts.Categories.CategoryGroupDTO;
-    CategoryGroups: Kontomierz.Core.Contracts.Categories.CategoryGroupDTO[];
-}
-export interface IBankAccountRelated {
-    BankAccountId: string;
-}
-export interface ICategoryGroupRelated {
-    CategoryGroupId: string;
-}
-export interface ICategoryOrCategoryGroupRelated {
-    CategoryId: string;
-}
-export interface ICategoryRelated {
-    CategoryId: string;
-}
-export interface ISubtransactionRelated {
-    SubtransactionId: string;
-}
-export interface ITransactionRelated {
-    TransactionId: string;
-}
-export interface IWalletRelated {
-    WalletId: string;
-}
-export interface KontomatikImportRequestExceptionDTO {
-    Error: Kontomierz.Core.Contracts.Imports.KontomatikImportRequestErrorDTO;
-    InternalKontomatikError: string;
-}
-export interface KontomatikImportResponseDTO {
-    Exceptions: Kontomierz.Core.Contracts.Imports.KontomatikImportRequestExceptionDTO[];
-}
-export interface OperationValidationError {
-    PropertyName: string;
-    ErrorMessage: string;
-    ErrorCode: number;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface RequestImportFromKontomatik extends Operation<Kontomierz.Core.Contracts.Imports.RequestImportFromKontomatikResponseDTO> {
-    SessionId: string;
-    SessionIdSignature: string;
-    MultipleAccessId?: string;
-    Target: string;
-    OfficialName: string;
-    Since: string;
-}
-export interface RequestImportFromKontomatikResponseDTO {
-    ValidationErrors: Kontomierz.Core.Contracts.Imports.OperationValidationError[];
-    Response?: Kontomierz.Core.Contracts.Imports.KontomatikImportResponseDTO;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface StartImportingAllBankAccountsWithMultipleAccess extends Command {
-}
-export interface MoneyDTO {
-    AmountSmallestUnit: number;
-    CurrencyCode: string;
-}
-export interface PaginatedQuery {
-    /**
-     * Zero-based.
-     */
-    PageNumber: number;
-    PageSize: number;
-}
-export interface PaginatedResult<TResult> {
-    Items: TResult[];
-    TotalCount: number;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
- */
-export interface AssignCustomSubtransactionTitle extends Command, Kontomierz.Core.Contracts.ISubtransactionRelated {
-    Title?: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsTransactionAttribute
- */
-export interface AssignCustomTransactionTitle extends Command, Kontomierz.Core.Contracts.ITransactionRelated {
-    Title?: string;
-}
-export interface BalanceInBillingCycleDTO {
-    BillingCycle: string;
-    BalancePlnSmallestUnit: number;
-    ExpensesPlnSmallestUnit: number;
-    IncomesPlnSmallestUnit: number;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface BalanceSummary extends Query<Kontomierz.Core.Contracts.Transactions.BalanceSummaryDTO> {
-    /**
-     * Day is ignored
-     */
-    BillingCycle: string;
-}
-export interface BalanceSummaryDTO {
-    BalancePlnSmallestUnit: number;
-    ExpensesPlnSmallestUnit: number;
-    ExpensesLastBillingCycleDifferencePercent?: number;
-    IncomesPlnSmallestUnit: number;
-    IncomesLastBillingCycleDifferencePercent?: number;
-}
-/**
- * Up to 12 billing cycles ordered ascending.
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface BalancesByBillingCycles extends Query<Kontomierz.Core.Contracts.Transactions.BalanceInBillingCycleDTO[]> {
-    /**
-     * Day is ignored
-     */
-    BillingCycle: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
- */
-export interface ConfirmTransactionCategory extends Command, Kontomierz.Core.Contracts.ISubtransactionRelated {
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsWalletAttribute
- */
-export interface CreateWalletTransaction extends Command, Kontomierz.Core.Contracts.IWalletRelated {
-    Name: string;
-    CategoryId: string;
-    TransactionDate: string;
-    AmountSmallestUnit: number;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsTransactionAttribute
- */
-export interface DeleteTransaction extends Command, Kontomierz.Core.Contracts.ITransactionRelated {
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsTransactionAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsWalletAttribute
- */
-export interface EditWalletTransaction extends Command, Kontomierz.Core.Contracts.ITransactionRelated, Kontomierz.Core.Contracts.IWalletRelated {
-    Name: string;
-    CategoryId: string;
-    TransactionDate: string;
-    AmountSmallestUnit: number;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
- */
-export interface MarkAsIrrelevant extends Command, Kontomierz.Core.Contracts.ISubtransactionRelated {
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
- */
-export interface MarkAsRelevant extends Command, Kontomierz.Core.Contracts.ISubtransactionRelated {
-}
-export interface NewSubtransactionDTO {
-    Id: string;
-    /**
-     * In the same currency as parent transaction.
-     */
-    AmountSmallestUnit: number;
-    CategoryId?: string;
-    UserAssignedTitle?: string;
-    Irrelevant: boolean;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryAttribute
- */
-export interface OverrideTransactionCategory extends Command, Kontomierz.Core.Contracts.ISubtransactionRelated, Kontomierz.Core.Contracts.ICategoryRelated {
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface PaginatedTransactions extends Query<Kontomierz.Core.Contracts.PaginatedResult<Kontomierz.Core.Contracts.Transactions.TransactionDTO>>, Kontomierz.Core.Contracts.PaginatedQuery {
-    TransactionDateInclusiveFrom?: string;
-    TransactionDateInclusiveTo?: string;
-    /**
-     * Possibly a group category ID
-     */
-    CategoryIdFilter?: string;
-    BankAccountIdsFilter?: string[];
-    WalletIdsFilter?: string[];
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsTransactionAttribute
- */
-export interface SplitTransaction extends Command, Kontomierz.Core.Contracts.ITransactionRelated {
-    Subtransactions?: Kontomierz.Core.Contracts.Transactions.NewSubtransactionDTO[];
-}
-export interface SubtransactionDTO {
-    Id: string;
-    /**
-     * In the same currency as parent transaction.
-     */
-    AmountSmallestUnit: number;
-    AmountPlnSmallestUnit?: number;
-    CategoryId?: string;
-    CanConfirmCategory: boolean;
-    UserAssignedTitle?: string;
-    Irrelevant: boolean;
-}
-export interface TransactionDTO {
-    Id: string;
-    WalletId?: string;
-    WalletName?: string;
-    BankAccountId?: string;
-    BankAccountName?: string;
-    Bank?: Kontomierz.Core.Contracts.BankAccounts.BankDTO;
-    TransactionDate: string;
-    BookedOnDate?: string;
-    AmountPlnSmallestUnit?: number;
-    AmountSmallestUnit: number;
-    CurrencyCode: string;
-    AccountBalanceAfterTransactionSmallestUnit?: number;
-    Title?: string;
-    OtherPartyName?: string;
-    OtherPartyIban?: string;
-    Kind?: string;
-    Status?: Kontomierz.Core.Contracts.Transactions.TransactionStatusDTO;
-    Comment?: string;
-    UserAssignedTitle?: string;
-    Subtransactions: Kontomierz.Core.Contracts.Transactions.SubtransactionDTO[];
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsTransactionAttribute
- */
-export interface UpdateTransactionComment extends Command, Kontomierz.Core.Contracts.ITransactionRelated {
-    Comment?: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
- */
-export interface CreateDemoSession extends Operation<string> {
-}
-/**
- * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
- */
-export interface NewTestUserSession extends Query<string> {
-    Password: string;
-}
-export interface RegulationsDTO {
-    TermsOfService: string;
-    PrivacyPolicy: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
- */
-export interface RegulationsLinks extends Query<Kontomierz.Core.Contracts.Users.RegulationsDTO> {
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface CreateWallet extends Command {
-    Name: string;
-    InitialBalance: Kontomierz.Core.Contracts.MoneyDTO;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsWalletAttribute
- */
-export interface DeleteWallet extends Command, Kontomierz.Core.Contracts.IWalletRelated {
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsWalletAttribute
- */
-export interface EditWallet extends Command, Kontomierz.Core.Contracts.IWalletRelated {
-    Name: string;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface MyWallets extends Query<Kontomierz.Core.Contracts.Wallets.WalletDTO[]> {
-}
-export interface WalletDTO {
-    Id: string;
-    Name: string;
-    Balance: Kontomierz.Core.Contracts.MoneyDTO;
-    DateCreated: string;
-}
-export enum BankAccountTypeDTO {
-    Account = 0,
-    CreditCard = 1
-}
-export enum MultipleAccessTypeDTO {
-    Active = 0,
-    Expired = 1,
-    Unsupported = 2
-}
-export enum CategoryBudgetTypeDTO {
-    Category = 0,
-    CategoryGroup = 1
-}
-export enum CopyBudgetValidationDTO {
-    Valid = 0,
-    BudgetPlanAlreadyExistsForTheBillingCycle = 1,
-    NoPreviousBudgetPlansExist = 2
-}
-export enum AfterCategoryDeletionCategorizationHandlingDTO {
-    MoveToAnotherCategory = 0,
-    Recategorize = 1
-}
-export enum CategoryGroupIconDTO {
-    ShoppingBag = 0,
-    Home = 1,
-    Kid = 2,
-    Personal = 3,
-    Balance = 4,
-    Gift = 5,
-    Briefcase = 6,
-    CircleFull = 7,
-    CircleEmpty = 8,
-    GamingPad = 9,
-    Flag = 10,
-    FaceSmile = 11,
-    Key = 12,
-    Star = 13,
-    Atom = 14,
-    ActivityHeart = 15,
-    MedicalCross = 16,
-    PuzzlePiece = 17,
-    GraduationHat = 18,
-    Plane = 19,
-    Sun = 20,
-    Image = 21,
-    Palette = 22,
-    Building = 23,
-    Tag = 24,
-    Anchor = 25,
-    Mail = 26,
-    HeartRounded = 27,
-    Camera = 28,
-    ShoppingCart = 29,
-    File = 30,
-    MusicNote = 31,
-    CoinsHand = 32,
-    Car = 33
-}
-export enum CategoryKindDTO {
-    Expense = 0,
-    Income = 1
-}
-export enum KontomatikImportRequestErrorDTO {
-    General = 0,
-    SessionExpired = 1,
-    ConcurrentSessionsLimitExceed = 2,
-    ServiceMaintenance = 3,
-    MultipleAccessLimitExceeded = 4
-}
-export enum TransactionStatusDTO {
-    Done = 0,
-    Pending = 1,
-    Rejected = 2,
-    Scheduled = 3,
-    Hold = 4
+"export namespace Kontomierz {
+    export namespace Core {
+        export namespace Contracts {
+            export interface Auth {
+            }
+            export interface IBankAccountRelated {
+                BankAccountId: string;
+            }
+            export interface ICategoryGroupRelated {
+                CategoryGroupId: string;
+            }
+            export interface ICategoryOrCategoryGroupRelated {
+                CategoryId: string;
+            }
+            export interface ICategoryRelated {
+                CategoryId: string;
+            }
+            export interface ISubtransactionRelated {
+                SubtransactionId: string;
+            }
+            export interface ITransactionRelated {
+                TransactionId: string;
+            }
+            export interface IWalletRelated {
+                WalletId: string;
+            }
+            export interface MoneyDTO {
+                AmountSmallestUnit: number;
+                CurrencyCode: string;
+            }
+            export interface PaginatedQuery {
+                /**
+                 * Zero-based.
+                 */
+                PageNumber: number;
+                PageSize: number;
+            }
+            export namespace PaginatedQuery {
+                export const MinPageSize = 1;
+                export const MaxPageSize = 100;
+            }
+            export interface PaginatedResult<TResult> {
+                Items: TResult[];
+                TotalCount: number;
+            }
+            export namespace Auth {
+                export interface Clients {
+                }
+                export namespace Clients {
+                    export const AdminApp = \\"admin_app\\";
+                    export const ClientApp = \\"client_app\\";
+                }
+                export interface KnownClaims {
+                }
+                export namespace KnownClaims {
+                    export const UserId = \\"sub\\";
+                    export const Role = \\"role\\";
+                }
+                export interface Permissions {
+                }
+                export namespace Permissions {
+                    export const CoreApiAccess = \\"CoreApiAccess\\";
+                    export const DebugApiAccess = \\"DebugApiAccess\\";
+                    export const KontomatikImports = \\"KontomatikImports\\";
+                }
+                export interface Roles {
+                }
+                export namespace Roles {
+                    export const User = \\"user\\";
+                    export const DemoUser = \\"demo_user\\";
+                }
+                export interface Scopes {
+                }
+                export namespace Scopes {
+                    export const InternalApi = \\"internal_api\\";
+                }
+            }
+            export namespace AuthorizeWhenOwnsBankAccountAttribute {
+                export interface IOwnBankAccount {
+                }
+            }
+            export namespace AuthorizeWhenOwnsCategoryAttribute {
+                export interface IOwnCategory {
+                }
+            }
+            export namespace AuthorizeWhenOwnsCategoryGroupAttribute {
+                export interface IOwnCategoryGroup {
+                }
+            }
+            export namespace AuthorizeWhenOwnsCategoryOrCategoryGroupAttribute {
+                export interface IOwnCategoryOrCategoryGroup {
+                }
+            }
+            export namespace AuthorizeWhenOwnsSubtransactionAttribute {
+                export interface IOwnSubtransaction {
+                }
+            }
+            export namespace AuthorizeWhenOwnsTransactionAttribute {
+                export interface IOwnTransaction {
+                }
+            }
+            export namespace AuthorizeWhenOwnsWalletAttribute {
+                export interface IOwnWallet {
+                }
+            }
+            export namespace BankAccounts {
+                export interface BankAccountDTO {
+                    Id: string;
+                    Type: BankAccountTypeDTO;
+                    Iban: string;
+                    Name: string;
+                    FriendlyName?: string;
+                    CreditCardNumber?: string;
+                    CurrencyCode: string;
+                    BalanceSmallestUnit?: number;
+                    MultipleAccessType: MultipleAccessTypeDTO;
+                    MostRecentImportDate: string;
+                }
+                export interface BankAccountsDTO {
+                    Bank: BankDTO;
+                    Accounts: BankAccountDTO[];
+                }
+                export interface BankDTO {
+                    Target: string;
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsBankAccountAttribute
+                 */
+                export interface DeleteBankAccount extends Command, IBankAccountRelated {
+                }
+                export namespace DeleteBankAccount {
+                    export const ErrorCodes = {
+                        BankAccountIdInvalid: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface MyBankAccounts extends Query<BankAccountsDTO[]> {
+                }
+                export enum BankAccountTypeDTO {
+                    Account = 0,
+                    CreditCard = 1
+                }
+                export enum MultipleAccessTypeDTO {
+                    Active = 0,
+                    Expired = 1,
+                    Unsupported = 2
+                }
+            }
+            export namespace Budgets {
+                export interface BudgetDTO {
+                    CategoryBudgets: CategoryBudgetDTO[];
+                    OtherCategoriesPlannedBalancePlnSmallestUnit: number;
+                    OtherCategoriesBalancePlnSmallestUnit: number;
+                    OtherCategoryBalances: Categories.CategoryBalanceDTO[];
+                }
+                export interface CategoryBudgetDTO {
+                    /**
+                     * May be a CategoryGroup ID
+                     */
+                    CategoryId: string;
+                    PlannedBalancePlnSmallestUnit: number;
+                    Comment?: string;
+                    Type: CategoryBudgetTypeDTO;
+                    BalancePlnSmallestUnit: number;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface CopyBudgetValidation extends Query<CopyBudgetValidationDTO> {
+                    /**
+                     * Day is ignored
+                     */
+                    NewBillingCycle: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface CopyMostRecentBudgetPlan extends Command {
+                    /**
+                     * Day is ignored
+                     */
+                    NewBillingCycle: string;
+                }
+                export namespace CopyMostRecentBudgetPlan {
+                    export const ErrorCodes = {
+                        BudgetPlanAlreadyExistsForTheBillingCycle: 1,
+                        NoPreviousBudgetPlansExist: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryOrCategoryGroupAttribute
+                 */
+                export interface DeleteCategoryBudgetPlan extends Command, ICategoryOrCategoryGroupRelated {
+                    /**
+                     * Day is ignored
+                     */
+                    BillingCycle: string;
+                }
+                export namespace DeleteCategoryBudgetPlan {
+                    export const ErrorCodes = {
+                        CategoryIdInvalid: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface MyBudgetInBillingCycle extends Query<BudgetDTO> {
+                    /**
+                     * Day is ignored
+                     */
+                    BillingCycle: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryOrCategoryGroupAttribute
+                 */
+                export interface PlanCategoryBudget extends Command, ICategoryOrCategoryGroupRelated {
+                    /**
+                     * Day is ignored
+                     */
+                    BillingCycle: string;
+                    PlannedBalancePlnSmallestUnit: number;
+                    Comment?: string;
+                }
+                export namespace PlanCategoryBudget {
+                    export const ErrorCodes = {
+                        CategoryIdInvalid: 1,
+                        CategoryDoesNotExist: 2,
+                        CategoryIsInAnotherBudgetPlanCategoryGroup: 3,
+                        InvalidCategoryKind: 4,
+                        BalanceIsNegative: 5,
+                        CommentIsTooLong: 6
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface PlanOtherCategoriesBudget extends Command {
+                    /**
+                     * Day is ignored
+                     */
+                    BillingCycle: string;
+                    PlannedBalancePlnSmallestUnit: number;
+                }
+                export namespace PlanOtherCategoriesBudget {
+                    export const ErrorCodes = {
+                        BalanceIsNegative: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export enum CategoryBudgetTypeDTO {
+                    Category = 0,
+                    CategoryGroup = 1
+                }
+                export enum CopyBudgetValidationDTO {
+                    Valid = 0,
+                    BudgetPlanAlreadyExistsForTheBillingCycle = 1,
+                    NoPreviousBudgetPlansExist = 2
+                }
+            }
+            export namespace Categories {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryGroupAttribute
+                 */
+                export interface AddCategory extends Command, ICategoryGroupRelated {
+                    Name: string;
+                    Kind: CategoryKindDTO;
+                }
+                export namespace AddCategory {
+                    export const ErrorCodes = {
+                        InvalidCategoryGroupId: 1,
+                        CategoryGroupDoesNotExist: 2,
+                        NameRequired: 3,
+                        NameTooLong: 4,
+                        InvalidKind: 5
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AddCategoryGroup extends Command {
+                    Name: string;
+                    Color: string;
+                    Icon: CategoryGroupIconDTO;
+                }
+                export namespace AddCategoryGroup {
+                    export const ErrorCodes = {
+                        NameRequired: 1,
+                        NameTooLong: 2,
+                        ColorRequired: 3,
+                        ColorInvalid: 4,
+                        InvalidIcon: 5
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface CategoryBalanceDTO {
+                    Id: string;
+                    PlnBalanceSmallestUnit: number;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface CategoryBalances extends Query<CategoryBalancesDTO> {
+                    TransactionDateInclusiveFrom?: string;
+                    TransactionDateInclusiveTo?: string;
+                    BankAccountIdsFilter?: string[];
+                    WalletIdsFilter?: string[];
+                }
+                export interface CategoryBalancesDTO {
+                    TotalPlnBalanceSmallestUnit: number;
+                    CategoryGroups: CategoryGroupBalanceDTO[];
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface CategoryBalancesSummary extends Query<CategoryGroupBalanceSummaryDTO[]> {
+                    /**
+                     * Day is ignored
+                     */
+                    BillingCycle: string;
+                }
+                export interface CategoryDTO {
+                    Id: string;
+                    Name: string;
+                    Kind: CategoryKindDTO;
+                }
+                export interface CategoryGroupBalanceDTO {
+                    Id: string;
+                    PlnBalanceSmallestUnit: number;
+                    Categories: CategoryBalanceDTO[];
+                }
+                export interface CategoryGroupBalanceSummaryDTO {
+                    /**
+                     * Other categories if null
+                     */
+                    Id?: string;
+                    PlnBalanceSmallestUnit: number;
+                    TotalBalancePercent: number;
+                }
+                export interface CategoryGroupDTO {
+                    Id: string;
+                    Name: string;
+                    Color: string;
+                    Icon: CategoryGroupIconDTO;
+                    Categories: CategoryDTO[];
+                }
+                export interface CategoryGroupRelationsDTO {
+                    Id: string;
+                    CategoryIds: string[];
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryAttribute
+                 */
+                export interface DeleteCategory extends Command, ICategoryRelated {
+                    CategorizationHandling: AfterCategoryDeletionCategorizationHandlingDTO;
+                    MoveTransactionsToCategoryId?: string;
+                }
+                export namespace DeleteCategory {
+                    export const ErrorCodes = {
+                        InvalidCategoryId: 1,
+                        CannotDeleteNoneCategory: 2,
+                        InvalidCategorizationHandling: 3,
+                        InvalidMoveTransactionsToCategoryId: 4,
+                        CategoryToMoveTransactionsToDoesNotExist: 5,
+                        CategoryToMoveTransactionsToMustBeDifferent: 6,
+                        CategoryToMoveTransactionsToHasDifferentKind: 7
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryGroupAttribute
+                 */
+                export interface DeleteCategoryGroup extends Command, ICategoryGroupRelated {
+                }
+                export namespace DeleteCategoryGroup {
+                    export const ErrorCodes = {
+                        InvalidCategoryGroupId: 1,
+                        CannotDeleteNoneCategoryGroup: 2,
+                        CategoryGroupHasSomeCategories: 3
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * Order in the lists resembles expected order.
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface EditCategoriesRelations extends Command {
+                    CategoriesRelations: CategoryGroupRelationsDTO[];
+                }
+                export namespace EditCategoriesRelations {
+                    export const ErrorCodes = {
+                        CategoriesRelationsCantBeNull: 1,
+                        AllCategoryGroupRelationsCantBeNull: 2,
+                        SomeCategoryGroupIdsAreInvalid: 3,
+                        SomeCategoryIdsAreInvalid: 4,
+                        CategoryGroupsAreNotSetEqual: 5,
+                        CategoriesAreNotSetEqual: 6
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryAttribute
+                 */
+                export interface EditCategory extends Command, ICategoryRelated {
+                    Name: string;
+                }
+                export namespace EditCategory {
+                    export const ErrorCodes = {
+                        InvalidCategoryId: 1,
+                        CategoryDoesNotExist: 2,
+                        NameRequired: 3,
+                        NameTooLong: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryGroupAttribute
+                 */
+                export interface EditCategoryGroup extends Command, ICategoryGroupRelated {
+                    Name: string;
+                    Color: string;
+                    Icon: CategoryGroupIconDTO;
+                }
+                export namespace EditCategoryGroup {
+                    export const ErrorCodes = {
+                        InvalidCategoryGroupId: 1,
+                        CategoryGroupDoesNotExist: 2,
+                        NameRequired: 3,
+                        NameTooLong: 4,
+                        ColorRequired: 5,
+                        ColorInvalid: 6,
+                        InvalidIcon: 7
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface MyCategories extends Query<MyCategoriesDTO> {
+                }
+                export interface MyCategoriesDTO {
+                    Uncategorized: CategoryGroupDTO;
+                    CategoryGroups: CategoryGroupDTO[];
+                }
+                export enum AfterCategoryDeletionCategorizationHandlingDTO {
+                    MoveToAnotherCategory = 0,
+                    Recategorize = 1
+                }
+                export enum CategoryGroupIconDTO {
+                    ShoppingBag = 0,
+                    Home = 1,
+                    Kid = 2,
+                    Personal = 3,
+                    Balance = 4,
+                    Gift = 5,
+                    Briefcase = 6,
+                    CircleFull = 7,
+                    CircleEmpty = 8,
+                    GamingPad = 9,
+                    Flag = 10,
+                    FaceSmile = 11,
+                    Key = 12,
+                    Star = 13,
+                    Atom = 14,
+                    ActivityHeart = 15,
+                    MedicalCross = 16,
+                    PuzzlePiece = 17,
+                    GraduationHat = 18,
+                    Plane = 19,
+                    Sun = 20,
+                    Image = 21,
+                    Palette = 22,
+                    Building = 23,
+                    Tag = 24,
+                    Anchor = 25,
+                    Mail = 26,
+                    HeartRounded = 27,
+                    Camera = 28,
+                    ShoppingCart = 29,
+                    File = 30,
+                    MusicNote = 31,
+                    CoinsHand = 32,
+                    Car = 33
+                }
+                export enum CategoryKindDTO {
+                    Expense = 0,
+                    Income = 1
+                }
+            }
+            export namespace Imports {
+                export interface KontomatikImportRequestExceptionDTO {
+                    Error: KontomatikImportRequestErrorDTO;
+                    InternalKontomatikError: string;
+                }
+                export interface KontomatikImportResponseDTO {
+                    Exceptions: KontomatikImportRequestExceptionDTO[];
+                }
+                export interface OperationValidationError {
+                    PropertyName: string;
+                    ErrorMessage: string;
+                    ErrorCode: number;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface RequestImportFromKontomatik extends Operation<RequestImportFromKontomatikResponseDTO> {
+                    SessionId: string;
+                    SessionIdSignature: string;
+                    MultipleAccessId?: string;
+                    Target: string;
+                    OfficialName: string;
+                    Since: string;
+                }
+                export interface RequestImportFromKontomatikResponseDTO {
+                    ValidationErrors: OperationValidationError[];
+                    Response?: KontomatikImportResponseDTO;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface StartImportingAllBankAccountsWithMultipleAccess extends Command {
+                }
+                export namespace StartImportingAllBankAccountsWithMultipleAccess {
+                    export const ErrorCodes = {
+                        NoMultipleSessionAccessAreActive: 1,
+                        SomeImportsAreAlreadyInProgress: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export enum KontomatikImportRequestErrorDTO {
+                    General = 0,
+                    SessionExpired = 1,
+                    ConcurrentSessionsLimitExceed = 2,
+                    ServiceMaintenance = 3,
+                    MultipleAccessLimitExceeded = 4
+                }
+            }
+            export namespace Transactions {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
+                 */
+                export interface AssignCustomSubtransactionTitle extends Command, ISubtransactionRelated {
+                    Title?: string;
+                }
+                export namespace AssignCustomSubtransactionTitle {
+                    export const ErrorCodes = {
+                        SubtransactionIdNotValid: 1,
+                        SubtransactionDoesNotExist: 2,
+                        TitleTooLong: 3
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsTransactionAttribute
+                 */
+                export interface AssignCustomTransactionTitle extends Command, ITransactionRelated {
+                    Title?: string;
+                }
+                export namespace AssignCustomTransactionTitle {
+                    export const ErrorCodes = {
+                        TransactionIdNotValid: 1,
+                        TransactionDoesNotExist: 2,
+                        TitleTooLong: 3
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface BalanceInBillingCycleDTO {
+                    BillingCycle: string;
+                    BalancePlnSmallestUnit: number;
+                    ExpensesPlnSmallestUnit: number;
+                    IncomesPlnSmallestUnit: number;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface BalanceSummary extends Query<BalanceSummaryDTO> {
+                    /**
+                     * Day is ignored
+                     */
+                    BillingCycle: string;
+                }
+                export interface BalanceSummaryDTO {
+                    BalancePlnSmallestUnit: number;
+                    ExpensesPlnSmallestUnit: number;
+                    ExpensesLastBillingCycleDifferencePercent?: number;
+                    IncomesPlnSmallestUnit: number;
+                    IncomesLastBillingCycleDifferencePercent?: number;
+                }
+                /**
+                 * Up to 12 billing cycles ordered ascending.
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface BalancesByBillingCycles extends Query<BalanceInBillingCycleDTO[]> {
+                    /**
+                     * Day is ignored
+                     */
+                    BillingCycle: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
+                 */
+                export interface ConfirmTransactionCategory extends Command, ISubtransactionRelated {
+                }
+                export namespace ConfirmTransactionCategory {
+                    export const ErrorCodes = {
+                        SubtransactionIdInvalid: 1,
+                        SubtransactionDoesNotExist: 2,
+                        CannotConfirmTransactionsCategory: 3
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsWalletAttribute
+                 */
+                export interface CreateWalletTransaction extends Command, IWalletRelated {
+                    Name: string;
+                    CategoryId: string;
+                    TransactionDate: string;
+                    AmountSmallestUnit: number;
+                }
+                export namespace CreateWalletTransaction {
+                    export const ErrorCodes = {
+                        WalletIdNotValid: 1,
+                        WalletDoesNotExist: 2,
+                        NameRequired: 3,
+                        NameTooLong: 4,
+                        CategoryIdNotValid: 5,
+                        CategoryDoesNotExist: 6,
+                        AmountDoesNotMatchCategoryKind: 7
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsTransactionAttribute
+                 */
+                export interface DeleteTransaction extends Command, ITransactionRelated {
+                }
+                export namespace DeleteTransaction {
+                    export const ErrorCodes = {
+                        TransactionIdNotValid: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsTransactionAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsWalletAttribute
+                 */
+                export interface EditWalletTransaction extends Command, ITransactionRelated, IWalletRelated {
+                    Name: string;
+                    CategoryId: string;
+                    TransactionDate: string;
+                    AmountSmallestUnit: number;
+                }
+                export namespace EditWalletTransaction {
+                    export const ErrorCodes = {
+                        TransactionIdNotValid: 1,
+                        TransactionDoesNotExist: 2,
+                        TransactionTypeNotValid: 3,
+                        SplitTransactionsCannotBeEdited: 4,
+                        WalletIdNotValid: 5,
+                        WalletDoesNotExist: 6,
+                        NameRequired: 7,
+                        NameTooLong: 8,
+                        CategoryIdNotValid: 9,
+                        CategoryDoesNotExist: 10,
+                        AmountDoesNotMatchCategoryKind: 11
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
+                 */
+                export interface MarkAsIrrelevant extends Command, ISubtransactionRelated {
+                }
+                export namespace MarkAsIrrelevant {
+                    export const ErrorCodes = {
+                        SubtransactionIdNotValid: 1,
+                        SubtransactionDoesNotExist: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
+                 */
+                export interface MarkAsRelevant extends Command, ISubtransactionRelated {
+                }
+                export namespace MarkAsRelevant {
+                    export const ErrorCodes = {
+                        SubtransactionIdNotValid: 1,
+                        SubtransactionDoesNotExist: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface NewSubtransactionDTO {
+                    Id: string;
+                    /**
+                     * In the same currency as parent transaction.
+                     */
+                    AmountSmallestUnit: number;
+                    CategoryId?: string;
+                    UserAssignedTitle?: string;
+                    Irrelevant: boolean;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsCategoryAttribute
+                 */
+                export interface OverrideTransactionCategory extends Command, ISubtransactionRelated, ICategoryRelated {
+                }
+                export namespace OverrideTransactionCategory {
+                    export const ErrorCodes = {
+                        SubtransactionIdIsInvalid: 1,
+                        SubtransactionDoesNotExist: 2,
+                        CategoryIdIsInvalid: 3,
+                        CategoryDoesNotExist: 4,
+                        SubtransactionDoesNotMatchCategoryKind: 5
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface PaginatedTransactions extends Query<PaginatedResult<TransactionDTO>>, PaginatedQuery {
+                    TransactionDateInclusiveFrom?: string;
+                    TransactionDateInclusiveTo?: string;
+                    /**
+                     * Possibly a group category ID
+                     */
+                    CategoryIdFilter?: string;
+                    BankAccountIdsFilter?: string[];
+                    WalletIdsFilter?: string[];
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsTransactionAttribute
+                 */
+                export interface SplitTransaction extends Command, ITransactionRelated {
+                    Subtransactions?: NewSubtransactionDTO[];
+                }
+                export namespace SplitTransaction {
+                    export const ErrorCodes = {
+                        TransactionIdNotValid: 1,
+                        TransactionDoesNotExist: 2,
+                        SubtransactionIdNotValid: 3,
+                        SubtransactionIdNotUnique: 4,
+                        SubtransactionAlreadyExists: 5,
+                        CategoryIdNotValid: 6,
+                        CategoryDoesNotExist: 7,
+                        CategoryKindDoesNotMatch: 8,
+                        AmountIncorrectSign: 9,
+                        AmountSumDoesNotMatch: 10
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface SubtransactionDTO {
+                    Id: string;
+                    /**
+                     * In the same currency as parent transaction.
+                     */
+                    AmountSmallestUnit: number;
+                    AmountPlnSmallestUnit?: number;
+                    CategoryId?: string;
+                    CanConfirmCategory: boolean;
+                    UserAssignedTitle?: string;
+                    Irrelevant: boolean;
+                }
+                export interface TransactionDTO {
+                    Id: string;
+                    WalletId?: string;
+                    WalletName?: string;
+                    BankAccountId?: string;
+                    BankAccountName?: string;
+                    Bank?: BankAccounts.BankDTO;
+                    TransactionDate: string;
+                    BookedOnDate?: string;
+                    AmountPlnSmallestUnit?: number;
+                    AmountSmallestUnit: number;
+                    CurrencyCode: string;
+                    AccountBalanceAfterTransactionSmallestUnit?: number;
+                    Title?: string;
+                    OtherPartyName?: string;
+                    OtherPartyIban?: string;
+                    Kind?: string;
+                    Status?: TransactionStatusDTO;
+                    Comment?: string;
+                    UserAssignedTitle?: string;
+                    Subtransactions: SubtransactionDTO[];
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsTransactionAttribute
+                 */
+                export interface UpdateTransactionComment extends Command, ITransactionRelated {
+                    Comment?: string;
+                }
+                export namespace UpdateTransactionComment {
+                    export const ErrorCodes = {
+                        TransactionIdNotValid: 1,
+                        TransactionDoesNotExist: 2,
+                        CommentTooLong: 3
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export enum TransactionStatusDTO {
+                    Done = 0,
+                    Pending = 1,
+                    Rejected = 2,
+                    Scheduled = 3,
+                    Hold = 4
+                }
+            }
+            export namespace Users {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface CreateDemoSession extends Operation<string> {
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface NewTestUserSession extends Query<string> {
+                    Password: string;
+                }
+                export interface RegulationsDTO {
+                    TermsOfService: string;
+                    PrivacyPolicy: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RegulationsLinks extends Query<RegulationsDTO> {
+                }
+            }
+            export namespace Wallets {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface CreateWallet extends Command {
+                    Name: string;
+                    InitialBalance: MoneyDTO;
+                }
+                export namespace CreateWallet {
+                    export const ErrorCodes = {
+                        NameRequired: 1,
+                        NameTooLong: 2,
+                        InitialBalanceRequired: 3,
+                        InitialBalanceCurrencyCodeRequired: 5,
+                        UnknownInitialBalanceCurrencyCode: 6
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsWalletAttribute
+                 */
+                export interface DeleteWallet extends Command, IWalletRelated {
+                }
+                export namespace DeleteWallet {
+                    export const ErrorCodes = {
+                        WalletIdInvalid: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 * @attribute Kontomierz.Core.Contracts.AuthorizeWhenOwnsWalletAttribute
+                 */
+                export interface EditWallet extends Command, IWalletRelated {
+                    Name: string;
+                }
+                export namespace EditWallet {
+                    export const ErrorCodes = {
+                        InvalidWalletId: 1,
+                        WalletDoesNotExist: 2,
+                        NameRequired: 3,
+                        NameTooLong: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface MyWallets extends Query<WalletDTO[]> {
+                }
+                export interface WalletDTO {
+                    Id: string;
+                    Name: string;
+                    Balance: MoneyDTO;
+                    DateCreated: string;
+                }
+            }
+        }
+    }
 }
 export default function (cqrsClient: CQRS) {
     return {

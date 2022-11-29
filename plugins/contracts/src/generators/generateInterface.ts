@@ -17,13 +17,13 @@ export function generateInterface(schemaInterface: SchemaInterface, context: Con
     const extendTypes = schemaInterface.extendTypes.map(type => withExtends(generateType(type, context)));
 
     const interfaceStatement = ts.factory.createInterfaceDeclaration(
-        [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-        schemaInterface.name,
-        typeParameters,
-        extendTypes.length > 0
+        /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+        /* name */ schemaInterface.name,
+        /* typeParameters */ typeParameters,
+        /* heritageClauses */ extendTypes.length > 0
             ? [ts.factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, extendTypes)]
             : undefined,
-        schemaInterface.properties.map(property => generateProperty(property, context)),
+        /* members */ schemaInterface.properties.map(property => generateProperty(property, context)),
     );
 
     const jsDoc =
