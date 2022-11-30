@@ -105,6 +105,49 @@ describe("GeneratorInterface", () => {
         `);
     });
 
+    it("prints interface with nullable properties", () => {
+        const generator = new GeneratorInterface({
+            statement: {
+                name: "Interface",
+                dto: {
+                    typeDescriptor: {
+                        properties: [
+                            {
+                                name: "numberProperty",
+                                type: {
+                                    known: {
+                                        type: leancode.contracts.KnownType.UInt32,
+                                    },
+                                    nullable: true,
+                                },
+                            },
+                            {
+                                name: "stringProperty",
+                                type: {
+                                    known: {
+                                        type: leancode.contracts.KnownType.String,
+                                    },
+                                    nullable: true,
+                                },
+                            },
+                        ],
+                    },
+                },
+            },
+            typesDictionary,
+        });
+
+        const output = printStatement(generator);
+
+        expect(output).toMatchInlineSnapshot(`
+            "export interface Interface {
+                numberProperty?: number | null;
+                stringProperty?: string | null;
+            }
+            "
+        `);
+    });
+
     it("prints interface with constants", () => {
         const generator = new GeneratorInterface({
             statement: {

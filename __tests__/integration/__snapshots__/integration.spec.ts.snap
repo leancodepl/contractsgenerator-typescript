@@ -313,7 +313,7 @@ export type Command = {};
 export type Operation<TResult> = {};
 export interface Dto {
     A: string;
-    B?: string;
+    B?: string | null;
     C: string[];
     D: Record<string, string>;
 }
