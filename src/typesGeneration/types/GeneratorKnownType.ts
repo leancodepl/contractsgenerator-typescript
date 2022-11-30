@@ -55,11 +55,11 @@ const defaultTypesMap: Record<
     },
     [leancode.contracts.KnownType.Query]: ({ typeArguments, context }) =>
         ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Query"), [
-            ensureNotEmpty(typeArguments[0]).generateType(context),
+            ensureNotEmpty(typeArguments[0]).generateTypeWithNullability(context),
         ]),
     [leancode.contracts.KnownType.Operation]: ({ typeArguments, context }) =>
         ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Operation"), [
-            ensureNotEmpty(typeArguments[0]).generateType(context),
+            ensureNotEmpty(typeArguments[0]).generateTypeWithNullability(context),
         ]),
     [leancode.contracts.KnownType.Command]: () =>
         ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Command")),

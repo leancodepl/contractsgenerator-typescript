@@ -1,23 +1,23 @@
 import { leancode } from "../src/protocol";
-import { GeneratorOperation } from "../src/typesGeneration";
+import { GeneratorQuery } from "../src/typesGeneration";
 import { mkTypesDictionary, printStatement } from "./testUtils";
 
 const typesDictionary = mkTypesDictionary([]);
 
 const KnownType = leancode.contracts.KnownType;
 
-describe("GeneratorOperation", () => {
-    it("prints operation", () => {
-        const generator = new GeneratorOperation({
+describe("GeneratorQuery", () => {
+    it("prints query", () => {
+        const generator = new GeneratorQuery({
             statement: {
-                name: "Operation",
-                operation: {
+                name: "Query",
+                query: {
                     typeDescriptor: {
                         extends: [
                             {
                                 known: {
                                     arguments: [{ known: { arguments: [], type: KnownType.String }, nullable: true }],
-                                    type: KnownType.Operation,
+                                    type: KnownType.Query,
                                 },
                             },
                         ],
@@ -38,7 +38,7 @@ describe("GeneratorOperation", () => {
         const output = printStatement(generator);
 
         expect(output).toMatchInlineSnapshot(`
-            "export interface Operation extends Operation<string | null | undefined> {
+            "export interface Query extends Query<string | null | undefined> {
                 Arg: string;
             }
             "

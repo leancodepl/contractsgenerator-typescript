@@ -427,14 +427,16 @@ exports[`integration works for example simple correctly 1`] = `
 Object {
   "client.ts": "/*eslint-disable*/
 import type { CQRS } from \\"./cqrsClient\\";
-import { Command, Operation, Query, Query1, Query2 } from \\"./types\\";
+import { Command, Operation, OperationWithNullableResult, Query, Query1, Query2, QueryWithNullableResult } from \\"./types\\";
 export default function (cqrsClient: CQRS) {
     return {
         Command: cqrsClient.createCommand<Command, {}>(\\"Command\\", {}),
         Operation: cqrsClient.createOperation<Operation, number>(\\"Operation\\"),
+        OperationWithNullableResult: cqrsClient.createOperation<OperationWithNullableResult, number | null | undefined>(\\"OperationWithNullableResult\\"),
         Query: cqrsClient.createQuery<Query, number>(\\"Query\\"),
         Query1: cqrsClient.createQuery<Query1, number>(\\"Query1\\"),
-        Query2: cqrsClient.createQuery<Query2, number>(\\"Query2\\")
+        Query2: cqrsClient.createQuery<Query2, number>(\\"Query2\\"),
+        QueryWithNullableResult: cqrsClient.createQuery<QueryWithNullableResult, number | null | undefined>(\\"QueryWithNullableResult\\")
     };
 }
 ",
@@ -458,6 +460,9 @@ export interface DTO {
 export interface Operation extends Operation<number> {
     Arg: string;
 }
+export interface OperationWithNullableResult extends Operation<number | null | undefined> {
+    Arg: string;
+}
 export interface Query extends Query<number> {
 }
 /**
@@ -466,6 +471,8 @@ export interface Query extends Query<number> {
 export interface Query1 extends Query<number> {
 }
 export interface Query2 extends Query<number> {
+}
+export interface QueryWithNullableResult extends Query<number | null | undefined> {
 }
 export enum SimpleEnum {
     A = 0,
