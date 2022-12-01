@@ -12,7 +12,8 @@ export default abstract class GeneratorType {
 
         if (this.isNullable) {
             return ts.factory.createUnionTypeNode([
-                ...[generatedType, ts.factory.createLiteralTypeNode(ts.factory.createNull())],
+                generatedType,
+                ts.factory.createLiteralTypeNode(ts.factory.createNull()),
                 ...(params?.omitUndefined ? [] : [ts.factory.createKeywordTypeNode(ts.SyntaxKind.UndefinedKeyword)]),
             ]);
         }
