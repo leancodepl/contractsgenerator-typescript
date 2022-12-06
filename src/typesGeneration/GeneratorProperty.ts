@@ -36,7 +36,7 @@ export default class GeneratorProperty {
             /* modifiers */ [],
             /* name */ this.name,
             /* questionToken */ this.isNullable ? ts.factory.createToken(ts.SyntaxKind.QuestionToken) : undefined,
-            /* type */ this.type.generateType(context),
+            /* type */ this.type.generateTypeWithNullability(context, { omitUndefined: true }),
         );
 
         if (this.comment || this.attributes.length > 0) {
