@@ -93,7 +93,7 @@ sources include:
 
 -   `customTypes` - dictionary of custom types configuration where keys are the name of Known Type and value is custom
     type definition. Valid custom types include: String, Guid, Uri, Boolean, UInt8, Int8, Int16, UInt16, Int32, UInt32,
-    Int64, UInt64, Float, Double, Decimal, Date, Time, DateTime, DateTimeOffset, TimeSpan.
+    Int64, UInt64, Float, Double, Decimal, DateTimeOffset, TimeSpan.
 
     Type definition includes properties:
 
@@ -180,13 +180,9 @@ module.exports = {
         },
     ],
     customTypes: {
-        DateTime: {
-            location: "../apiTime",
-            name: "ApiDateTime",
-        },
         DateTimeOffset: {
             location: "../apiTime",
-            name: "ApiDateTime",
+            name: "ApiDateTimeOffset",
         },
     },
     baseNamespace: "LeanCode.ContractsGeneratorV2.ExampleContracts",

@@ -39,10 +39,10 @@ describe("GeneratorKnownType", () => {
         `);
     });
 
-    it("prints date time type correctly", () => {
+    it("prints date time offset type correctly", () => {
         const generator = new GeneratorKnownType({
             known: {
-                type: KnownType.DateTime,
+                type: KnownType.DateTimeOffset,
             },
             typesDictionary,
         });
