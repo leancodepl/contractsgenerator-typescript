@@ -371,13 +371,10 @@ export interface Dto {
     G: string;
     H: string;
     I: string;
-    J: string;
-    K: string;
+    J: number;
+    K: number;
     L: string;
-    M: number;
-    N: number;
-    O: string;
-    P: CommandResult<any>;
+    M: CommandResult<any>;
 }
 ",
 }
@@ -409,15 +406,12 @@ export interface Dto {
     E: string;
     F: DateOnly;
     G: TimeOnly;
-    H: string;
+    H: DateTimeOffset;
     I: string;
-    J: string;
-    K: DateTimeOffset;
-    L: string;
-    M: number;
-    N: number;
-    O: TimeSpan;
-    P: CommandResult<any>;
+    J: number;
+    K: number;
+    L: TimeSpan;
+    M: CommandResult<any>;
 }
 ",
 }

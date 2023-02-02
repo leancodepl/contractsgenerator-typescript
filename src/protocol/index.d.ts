@@ -24,11 +24,8 @@ export namespace leancode {
             Float64 = 151,
             DateOnly = 200,
             TimeOnly = 201,
-            DateTime = 202,
-            DateTimeOffset = 203,
-            TimeSpan = 204,
-            Date = 205,
-            Time = 206,
+            DateTimeOffset = 202,
+            TimeSpan = 203,
             Array = 300,
             Map = 301,
             Query = 1000,
@@ -1312,6 +1309,9 @@ export namespace leancode {
 
             /** EnumValue comment */
             comment?: (string|null);
+
+            /** EnumValue attributes */
+            attributes?: (leancode.contracts.IAttributeRef[]|null);
         }
 
         /** Represents an EnumValue. */
@@ -1331,6 +1331,9 @@ export namespace leancode {
 
             /** EnumValue comment. */
             public comment: string;
+
+            /** EnumValue attributes. */
+            public attributes: leancode.contracts.IAttributeRef[];
 
             /**
              * Decodes an EnumValue message from the specified reader or buffer.

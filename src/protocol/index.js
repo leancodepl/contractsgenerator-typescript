@@ -48,11 +48,8 @@ $root.leancode = (function() {
          * @property {number} Float64=151 Float64 value
          * @property {number} DateOnly=200 DateOnly value
          * @property {number} TimeOnly=201 TimeOnly value
-         * @property {number} DateTime=202 DateTime value
-         * @property {number} DateTimeOffset=203 DateTimeOffset value
-         * @property {number} TimeSpan=204 TimeSpan value
-         * @property {number} Date=205 Date value
-         * @property {number} Time=206 Time value
+         * @property {number} DateTimeOffset=202 DateTimeOffset value
+         * @property {number} TimeSpan=203 TimeSpan value
          * @property {number} Array=300 Array value
          * @property {number} Map=301 Map value
          * @property {number} Query=1000 Query value
@@ -84,11 +81,8 @@ $root.leancode = (function() {
             values[valuesById[151] = "Float64"] = 151;
             values[valuesById[200] = "DateOnly"] = 200;
             values[valuesById[201] = "TimeOnly"] = 201;
-            values[valuesById[202] = "DateTime"] = 202;
-            values[valuesById[203] = "DateTimeOffset"] = 203;
-            values[valuesById[204] = "TimeSpan"] = 204;
-            values[valuesById[205] = "Date"] = 205;
-            values[valuesById[206] = "Time"] = 206;
+            values[valuesById[202] = "DateTimeOffset"] = 202;
+            values[valuesById[203] = "TimeSpan"] = 203;
             values[valuesById[300] = "Array"] = 300;
             values[valuesById[301] = "Map"] = 301;
             values[valuesById[1000] = "Query"] = 1000;
@@ -1822,9 +1816,6 @@ $root.leancode = (function() {
                         case 201:
                         case 202:
                         case 203:
-                        case 204:
-                        case 205:
-                        case 206:
                         case 300:
                         case 301:
                         case 1000:
@@ -1931,25 +1922,13 @@ $root.leancode = (function() {
                     case 201:
                         message.type = 201;
                         break;
-                    case "DateTime":
+                    case "DateTimeOffset":
                     case 202:
                         message.type = 202;
                         break;
-                    case "DateTimeOffset":
+                    case "TimeSpan":
                     case 203:
                         message.type = 203;
-                        break;
-                    case "TimeSpan":
-                    case 204:
-                        message.type = 204;
-                        break;
-                    case "Date":
-                    case 205:
-                        message.type = 205;
-                        break;
-                    case "Time":
-                    case 206:
-                        message.type = 206;
                         break;
                     case "Array":
                     case 300:
@@ -3359,6 +3338,7 @@ $root.leancode = (function() {
              * @property {string|null} [name] EnumValue name
              * @property {number|Long|null} [value] EnumValue value
              * @property {string|null} [comment] EnumValue comment
+             * @property {Array.<leancode.contracts.IAttributeRef>|null} [attributes] EnumValue attributes
              */
 
             /**
@@ -3370,6 +3350,7 @@ $root.leancode = (function() {
              * @param {leancode.contracts.IEnumValue=} [properties] Properties to set
              */
             function EnumValue(properties) {
+                this.attributes = [];
                 if (properties)
                     for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -3401,6 +3382,14 @@ $root.leancode = (function() {
             EnumValue.prototype.comment = "";
 
             /**
+             * EnumValue attributes.
+             * @member {Array.<leancode.contracts.IAttributeRef>} attributes
+             * @memberof leancode.contracts.EnumValue
+             * @instance
+             */
+            EnumValue.prototype.attributes = $util.emptyArray;
+
+            /**
              * Decodes an EnumValue message from the specified reader or buffer.
              * @function decode
              * @memberof leancode.contracts.EnumValue
@@ -3426,6 +3415,11 @@ $root.leancode = (function() {
                         break;
                     case 3:
                         message.comment = reader.string();
+                        break;
+                    case 4:
+                        if (!(message.attributes && message.attributes.length))
+                            message.attributes = [];
+                        message.attributes.push($root.leancode.contracts.AttributeRef.decode(reader, reader.uint32()));
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -3471,6 +3465,15 @@ $root.leancode = (function() {
                 if (message.comment != null && message.hasOwnProperty("comment"))
                     if (!$util.isString(message.comment))
                         return "comment: string expected";
+                if (message.attributes != null && message.hasOwnProperty("attributes")) {
+                    if (!Array.isArray(message.attributes))
+                        return "attributes: array expected";
+                    for (var i = 0; i < message.attributes.length; ++i) {
+                        var error = $root.leancode.contracts.AttributeRef.verify(message.attributes[i]);
+                        if (error)
+                            return "attributes." + error;
+                    }
+                }
                 return null;
             };
 
@@ -3499,6 +3502,16 @@ $root.leancode = (function() {
                         message.value = new $util.LongBits(object.value.low >>> 0, object.value.high >>> 0).toNumber();
                 if (object.comment != null)
                     message.comment = String(object.comment);
+                if (object.attributes) {
+                    if (!Array.isArray(object.attributes))
+                        throw TypeError(".leancode.contracts.EnumValue.attributes: array expected");
+                    message.attributes = [];
+                    for (var i = 0; i < object.attributes.length; ++i) {
+                        if (typeof object.attributes[i] !== "object")
+                            throw TypeError(".leancode.contracts.EnumValue.attributes: object expected");
+                        message.attributes[i] = $root.leancode.contracts.AttributeRef.fromObject(object.attributes[i]);
+                    }
+                }
                 return message;
             };
 
@@ -3515,6 +3528,8 @@ $root.leancode = (function() {
                 if (!options)
                     options = {};
                 var object = {};
+                if (options.arrays || options.defaults)
+                    object.attributes = [];
                 if (options.defaults) {
                     object.name = "";
                     if ($util.Long) {
@@ -3533,6 +3548,11 @@ $root.leancode = (function() {
                         object.value = options.longs === String ? $util.Long.prototype.toString.call(message.value) : options.longs === Number ? new $util.LongBits(message.value.low >>> 0, message.value.high >>> 0).toNumber() : message.value;
                 if (message.comment != null && message.hasOwnProperty("comment"))
                     object.comment = message.comment;
+                if (message.attributes && message.attributes.length) {
+                    object.attributes = [];
+                    for (var j = 0; j < message.attributes.length; ++j)
+                        object.attributes[j] = $root.leancode.contracts.AttributeRef.toObject(message.attributes[j], options);
+                }
                 return object;
             };
 
