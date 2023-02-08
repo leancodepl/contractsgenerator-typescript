@@ -1,7 +1,7 @@
 {
   "name": "@leancodepl/contractsgenerator-typescript",
   "description": "LeanCode Core Library TypeScript Contracts Generator",
-  "version": "0.3.0-alpha.0",
+  "version": "0.4.0-alpha.0",
   "author": "LeanCode",
   "license": "APACHE-2.0",
   "main": "lib/index.js",
