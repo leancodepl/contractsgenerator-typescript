@@ -33,7 +33,7 @@ export function generateConsts(schemaInterface: SchemaInterface, context: Contra
     return [
         ts.factory.createModuleDeclaration(
             /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-            /* name */ ts.factory.createIdentifier(schemaInterface.name),
+            /* name */ ts.factory.createIdentifier(schemaInterface.getName(context.nameTransform)),
             /* body */ ts.factory.createModuleBlock(constants),
             /* flags */ ts.NodeFlags.Namespace,
         ),

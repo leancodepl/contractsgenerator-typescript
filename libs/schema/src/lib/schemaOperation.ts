@@ -9,14 +9,8 @@ export class SchemaOperation extends SchemaInterface {
     returnType;
     operationType;
 
-    constructor({
-        statement,
-        nameTransform,
-    }: {
-        statement: leancode.contracts.IStatement;
-        nameTransform?: (name: string) => string;
-    }) {
-        super({ statement, nameTransform });
+    constructor({ statement }: { statement: leancode.contracts.IStatement }) {
+        super({ statement });
 
         this.returnType = createType({ type: ensureNotEmpty(statement.operation?.returnType) });
         this.operationType = createType({

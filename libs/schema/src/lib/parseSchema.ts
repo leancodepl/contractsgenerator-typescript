@@ -8,6 +8,7 @@ import { SchemaOperation } from "./schemaOperation";
 import { SchemaQuery } from "./schemaQuery";
 
 export type SchemaEntity = SchemaInterface | SchemaEnum;
+
 export interface GeneratorSchema {
     entities: SchemaEntity[];
 }

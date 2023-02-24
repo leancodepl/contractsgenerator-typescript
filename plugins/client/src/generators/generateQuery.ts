@@ -4,7 +4,7 @@ import ts from "typescript";
 
 export function generateQuery(query: SchemaQuery, context: GenerateContext) {
     return ts.factory.createPropertyAssignment(
-        /* name */ query.name,
+        /* name */ query.getName(context.nameTransform),
         /* initializer */ ts.factory.createCallExpression(
             /* expression */ ts.factory.createPropertyAccessExpression(
                 /* expression */ ts.factory.createIdentifier("cqrsClient"),

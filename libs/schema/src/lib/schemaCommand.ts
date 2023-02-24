@@ -10,14 +10,8 @@ export class SchemaCommand extends SchemaInterface {
     errorCodes;
     commandType;
 
-    constructor({
-        statement,
-        nameTransform,
-    }: {
-        statement: leancode.contracts.IStatement;
-        nameTransform?: (name: string) => string;
-    }) {
-        super({ statement, nameTransform });
+    constructor({ statement }: { statement: leancode.contracts.IStatement }) {
+        super({ statement });
 
         assertNotEmpty(statement.command);
 

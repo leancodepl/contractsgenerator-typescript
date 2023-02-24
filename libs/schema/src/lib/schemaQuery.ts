@@ -9,14 +9,8 @@ export class SchemaQuery extends SchemaInterface {
     returnType;
     queryType;
 
-    constructor({
-        statement,
-        nameTransform,
-    }: {
-        statement: leancode.contracts.IStatement;
-        nameTransform?: (name: string) => string;
-    }) {
-        super({ statement, nameTransform });
+    constructor({ statement }: { statement: leancode.contracts.IStatement }) {
+        super({ statement });
 
         this.returnType = createType({ type: ensureNotEmpty(statement.query?.returnType) });
         this.queryType = createType({

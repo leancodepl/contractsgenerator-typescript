@@ -10,7 +10,7 @@ export function generateCommand(command: SchemaCommand, context: GenerateContext
     const errorCodesType = command.errorCodes.hasErrors
         ? ts.factory.createTypeReferenceNode(
               /* typeName */ extractMinimalReferenceTypeName(
-                  command.fullName + ".ErrorCodes",
+                  command.getFullName(context.nameTransform) + ".ErrorCodes",
                   context.currentNamespace,
               ),
               /* typeArguments */ undefined,
@@ -20,14 +20,14 @@ export function generateCommand(command: SchemaCommand, context: GenerateContext
     const errorCodesArgument = command.errorCodes.hasErrors
         ? ts.factory.createPropertyAccessExpression(
               /* expression */ ts.factory.createIdentifier(
-                  extractMinimalReferenceTypeName(command.fullName, context.currentNamespace),
+                  extractMinimalReferenceTypeName(command.getFullName(context.nameTransform), context.currentNamespace),
               ),
               /* name */ "ErrorCodes",
           )
         : ts.factory.createObjectLiteralExpression(/* properties */ undefined, /* multiline */ false);
 
     return ts.factory.createPropertyAssignment(
-        /* name */ command.name,
+        /* name */ command.getName(context.nameTransform),
         ts.factory.createCallExpression(
             /* expression */ ts.factory.createPropertyAccessExpression(
                 /* expression */ ts.factory.createIdentifier("cqrsClient"),

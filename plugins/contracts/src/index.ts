@@ -3,7 +3,11 @@ import {
     GeneratorPluginInstance,
     GeneratorSessionContext,
 } from "@leancodepl/contractsgenerator-typescript-plugin";
+import { leancode } from "@leancodepl/contractsgenerator-typescript-schema";
+import { createCustomTypeMapper, defaultTypesMap, TypesMap } from "@leancodepl/contractsgenerator-typescript-types";
+import { transform } from "lodash";
 import ts from "typescript";
+import { ContractsGeneratorPluginConfiguration, CustomTypesMap } from "./configuration";
 import { contractsGeneratorPluginConfigurationSchema } from "./configuration.validator";
 import { ContractsContext } from "./contractsContext";
 import { generateNamespaces } from "./generators/generateNamespace";
@@ -35,6 +39,8 @@ class ContractsGeneratorPlugin implements GeneratorPluginInstance {
 
         const context: ContractsContext = {
             currentNamespace: [],
+            nameTransform: this.configuration.nameTransform ?? (id => id),
+            typesMap: getTypesMap(this.configuration.customTypes),
             printNode,
             configuration: this.configuration,
         };
@@ -49,6 +55,19 @@ class ContractsGeneratorPlugin implements GeneratorPluginInstance {
 
         return printNode(sourceFile);
     }
+}
+
+function getTypesMap(customTypes: ContractsGeneratorPluginConfiguration["customTypes"]): TypesMap {
+    if (!customTypes) return defaultTypesMap;
+
+    return transform(
+        customTypes,
+        (typesMap, value, key) => {
+            const knownType = leancode.contracts.KnownType[key as keyof CustomTypesMap];
+            typesMap[knownType] = createCustomTypeMapper(value);
+        },
+        defaultTypesMap,
+    );
 }
 
 const contractsGeneratorPlugin: GeneratorPlugin = {

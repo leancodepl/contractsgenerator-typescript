@@ -18,7 +18,7 @@ export function generateInterface(schemaInterface: SchemaInterface, context: Con
 
     const interfaceStatement = ts.factory.createInterfaceDeclaration(
         /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-        /* name */ schemaInterface.name,
+        /* name */ schemaInterface.getName(context.nameTransform),
         /* typeParameters */ typeParameters,
         /* heritageClauses */ extendTypes.length > 0
             ? [ts.factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, extendTypes)]
@@ -35,7 +35,7 @@ export function generateInterface(schemaInterface: SchemaInterface, context: Con
             : undefined;
 
     const constStatement = generateConsts(schemaInterface, context);
-    const errorCodesStatement = isSchemaCommand(schemaInterface) ? generateErrorCodes(schemaInterface) : [];
+    const errorCodesStatement = isSchemaCommand(schemaInterface) ? generateErrorCodes(schemaInterface, context) : [];
 
     return [withJsDoc(interfaceStatement, jsDoc, context), ...constStatement, ...errorCodesStatement];
 }

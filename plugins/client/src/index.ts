@@ -3,17 +3,20 @@ import {
     GeneratorPluginInstance,
     GeneratorSessionContext,
 } from "@leancodepl/contractsgenerator-typescript-plugin";
-import { isSchemaInterface } from "@leancodepl/contractsgenerator-typescript-schema";
+import { isSchemaInterface, leancode } from "@leancodepl/contractsgenerator-typescript-schema";
+import { createCustomTypeMapper, defaultTypesMap, TypesMap } from "@leancodepl/contractsgenerator-typescript-types";
+import { transform } from "lodash";
 import ts from "typescript";
 import { ClientContext } from "./clientContext";
-import { contractsGeneratorPluginConfigurationSchema } from "./configuration.validator";
+import { ClientGeneratorPluginConfiguration, CustomTypesMap } from "./configuration";
+import { clientGeneratorPluginConfigurationSchema } from "./configuration.validator";
 import { generateClient } from "./generators/generateClient";
 
 class ClientGeneratorPlugin implements GeneratorPluginInstance {
     configuration;
 
     constructor(unsafeConfig: unknown, private context: GeneratorSessionContext) {
-        this.configuration = contractsGeneratorPluginConfigurationSchema.parse(unsafeConfig);
+        this.configuration = clientGeneratorPluginConfigurationSchema.parse(unsafeConfig);
     }
 
     async generate(): Promise<string> {
@@ -36,6 +39,8 @@ class ClientGeneratorPlugin implements GeneratorPluginInstance {
 
         const context: ClientContext = {
             currentNamespace: [],
+            nameTransform: this.configuration.nameTransform ?? (id => id),
+            typesMap: getTypesMap(this.configuration.customTypes),
             printNode,
             configuration: this.configuration,
         };
@@ -50,6 +55,19 @@ class ClientGeneratorPlugin implements GeneratorPluginInstance {
 
         return printNode(sourceFile);
     }
+}
+
+function getTypesMap(customTypes: ClientGeneratorPluginConfiguration["customTypes"]): TypesMap {
+    if (!customTypes) return defaultTypesMap;
+
+    return transform(
+        customTypes,
+        (typesMap, value, key) => {
+            const knownType = leancode.contracts.KnownType[key as keyof CustomTypesMap];
+            typesMap[knownType] = createCustomTypeMapper(value);
+        },
+        defaultTypesMap,
+    );
 }
 
 const clientGeneratorPlugin: GeneratorPlugin = {

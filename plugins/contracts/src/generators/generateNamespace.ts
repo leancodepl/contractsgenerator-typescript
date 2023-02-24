@@ -12,7 +12,7 @@ import { generateEnum } from "./generateEnum";
 import { generateInterface } from "./generateInterface";
 
 export function generateNamespaces(schemaEntities: SchemaEntity[], context: ContractsContext) {
-    const generatorNamespaces = extractNamespaces(schemaEntities);
+    const generatorNamespaces = extractNamespaces(schemaEntities, 0, undefined, context);
 
     return generateNamespace(generatorNamespaces, context);
 }
@@ -60,9 +60,14 @@ type GeneratorNamespace = {
 
 const rootNamespace = "0 root namespace 0";
 
-function extractNamespaces(schemaEntity: SchemaEntity[], depth = 0, name?: string): GeneratorNamespace {
-    const { [rootNamespace]: rootNamespaceEntities, ...namespaces } = groupBy(schemaEntity, schemaInterface => {
-        const parts = schemaInterface.fullName.split(".").slice(0, -1);
+function extractNamespaces(
+    schemaEntities: SchemaEntity[],
+    depth = 0,
+    name: string | undefined = undefined,
+    context: ContractsContext,
+): GeneratorNamespace {
+    const { [rootNamespace]: rootNamespaceEntities, ...namespaces } = groupBy(schemaEntities, schemaEntity => {
+        const parts = schemaEntity.getFullName(context.nameTransform).split(".").slice(0, -1);
 
         return parts[depth] ?? rootNamespace;
     });
@@ -72,7 +77,7 @@ function extractNamespaces(schemaEntity: SchemaEntity[], depth = 0, name?: strin
         interfaces: rootNamespaceEntities?.filter(isSchemaInterface) ?? [],
         enums: rootNamespaceEntities?.filter(isSchemaEnum) ?? [],
         namespaces: toPairs(namespaces).map(([name, schemaInterfaces]) =>
-            extractNamespaces(schemaInterfaces, depth + 1, name),
+            extractNamespaces(schemaInterfaces, depth + 1, name, context),
         ),
     };
 }

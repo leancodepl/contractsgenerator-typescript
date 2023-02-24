@@ -5,7 +5,8 @@ import { generateType } from "./generateType";
 import { extractMinimalReferenceTypeName } from "./utils/extractMinimalReferenceTypeName";
 
 export function generateInternalType(internalType: SchemaInternalType, context: GenerateContext) {
-    const name = extractMinimalReferenceTypeName(internalType.id, context.currentNamespace);
+    const transformedName = context.nameTransform(internalType.id);
+    const name = extractMinimalReferenceTypeName(transformedName, context.currentNamespace);
 
     return ts.factory.createTypeReferenceNode(
         name,
