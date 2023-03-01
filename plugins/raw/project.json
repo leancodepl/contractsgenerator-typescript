@@ -1,0 +1,42 @@
+{
+  "name": "raw",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "plugins/raw/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/plugins/raw",
+        "tsConfig": "plugins/raw/tsconfig.lib.json",
+        "packageJson": "plugins/raw/package.json",
+        "main": "plugins/raw/src/index.ts",
+        "assets": ["plugins/raw/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["plugins/raw/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "plugins/raw/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "validator": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "plugins/raw",
+        "command": "ts-to-zod src/configuration.ts src/configuration.validator.ts"
+      }
+    }
+  },
+  "tags": []
+}

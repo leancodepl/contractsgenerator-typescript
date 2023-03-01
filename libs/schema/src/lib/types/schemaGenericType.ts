@@ -7,7 +7,6 @@ export class SchemaGenericType implements SchemaType {
 
     name;
     isNullable;
-    isAttribute = false;
 
     constructor({ generic, isNullable }: { generic: leancode.contracts.TypeRef.IGeneric; isNullable?: boolean }) {
         this.name = ensureNotEmpty(generic.name);

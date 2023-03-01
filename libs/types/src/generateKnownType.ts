@@ -5,7 +5,11 @@ export function generateKnownType(knownType: SchemaKnownType, context: GenerateC
     const typeGenerator = context.typesMap[knownType.type];
     const outputType = typeGenerator({ typeArguments: knownType.typeArguments, context });
 
-    if (!outputType) throw new Error("Type not supported");
+    if (!outputType) {
+        console.error(knownType, context.typesMap);
+
+        throw new Error("Type not supported");
+    }
 
     return outputType;
 }

@@ -10,11 +10,6 @@ export class SchemaInternalType implements SchemaType {
     isNullable;
     typeArguments;
 
-    get isAttribute(): boolean {
-        // TODO: implement
-        throw new Error("Method not implemented");
-    }
-
     constructor({ internal, isNullable }: { internal: leancode.contracts.TypeRef.IInternal; isNullable?: boolean }) {
         this.id = ensureNotEmpty(internal.name);
         this.typeArguments = internal.arguments?.map(argument => createType({ type: argument })) ?? [];

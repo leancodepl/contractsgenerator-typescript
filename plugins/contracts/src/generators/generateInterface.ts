@@ -10,6 +10,8 @@ import { generateErrorCodes } from "./generateErrorCodes";
 import { generateProperty } from "./generateProperty";
 
 export function generateInterface(schemaInterface: SchemaInterface, context: ContractsContext) {
+    if (schemaInterface.getIsAttribute(context.schemaEntities)) return [];
+
     const typeParameters = schemaInterface.genericParameters.map(p =>
         ts.factory.createTypeParameterDeclaration(/* modifiers */ undefined, p),
     );

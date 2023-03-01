@@ -1,7 +1,7 @@
 export interface GeneratorPluginInstance {
-    beforeAll?: () => Promise<string>;
-    before?: () => Promise<string>;
-    generate(): Promise<string>;
-    after?: () => Promise<string>;
-    afterAll?: () => Promise<string>;
+    beforeAll?: () => Promise<string | undefined>;
+    before?: () => Promise<string | undefined>;
+    generate?: () => Promise<string | undefined>;
+    after?: () => Promise<string | undefined>;
+    afterAll?: () => Promise<string | undefined>;
 }

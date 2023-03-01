@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "npmScope": "@leancodepl/contractsgenerator-typescript",
+  "plugins": ["@nx-dotnet/core"],
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx/tasks-runners/default",
@@ -36,5 +37,15 @@
     "appsDir": "packages",
     "libsDir": "libs"
   },
-  "defaultProject": "generator"
+  "defaultProject": "generator",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      },
+      "library": {
+        "unitTestRunner": "vitest"
+      }
+    }
+  }
 }

@@ -29,6 +29,13 @@
         "jestConfig": "plugins/admin/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "validator": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "plugins/admin",
+        "command": "ts-to-zod src/configuration.ts src/configuration.validator.ts"
+      }
     }
   },
   "tags": []

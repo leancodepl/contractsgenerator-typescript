@@ -41,6 +41,7 @@ class ContractsGeneratorPlugin implements GeneratorPluginInstance {
             currentNamespace: [],
             nameTransform: this.configuration.nameTransform ?? (id => id),
             typesMap: getTypesMap(this.configuration.customTypes),
+            schemaEntities: schema.entities,
             printNode,
             configuration: this.configuration,
         };

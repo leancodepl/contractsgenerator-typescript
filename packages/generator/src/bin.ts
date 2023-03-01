@@ -4,6 +4,7 @@ import yaml from "yaml";
 import { hideBin } from "yargs/helpers";
 import yargs from "yargs/yargs";
 import { generate } from "./generate";
+import { saveOutputs } from "./saveOutputs";
 
 function loadYaml(filepath: string, content: string) {
     return yaml.parse(content);
@@ -30,4 +31,4 @@ const config = (
     argv.config ? lilconfigSync(moduleName, options).load(argv.config) : lilconfigSync(moduleName, options).search()
 )?.config;
 
-generate(config);
+generate(config).then(saveOutputs);

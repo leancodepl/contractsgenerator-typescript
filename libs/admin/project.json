@@ -1,0 +1,49 @@
+{
+  "name": "admin-backend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/admin",
+  "targets": {
+    "build": {
+      "executor": "@nx-dotnet/core:build",
+      "dependsOn": ["contract"],
+      "outputs": ["{workspaceRoot}/dist/libs/admin", "{workspaceRoot}/dist/intermediates/libs/admin"],
+      "options": {
+        "configuration": "Debug",
+        "noDependencies": true
+      },
+      "configurations": {
+        "production": {
+          "configuration": "Release"
+        }
+      }
+    },
+    "publish": {
+      "executor": "@nx-dotnet/core:publish",
+      "outputs": ["{workspaceRoot}/dist/libs/admin", "{workspaceRoot}/dist/intermediates/libs/admin"],
+      "options": {
+        "configuration": "Debug",
+        "noDependencies": true
+      },
+      "configurations": {
+        "production": {
+          "configuration": "Release"
+        }
+      }
+    },
+    "contract": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/admin",
+        "commands": [
+          "SERVER_VERSION=2.0.0-alpha.4 node ../../tools/scripts/generate.mjs project --project=LeanCode.Contracts.Admin.csproj -o LeanCode.Contracts.pb"
+        ],
+        "parallel": false
+      }
+    },
+    "lint": {
+      "executor": "@nx-dotnet/core:format"
+    }
+  },
+  "tags": []
+}
