@@ -1,7 +1,7 @@
 import { leancode } from "@leancodepl/contractsgenerator-typescript-schema";
 
 export interface BaseApiComponent {
-    type: string;
+    readonly type: string;
 }
 
 export type FilterableKnownType =
@@ -39,40 +39,45 @@ export type FilterableRangeKnownType =
     | leancode.contracts.KnownType.DateTimeOffset;
 
 export interface AdminTableConfig {
-    query: string;
-    columns: AdminTableColumn[];
+    readonly query: string;
+    readonly columns: ReadonlyArray<AdminTableColumn>;
 }
 
 export interface AdminTableApiComponent extends BaseApiComponent {
-    type: "table";
-    table: AdminTableConfig;
+    readonly type: "table";
+    readonly table: AdminTableConfig;
 }
 
+export type AdminFilterConfig =
+    | {
+          readonly variant: "single";
+          readonly field: string;
+          readonly type: FilterableKnownType;
+      }
+    | {
+          readonly variant: "range";
+          readonly field: string;
+          readonly type: FilterableRangeKnownType;
+      }
+    | {
+          readonly variant: "enum";
+          readonly field: string;
+          readonly enum: string;
+      };
+
 export type AdminTableColumn = {
-    id: string;
-    title: string;
-    sortable: boolean;
-    type: leancode.contracts.KnownType | string;
-    filter?:
-        | {
-              variant: "single";
-              type: FilterableKnownType;
-          }
-        | {
-              variant: "range";
-              type: FilterableRangeKnownType;
-          }
-        | {
-              variant: "enum";
-              enum: string;
-          };
+    readonly id: string;
+    readonly title: string;
+    readonly sortable: boolean;
+    readonly type: leancode.contracts.KnownType | string;
+    readonly filter?: AdminFilterConfig;
 };
 
 export type ApiComponent = AdminTableApiComponent;
 
-export type EnumsMap = Record<string, [number | string, string][]>;
+export type EnumsMap = Readonly<Record<string, ReadonlyArray<readonly [number, string]>>>;
 
 export type AdminComponentsConfig = {
-    components: ApiComponent[];
-    enumMaps: EnumsMap;
+    readonly components: ReadonlyArray<ApiComponent>;
+    readonly enumsMaps: EnumsMap;
 };

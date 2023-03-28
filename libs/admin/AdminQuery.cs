@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LeanCode.Contracts.Admin;
 
-public class AdminQuery<TResult> : IQuery<AdminQueryResult<TResult>>
+public abstract class AdminQuery<TResult> : IQuery<AdminQueryResult<TResult>>
 {
     public int Page { get; set; }
     public int PageSize { get; set; }
@@ -22,6 +22,12 @@ public class AdminQueryResult<TResult>
 {
     public long Total { get; set; }
     public List<TResult> Items { get; set; }
+}
+
+public class AdminFilterRange<T>
+{
+    public T? From { get; set; }
+    public T? To { get; set; }
 }
 
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]

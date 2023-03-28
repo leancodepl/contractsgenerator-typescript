@@ -1,44 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/rules-of-hooks */
-import {
+import type {
     AdminComponentsConfig,
     AdminTableColumn,
     AdminTableConfig,
-    ApiComponent,
     EnumsMap,
 } from "@leancodepl/contractsgenerator-typescript-plugin-admin";
-import { Table as AntTable, TableProps as AntTableProps, TableColumnType } from "antd";
-import { ColumnType, FilterValue } from "antd/lib/table/interface";
-import { ReactNode, useMemo, useState } from "react";
-import { AdminQuery } from "../../types/admin";
-import { defaultFormatters } from "./formatters/defaultFormatters";
+import { assertNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
+import { Table as AntTable, TableProps as AntTableProps, TableColumnType, TableProps } from "antd";
+import { ReactNode, useCallback, useMemo, useState } from "react";
+import mkCqrsClient, { CqrsClientConfig } from "../../services/mkReactQueryClient";
+import { AdminQuery, AdminQueryResult } from "../../types/admin";
+import { GetAllQueries, GetAllTables, GetTableByQuery, GetQuery } from "../../types/components";
+import { mkColumnRender } from "./filters/mkColumnRender";
+import { FilterConfig, mkFilterConfig } from "./filters/mkFilterConfig";
 import { useApiTablePagination } from "./hooks/useApiTablePagination";
 import { useApiTableSorting } from "./hooks/useApiTableSorting";
 
-// type ApiTableFactoryProps = {
-//     api: PoorMansAPI;
-//     tableConfigs: AdminTableApiComponent[];
-//     tableRuntimeConfig?: ExcludeUndefined<CreateApiComponentsParams<never>["runtimeConfig"]>["table"];
-// };
+const __createQueryType: ReturnType<typeof mkCqrsClient>["createQuery"] = null as any;
+type CreateQueryResult = ReturnType<typeof __createQueryType<AdminQuery<any>, AdminQueryResult<any>>>;
 
-type CustomFilters = Pick<TableColumnType<unknown>, "filters" | "filterDropdown" | "filterMultiple"> & {
-    onChange?: (value: FilterValue | null) => void;
-};
-
-// type ApiTableProps<T extends { id: string }> = {
-//     tableProps?: AntTableProps<T>;
-//     requestParams: Record<string, unknown>;
-//     [P: `${string}Render`]: (value: unknown, record: T) => ReactNode;
-//     [P: `${string}Filters`]: CustomFilters;
-// };
-
-// type QueryConfig<TQuery extends AdminQuery<any>, TResult extends AdminQueryResult<any>> = [TQuery, TResult];
-//     Omit<TQuery, keyof AdminQuery<any>>,
-//     TResult extends AdminQueryResult<infer TBoxedResult> ? TBoxedResult : never,
-// ];
+type PoorsManApiClient = Record<string, CreateQueryResult>;
 
 function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends AdminQuery<any>>(
     { query, columns }: TAdminTable,
+    apiClient: PoorsManApiClient,
     enumsMap: EnumsMap,
 ) {
     type TQueryParams = Omit<TQueryConfig, keyof AdminQuery<any>>;
@@ -58,123 +44,125 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
     type ColumnProps<TColumn> = TColumn extends AdminTableColumn
         ? {
               [TKey in `${TColumn["id"]}Render`]?: (value: unknown, record: TQueryResponse) => ReactNode;
+          } & {
+              [TKey in `${TColumn["id"]}Filter`]?: TColumn["filter"] extends undefined
+                  ? never
+                  : FilterConfig<TQueryResponse>;
           }
         : never;
 
-    type ApiTableProps = AntTableProps<unknown> & TQueryParamsProps & ColumnsProps;
+    type ApiTableProps = Omit<
+        AntTableProps<unknown>,
+        "columns" | "dataSource" | "loading" | "pagination" | "onChange"
+    > &
+        TQueryParamsProps &
+        ColumnsProps;
 
-    function ApiTable({ requestParams, ...renderersAndCustomFilters }: ApiTableProps) {
+    const columnsDefaults = columns.reduce(
+        (defaults, column) => ({
+            ...defaults,
+            [column.id]: {
+                render: mkColumnRender(column, enumsMap),
+                filter: column.filter ? mkFilterConfig(column.filter, enumsMap) : undefined,
+            },
+        }),
+        {} as Record<
+            string,
+            {
+                render: (value: any, record: any) => ReactNode;
+                filter?: FilterConfig<TQueryResponse>;
+            }
+        >,
+    );
+
+    const useQuery = apiClient[query];
+
+    function ApiTable({ requestParams, ...props }: ApiTableProps) {
         const { getPaginationConfig, paginationQueryParams, useSetTotal } = useApiTablePagination<TQueryResponse>();
 
         const { sortData, sortQueryParams } = useApiTableSorting<TQueryResponse>();
 
         const [filtersQueryParams, setFiltersQueryParams] = useState<Record<string, unknown>>({});
 
-        const { data, isLoading } = api[`use${tableConfig.table.query}`]({
-            ...sortQueryParams,
-            ...filtersQueryParams,
-            ...paginationQueryParams,
-            ...requestParams,
-        });
+        const { data, isLoading } = useQuery(
+            {
+                ...requestParams,
+                ...sortQueryParams,
+                ...filtersQueryParams,
+                ...paginationQueryParams,
+            } as any,
+            {
+                keepPreviousData: true,
+            },
+        );
 
-        useSetTotal(data?.total);
+        useSetTotal(data?.Total);
 
         const paginationConfig = useMemo(() => getPaginationConfig(data), [data, getPaginationConfig]);
 
-        const sourceData = useMemo(() => {
-            if (tableConfig.table.pagination) {
-                return data?.[tableConfig.table.pagination.responseFields.data];
-            }
-
-            return data;
-        }, [data]);
-
         const columns2 = useMemo(
             () =>
-                columns.map<ColumnType<any>>(column => {
+                columns.map<TableColumnType<any>>(column => {
                     // Sorting
                     const sortOrder = sortData.sortData?.columnKey === column.id ? sortData.sortData.order : undefined;
 
-                    // // Filters
-                    // const customFilters = omit(
-                    //     renderersAndCustomFilters[
-                    //         `${column.dataIndex}Filters` as keyof typeof renderersAndCustomFilters
-                    //     ] as CustomFilters,
-                    //     ["onChange"],
-                    // );
-
-                    // const filtersConfig = isEmpty(customFilters) ? mkFiltersConfig(tableConfig, column) : undefined;
-
-                    // const filtersColumnConfig = filtersConfig?.columnConfig ?? customFilters;
-
-                    const render: (value: any, record: any) => ReactNode = (() => {
-                        const customRenderer = renderersAndCustomFilters[`${column.id}Render`];
-
-                        if (customRenderer) return customRenderer;
-
-                        if (typeof column.type === "string") {
-                            const enumMap = enumsMap[column.type];
-
-                            return value => enumMap.find(([key]) => key === value)?.[1];
-                        }
-
-                        return defaultFormatters[column.type];
-                    })();
+                    const filter = props[`${column.id}Filter`] ?? columnsDefaults[column.id].filter;
+                    const render = props[`${column.id}Render`] ?? columnsDefaults[column.id].render;
 
                     return {
                         key: column.id,
-                        title: column.title,
                         dataIndex: column.id,
+                        title: column.title,
+                        render,
                         sorter: column.sortable,
                         sortOrder,
-                        render,
+                        filters: filter?.filters,
+                        filterDropdown: filter?.filterDropdown,
+                        filterMultiple: filter?.filterMultiple,
                     };
                 }),
-            [renderersAndCustomFilters, sortData?.sortData?.columnKey, sortData?.sortData?.order],
+            [props, sortData?.sortData?.columnKey, sortData?.sortData?.order],
         );
 
-        // const onChange = useCallback<Exclude<TableProps<T>["onChange"], undefined>>(
-        //     (_pagination, filters, sorter) => {
-        //         // Sort
-        //         sortData?.onSortDataChange(Array.isArray(sorter) ? sorter[0] : sorter);
+        const onChange = useCallback<Exclude<TableProps<TQueryResponse>["onChange"], undefined>>(
+            (_pagination, filters, sorter) => {
+                // Sort
+                sortData?.onSortDataChange(Array.isArray(sorter) ? sorter[0] : sorter);
 
-        //         // Filters
-        //         // Column key can be an enum value if the column is sortable so it needs to be mapped back to the data index
-        //         const sortFieldColumnEnumMap =
-        //             tableConfig.table.enumMaps[tableConfig.table.sort?.fieldToEnumMap as string];
+                const filtersQueryParams: Record<string, any> = {};
 
-        //         callCustomFiltersEventHandlers({
-        //             customFilters: renderersAndCustomFilters,
-        //             filters,
-        //             sortFieldColumnEnumMap,
-        //         });
+                // Filters
+                Object.entries(filters).forEach(([columnKey, value]) => {
+                    const filterField = columns.find(column => column.id === columnKey)?.filter?.field;
 
-        //         const filtersQueryParams = formatFiltersRequestParams({
-        //             filters,
-        //             customFilters: renderersAndCustomFilters,
-        //             sortFieldColumnEnumMap,
-        //             tableRuntimeConfig,
-        //             tableConfig,
-        //         });
+                    if (!filterField) return;
 
-        //         setFiltersQueryParams(filtersQueryParams);
-        //     },
-        //     [renderersAndCustomFilters, sortData],
-        // );
+                    assertNotEmpty(filterField);
+
+                    const filter = props[`${columnKey}Filter`] ?? columnsDefaults[columnKey].filter;
+
+                    filter?.onChange?.(value);
+                    filtersQueryParams[filterField] = filter?.formatForRequest ? filter.formatForRequest(value) : value;
+                });
+
+                setFiltersQueryParams(filtersQueryParams);
+            },
+            [props, sortData],
+        );
 
         return (
             <AntTable
+                {...(props as any)}
                 columns={columns2}
-                dataSource={sourceData}
+                dataSource={data?.Items}
                 loading={isLoading}
                 pagination={paginationConfig}
-                // onChange={onChange}
-                // {...tableProps}
+                onChange={onChange}
             />
         );
     }
 
-    ApiTable.name = `${query}ApiTable`;
+    ApiTable.displayName = `${query}ApiTable`;
 
     return ApiTable;
 }
@@ -182,69 +170,26 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
 export function mkApiTables<
     TAdminComponentsConfig extends AdminComponentsConfig,
     TContracts extends Record<GetAllQueries<GetAllTables<TAdminComponentsConfig>>, AdminQuery<any>>,
->({
-    components,
-    enumMaps,
-}: TAdminComponentsConfig): {
+>(
+    { components, enumsMaps }: TAdminComponentsConfig,
+    { cqrsClientConfig, cqrs }: { cqrsClientConfig: CqrsClientConfig; cqrs: any },
+): {
     [TQuery in GetAllQueries<GetAllTables<TAdminComponentsConfig>> as `${TQuery}ApiTable`]: ReturnType<
         typeof mkApiTable<GetTableByQuery<GetAllTables<TAdminComponentsConfig>, TQuery>, GetQuery<TContracts, TQuery>>
     >;
 } {
     const apiTables = {} as any;
 
+    const cqrsClient = mkCqrsClient(cqrsClientConfig);
+    const apiClient = cqrs(cqrsClient);
+
     components.forEach(adminTableApiComponent => {
-        apiTables[`${adminTableApiComponent.table.query}ApiTable`] = mkApiTable(adminTableApiComponent.table, enumMaps);
+        apiTables[`${adminTableApiComponent.table.query}ApiTable`] = mkApiTable(
+            adminTableApiComponent.table,
+            apiClient,
+            enumsMaps,
+        );
     });
 
     return apiTables;
 }
-
-type Narrow<T, TNarrow> = T extends TNarrow ? T : never;
-
-type GetAllTables<TAdminComponentsConfig extends AdminComponentsConfig> = GetAllTables2<
-    TAdminComponentsConfig["components"]
->;
-type GetAllTables2<TAdminApiComponents extends ApiComponent[]> = Narrow<
-    {
-        [TKey in keyof TAdminApiComponents]: TAdminApiComponents[TKey]["type"] extends "table"
-            ? TAdminApiComponents[TKey]["table"]
-            : never;
-    },
-    AdminTableConfig[]
->;
-
-type GetAllQueries<TTables extends AdminTableConfig[]> = { [TKey in keyof TTables]: TTables[TKey]["query"] }[number];
-
-type GetTableByQuery<TTables extends AdminTableConfig[], TQuery> = {
-    [TKey in keyof TTables]: TTables[TKey]["query"] extends TQuery ? Narrow<TTables[TKey], AdminTableConfig> : never;
-}[number];
-
-type GetQuery<TContracts, TQuery extends string> = TContracts extends Record<TQuery, infer TQueryData>
-    ? Narrow<TQueryData, AdminQuery<any>>
-    : never;
-
-// const { UsersApiTable } = mkApiTables<
-//     {
-//         // eslint-disable-next-line @typescript-eslint/ban-types
-//         enumMaps: {};
-//         components: [
-//             {
-//                 type: "table";
-//                 table: {
-//                     query: "Users";
-//                     columns: [
-//                         {
-//                             id: "abc";
-//                             title: "abc";
-//                             sortable: false;
-//                             type: leancode.contracts.KnownType.String;
-//                         },
-//                     ];
-//                 };
-//             },
-//         ];
-//     },
-//     {
-//         Users: Abc;
-//     }
-// >();

@@ -2,7 +2,55 @@
 
 exports[`kontomierz generates admin 1`] = `
 Object {
-  "test.ts": "{\\"components\\":[{\\"type\\":\\"table\\",\\"table\\":{\\"query\\":\\"MyWallets\\",\\"columns\\":[{\\"id\\":\\"Name\\",\\"title\\":\\"Nazwa\\",\\"sortable\\":false,\\"type\\":1},{\\"id\\":\\"DateCreated\\",\\"title\\":\\"Data stworzenia\\",\\"sortable\\":false,\\"type\\":202}]}}],\\"enumMaps\\":{}}",
+  "test.ts": "const schema = {
+    \\"components\\": [
+        {
+            \\"type\\": \\"table\\",
+            \\"table\\": {
+                \\"query\\": \\"MyWallets\\",
+                \\"columns\\": [
+                    {
+                        \\"id\\": \\"Name\\",
+                        \\"title\\": \\"Nazwa\\",
+                        \\"sortable\\": false,
+                        \\"type\\": 1,
+                        \\"filter\\": {
+                            \\"variant\\": \\"range\\",
+                            \\"field\\": \\"NameFilter\\",
+                            \\"type\\": 1
+                        }
+                    },
+                    {
+                        \\"id\\": \\"DateCreated\\",
+                        \\"title\\": \\"Data stworzenia\\",
+                        \\"sortable\\": false,
+                        \\"type\\": 202
+                    },
+                    {
+                        \\"id\\": \\"MigrationStatus\\",
+                        \\"title\\": \\"Przykładowy enum\\",
+                        \\"sortable\\": false,
+                        \\"type\\": \\"Kontomierz.Finances.Contracts.Migrations.MigrationStatusDTO\\"
+                    }
+                ]
+            }
+        }
+    ],
+    \\"enumsMaps\\": {
+        \\"Kontomierz.Finances.Contracts.Migrations.MigrationStatusDTO\\": [
+            [
+                0,
+                \\"NotStarted\\"
+            ],
+            [
+                1,
+                \\"InProgress\\"
+            ]
+        ]
+    }
+} as const;
+
+export default schema;",
 }
 `;
 
@@ -1372,6 +1420,10 @@ Object {
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  */
                 export interface MyWallets extends LeanCode.Contracts.Admin.AdminQuery<WalletDTO> {
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+                     */
+                    NameFilter: LeanCode.Contracts.Admin.AdminFilterRange<string>;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -1407,6 +1459,10 @@ Object {
                      * @attribute LeanCode.Contracts.Admin.AdminColumn
                      */
                     DateCreated: ApiDateTimeOffset;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     */
+                    MigrationStatus: Migrations.MigrationStatusDTO;
                 }
             }
             export namespace WealthItems {
@@ -1626,6 +1682,10 @@ Object {
 export namespace LeanCode {
     export namespace Contracts {
         export namespace Admin {
+            export interface AdminFilterRange<T> {
+                From?: T;
+                To?: T;
+            }
             export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
                 Page: number;
                 PageSize: number;
@@ -2785,6 +2845,10 @@ Object {
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  */
                 export interface MyWallets extends LeanCode.Contracts.Admin.AdminQuery<WalletDTO> {
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+                     */
+                    NameFilter: LeanCode.Contracts.Admin.AdminFilterRange<string>;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -2820,6 +2884,10 @@ Object {
                      * @attribute LeanCode.Contracts.Admin.AdminColumn
                      */
                     DateCreated: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     */
+                    MigrationStatus: Migrations.MigrationStatusDTO;
                 }
             }
             export namespace WealthItems {
@@ -3039,6 +3107,10 @@ Object {
 export namespace LeanCode {
     export namespace Contracts {
         export namespace Admin {
+            export interface AdminFilterRange<T> {
+                From?: T;
+                To?: T;
+            }
             export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
                 Page: number;
                 PageSize: number;
@@ -4068,6 +4140,10 @@ export namespace EditWalletBalance {
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  */
 export interface MyWallets extends AdminQuery<WalletDTO> {
+    /**
+     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+     */
+    NameFilter: AdminFilterRange<string>;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -4103,6 +4179,10 @@ export interface WalletDTO {
      * @attribute LeanCode.Contracts.Admin.AdminColumn
      */
     DateCreated: ApiDateTimeOffset;
+    /**
+     * @attribute LeanCode.Contracts.Admin.AdminColumn
+     */
+    MigrationStatus: MigrationStatusDTO;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -4289,6 +4369,10 @@ export interface PaginatedResult<TResult> {
 export interface SortedQuery<TResult, TSort> extends PaginatedQuery<TResult> {
     SortBy: TSort;
     SortByDescending: boolean;
+}
+export interface AdminFilterRange<T> {
+    From?: T;
+    To?: T;
 }
 export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
     Page: number;

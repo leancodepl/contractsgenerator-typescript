@@ -21,7 +21,7 @@ export function useApiTablePagination<T>() {
     );
 
     const getPaginationConfig = useCallback(
-        (data: AdminQueryResult<T>) => ({
+        (data: AdminQueryResult<T> | undefined) => ({
             ...defaultPaginationConfig,
             onChange: (page: number, pageSize: number) => {
                 paginationHandler.onPageChange(page);

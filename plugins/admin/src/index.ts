@@ -5,6 +5,7 @@ import {
 } from "@leancodepl/contractsgenerator-typescript-plugin";
 import { adminGeneratorPluginConfigurationSchema } from "./configuration.validator";
 import { generateAdmin } from "./lib/generateAdmin";
+import { printConfig } from "./lib/printConfig";
 
 class AdminGeneratorPlugin implements GeneratorPluginInstance {
     configuration;
@@ -18,9 +19,7 @@ class AdminGeneratorPlugin implements GeneratorPluginInstance {
 
         const admin = generateAdmin(schema);
 
-        console.dir(admin, { depth: 10 });
-
-        return JSON.stringify(admin);
+        return printConfig(admin);
     }
 }
 

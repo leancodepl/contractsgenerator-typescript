@@ -1,1 +1,1 @@
-export * from "./lib/api-admin";
+export * from "./lib/createApiComponents";

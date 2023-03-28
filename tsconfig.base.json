@@ -17,7 +17,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@leancodepl/admin": ["libs/api-admin/src/index.ts"],
+      "@leancodepl/admin": ["packages/api-admin/src/index.ts"],
       "@leancodepl/contractsgenerator-typescript": ["packages/generator/src/index.ts"],
       "@leancodepl/contractsgenerator-typescript-contracts": ["plugins/contracts/src/index.ts"],
       "@leancodepl/contractsgenerator-typescript-plugin": ["libs/plugin/src/index.ts"],

@@ -1,22 +1,22 @@
-import { leancode } from "@leancodepl/contractsgenerator-typescript-schema";
+import { KnownType } from "../../../types/knownType";
 
 export const otherTypeFormatters = {
-    [leancode.contracts.KnownType.Uri]: (value: string) => (
+    [KnownType.Uri]: (value: string) => (
         <a href={value} rel="noopener noreferrer">
             {value}
         </a>
     ),
-    [leancode.contracts.KnownType.Object]: (value: unknown) => JSON.stringify(value),
-    [leancode.contracts.KnownType.Guid]: (value: string) => value,
-    [leancode.contracts.KnownType.Array]: (value: unknown[]) => value.join(", "),
-    [leancode.contracts.KnownType.Map]: (_: unknown) => "Unknown",
-    [leancode.contracts.KnownType.Query]: (_: unknown) => "Unknown",
-    [leancode.contracts.KnownType.Command]: (_: unknown) => "Unknown",
-    [leancode.contracts.KnownType.CommandResult]: (_: unknown) => "Unknown",
-    [leancode.contracts.KnownType.Operation]: (_: unknown) => "Unknown",
-    [leancode.contracts.KnownType.Binary]: (_: unknown) => "Unknown",
-    [leancode.contracts.KnownType.Attribute]: (_: unknown) => "Unknown",
-    [leancode.contracts.KnownType.AuthorizeWhenAttribute]: (_: unknown) => "Unknown",
-    [leancode.contracts.KnownType.AuthorizeWhenHasAnyOfAttribute]: (_: unknown) => "Unknown",
-    [leancode.contracts.KnownType.QueryCacheAttribute]: (_: unknown) => "Unknown",
+    [KnownType.Object]: (value: unknown) => JSON.stringify(value),
+    [KnownType.Guid]: (value: string) => value,
+    [KnownType.Array]: (value: unknown[]) => value.join(", "),
+    [KnownType.Map]: (_: unknown) => "Unknown",
+    [KnownType.Query]: (_: unknown) => "Unknown",
+    [KnownType.Command]: (_: unknown) => "Unknown",
+    [KnownType.CommandResult]: (_: unknown) => "Unknown",
+    [KnownType.Operation]: (_: unknown) => "Unknown",
+    [KnownType.Binary]: (_: unknown) => "Unknown",
+    [KnownType.Attribute]: (_: unknown) => "Unknown",
+    [KnownType.AuthorizeWhenAttribute]: (_: unknown) => "Unknown",
+    [KnownType.AuthorizeWhenHasAnyOfAttribute]: (_: unknown) => "Unknown",
+    [KnownType.QueryCacheAttribute]: (_: unknown) => "Unknown",
 } as const;

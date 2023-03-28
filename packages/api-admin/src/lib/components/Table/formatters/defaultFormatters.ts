@@ -1,4 +1,4 @@
-import { leancode } from "@leancodepl/contractsgenerator-typescript-schema";
+import { leancode } from "@leancodepl/contractsgenerator-typescript-schema/schema";
 import { ReactNode } from "react";
 import { dateFormatters } from "./dateFormatter";
 import { otherTypeFormatters } from "./otherTypeFormatter";

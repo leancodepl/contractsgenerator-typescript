@@ -1,7 +1,0 @@
-config:
-    input:
-        base: hello
-generates:
-    hello.ts:
-        plugins:
-            - ../../plugins/contracts/index.js

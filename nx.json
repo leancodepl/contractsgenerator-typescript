@@ -41,10 +41,18 @@
   "generators": {
     "@nrwl/react": {
       "application": {
+        "style": "none",
+        "linter": "eslint",
+        "bundler": "vite",
         "babel": true
       },
       "library": {
+        "style": "none",
+        "linter": "eslint",
         "unitTestRunner": "vitest"
+      },
+      "component": {
+        "style": "none"
       }
     }
   }

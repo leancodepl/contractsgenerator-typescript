@@ -7,12 +7,19 @@ import {
     isSchemaStringValue,
     SchemaAttribute,
     SchemaEntity,
+    SchemaEnumMember,
     SchemaInterface,
     SchemaProperty,
     SchemaType,
 } from "@leancodepl/contractsgenerator-typescript-schema";
-import { ensureNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
-import { AdminComponentsConfig, AdminTableApiComponent, AdminTableColumn } from "../contract";
+import { assertNotEmpty, ensureNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
+import {
+    AdminComponentsConfig,
+    AdminTableApiComponent,
+    AdminTableColumn,
+    FilterableKnownType,
+    FilterableRangeKnownType,
+} from "../contract";
 
 export interface AdminContext {
     schema: GeneratorSchema;
@@ -26,7 +33,7 @@ export function admin(): string {
 export function generateAdmin(schema: GeneratorSchema): AdminComponentsConfig {
     const requiredEnums = new Set<string>();
 
-    const context = {
+    const context: AdminContext = {
         schema,
         requireEnum: enumId => requiredEnums.add(enumId),
     };
@@ -35,7 +42,7 @@ export function generateAdmin(schema: GeneratorSchema): AdminComponentsConfig {
 
     return {
         components: [...apiTables],
-        enumMaps: Object.fromEntries([...requiredEnums].map(enumId => [enumId, getEnumMap(enumId, context)])),
+        enumsMaps: Object.fromEntries([...requiredEnums].map(enumId => [enumId, getEnumMap(enumId, context)])),
     };
 }
 
@@ -54,7 +61,7 @@ export function generateApiTable(adminQuery: SchemaInterface, context: AdminCont
         type: "table",
         table: {
             query: adminQuery.getName(id => id),
-            columns: getColumns(adminQueryResultType, context),
+            columns: getColumns(adminQueryResultType, adminQuery, context),
         },
     };
 }
@@ -90,13 +97,21 @@ export function resolveAdminQueryResultType(adminQuery: SchemaInterface, { schem
     return adminQueryResultEntity;
 }
 
-export function getColumns(adminQueryResultType: SchemaInterface, context: AdminContext): AdminTableColumn[] {
+export function getColumns(
+    adminQueryResultType: SchemaInterface,
+    adminQuery: SchemaInterface,
+    context: AdminContext,
+): AdminTableColumn[] {
     return adminQueryResultType.properties
-        .map(schemaProperty => getColumn(schemaProperty, context))
+        .map(schemaProperty => getColumn(schemaProperty, adminQuery, context))
         .filter((x): x is AdminTableColumn => !!x);
 }
 
-export function getColumn(schemaProperty: SchemaProperty, context: AdminContext): AdminTableColumn | undefined {
+export function getColumn(
+    schemaProperty: SchemaProperty,
+    adminQuery: SchemaInterface,
+    context: AdminContext,
+): AdminTableColumn | undefined {
     const columnAttribute = getColumnAttribute(schemaProperty);
 
     if (!columnAttribute) return undefined;
@@ -106,6 +121,7 @@ export function getColumn(schemaProperty: SchemaProperty, context: AdminContext)
         title: getColumnTitle(columnAttribute, schemaProperty),
         sortable: isColumnSortable(schemaProperty),
         type: getColumnType(schemaProperty.type, context),
+        filter: getColumnFilter(schemaProperty, adminQuery, context),
     };
 }
 
@@ -119,6 +135,52 @@ export function getColumnTitle(columnAttribute: SchemaAttribute, schemaProperty:
     if (nameAttributeArgument && isSchemaStringValue(nameAttributeArgument)) return nameAttributeArgument.value;
 
     return schemaProperty.name;
+}
+
+export function getColumnFilter(
+    schemaProperty: SchemaProperty,
+    adminQuery: SchemaInterface,
+    context: AdminContext,
+): AdminTableColumn["filter"] {
+    const filterField = adminQuery.properties.find(property => getFilterForAttribute(property) === schemaProperty.name);
+
+    if (!filterField) return undefined;
+
+    const type = filterField.type;
+
+    if (isSchemaInternalType(type)) {
+        if (type.id === AdminFilterRangeTypeId) {
+            const rangeArgument = type.typeArguments.at(0);
+
+            if (rangeArgument && isSchemaKnownType(rangeArgument)) {
+                return {
+                    variant: "range",
+                    field: filterField.name,
+                    type: rangeArgument.type as FilterableRangeKnownType,
+                };
+            }
+        } else {
+            const relatedEntity = context.schema.entities.find(e => e.id === type.id);
+
+            if (relatedEntity && isSchemaEnum(relatedEntity)) {
+                context.requireEnum(relatedEntity.id);
+
+                return {
+                    variant: "enum",
+                    field: filterField.name,
+                    enum: relatedEntity.id,
+                };
+            }
+        }
+    } else if (isSchemaKnownType(type)) {
+        return {
+            variant: "single",
+            field: filterField.name,
+            type: type.type as FilterableKnownType,
+        };
+    }
+
+    throw new Error(`Unsupported filter type received for ${adminQuery.id}.${schemaProperty.name}`);
 }
 
 export function isColumnSortable(schemaProperty: SchemaProperty) {
@@ -141,10 +203,32 @@ export function getColumnType(schemaType: SchemaType, { schema, requireEnum }: A
     throw new Error(`Unsupported column type received ${JSON.stringify(schemaType)}`);
 }
 
-export function getEnumMap(enumId: string, { schema }: AdminContext) {
-    const schemaEnum = 
+export function getEnumMap(enumId: string, { schema }: AdminContext): [number, string][] {
+    const schemaEnum = schema.entities.find(e => e.id === enumId);
+
+    assertNotEmpty(schemaEnum);
+
+    if (!isSchemaEnum(schemaEnum)) throw new Error("Expected enum entity");
+
+    return schemaEnum.members.map(member => [member.value.value, getEnumMemberName(member)]);
+}
+
+export function getEnumMemberName(schemaEnumMember: SchemaEnumMember) {
+    const labelAttribute = schemaEnumMember.attributes.find(attribute => attribute.name === AdminLabelAttributeId);
+
+    return labelAttribute?.getArgument(0, "label")?.value.value?.toString() ?? schemaEnumMember.name;
+}
+
+export function getFilterForAttribute(schemaProperty: SchemaProperty) {
+    return schemaProperty.attributes
+        .find(attribute => attribute.name === AdminFilterForAttributeId)
+        ?.getArgument(0, "name")
+        ?.value.value?.toString();
 }
 
 const AdminQueryMarkerId = "LeanCode.Contracts.Admin.AdminQuery";
 const AdminColumnAttributeId = "LeanCode.Contracts.Admin.AdminColumn";
 const AdminSortableAttributeId = "LeanCode.Contracts.Admin.AdminSortable";
+const AdminLabelAttributeId = "LeanCode.Contracts.Admin.AdminLabel";
+const AdminFilterForAttributeId = "LeanCode.Contracts.Admin.AdminFilterFor";
+const AdminFilterRangeTypeId = "LeanCode.Contracts.Admin.AdminFilterRange";
