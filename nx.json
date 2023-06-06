@@ -39,7 +39,7 @@
   },
   "defaultProject": "generator",
   "generators": {
-    "@nrwl/react": {
+    "@nx/react": {
       "application": {
         "style": "none",
         "linter": "eslint",

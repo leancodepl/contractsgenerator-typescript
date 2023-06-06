@@ -1,7 +1,7 @@
 /*eslint-disable prettier/prettier, unused-imports/no-unused-vars-ts, @typescript-eslint/no-unused-vars, @typescript-eslint/ban-types, @typescript-eslint/no-empty-interface, @typescript-eslint/no-namespace, @nrwl/nx/enforce-module-boundaries, import/no-anonymous-default-export */                        
 import type { CqrsImplStub as CQRS } from "."
 
-export type Query<TResult> = {} 
+export type Query<TResult> = {}
 export type Command = {}
 export type Operation<TResult> = {} 
 
@@ -715,6 +715,7 @@ export interface PaginatedTransactions extends SortedQuery<TransactionDTO, Pagin
     RelevantFilter?: boolean;
     CategoryConfirmedFilter?: boolean;
     IncomeFilter?: boolean;
+    SubtransactionMaxAmountSmallestUnitFilter?: number;
     /**
      * Possibly a group category ID
      */
@@ -872,6 +873,17 @@ export interface CreateDemoSession extends Operation<string> {
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  */
+export interface DeleteAccount extends Command {
+}
+export namespace DeleteAccount {
+    export const ErrorCodes = {
+        SessionNotPrivileged: 1
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
 export interface DismissMigrationsBanner extends Command {
 }
 /**
@@ -887,6 +899,11 @@ export interface RegulationsDTO {
  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
  */
 export interface RegulationsLinks extends Query<RegulationsDTO> {
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface SessionPrivilegedUntil extends Query<string> {
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -974,12 +991,7 @@ export namespace EditWalletBalance {
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  */
-export interface MyWallets extends AdminQuery<WalletDTO> {
-    /**
-     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
-     */
-    DateCreatedFilter?: AdminFilterRange<string>;
-    UserId: string;
+export interface MyWallets extends Query<WalletDTO[]> {
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -1006,29 +1018,9 @@ export namespace TransferMoneyBetweenWallets {
 }
 export interface WalletDTO {
     Id: string;
-    /**
-     * @attribute LeanCode.Contracts.Admin.AdminColumn
-     */
     Name: string;
     Balance: MoneyDTO;
-    /**
-     * @attribute LeanCode.Contracts.Admin.AdminColumn
-     * @attribute LeanCode.Contracts.Admin.AdminSortable
-     */
-    AmountSmallestUnit: number;
-    /**
-     * @attribute LeanCode.Contracts.Admin.AdminColumn
-     */
-    CurrencyCode: string;
-    /**
-     * @attribute LeanCode.Contracts.Admin.AdminColumn
-     * @attribute LeanCode.Contracts.Admin.AdminSortable
-     */
     DateCreated: string;
-    /**
-     * @attribute LeanCode.Contracts.Admin.AdminColumn
-     */
-    SampleEnum: SampleEnumDTO;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -1164,20 +1156,6 @@ export interface SortedQuery<TResult, TSort> extends PaginatedQuery<TResult> {
     SortBy: TSort;
     SortByDescending: boolean;
 }
-export interface AdminFilterRange<T> {
-    From?: T;
-    To?: T;
-}
-export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
-    Page: number;
-    PageSize: number;
-    SortOrder?: SortOrderDTO;
-    SortBy?: string;
-}
-export interface AdminQueryResult<TResult> {
-    Total: number;
-    Items: TResult[];
-}
 export enum BankAccountImportStatusDTO {
     Completed = 0,
     InProgress = 1,
@@ -1259,17 +1237,9 @@ export enum TransactionStatusDTO {
     Scheduled = 3,
     Hold = 4
 }
-export enum SampleEnumDTO {
-    A = 0,
-    B = 1
-}
 export enum WealthItemTypeDTO {
     Asset = 0,
     Liability = 1
-}
-export enum SortOrderDTO {
-    Descending = 0,
-    Ascending = 1
 }
 export namespace Finances {
     export interface Permissions {
@@ -1280,6 +1250,7 @@ export namespace Finances {
         export const FinancesApiAccess = "FinancesApiAccess";
         export const DebugApiAccess = "DebugApiAccess";
         export const Billtech = "Billtech";
+        export const DeleteAccount = "DeleteAccount";
     }
 }
 export default function (cqrsClient: CQRS) {
@@ -1328,22 +1299,23 @@ export default function (cqrsClient: CQRS) {
         UpdateTransactionComment: cqrsClient.createCommand<UpdateTransactionComment, UpdateTransactionComment.ErrorCodes>("Kontomierz.Finances.Contracts.Transactions.UpdateTransactionComment", UpdateTransactionComment.ErrorCodes),
         UpdateTransactionDate: cqrsClient.createCommand<UpdateTransactionDate, UpdateTransactionDate.ErrorCodes>("Kontomierz.Finances.Contracts.Transactions.UpdateTransactionDate", UpdateTransactionDate.ErrorCodes),
         CreateDemoSession: cqrsClient.createQuery<CreateDemoSession, string>("Kontomierz.Finances.Contracts.Users.CreateDemoSession"),
+        DeleteAccount: cqrsClient.createCommand<DeleteAccount, DeleteAccount.ErrorCodes>("Kontomierz.Finances.Contracts.Users.DeleteAccount", DeleteAccount.ErrorCodes),
         DismissMigrationsBanner: cqrsClient.createCommand<DismissMigrationsBanner, {}>("Kontomierz.Finances.Contracts.Users.DismissMigrationsBanner", {}),
         DismissPremiumTrialBanner: cqrsClient.createCommand<DismissPremiumTrialBanner, {}>("Kontomierz.Finances.Contracts.Users.DismissPremiumTrialBanner", {}),
         RegulationsLinks: cqrsClient.createQuery<RegulationsLinks, RegulationsDTO>("Kontomierz.Finances.Contracts.Users.RegulationsLinks"),
+        SessionPrivilegedUntil: cqrsClient.createQuery<SessionPrivilegedUntil, string>("Kontomierz.Finances.Contracts.Users.SessionPrivilegedUntil"),
         Settings: cqrsClient.createQuery<Settings, UserSettingsDTO>("Kontomierz.Finances.Contracts.Users.Settings"),
         UpdateBillingCycleStartDay: cqrsClient.createCommand<UpdateBillingCycleStartDay, UpdateBillingCycleStartDay.ErrorCodes>("Kontomierz.Finances.Contracts.Users.UpdateBillingCycleStartDay", UpdateBillingCycleStartDay.ErrorCodes),
         CreateWallet: cqrsClient.createCommand<CreateWallet, CreateWallet.ErrorCodes>("Kontomierz.Finances.Contracts.Wallets.CreateWallet", CreateWallet.ErrorCodes),
         DeleteWallet: cqrsClient.createCommand<DeleteWallet, DeleteWallet.ErrorCodes>("Kontomierz.Finances.Contracts.Wallets.DeleteWallet", DeleteWallet.ErrorCodes),
         EditWallet: cqrsClient.createCommand<EditWallet, EditWallet.ErrorCodes>("Kontomierz.Finances.Contracts.Wallets.EditWallet", EditWallet.ErrorCodes),
         EditWalletBalance: cqrsClient.createCommand<EditWalletBalance, EditWalletBalance.ErrorCodes>("Kontomierz.Finances.Contracts.Wallets.EditWalletBalance", EditWalletBalance.ErrorCodes),
-        MyWallets: cqrsClient.createQuery<MyWallets, AdminQueryResult<WalletDTO>>("Kontomierz.Finances.Contracts.Wallets.MyWallets"),
+        MyWallets: cqrsClient.createQuery<MyWallets, WalletDTO[]>("Kontomierz.Finances.Contracts.Wallets.MyWallets"),
         TransferMoneyBetweenWallets: cqrsClient.createCommand<TransferMoneyBetweenWallets, TransferMoneyBetweenWallets.ErrorCodes>("Kontomierz.Finances.Contracts.Wallets.TransferMoneyBetweenWallets", TransferMoneyBetweenWallets.ErrorCodes),
         CreateWealthItem: cqrsClient.createCommand<CreateWealthItem, CreateWealthItem.ErrorCodes>("Kontomierz.Finances.Contracts.WealthItems.CreateWealthItem", CreateWealthItem.ErrorCodes),
         DeleteWealthItem: cqrsClient.createCommand<DeleteWealthItem, DeleteWealthItem.ErrorCodes>("Kontomierz.Finances.Contracts.WealthItems.DeleteWealthItem", DeleteWealthItem.ErrorCodes),
         EditWealthItem: cqrsClient.createCommand<EditWealthItem, EditWealthItem.ErrorCodes>("Kontomierz.Finances.Contracts.WealthItems.EditWealthItem", EditWealthItem.ErrorCodes),
         MyTotalWealth: cqrsClient.createQuery<MyTotalWealth, MyTotalWealthDTO>("Kontomierz.Finances.Contracts.WealthItems.MyTotalWealth"),
-        MyWealthItems: cqrsClient.createQuery<MyWealthItems, MyWealthItemsDTO>("Kontomierz.Finances.Contracts.WealthItems.MyWealthItems"),
-        AdminQuery: cqrsClient.createQuery<AdminQuery, AdminQueryResult<TResult>>("LeanCode.Contracts.Admin.AdminQuery")
+        MyWealthItems: cqrsClient.createQuery<MyWealthItems, MyWealthItemsDTO>("Kontomierz.Finances.Contracts.WealthItems.MyWealthItems")
     };
 }
