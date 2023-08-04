@@ -1,7 +1,7 @@
 import ts, { addSyntheticLeadingComment } from "typescript";
 import { promisify } from "util";
 import { GeneratorContext, GeneratorStatement } from "./typesGeneration";
-import { ClientMethodFilter, ImportReference } from "./typesGeneration/GeneratorContext";
+import { ClientMethodFilter, CustomTypesMap, ImportReference } from "./typesGeneration/GeneratorContext";
 import GeneratorInternalType from "./typesGeneration/types/GeneratorInternalType";
 import { GenerateFileOptions } from "./utils/types/GenerateFileOptions";
 
@@ -21,12 +21,14 @@ export default function generateClient({
     baseContext,
     baseNamespace,
     printer,
+    customTypes,
 }: {
     clientFile: GenerateClientFileOptions;
     namespaces: GeneratorStatement[];
     baseContext: Omit<GeneratorContext, "referencedInternalTypes" | "referencedImports">;
     baseNamespace: string | undefined;
     printer: ts.Printer;
+    customTypes: CustomTypesMap;
 }) {
     const context: GeneratorContext = {
         ...baseContext,
@@ -35,6 +37,7 @@ export default function generateClient({
         include,
         exclude,
         currentNamespace: baseNamespace,
+        customTypes,
     };
 
     const clientProperties = namespaces.flatMap(s => s.generateClient(context));
