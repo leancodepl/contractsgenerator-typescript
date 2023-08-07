@@ -1,6 +1,8 @@
 using System;
 using LeanCode.Contracts;
 
+public class Query : IQuery<DateTimeOffset> {}
+
 public class Dto
 {
     public int A { get; set; }
