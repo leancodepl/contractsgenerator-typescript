@@ -193,12 +193,13 @@ export default async function generateContracts({
     const referencedImports: ImportReference[] = [];
 
     const namespaces = extractNamespaces(statements);
+    const customTypesMap = mapCustomTypes(customTypes);
     const types = namespaces.flatMap(s =>
         s.generateStatements({
             ...baseContext,
             referencedImports,
             referencedInternalTypes: new Set(),
-            customTypes: mapCustomTypes(customTypes),
+            customTypes: customTypesMap,
         }),
     );
 
@@ -238,6 +239,7 @@ export default async function generateContracts({
                 baseContext,
                 baseNamespace,
                 printer,
+                customTypes: customTypesMap,
             }),
         ),
     ]);
