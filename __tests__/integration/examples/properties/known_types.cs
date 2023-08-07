@@ -1,7 +1,7 @@
 using System;
 using LeanCode.Contracts;
 
-public class Query : IQuery<DateTimeOffset> {}
+public class QueryReturningDateTimeOffset : IQuery<DateTimeOffset> {}
 
 public class Dto
 {

@@ -351,10 +351,10 @@ exports[`integration works for example properties-known_types correctly 1`] = `
 Object {
   "client.ts": "/*eslint-disable*/
 import type { CQRS } from \\"./cqrsClient\\";
-import { Query } from \\"./types\\";
+import { QueryReturningDateTimeOffset } from \\"./types\\";
 export default function (cqrsClient: CQRS) {
     return {
-        Query: cqrsClient.createQuery<Query, string>(\\"Query\\")
+        QueryReturningDateTimeOffset: cqrsClient.createQuery<QueryReturningDateTimeOffset, string>(\\"QueryReturningDateTimeOffset\\")
     };
 }
 ",
@@ -378,7 +378,7 @@ export interface Dto {
     L: string;
     M: CommandResult<any>;
 }
-export interface Query extends Query<string> {
+export interface QueryReturningDateTimeOffset extends Query<string> {
 }
 ",
 }
@@ -390,10 +390,10 @@ Object {
 import type { CQRS } from \\"./cqrsClient\\";
 import type DateTimeOffset from \\"@leancode/api-date-datefns\\";
 import type TimeOnly, { DateOnly, timeSpanImpl as TimeSpan } from \\"@leancode/api-date-dayjs\\";
-import { Query } from \\"./types\\";
+import { QueryReturningDateTimeOffset } from \\"./types\\";
 export default function (cqrsClient: CQRS) {
     return {
-        Query: cqrsClient.createQuery<Query, DateTimeOffset>(\\"Query\\")
+        QueryReturningDateTimeOffset: cqrsClient.createQuery<QueryReturningDateTimeOffset, DateTimeOffset>(\\"QueryReturningDateTimeOffset\\")
     };
 }
 ",
@@ -419,7 +419,7 @@ export interface Dto {
     L: TimeSpan;
     M: CommandResult<any>;
 }
-export interface Query extends Query<DateTimeOffset> {
+export interface QueryReturningDateTimeOffset extends Query<DateTimeOffset> {
 }
 ",
 }
