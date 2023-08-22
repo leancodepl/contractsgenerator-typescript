@@ -34,7 +34,6 @@ export default function getReferencedInternalTypesPreamble({
     ];
 
     return ts.factory.createImportDeclaration(
-        /* decorators */ undefined,
         /* modifiers */ undefined,
         /* importClause */ ts.factory.createImportClause(
             /* isTypeOnly */ false,

@@ -18,7 +18,6 @@ export default class GeneratorNamespace implements GeneratorStatement {
     generateStatements(context: GeneratorContext) {
         return [
             ts.factory.createModuleDeclaration(
-                /* decorators */ undefined,
                 /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
                 /* name */ ts.factory.createIdentifier(this.name),
                 /* body */ ts.factory.createModuleBlock(

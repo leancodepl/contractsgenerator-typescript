@@ -8,14 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Get the version
         id: get_version
         run: echo ::set-output name=version::$(jq -Mr '.version' < package.json)
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version-file: .nvmrc
           cache: "npm"
           registry-url: "https://registry.npmjs.org"
       - name: Install

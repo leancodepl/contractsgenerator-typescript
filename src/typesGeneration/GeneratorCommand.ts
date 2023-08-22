@@ -50,7 +50,6 @@ export default class GeneratorCommand extends GeneratorInterface {
 
         if (generatedErrorCodes) {
             const namespaceStatement = ts.factory.createModuleDeclaration(
-                /* decorators */ undefined,
                 /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
                 /* name */ ts.factory.createIdentifier(this.name),
                 /* body */ ts.factory.createModuleBlock(generatedErrorCodes),

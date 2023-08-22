@@ -46,7 +46,6 @@ export default class GeneratorErrorCodes {
                 ),
             ),
             ts.factory.createTypeAliasDeclaration(
-                /* decorators */ undefined,
                 /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
                 /* name */ "ErrorCodes",
                 /* typeParameters */ undefined,
