@@ -24,7 +24,7 @@ describe("generateClient", () => {
         expect(output).toMatchInlineSnapshot(`
             "export default function (cqrsClient: CQRS) {
                 return {
-                    TestQuery: cqrsClient.createQuery<TestQuery, string>(\\"TestQuery\\")
+                    TestQuery: cqrsClient.createQuery<TestQuery, string>("TestQuery")
                 };
             }
             "
@@ -53,7 +53,7 @@ describe("generateClient", () => {
         expect(output).toMatchInlineSnapshot(`
             "export default function (cqrsClient: CQRS) {
                 return {
-                    TestQuery: cqrsClient.createQuery<TestQuery, string | null | undefined>(\\"TestQuery\\")
+                    TestQuery: cqrsClient.createQuery<TestQuery, string | null | undefined>("TestQuery")
                 };
             }
             "

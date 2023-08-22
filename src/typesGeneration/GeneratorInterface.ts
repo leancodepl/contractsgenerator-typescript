@@ -85,7 +85,6 @@ export default class GeneratorInterface implements GeneratorStatement {
             this.extendTypes.map(extendType => GeneratorTypeFactory.convertToExtendType(extendType, context)) ?? [];
 
         const interfaceStatement = ts.factory.createInterfaceDeclaration(
-            /* decorators */ [],
             /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
             /* name */ this.name,
             /* typeParameters */ typeParameters,
@@ -144,7 +143,6 @@ export default class GeneratorInterface implements GeneratorStatement {
 
         return [
             ts.factory.createModuleDeclaration(
-                /* decorators */ undefined,
                 /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
                 /* name */ ts.factory.createIdentifier(this.name),
                 /* body */ ts.factory.createModuleBlock(constants),

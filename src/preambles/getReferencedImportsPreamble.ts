@@ -22,7 +22,6 @@ export default function getReferencedImportsPreamble({
             );
 
             return ts.factory.createImportDeclaration(
-                /* decorators */ undefined,
                 /* modifiers */ undefined,
                 /* importClause */ ts.factory.createImportClause(
                     /* isTypeOnly */ true,

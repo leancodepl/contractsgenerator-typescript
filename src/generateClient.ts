@@ -76,7 +76,6 @@ export default function generateClient({
 
 export function generateClientFunction(clientProperties: ts.PropertyAssignment[]) {
     return ts.factory.createFunctionDeclaration(
-        /* decorators */ undefined,
         /* modifiers */ [
             ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
             ts.factory.createModifier(ts.SyntaxKind.DefaultKeyword),
@@ -86,7 +85,6 @@ export function generateClientFunction(clientProperties: ts.PropertyAssignment[]
         /* typeParameters */ undefined,
         /* parameters */ [
             ts.factory.createParameterDeclaration(
-                /* decorators */ undefined,
                 /* modifiers */ undefined,
                 /* dotDotDotToken */ undefined,
                 /* name */ ts.factory.createIdentifier("cqrsClient"),

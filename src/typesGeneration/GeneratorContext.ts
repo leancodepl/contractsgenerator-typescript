@@ -67,4 +67,4 @@ export const overridableCustomTypes = [
     leancode.contracts.KnownType.TimeSpan,
 ] as const;
 
-export type OverridableCustomType = typeof overridableCustomTypes[number];
+export type OverridableCustomType = (typeof overridableCustomTypes)[number];

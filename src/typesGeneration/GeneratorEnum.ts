@@ -34,7 +34,6 @@ export default class GeneratorEnum implements GeneratorStatement {
 
     generateStatements(context: GeneratorContext) {
         const enumStatement = ts.factory.createEnumDeclaration(
-            /* decorators */ undefined,
             /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
             /* name */ this.name,
             /* members */ this.members.map(m => m.generateEnumMember(context)),

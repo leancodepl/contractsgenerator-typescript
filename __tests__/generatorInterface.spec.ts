@@ -208,7 +208,7 @@ describe("GeneratorInterface", () => {
                 export const booleanConstant = true;
                 export const floatConstant = 12.5;
                 export const nullConstant = null;
-                export const stringConstant = \\"hello world\\";
+                export const stringConstant = "hello world";
             }
             "
         `);

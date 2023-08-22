@@ -13,7 +13,10 @@ const eslint = new ESLint({
 class SaveFormattedFileStream extends Writable {
     private file: string = "";
 
-    constructor(private path: string, opts?: DuplexOptions) {
+    constructor(
+        private path: string,
+        opts?: DuplexOptions,
+    ) {
         super(opts);
     }
 

@@ -62,7 +62,7 @@ export type GenerateTypesFileOptions = GenerateFileOptions & {
 };
 
 export type OverridableCustomTypeName = keyof {
-    [P in keyof typeof leancode.contracts.KnownType as typeof leancode.contracts.KnownType[P] extends OverridableCustomType
+    [P in keyof typeof leancode.contracts.KnownType as (typeof leancode.contracts.KnownType)[P] extends OverridableCustomType
         ? P
         : never]: string;
 };

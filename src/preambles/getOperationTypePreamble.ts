@@ -2,7 +2,6 @@ import ts from "typescript";
 
 export default function getOperationTypePreamble() {
     return ts.factory.createTypeAliasDeclaration(
-        /* decorators */ undefined,
         /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
         /* name */ "Operation",
         /* typeParameters */ [
