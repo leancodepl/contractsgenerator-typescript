@@ -197,21 +197,26 @@ $root.leancode = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message["null"] = $root.leancode.contracts.ValueRef.Null.decode(reader, reader.uint32());
-                        break;
-                    case 2:
-                        message.number = $root.leancode.contracts.ValueRef.Number.decode(reader, reader.uint32());
-                        break;
-                    case 3:
-                        message.floatingPoint = $root.leancode.contracts.ValueRef.FloatingPointNumber.decode(reader, reader.uint32());
-                        break;
-                    case 4:
-                        message.string = $root.leancode.contracts.ValueRef.String.decode(reader, reader.uint32());
-                        break;
-                    case 5:
-                        message.bool = $root.leancode.contracts.ValueRef.Boolean.decode(reader, reader.uint32());
-                        break;
+                    case 1: {
+                            message["null"] = $root.leancode.contracts.ValueRef.Null.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 2: {
+                            message.number = $root.leancode.contracts.ValueRef.Number.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 3: {
+                            message.floatingPoint = $root.leancode.contracts.ValueRef.FloatingPointNumber.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 4: {
+                            message.string = $root.leancode.contracts.ValueRef.String.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 5: {
+                            message.bool = $root.leancode.contracts.ValueRef.Boolean.decode(reader, reader.uint32());
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -391,6 +396,21 @@ $root.leancode = (function() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
+            /**
+             * Gets the default type url for ValueRef
+             * @function getTypeUrl
+             * @memberof leancode.contracts.ValueRef
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            ValueRef.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.ValueRef";
+            };
+
             ValueRef.Null = (function() {
 
                 /**
@@ -508,6 +528,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for Null
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.ValueRef.Null
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Null.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.ValueRef.Null";
+                };
+
                 return Null;
             })();
 
@@ -561,9 +596,10 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.value = reader.int64();
-                            break;
+                        case 1: {
+                                message.value = reader.int64();
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -667,6 +703,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for Number
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.ValueRef.Number
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Number.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.ValueRef.Number";
+                };
+
                 return Number;
             })();
 
@@ -720,9 +771,10 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.value = reader.double();
-                            break;
+                        case 1: {
+                                message.value = reader.double();
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -812,6 +864,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for FloatingPointNumber
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.ValueRef.FloatingPointNumber
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                FloatingPointNumber.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.ValueRef.FloatingPointNumber";
+                };
+
                 return FloatingPointNumber;
             })();
 
@@ -865,9 +932,10 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.value = reader.string();
-                            break;
+                        case 1: {
+                                message.value = reader.string();
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -957,6 +1025,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for String
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.ValueRef.String
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                String.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.ValueRef.String";
+                };
+
                 return String;
             })();
 
@@ -1010,9 +1093,10 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.value = reader.bool();
-                            break;
+                        case 1: {
+                                message.value = reader.bool();
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -1100,6 +1184,21 @@ $root.leancode = (function() {
                  */
                 Boolean.prototype.toJSON = function toJSON() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                /**
+                 * Gets the default type url for Boolean
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.ValueRef.Boolean
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Boolean.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.ValueRef.Boolean";
                 };
 
                 return Boolean;
@@ -1199,18 +1298,22 @@ $root.leancode = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.nullable = reader.bool();
-                        break;
-                    case 2:
-                        message.generic = $root.leancode.contracts.TypeRef.Generic.decode(reader, reader.uint32());
-                        break;
-                    case 3:
-                        message.internal = $root.leancode.contracts.TypeRef.Internal.decode(reader, reader.uint32());
-                        break;
-                    case 4:
-                        message.known = $root.leancode.contracts.TypeRef.Known.decode(reader, reader.uint32());
-                        break;
+                    case 1: {
+                            message.nullable = reader.bool();
+                            break;
+                        }
+                    case 2: {
+                            message.generic = $root.leancode.contracts.TypeRef.Generic.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 3: {
+                            message.internal = $root.leancode.contracts.TypeRef.Internal.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 4: {
+                            message.known = $root.leancode.contracts.TypeRef.Known.decode(reader, reader.uint32());
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -1359,6 +1462,21 @@ $root.leancode = (function() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
+            /**
+             * Gets the default type url for TypeRef
+             * @function getTypeUrl
+             * @memberof leancode.contracts.TypeRef
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            TypeRef.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.TypeRef";
+            };
+
             TypeRef.Generic = (function() {
 
                 /**
@@ -1409,9 +1527,10 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.name = reader.string();
-                            break;
+                        case 1: {
+                                message.name = reader.string();
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -1501,6 +1620,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for Generic
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.TypeRef.Generic
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Generic.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.TypeRef.Generic";
+                };
+
                 return Generic;
             })();
 
@@ -1564,14 +1698,16 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.name = reader.string();
-                            break;
-                        case 2:
-                            if (!(message["arguments"] && message["arguments"].length))
-                                message["arguments"] = [];
-                            message["arguments"].push($root.leancode.contracts.TypeRef.decode(reader, reader.uint32()));
-                            break;
+                        case 1: {
+                                message.name = reader.string();
+                                break;
+                            }
+                        case 2: {
+                                if (!(message["arguments"] && message["arguments"].length))
+                                    message["arguments"] = [];
+                                message["arguments"].push($root.leancode.contracts.TypeRef.decode(reader, reader.uint32()));
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -1687,6 +1823,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for Internal
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.TypeRef.Internal
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Internal.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.TypeRef.Internal";
+                };
+
                 return Internal;
             })();
 
@@ -1750,14 +1901,16 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.type = reader.int32();
-                            break;
-                        case 2:
-                            if (!(message["arguments"] && message["arguments"].length))
-                                message["arguments"] = [];
-                            message["arguments"].push($root.leancode.contracts.TypeRef.decode(reader, reader.uint32()));
-                            break;
+                        case 1: {
+                                message.type = reader.int32();
+                                break;
+                            }
+                        case 2: {
+                                if (!(message["arguments"] && message["arguments"].length))
+                                    message["arguments"] = [];
+                                message["arguments"].push($root.leancode.contracts.TypeRef.decode(reader, reader.uint32()));
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -1854,6 +2007,12 @@ $root.leancode = (function() {
                         return object;
                     var message = new $root.leancode.contracts.TypeRef.Known();
                     switch (object.type) {
+                    default:
+                        if (typeof object.type === "number") {
+                            message.type = object.type;
+                            break;
+                        }
+                        break;
                     case "Object":
                     case 0:
                         message.type = 0;
@@ -2006,7 +2165,7 @@ $root.leancode = (function() {
                     if (options.defaults)
                         object.type = options.enums === String ? "Object" : 0;
                     if (message.type != null && message.hasOwnProperty("type"))
-                        object.type = options.enums === String ? $root.leancode.contracts.KnownType[message.type] : message.type;
+                        object.type = options.enums === String ? $root.leancode.contracts.KnownType[message.type] === undefined ? message.type : $root.leancode.contracts.KnownType[message.type] : message.type;
                     if (message["arguments"] && message["arguments"].length) {
                         object["arguments"] = [];
                         for (var j = 0; j < message["arguments"].length; ++j)
@@ -2024,6 +2183,21 @@ $root.leancode = (function() {
                  */
                 Known.prototype.toJSON = function toJSON() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                /**
+                 * Gets the default type url for Known
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.TypeRef.Known
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Known.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.TypeRef.Known";
                 };
 
                 return Known;
@@ -2082,9 +2256,10 @@ $root.leancode = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.name = reader.string();
-                        break;
+                    case 1: {
+                            message.name = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -2174,6 +2349,21 @@ $root.leancode = (function() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
+            /**
+             * Gets the default type url for GenericParameter
+             * @function getTypeUrl
+             * @memberof leancode.contracts.GenericParameter
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            GenericParameter.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.GenericParameter";
+            };
+
             return GenericParameter;
         })();
 
@@ -2250,12 +2440,14 @@ $root.leancode = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.positional = $root.leancode.contracts.AttributeArgument.Positional.decode(reader, reader.uint32());
-                        break;
-                    case 2:
-                        message.named = $root.leancode.contracts.AttributeArgument.Named.decode(reader, reader.uint32());
-                        break;
+                    case 1: {
+                            message.positional = $root.leancode.contracts.AttributeArgument.Positional.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 2: {
+                            message.named = $root.leancode.contracts.AttributeArgument.Named.decode(reader, reader.uint32());
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -2375,6 +2567,21 @@ $root.leancode = (function() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
+            /**
+             * Gets the default type url for AttributeArgument
+             * @function getTypeUrl
+             * @memberof leancode.contracts.AttributeArgument
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            AttributeArgument.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.AttributeArgument";
+            };
+
             AttributeArgument.Positional = (function() {
 
                 /**
@@ -2434,12 +2641,14 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.position = reader.int32();
-                            break;
-                        case 2:
-                            message.value = $root.leancode.contracts.ValueRef.decode(reader, reader.uint32());
-                            break;
+                        case 1: {
+                                message.position = reader.int32();
+                                break;
+                            }
+                        case 2: {
+                                message.value = $root.leancode.contracts.ValueRef.decode(reader, reader.uint32());
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -2543,6 +2752,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for Positional
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.AttributeArgument.Positional
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Positional.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.AttributeArgument.Positional";
+                };
+
                 return Positional;
             })();
 
@@ -2605,12 +2829,14 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.name = reader.string();
-                            break;
-                        case 2:
-                            message.value = $root.leancode.contracts.ValueRef.decode(reader, reader.uint32());
-                            break;
+                        case 1: {
+                                message.name = reader.string();
+                                break;
+                            }
+                        case 2: {
+                                message.value = $root.leancode.contracts.ValueRef.decode(reader, reader.uint32());
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -2714,6 +2940,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for Named
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.AttributeArgument.Named
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Named.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.AttributeArgument.Named";
+                };
+
                 return Named;
             })();
 
@@ -2780,14 +3021,16 @@ $root.leancode = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.attributeName = reader.string();
-                        break;
-                    case 2:
-                        if (!(message.argument && message.argument.length))
-                            message.argument = [];
-                        message.argument.push($root.leancode.contracts.AttributeArgument.decode(reader, reader.uint32()));
-                        break;
+                    case 1: {
+                            message.attributeName = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            if (!(message.argument && message.argument.length))
+                                message.argument = [];
+                            message.argument.push($root.leancode.contracts.AttributeArgument.decode(reader, reader.uint32()));
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -2903,6 +3146,21 @@ $root.leancode = (function() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
+            /**
+             * Gets the default type url for AttributeRef
+             * @function getTypeUrl
+             * @memberof leancode.contracts.AttributeRef
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            AttributeRef.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.AttributeRef";
+            };
+
             return AttributeRef;
         })();
 
@@ -2984,20 +3242,24 @@ $root.leancode = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.type = $root.leancode.contracts.TypeRef.decode(reader, reader.uint32());
-                        break;
-                    case 2:
-                        message.name = reader.string();
-                        break;
-                    case 3:
-                        if (!(message.attributes && message.attributes.length))
-                            message.attributes = [];
-                        message.attributes.push($root.leancode.contracts.AttributeRef.decode(reader, reader.uint32()));
-                        break;
-                    case 4:
-                        message.comment = reader.string();
-                        break;
+                    case 1: {
+                            message.type = $root.leancode.contracts.TypeRef.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 2: {
+                            message.name = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            if (!(message.attributes && message.attributes.length))
+                                message.attributes = [];
+                            message.attributes.push($root.leancode.contracts.AttributeRef.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 4: {
+                            message.comment = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -3135,6 +3397,21 @@ $root.leancode = (function() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
+            /**
+             * Gets the default type url for PropertyRef
+             * @function getTypeUrl
+             * @memberof leancode.contracts.PropertyRef
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            PropertyRef.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.PropertyRef";
+            };
+
             return PropertyRef;
         })();
 
@@ -3206,15 +3483,18 @@ $root.leancode = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.name = reader.string();
-                        break;
-                    case 2:
-                        message.value = $root.leancode.contracts.ValueRef.decode(reader, reader.uint32());
-                        break;
-                    case 3:
-                        message.comment = reader.string();
-                        break;
+                    case 1: {
+                            message.name = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.value = $root.leancode.contracts.ValueRef.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 3: {
+                            message.comment = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -3326,6 +3606,21 @@ $root.leancode = (function() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
+            /**
+             * Gets the default type url for ConstantRef
+             * @function getTypeUrl
+             * @memberof leancode.contracts.ConstantRef
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            ConstantRef.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.ConstantRef";
+            };
+
             return ConstantRef;
         })();
 
@@ -3407,20 +3702,24 @@ $root.leancode = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.name = reader.string();
-                        break;
-                    case 2:
-                        message.value = reader.int64();
-                        break;
-                    case 3:
-                        message.comment = reader.string();
-                        break;
-                    case 4:
-                        if (!(message.attributes && message.attributes.length))
-                            message.attributes = [];
-                        message.attributes.push($root.leancode.contracts.AttributeRef.decode(reader, reader.uint32()));
-                        break;
+                    case 1: {
+                            message.name = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.value = reader.int64();
+                            break;
+                        }
+                    case 3: {
+                            message.comment = reader.string();
+                            break;
+                        }
+                    case 4: {
+                            if (!(message.attributes && message.attributes.length))
+                                message.attributes = [];
+                            message.attributes.push($root.leancode.contracts.AttributeRef.decode(reader, reader.uint32()));
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -3567,6 +3866,21 @@ $root.leancode = (function() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
+            /**
+             * Gets the default type url for EnumValue
+             * @function getTypeUrl
+             * @memberof leancode.contracts.EnumValue
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            EnumValue.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.EnumValue";
+            };
+
             return EnumValue;
         })();
 
@@ -3643,12 +3957,14 @@ $root.leancode = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.single = $root.leancode.contracts.ErrorCode.Single.decode(reader, reader.uint32());
-                        break;
-                    case 2:
-                        message.group = $root.leancode.contracts.ErrorCode.Group.decode(reader, reader.uint32());
-                        break;
+                    case 1: {
+                            message.single = $root.leancode.contracts.ErrorCode.Single.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 2: {
+                            message.group = $root.leancode.contracts.ErrorCode.Group.decode(reader, reader.uint32());
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -3768,6 +4084,21 @@ $root.leancode = (function() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
+            /**
+             * Gets the default type url for ErrorCode
+             * @function getTypeUrl
+             * @memberof leancode.contracts.ErrorCode
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            ErrorCode.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.ErrorCode";
+            };
+
             ErrorCode.Single = (function() {
 
                 /**
@@ -3827,12 +4158,14 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.name = reader.string();
-                            break;
-                        case 2:
-                            message.code = reader.int32();
-                            break;
+                        case 1: {
+                                message.name = reader.string();
+                                break;
+                            }
+                        case 2: {
+                                message.code = reader.int32();
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -3931,6 +4264,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for Single
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.ErrorCode.Single
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Single.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.ErrorCode.Single";
+                };
+
                 return Single;
             })();
 
@@ -4003,17 +4351,20 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.name = reader.string();
-                            break;
-                        case 2:
-                            message.groupId = reader.string();
-                            break;
-                        case 3:
-                            if (!(message.innerCodes && message.innerCodes.length))
-                                message.innerCodes = [];
-                            message.innerCodes.push($root.leancode.contracts.ErrorCode.decode(reader, reader.uint32()));
-                            break;
+                        case 1: {
+                                message.name = reader.string();
+                                break;
+                            }
+                        case 2: {
+                                message.groupId = reader.string();
+                                break;
+                            }
+                        case 3: {
+                                if (!(message.innerCodes && message.innerCodes.length))
+                                    message.innerCodes = [];
+                                message.innerCodes.push($root.leancode.contracts.ErrorCode.decode(reader, reader.uint32()));
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -4138,6 +4489,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for Group
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.ErrorCode.Group
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Group.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.ErrorCode.Group";
+                };
+
                 return Group;
             })();
 
@@ -4225,26 +4591,30 @@ $root.leancode = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        if (!(message["extends"] && message["extends"].length))
-                            message["extends"] = [];
-                        message["extends"].push($root.leancode.contracts.TypeRef.decode(reader, reader.uint32()));
-                        break;
-                    case 2:
-                        if (!(message.genericParameters && message.genericParameters.length))
-                            message.genericParameters = [];
-                        message.genericParameters.push($root.leancode.contracts.GenericParameter.decode(reader, reader.uint32()));
-                        break;
-                    case 3:
-                        if (!(message.properties && message.properties.length))
-                            message.properties = [];
-                        message.properties.push($root.leancode.contracts.PropertyRef.decode(reader, reader.uint32()));
-                        break;
-                    case 4:
-                        if (!(message.constants && message.constants.length))
-                            message.constants = [];
-                        message.constants.push($root.leancode.contracts.ConstantRef.decode(reader, reader.uint32()));
-                        break;
+                    case 1: {
+                            if (!(message["extends"] && message["extends"].length))
+                                message["extends"] = [];
+                            message["extends"].push($root.leancode.contracts.TypeRef.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 2: {
+                            if (!(message.genericParameters && message.genericParameters.length))
+                                message.genericParameters = [];
+                            message.genericParameters.push($root.leancode.contracts.GenericParameter.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 3: {
+                            if (!(message.properties && message.properties.length))
+                                message.properties = [];
+                            message.properties.push($root.leancode.contracts.PropertyRef.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 4: {
+                            if (!(message.constants && message.constants.length))
+                                message.constants = [];
+                            message.constants.push($root.leancode.contracts.ConstantRef.decode(reader, reader.uint32()));
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -4427,6 +4797,21 @@ $root.leancode = (function() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
+            /**
+             * Gets the default type url for TypeDescriptor
+             * @function getTypeUrl
+             * @memberof leancode.contracts.TypeDescriptor
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            TypeDescriptor.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.TypeDescriptor";
+            };
+
             return TypeDescriptor;
         })();
 
@@ -4558,32 +4943,40 @@ $root.leancode = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.name = reader.string();
-                        break;
-                    case 2:
-                        message.comment = reader.string();
-                        break;
-                    case 3:
-                        if (!(message.attributes && message.attributes.length))
-                            message.attributes = [];
-                        message.attributes.push($root.leancode.contracts.AttributeRef.decode(reader, reader.uint32()));
-                        break;
-                    case 10:
-                        message.dto = $root.leancode.contracts.Statement.DTO.decode(reader, reader.uint32());
-                        break;
-                    case 11:
-                        message["enum"] = $root.leancode.contracts.Statement.Enum.decode(reader, reader.uint32());
-                        break;
-                    case 12:
-                        message.query = $root.leancode.contracts.Statement.Query.decode(reader, reader.uint32());
-                        break;
-                    case 13:
-                        message.command = $root.leancode.contracts.Statement.Command.decode(reader, reader.uint32());
-                        break;
-                    case 14:
-                        message.operation = $root.leancode.contracts.Statement.Operation.decode(reader, reader.uint32());
-                        break;
+                    case 1: {
+                            message.name = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.comment = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            if (!(message.attributes && message.attributes.length))
+                                message.attributes = [];
+                            message.attributes.push($root.leancode.contracts.AttributeRef.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 10: {
+                            message.dto = $root.leancode.contracts.Statement.DTO.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 11: {
+                            message["enum"] = $root.leancode.contracts.Statement.Enum.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 12: {
+                            message.query = $root.leancode.contracts.Statement.Query.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 13: {
+                            message.command = $root.leancode.contracts.Statement.Command.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 14: {
+                            message.operation = $root.leancode.contracts.Statement.Operation.decode(reader, reader.uint32());
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -4807,6 +5200,21 @@ $root.leancode = (function() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
 
+            /**
+             * Gets the default type url for Statement
+             * @function getTypeUrl
+             * @memberof leancode.contracts.Statement
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            Statement.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.Statement";
+            };
+
             Statement.DTO = (function() {
 
                 /**
@@ -4857,9 +5265,10 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
-                            break;
+                        case 1: {
+                                message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -4954,6 +5363,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for DTO
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.Statement.DTO
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                DTO.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.Statement.DTO";
+                };
+
                 return DTO;
             })();
 
@@ -5008,11 +5432,12 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            if (!(message.members && message.members.length))
-                                message.members = [];
-                            message.members.push($root.leancode.contracts.EnumValue.decode(reader, reader.uint32()));
-                            break;
+                        case 1: {
+                                if (!(message.members && message.members.length))
+                                    message.members = [];
+                                message.members.push($root.leancode.contracts.EnumValue.decode(reader, reader.uint32()));
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -5119,6 +5544,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for Enum
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.Statement.Enum
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Enum.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.Statement.Enum";
+                };
+
                 return Enum;
             })();
 
@@ -5181,12 +5621,14 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
-                            break;
-                        case 2:
-                            message.returnType = $root.leancode.contracts.TypeRef.decode(reader, reader.uint32());
-                            break;
+                        case 1: {
+                                message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
+                                break;
+                            }
+                        case 2: {
+                                message.returnType = $root.leancode.contracts.TypeRef.decode(reader, reader.uint32());
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -5295,6 +5737,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for Query
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.Statement.Query
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Query.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.Statement.Query";
+                };
+
                 return Query;
             })();
 
@@ -5358,14 +5815,16 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
-                            break;
-                        case 2:
-                            if (!(message.errorCodes && message.errorCodes.length))
-                                message.errorCodes = [];
-                            message.errorCodes.push($root.leancode.contracts.ErrorCode.decode(reader, reader.uint32()));
-                            break;
+                        case 1: {
+                                message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
+                                break;
+                            }
+                        case 2: {
+                                if (!(message.errorCodes && message.errorCodes.length))
+                                    message.errorCodes = [];
+                                message.errorCodes.push($root.leancode.contracts.ErrorCode.decode(reader, reader.uint32()));
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -5486,6 +5945,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for Command
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.Statement.Command
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Command.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.Statement.Command";
+                };
+
                 return Command;
             })();
 
@@ -5548,12 +6022,14 @@ $root.leancode = (function() {
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
-                            break;
-                        case 2:
-                            message.returnType = $root.leancode.contracts.TypeRef.decode(reader, reader.uint32());
-                            break;
+                        case 1: {
+                                message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
+                                break;
+                            }
+                        case 2: {
+                                message.returnType = $root.leancode.contracts.TypeRef.decode(reader, reader.uint32());
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -5662,6 +6138,21 @@ $root.leancode = (function() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
 
+                /**
+                 * Gets the default type url for Operation
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.Statement.Operation
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Operation.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.Statement.Operation";
+                };
+
                 return Operation;
             })();
 
@@ -5738,19 +6229,22 @@ $root.leancode = (function() {
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.projectName = reader.string();
-                        break;
-                    case 2:
-                        if (!(message.statements && message.statements.length))
-                            message.statements = [];
-                        message.statements.push($root.leancode.contracts.Statement.decode(reader, reader.uint32()));
-                        break;
-                    case 3:
-                        if (!(message.knownErrorGroups && message.knownErrorGroups.length))
-                            message.knownErrorGroups = [];
-                        message.knownErrorGroups.push($root.leancode.contracts.ErrorCode.Group.decode(reader, reader.uint32()));
-                        break;
+                    case 1: {
+                            message.projectName = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            if (!(message.statements && message.statements.length))
+                                message.statements = [];
+                            message.statements.push($root.leancode.contracts.Statement.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 3: {
+                            if (!(message.knownErrorGroups && message.knownErrorGroups.length))
+                                message.knownErrorGroups = [];
+                            message.knownErrorGroups.push($root.leancode.contracts.ErrorCode.Group.decode(reader, reader.uint32()));
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -5890,6 +6384,21 @@ $root.leancode = (function() {
              */
             Export.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            /**
+             * Gets the default type url for Export
+             * @function getTypeUrl
+             * @memberof leancode.contracts.Export
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            Export.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.Export";
             };
 
             return Export;

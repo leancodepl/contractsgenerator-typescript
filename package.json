@@ -71,6 +71,7 @@
     "jest-runner-eslint": "^2.0.0",
     "npm-run-all": "^4.1.0",
     "prettier": "^3.0.0",
+    "protobufjs-cli": "^1.0.0",
     "rollup": "^3.0.0",
     "rollup-plugin-clear": "^2.0.0",
     "rollup-plugin-node-externals": "^5.0.0",
