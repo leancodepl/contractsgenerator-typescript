@@ -16,7 +16,7 @@ export function generateErrorCodes(command: SchemaCommand, context: ContractsCon
                         /* name */ "ErrorCodes",
                         /* exclamationToken */ undefined,
                         /* type */ undefined,
-                        /* intializer */ ts.factory.createAsExpression(
+                        /* initializer */ ts.factory.createAsExpression(
                             /* expression */ ts.factory.createObjectLiteralExpression(
                                 /* properties */ errorCodes.errorCodes.map(errorCode =>
                                     ts.factory.createPropertyAssignment(
@@ -24,7 +24,7 @@ export function generateErrorCodes(command: SchemaCommand, context: ContractsCon
                                         /* initializer */ ts.factory.createNumericLiteral(errorCode.code),
                                     ),
                                 ),
-                                /* multiline */ true,
+                                /* multiLine */ true,
                             ),
                             /* type */ ts.factory.createTypeReferenceNode("const"),
                         ),

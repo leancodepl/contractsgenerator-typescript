@@ -1,6 +1,6 @@
 {
-  "name": "utils",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "utils",
   "sourceRoot": "libs/utils/src",
   "projectType": "library",
   "targets": {
@@ -22,6 +22,13 @@
         "lintFilePatterns": ["libs/utils/**/*.ts"]
       }
     },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs utils {args.registry} {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
@@ -31,5 +38,5 @@
       }
     }
   },
-  "tags": []
+  "tags": ["lib"]
 }

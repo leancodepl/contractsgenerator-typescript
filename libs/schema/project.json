@@ -1,6 +1,6 @@
 {
-  "name": "schema",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "schema",
   "sourceRoot": "libs/schema/src",
   "projectType": "library",
   "targets": {
@@ -30,6 +30,13 @@
         "passWithNoTests": true
       }
     },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs schema {args.registry} {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
     "proto-update": {
       "executor": "nx:run-commands",
       "options": {
@@ -49,5 +56,5 @@
       }
     }
   },
-  "tags": []
+  "tags": ["lib"]
 }

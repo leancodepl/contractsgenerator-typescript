@@ -1,6 +1,6 @@
 {
-  "name": "contracts",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "contracts",
   "sourceRoot": "plugins/contracts/src",
   "projectType": "library",
   "targets": {
@@ -33,7 +33,7 @@
     "publish": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node tools/scripts/publish.mjs contracts {args.ver} {args.tag}"
+        "command": "node tools/scripts/publish.mjs contracts {args.registry} {args.ver} {args.tag}"
       },
       "dependsOn": ["build"]
     },
@@ -45,5 +45,5 @@
       }
     }
   },
-  "tags": []
+  "tags": ["plugin"]
 }

@@ -38,7 +38,7 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/packages/api-admin"],
+      "outputs": ["{workspaceRoot}/coverage/packages/api-admin"],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/packages/api-admin"

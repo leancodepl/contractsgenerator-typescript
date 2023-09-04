@@ -1,6 +1,6 @@
 {
-  "name": "raw",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "raw",
   "sourceRoot": "plugins/raw/src",
   "projectType": "library",
   "targets": {
@@ -30,6 +30,13 @@
         "passWithNoTests": true
       }
     },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs raw {args.registry} {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
     "validator": {
       "executor": "nx:run-commands",
       "options": {
@@ -38,5 +45,5 @@
       }
     }
   },
-  "tags": []
+  "tags": ["plugin"]
 }

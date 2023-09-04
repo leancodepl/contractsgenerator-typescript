@@ -1,4 +1,8 @@
 {
   "name": "@leancodepl/contractsgenerator-typescript-schema",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "long": "5.2.3",
+    "protobufjs": "7.2.3"
+  }
 }

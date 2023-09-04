@@ -3,7 +3,7 @@ import { z } from "zod";
 
 const contractsGeneratorPluginOptionsSchema = z.record(z.unknown());
 
-const contractsGeneratorPluginConfigurationSchema = z.union([
+export const contractsGeneratorPluginConfigurationSchema = z.union([
     z.string(),
     z.record(contractsGeneratorPluginOptionsSchema),
 ]);

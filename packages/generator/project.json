@@ -1,6 +1,6 @@
 {
-  "name": "generator",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "generator",
   "sourceRoot": "packages/generator/src",
   "projectType": "library",
   "targets": {
@@ -12,7 +12,7 @@
         "tsConfig": "packages/generator/tsconfig.lib.json",
         "packageJson": "packages/generator/package.json",
         "main": "packages/generator/src/index.ts",
-        "assets": ["packages/generator/*.md"]
+        "assets": ["packages/generator/*.md", "packages/generator/src/generate.sh"]
       },
       "configurations": {
         "bin": {
@@ -34,7 +34,21 @@
         "jestConfig": "packages/generator/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs generator {args.registry} {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "validator": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "packages/generator",
+        "command": "ts-to-zod src/generate.ts src/schema.ts"
+      }
     }
   },
-  "tags": []
+  "tags": ["package"]
 }

@@ -18,7 +18,7 @@
         }
       }
     },
-    "publish": {
+    "dotnet-publish": {
       "executor": "@nx-dotnet/core:publish",
       "outputs": ["{workspaceRoot}/dist/libs/admin", "{workspaceRoot}/dist/intermediates/libs/admin"],
       "options": {

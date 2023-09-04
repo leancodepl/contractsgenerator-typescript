@@ -9,35 +9,35 @@ type ContractsGeneratorPluginOptions = Record<string, unknown>;
 export type ContractsGeneratorPluginConfiguration = string | Record<string, ContractsGeneratorPluginOptions>;
 
 type ContractsGeneratorFileConfiguration = {
-    plugins: ContractsGeneratorPluginConfiguration[];
-    config?: ContractsGeneratorPluginOptions;
+  plugins: ContractsGeneratorPluginConfiguration[];
+  config?: ContractsGeneratorPluginOptions;
 };
 
 export type ContractsGeneratorConfiguration = {
-    config?: ContractsGeneratorPluginOptions;
-    generates: Record<string, ContractsGeneratorFileConfiguration>;
+  config?: ContractsGeneratorPluginOptions;
+  generates: Record<string, ContractsGeneratorFileConfiguration>;
 };
 
 export async function generate(unsafeConfig: unknown) {
-    const config = contractsGeneratorConfigurationSchema.parse(unsafeConfig);
+  const config = contractsGeneratorConfigurationSchema.parse(unsafeConfig);
 
-    const sessionContext: GeneratorSessionContext = {
-        getSchema: getSchemaCached(cache),
-        metadata: {},
-        cache,
-    };
+  const sessionContext: GeneratorSessionContext = {
+    getSchema: getSchemaCached(cache),
+    metadata: {},
+    cache,
+  };
 
-    const configl1 = config.config;
+  const configl1 = config.config;
 
-    const outputs: Record<string, string> = {};
+  const outputs: Record<string, string> = {};
 
-    for (const file in config.generates) {
-        const configuration = config.generates[file];
+  for (const file in config.generates) {
+    const configuration = config.generates[file];
 
-        const configl2 = configuration.config ?? {};
+    const configl2 = configuration.config ?? {};
 
-        outputs[file] = await generateFile({ ...configl1, ...configl2 }, configuration.plugins, sessionContext);
-    }
+    outputs[file] = await generateFile({ ...configl1, ...configl2 }, configuration.plugins, sessionContext);
+  }
 
-    return outputs;
+  return outputs;
 }
