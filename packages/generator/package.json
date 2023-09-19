@@ -1,0 +1,15 @@
+{
+  "name": "@leancodepl/contractsgenerator-typescript",
+  "version": "0.0.1",
+  "bin": "src/bin.js",
+  "dependencies": {
+    "node-cache": "5.1.2",
+    "object-hash": "3.0.0",
+    "@leancodepl/contractsgenerator-typescript-schema": "*",
+    "@leancodepl/contractsgenerator-typescript-utils": "*",
+    "@leancodepl/contractsgenerator-typescript-plugin": "*",
+    "yaml": "2.3.1",
+    "lilconfig": "2.1.0",
+    "yargs": "17.7.2"
+  }
+}

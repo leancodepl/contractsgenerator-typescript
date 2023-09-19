@@ -1,0 +1,49 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "contracts",
+  "sourceRoot": "plugins/contracts/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/plugins/contracts",
+        "tsConfig": "plugins/contracts/tsconfig.lib.json",
+        "packageJson": "plugins/contracts/package.json",
+        "main": "plugins/contracts/src/index.ts",
+        "assets": ["plugins/contracts/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["plugins/contracts/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "plugins/contracts/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs contracts {args.registry} {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "validator": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "plugins/contracts",
+        "command": "ts-to-zod src/configuration.ts src/configuration.validator.ts"
+      }
+    }
+  },
+  "tags": ["plugin"]
+}

@@ -1,0 +1,60 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "schema",
+  "sourceRoot": "libs/schema/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/schema",
+        "tsConfig": "libs/schema/tsconfig.lib.json",
+        "packageJson": "libs/schema/package.json",
+        "main": "libs/schema/src/index.ts",
+        "assets": ["libs/schema/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/schema/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/schema/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs schema {args.registry} {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "proto-update": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/schema",
+        "command": "download -o src/lib/protocol --filename contracts.proto https://raw.githubusercontent.com/leancodepl/contractsgenerator/main/contracts.proto"
+      }
+    },
+    "proto": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/schema",
+        "commands": [
+          "pbjs -t static-module -w commonjs -o src/lib/protocol/index.js src/lib/protocol/contracts.proto --no-create --no-encode --lint \"eslint-disable no-undef,no-prototype-builtins,no-redeclare\"",
+          "pbts -o src/lib/protocol/index.d.ts src/lib/protocol/index.js"
+        ],
+        "parallel": false
+      }
+    }
+  },
+  "tags": ["lib"]
+}
