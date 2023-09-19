@@ -34,10 +34,10 @@ export namespace leancode {
             CommandResult = 1002,
             Operation = 1003,
             Binary = 1004,
+            Topic = 1005,
             Attribute = 1100,
             AuthorizeWhenAttribute = 1101,
-            AuthorizeWhenHasAnyOfAttribute = 1102,
-            QueryCacheAttribute = 1103
+            AuthorizeWhenHasAnyOfAttribute = 1102
         }
 
         /** Properties of a ValueRef. */
@@ -838,6 +838,86 @@ export namespace leancode {
                  */
                 public static getTypeUrl(typeUrlPrefix?: string): string;
             }
+        }
+
+        /** Properties of a NotificationTypeRef. */
+        interface INotificationTypeRef {
+
+            /** NotificationTypeRef type */
+            type?: (leancode.contracts.ITypeRef|null);
+
+            /** NotificationTypeRef tag */
+            tag?: (string|null);
+        }
+
+        /** Represents a NotificationTypeRef. */
+        class NotificationTypeRef implements INotificationTypeRef {
+
+            /**
+             * Constructs a new NotificationTypeRef.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: leancode.contracts.INotificationTypeRef);
+
+            /** NotificationTypeRef type. */
+            public type?: (leancode.contracts.ITypeRef|null);
+
+            /** NotificationTypeRef tag. */
+            public tag: string;
+
+            /**
+             * Decodes a NotificationTypeRef message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns NotificationTypeRef
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): leancode.contracts.NotificationTypeRef;
+
+            /**
+             * Decodes a NotificationTypeRef message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns NotificationTypeRef
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): leancode.contracts.NotificationTypeRef;
+
+            /**
+             * Verifies a NotificationTypeRef message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a NotificationTypeRef message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns NotificationTypeRef
+             */
+            public static fromObject(object: { [k: string]: any }): leancode.contracts.NotificationTypeRef;
+
+            /**
+             * Creates a plain object from a NotificationTypeRef message. Also converts values to other types if specified.
+             * @param message NotificationTypeRef
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: leancode.contracts.NotificationTypeRef, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this NotificationTypeRef to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+
+            /**
+             * Gets the default type url for NotificationTypeRef
+             * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns The default type url
+             */
+            public static getTypeUrl(typeUrlPrefix?: string): string;
         }
 
         /** Properties of a GenericParameter. */
@@ -1880,6 +1960,9 @@ export namespace leancode {
 
             /** Statement operation */
             operation?: (leancode.contracts.Statement.IOperation|null);
+
+            /** Statement topic */
+            topic?: (leancode.contracts.Statement.ITopic|null);
         }
 
         /** Represents a Statement. */
@@ -1915,8 +1998,11 @@ export namespace leancode {
             /** Statement operation. */
             public operation?: (leancode.contracts.Statement.IOperation|null);
 
+            /** Statement topic. */
+            public topic?: (leancode.contracts.Statement.ITopic|null);
+
             /** Statement content. */
-            public content?: ("dto"|"enum"|"query"|"command"|"operation");
+            public content?: ("dto"|"enum"|"query"|"command"|"operation"|"topic");
 
             /**
              * Decodes a Statement message from the specified reader or buffer.
@@ -2357,6 +2443,86 @@ export namespace leancode {
 
                 /**
                  * Gets the default type url for Operation
+                 * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns The default type url
+                 */
+                public static getTypeUrl(typeUrlPrefix?: string): string;
+            }
+
+            /** Properties of a Topic. */
+            interface ITopic {
+
+                /** Topic typeDescriptor */
+                typeDescriptor?: (leancode.contracts.ITypeDescriptor|null);
+
+                /** Topic notifications */
+                notifications?: (leancode.contracts.INotificationTypeRef[]|null);
+            }
+
+            /** Represents a Topic. */
+            class Topic implements ITopic {
+
+                /**
+                 * Constructs a new Topic.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: leancode.contracts.Statement.ITopic);
+
+                /** Topic typeDescriptor. */
+                public typeDescriptor?: (leancode.contracts.ITypeDescriptor|null);
+
+                /** Topic notifications. */
+                public notifications: leancode.contracts.INotificationTypeRef[];
+
+                /**
+                 * Decodes a Topic message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns Topic
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): leancode.contracts.Statement.Topic;
+
+                /**
+                 * Decodes a Topic message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns Topic
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): leancode.contracts.Statement.Topic;
+
+                /**
+                 * Verifies a Topic message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a Topic message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns Topic
+                 */
+                public static fromObject(object: { [k: string]: any }): leancode.contracts.Statement.Topic;
+
+                /**
+                 * Creates a plain object from a Topic message. Also converts values to other types if specified.
+                 * @param message Topic
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: leancode.contracts.Statement.Topic, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this Topic to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+
+                /**
+                 * Gets the default type url for Topic
                  * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
                  * @returns The default type url
                  */

@@ -28,6 +28,6 @@ export class SchemaCommand extends SchemaInterface {
 
 const schemaCommandKind = "command";
 
-export function isSchemaCommand(schemaCommand: SchemaInterface): schemaCommand is SchemaCommand {
-  return schemaCommand.kind === schemaCommandKind;
+export function isSchemaCommand(schemaInterface: SchemaInterface): schemaInterface is SchemaCommand {
+  return schemaInterface.kind === schemaCommandKind;
 }
