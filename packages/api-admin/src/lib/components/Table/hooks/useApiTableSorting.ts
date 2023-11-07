@@ -4,23 +4,23 @@ import useSorting from "../../../hooks/useSorting";
 import { AdminQuery, SortOrderDTO } from "../../../types/admin";
 
 export function useApiTableSorting<T>() {
-    const { sortData, sortDirection, sortKey } = useSorting<string>({});
+  const { sortData, sortDirection, sortKey } = useSorting<string>({});
 
-    const sortQueryParams = useMemo<Pick<AdminQuery<T>, "SortBy" | "SortOrder">>(
-        () => ({
-            SortBy: sortKey,
-            SortOrder: sortDirection ? sortOrderEnumMap[sortDirection] : undefined,
-        }),
-        [sortDirection, sortKey],
-    );
+  const sortQueryParams = useMemo<Pick<AdminQuery<T>, "sortBy" | "sortOrder">>(
+    () => ({
+      sortBy: sortKey,
+      sortOrder: sortDirection ? sortOrderEnumMap[sortDirection] : undefined,
+    }),
+    [sortDirection, sortKey],
+  );
 
-    return {
-        sortData,
-        sortQueryParams,
-    };
+  return {
+    sortData,
+    sortQueryParams,
+  };
 }
 
 const sortOrderEnumMap: Record<Exclude<SortOrder, null>, SortOrderDTO> = {
-    ascend: SortOrderDTO.Ascending,
-    descend: SortOrderDTO.Descending,
+  ascend: SortOrderDTO.Ascending,
+  descend: SortOrderDTO.Descending,
 };

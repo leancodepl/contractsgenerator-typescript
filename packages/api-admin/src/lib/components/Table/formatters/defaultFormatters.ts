@@ -6,7 +6,7 @@ import { simpleTypeFormatters } from "./simpleTypeFormatter";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const defaultFormatters: Record<leancode.contracts.KnownType, (value: any) => ReactNode> = {
-    ...simpleTypeFormatters,
-    ...dateFormatters,
-    ...otherTypeFormatters,
+  ...simpleTypeFormatters,
+  ...dateFormatters,
+  ...otherTypeFormatters,
 } as const;

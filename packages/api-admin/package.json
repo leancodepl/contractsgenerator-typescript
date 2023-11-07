@@ -6,8 +6,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./index.mjs",
+      "import": "./index.cjs",
       "require": "./index.js"
     }
+  },
+  "dependencies": {
+    "@tanstack/react-query": ">=5.0.0",
+    "@leancodepl/react-query-cqrs-client": ">=7.2.0",
+    "@leancodepl/contractsgenerator-typescript-utils": "*",
+    "@leancodepl/contractsgenerator-typescript-plugin-admin": "*"
   }
 }

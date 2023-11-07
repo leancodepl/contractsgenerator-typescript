@@ -2,14 +2,14 @@
 import { z } from "zod";
 
 export const generatorInputSchema = z.object({
-    raw: z.string().optional(),
-    base: z.string().optional(),
-    file: z.string().optional(),
-    include: z.union([z.string(), z.array(z.string())]).optional(),
-    exclude: z.union([z.string(), z.array(z.string())]).optional(),
-    project: z.union([z.string(), z.array(z.string())]).optional(),
+  raw: z.string().optional(),
+  base: z.string().optional(),
+  file: z.string().optional(),
+  include: z.union([z.string(), z.array(z.string())]).optional(),
+  exclude: z.union([z.string(), z.array(z.string())]).optional(),
+  project: z.union([z.string(), z.array(z.string())]).optional(),
 });
 
 export const adminGeneratorPluginConfigurationSchema = z.object({
-    input: generatorInputSchema,
+  input: generatorInputSchema,
 });
