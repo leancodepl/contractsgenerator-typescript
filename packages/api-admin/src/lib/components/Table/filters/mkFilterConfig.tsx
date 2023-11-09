@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { toApiDate, toApiDateTimeOffset, toApiTime } from "@leancode/api-date-dayjs";
+import { toApiDate, toApiDateTimeOffset, toApiTime } from "@leancodepl/api-date-dayjs";
 import type { AdminFilterConfig, EnumsMap } from "@leancodepl/contractsgenerator-typescript-plugin-admin";
 import { TableColumnType } from "antd";
 import { FilterValue } from "antd/lib/table/interface";

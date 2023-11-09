@@ -12,7 +12,7 @@ import {
   SchemaProperty,
   SchemaType,
 } from "@leancodepl/contractsgenerator-typescript-schema";
-import { assertNotEmpty, ensureNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
+import { assertNotEmpty, ensureNotEmpty } from "@leancodepl/utils";
 import {
   AdminComponentsConfig,
   AdminTableApiComponent,

@@ -1,4 +1,4 @@
-import { ensureNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
+import { ensureNotEmpty } from "@leancodepl/utils";
 import { SchemaEntity } from "./parseSchema";
 import { leancode } from "./protocol";
 import { SchemaAttribute } from "./schemaAttribute";

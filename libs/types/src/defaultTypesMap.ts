@@ -1,5 +1,5 @@
 import { leancode } from "@leancodepl/contractsgenerator-typescript-schema";
-import { ensureNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
+import { ensureNotEmpty } from "@leancodepl/utils";
 import ts from "typescript";
 import { TypesMap } from "./generateContext";
 import { generateType } from "./generateType";

@@ -1,5 +1,5 @@
-import { ApiDateOnly, ApiDateTimeOffset, ApiTimeOnly, ApiTimeSpan } from "@leancode/api-date";
-import { fromApiDate, fromApiDateTimeOffset, fromApiTime, fromApiTimeSpan } from "@leancode/api-date-dayjs";
+import { ApiDateOnly, ApiDateTimeOffset, ApiTimeOnly, ApiTimeSpan } from "@leancodepl/api-date";
+import { fromApiDate, fromApiDateTimeOffset, fromApiTime, fromApiTimeSpan } from "@leancodepl/api-date-dayjs";
 import { KnownType } from "../../../types/knownType";
 import { formatDate } from "../../../utils/formatDate";
 

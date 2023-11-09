@@ -1,4 +1,4 @@
-import { ensureNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
+import { ensureNotEmpty } from "@leancodepl/utils";
 import _ from "lodash";
 import { leancode } from "./protocol";
 

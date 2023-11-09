@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "prepare": "chmod +x ./node_modules/husky/lib/bin.js && husky install && nx g @nx-dotnet/core:restore"
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
-    "@leancode/api-date": "6.4.1",
-    "@leancode/api-date-dayjs": "6.4.1",
-    "@leancodepl/react-query-cqrs-client": "0.0.1",
+    "@leancodepl/api-date": "7.2.1",
+    "@leancodepl/api-date-dayjs": "7.2.1",
+    "@leancodepl/react-query-cqrs-client": "7.2.1",
     "@tanstack/react-query": "5.7.2",
     "antd": "5.5.2",
     "lilconfig": "2.1.0",
@@ -27,7 +27,6 @@
   "devDependencies": {
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
-    "@nx-dotnet/core": "1.22.0",
     "@nx/eslint-plugin": "16.7.4",
     "@nx/jest": "16.7.4",
     "@nx/js": "16.7.4",

@@ -6,8 +6,8 @@ import type {
   AdminTableConfig,
   EnumsMap,
 } from "@leancodepl/contractsgenerator-typescript-plugin-admin";
-import { assertNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
 import { mkCqrsClient } from "@leancodepl/react-query-cqrs-client";
+import { assertNotEmpty } from "@leancodepl/utils";
 import { keepPreviousData } from "@tanstack/react-query";
 import { Table as AntTable, TableProps as AntTableProps, TableColumnType, TableProps } from "antd";
 import { ReactNode, useCallback, useMemo, useState } from "react";

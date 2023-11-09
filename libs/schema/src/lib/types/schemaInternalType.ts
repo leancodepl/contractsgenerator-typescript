@@ -1,4 +1,4 @@
-import { ensureNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
+import { ensureNotEmpty } from "@leancodepl/utils";
 import { createType } from ".";
 import { leancode } from "../protocol";
 import { SchemaType } from "./schemaType";
