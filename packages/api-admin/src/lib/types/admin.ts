@@ -8,16 +8,11 @@ export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
   page: number;
   pageSize: number;
 
-  sortOrder?: SortOrderDTO | null;
+  sortDescending?: boolean | null;
   sortBy?: string | null;
 }
 
 export interface AdminQueryResult<TResult> {
   total: number;
   items: TResult;
-}
-
-export enum SortOrderDTO {
-  Descending = 0,
-  Ascending = 1,
 }
