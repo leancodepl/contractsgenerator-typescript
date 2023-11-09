@@ -4,6 +4,7 @@
   "dependencies": {
     "@leancodepl/contractsgenerator-typescript-schema": "*",
     "@leancodepl/contractsgenerator-typescript-types": "*",
-    "@leancodepl/contractsgenerator-typescript-values": "*"
+    "@leancodepl/contractsgenerator-typescript-values": "*",
+    "zod": ">=3.22.0"
   }
 }

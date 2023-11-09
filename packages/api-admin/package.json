@@ -13,6 +13,8 @@
   "dependencies": {
     "@tanstack/react-query": ">=5.0.0",
     "@leancodepl/react-query-cqrs-client": ">=7.2.1",
-    "@leancodepl/utils": ">=7.2.1"
+    "@leancodepl/api-date-dayjs": ">=7.2.1",
+    "@leancodepl/utils": ">=7.2.1",
+    "antd": ">=5.5.2"
   }
 }

@@ -85,7 +85,7 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
         ...sortQueryParams,
         ...filtersQueryParams,
         ...paginationQueryParams,
-      } as any,
+      },
       {
         placeholderData: keepPreviousData,
       },

@@ -14,7 +14,7 @@ export function createApiComponents<
   { components, enumsMaps }: TAdminComponentsConfig,
   { cqrsClientConfig, cqrs }: { cqrsClientConfig: CqrsClientConfig; cqrs: any },
 ) {
-  return mkApiTables<TAdminComponentsConfig, TContracts>({ components, enumsMaps } as any, {
+  return mkApiTables<TAdminComponentsConfig, TContracts>({ components, enumsMaps } as TAdminComponentsConfig, {
     cqrsClientConfig,
     cqrs,
   });
