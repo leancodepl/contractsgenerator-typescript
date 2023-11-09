@@ -1,0 +1,1048 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exampleApp generates admin 1`] = `
+Object {
+  "test.ts": "const schema = {
+    \\"components\\": [
+        {
+            \\"type\\": \\"table\\",
+            \\"table\\": {
+                \\"query\\": \\"AllEmployeesAdmin\\",
+                \\"columns\\": [
+                    {
+                        \\"id\\": \\"Name\\",
+                        \\"title\\": \\"Name\\",
+                        \\"sortable\\": true,
+                        \\"type\\": 1,
+                        \\"filter\\": {
+                            \\"variant\\": \\"single\\",
+                            \\"field\\": \\"NameFilter\\",
+                            \\"type\\": 1
+                        }
+                    },
+                    {
+                        \\"id\\": \\"Email\\",
+                        \\"title\\": \\"Email\\",
+                        \\"sortable\\": false,
+                        \\"type\\": 1
+                    },
+                    {
+                        \\"id\\": \\"Date\\",
+                        \\"title\\": \\"Date\\",
+                        \\"sortable\\": false,
+                        \\"type\\": 200,
+                        \\"filter\\": {
+                            \\"variant\\": \\"range\\",
+                            \\"field\\": \\"DateFilter\\",
+                            \\"type\\": 200
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    \\"enumsMaps\\": {}
+} as const;
+
+export default schema;",
+}
+`;
+
+exports[`exampleApp generates client with custom types map 1`] = `
+Object {
+  "test.ts": "export default function (cqrsClient: CQRS) {
+    return {
+        AssignmentEmployerEmbed: cqrsClient.createQuery<ExampleApp.Core.Contracts.Dashboards.AssignmentEmployerEmbed, string>(\\"ExampleApp.Core.Contracts.Dashboards.AssignmentEmployerEmbed\\"),
+        AllEmployees: cqrsClient.createQuery<ExampleApp.Core.Contracts.Employees.AllEmployees, ExampleApp.Core.Contracts.Employees.EmployeeDTO[]>(\\"ExampleApp.Core.Contracts.Employees.AllEmployees\\"),
+        AllEmployeesAdmin: cqrsClient.createQuery<ExampleApp.Core.Contracts.Employees.AllEmployeesAdmin, LeanCode.Contracts.Admin.AdminQueryResult<ExampleApp.Core.Contracts.Employees.AdminEmployeeDTO>>(\\"ExampleApp.Core.Contracts.Employees.AllEmployeesAdmin\\"),
+        CreateEmployee: cqrsClient.createCommand<ExampleApp.Core.Contracts.Employees.CreateEmployee, ExampleApp.Core.Contracts.Employees.CreateEmployee.ErrorCodes>(\\"ExampleApp.Core.Contracts.Employees.CreateEmployee\\", ExampleApp.Core.Contracts.Employees.CreateEmployee.ErrorCodes),
+        AddNotificationToken: cqrsClient.createCommand<ExampleApp.Core.Contracts.Firebase.AddNotificationToken, ExampleApp.Core.Contracts.Firebase.AddNotificationToken.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.AddNotificationToken\\", ExampleApp.Core.Contracts.Firebase.AddNotificationToken.ErrorCodes),
+        RemoveNotificationToken: cqrsClient.createCommand<ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken, ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken\\", ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken.ErrorCodes),
+        SendCustomNotification: cqrsClient.createCommand<ExampleApp.Core.Contracts.Firebase.SendCustomNotification, ExampleApp.Core.Contracts.Firebase.SendCustomNotification.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.SendCustomNotification\\", ExampleApp.Core.Contracts.Firebase.SendCustomNotification.ErrorCodes),
+        SearchIdentities: cqrsClient.createQuery<ExampleApp.Core.Contracts.Identities.SearchIdentities, ExampleApp.Core.Contracts.PaginatedResult<ExampleApp.Core.Contracts.Identities.KratosIdentityDTO>>(\\"ExampleApp.Core.Contracts.Identities.SearchIdentities\\"),
+        AddAssignmentsToProject: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject, ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject\\", ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject.ErrorCodes),
+        AllProjects: cqrsClient.createQuery<ExampleApp.Core.Contracts.Projects.AllProjects, ExampleApp.Core.Contracts.Projects.ProjectDTO[]>(\\"ExampleApp.Core.Contracts.Projects.AllProjects\\"),
+        AssignEmployeeToAssignment: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment, ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment\\", ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes),
+        CreateProject: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.CreateProject, ExampleApp.Core.Contracts.Projects.CreateProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.CreateProject\\", ExampleApp.Core.Contracts.Projects.CreateProject.ErrorCodes),
+        ProjectDetails: cqrsClient.createQuery<ExampleApp.Core.Contracts.Projects.ProjectDetails, ExampleApp.Core.Contracts.Projects.ProjectDetailsDTO | null | undefined>(\\"ExampleApp.Core.Contracts.Projects.ProjectDetails\\"),
+        UnassignEmployeeFromAssignment: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment, ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment\\", ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes),
+        DeleteOwnAccount: cqrsClient.createCommand<ExampleApp.Core.Contracts.Users.DeleteOwnAccount, {}>(\\"ExampleApp.Core.Contracts.Users.DeleteOwnAccount\\", {}),
+        VersionSupport: cqrsClient.createQuery<LeanCode.ForceUpdate.Contracts.VersionSupport, LeanCode.ForceUpdate.Contracts.VersionSupportDTO>(\\"LeanCode.ForceUpdate.Contracts.VersionSupport\\")
+    };
+}
+",
+}
+`;
+
+exports[`exampleApp generates client with defaults 1`] = `
+Object {
+  "test.ts": "export default function (cqrsClient: CQRS) {
+    return {
+        AssignmentEmployerEmbed: cqrsClient.createQuery<ExampleApp.Core.Contracts.Dashboards.AssignmentEmployerEmbed, string>(\\"ExampleApp.Core.Contracts.Dashboards.AssignmentEmployerEmbed\\"),
+        AllEmployees: cqrsClient.createQuery<ExampleApp.Core.Contracts.Employees.AllEmployees, ExampleApp.Core.Contracts.Employees.EmployeeDTO[]>(\\"ExampleApp.Core.Contracts.Employees.AllEmployees\\"),
+        AllEmployeesAdmin: cqrsClient.createQuery<ExampleApp.Core.Contracts.Employees.AllEmployeesAdmin, LeanCode.Contracts.Admin.AdminQueryResult<ExampleApp.Core.Contracts.Employees.AdminEmployeeDTO>>(\\"ExampleApp.Core.Contracts.Employees.AllEmployeesAdmin\\"),
+        CreateEmployee: cqrsClient.createCommand<ExampleApp.Core.Contracts.Employees.CreateEmployee, ExampleApp.Core.Contracts.Employees.CreateEmployee.ErrorCodes>(\\"ExampleApp.Core.Contracts.Employees.CreateEmployee\\", ExampleApp.Core.Contracts.Employees.CreateEmployee.ErrorCodes),
+        AddNotificationToken: cqrsClient.createCommand<ExampleApp.Core.Contracts.Firebase.AddNotificationToken, ExampleApp.Core.Contracts.Firebase.AddNotificationToken.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.AddNotificationToken\\", ExampleApp.Core.Contracts.Firebase.AddNotificationToken.ErrorCodes),
+        RemoveNotificationToken: cqrsClient.createCommand<ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken, ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken\\", ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken.ErrorCodes),
+        SendCustomNotification: cqrsClient.createCommand<ExampleApp.Core.Contracts.Firebase.SendCustomNotification, ExampleApp.Core.Contracts.Firebase.SendCustomNotification.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.SendCustomNotification\\", ExampleApp.Core.Contracts.Firebase.SendCustomNotification.ErrorCodes),
+        SearchIdentities: cqrsClient.createQuery<ExampleApp.Core.Contracts.Identities.SearchIdentities, ExampleApp.Core.Contracts.PaginatedResult<ExampleApp.Core.Contracts.Identities.KratosIdentityDTO>>(\\"ExampleApp.Core.Contracts.Identities.SearchIdentities\\"),
+        AddAssignmentsToProject: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject, ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject\\", ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject.ErrorCodes),
+        AllProjects: cqrsClient.createQuery<ExampleApp.Core.Contracts.Projects.AllProjects, ExampleApp.Core.Contracts.Projects.ProjectDTO[]>(\\"ExampleApp.Core.Contracts.Projects.AllProjects\\"),
+        AssignEmployeeToAssignment: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment, ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment\\", ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes),
+        CreateProject: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.CreateProject, ExampleApp.Core.Contracts.Projects.CreateProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.CreateProject\\", ExampleApp.Core.Contracts.Projects.CreateProject.ErrorCodes),
+        ProjectDetails: cqrsClient.createQuery<ExampleApp.Core.Contracts.Projects.ProjectDetails, ExampleApp.Core.Contracts.Projects.ProjectDetailsDTO | null | undefined>(\\"ExampleApp.Core.Contracts.Projects.ProjectDetails\\"),
+        UnassignEmployeeFromAssignment: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment, ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment\\", ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes),
+        DeleteOwnAccount: cqrsClient.createCommand<ExampleApp.Core.Contracts.Users.DeleteOwnAccount, {}>(\\"ExampleApp.Core.Contracts.Users.DeleteOwnAccount\\", {}),
+        VersionSupport: cqrsClient.createQuery<LeanCode.ForceUpdate.Contracts.VersionSupport, LeanCode.ForceUpdate.Contracts.VersionSupportDTO>(\\"LeanCode.ForceUpdate.Contracts.VersionSupport\\")
+    };
+}
+",
+}
+`;
+
+exports[`exampleApp generates client with name transforms 1`] = `
+Object {
+  "test.ts": "export default function (cqrsClient: CQRS) {
+    return {
+        AssignmentEmployerEmbed: cqrsClient.createQuery<AssignmentEmployerEmbed, string>(\\"ExampleApp.Core.Contracts.Dashboards.AssignmentEmployerEmbed\\"),
+        AllEmployees: cqrsClient.createQuery<AllEmployees, EmployeeDTO[]>(\\"ExampleApp.Core.Contracts.Employees.AllEmployees\\"),
+        AllEmployeesAdmin: cqrsClient.createQuery<AllEmployeesAdmin, AdminQueryResult<AdminEmployeeDTO>>(\\"ExampleApp.Core.Contracts.Employees.AllEmployeesAdmin\\"),
+        CreateEmployee: cqrsClient.createCommand<CreateEmployee, CreateEmployee.ErrorCodes>(\\"ExampleApp.Core.Contracts.Employees.CreateEmployee\\", CreateEmployee.ErrorCodes),
+        AddNotificationToken: cqrsClient.createCommand<AddNotificationToken, AddNotificationToken.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.AddNotificationToken\\", AddNotificationToken.ErrorCodes),
+        RemoveNotificationToken: cqrsClient.createCommand<RemoveNotificationToken, RemoveNotificationToken.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken\\", RemoveNotificationToken.ErrorCodes),
+        SendCustomNotification: cqrsClient.createCommand<SendCustomNotification, SendCustomNotification.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.SendCustomNotification\\", SendCustomNotification.ErrorCodes),
+        SearchIdentities: cqrsClient.createQuery<SearchIdentities, PaginatedResult<KratosIdentityDTO>>(\\"ExampleApp.Core.Contracts.Identities.SearchIdentities\\"),
+        AddAssignmentsToProject: cqrsClient.createCommand<AddAssignmentsToProject, AddAssignmentsToProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject\\", AddAssignmentsToProject.ErrorCodes),
+        AllProjects: cqrsClient.createQuery<AllProjects, ProjectDTO[]>(\\"ExampleApp.Core.Contracts.Projects.AllProjects\\"),
+        AssignEmployeeToAssignment: cqrsClient.createCommand<AssignEmployeeToAssignment, AssignEmployeeToAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment\\", AssignEmployeeToAssignment.ErrorCodes),
+        CreateProject: cqrsClient.createCommand<CreateProject, CreateProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.CreateProject\\", CreateProject.ErrorCodes),
+        ProjectDetails: cqrsClient.createQuery<ProjectDetails, ProjectDetailsDTO | null | undefined>(\\"ExampleApp.Core.Contracts.Projects.ProjectDetails\\"),
+        UnassignEmployeeFromAssignment: cqrsClient.createCommand<UnassignEmployeeFromAssignment, UnassignEmployeeFromAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment\\", UnassignEmployeeFromAssignment.ErrorCodes),
+        DeleteOwnAccount: cqrsClient.createCommand<DeleteOwnAccount, {}>(\\"ExampleApp.Core.Contracts.Users.DeleteOwnAccount\\", {}),
+        VersionSupport: cqrsClient.createQuery<VersionSupport, VersionSupportDTO>(\\"LeanCode.ForceUpdate.Contracts.VersionSupport\\")
+    };
+}
+",
+}
+`;
+
+exports[`exampleApp generates contracts with custom types map 1`] = `
+Object {
+  "test.ts": "export namespace ExampleApp {
+    export namespace Core {
+        export namespace Contracts {
+            export interface Auth {
+            }
+            export interface PaginatedQuery<TResult> extends Query<PaginatedResult<TResult>> {
+                /**
+                 * Zero-based.
+                 */
+                PageNumber: number;
+                PageSize: number;
+            }
+            export namespace PaginatedQuery {
+                export const MinPageSize = 1;
+                export const MaxPageSize = 100;
+            }
+            export interface PaginatedResult<TResult> {
+                Items: TResult[];
+                TotalCount: number;
+            }
+            export interface SortedQuery<TResult, TSort> extends PaginatedQuery<TResult> {
+                SortBy: TSort;
+                SortByDescending: boolean;
+            }
+            export namespace Auth {
+                export interface Clients {
+                }
+                export namespace Clients {
+                    export const AdminApp = \\"admin_app\\";
+                    export const ClientApp = \\"client_app\\";
+                }
+                export interface KnownClaims {
+                }
+                export namespace KnownClaims {
+                    export const UserId = \\"sub\\";
+                    export const Role = \\"role\\";
+                }
+                export interface Roles {
+                }
+                export namespace Roles {
+                    export const User = \\"user\\";
+                    export const Admin = \\"admin\\";
+                }
+                export interface Scopes {
+                }
+                export namespace Scopes {
+                    export const InternalApi = \\"internal_api\\";
+                }
+            }
+            export namespace Dashboards {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AssignmentEmployerEmbed extends Query<string> {
+                }
+            }
+            export namespace Employees {
+                export interface AdminEmployeeDTO {
+                    Id: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     * @attribute LeanCode.Contracts.Admin.AdminSortable
+                     */
+                    Name: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     */
+                    Email: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     */
+                    Date: ApiDate;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AllEmployees extends Query<EmployeeDTO[]> {
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AllEmployeesAdmin extends LeanCode.Contracts.Admin.AdminQuery<AdminEmployeeDTO> {
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+                     */
+                    NameFilter?: string | null;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+                     */
+                    DateFilter?: LeanCode.Contracts.Admin.AdminFilterRange<ApiDate> | null;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface CreateEmployee extends Command {
+                    Name: string;
+                    Email: string;
+                }
+                export namespace CreateEmployee {
+                    export const ErrorCodes = {
+                        NameCannotBeEmpty: 1,
+                        NameTooLong: 2,
+                        EmailInvalid: 3,
+                        EmailIsNotUnique: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface EmployeeDTO {
+                    Id: string;
+                    Name: string;
+                    Email: string;
+                }
+            }
+            export namespace Firebase {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AddNotificationToken extends Command {
+                    Token: string;
+                }
+                export namespace AddNotificationToken {
+                    export const ErrorCodes = {
+                        TokenCannotBeEmpty: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface RemoveNotificationToken extends Command {
+                    Token: string;
+                }
+                export namespace RemoveNotificationToken {
+                    export const ErrorCodes = {
+                        TokenCannotBeEmpty: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface SendCustomNotification extends Command {
+                    Content: string;
+                    ImageUrl?: string | null;
+                }
+                export namespace SendCustomNotification {
+                    export const ErrorCodes = {
+                        ContentCannotBeEmpty: 1,
+                        ImageUrlInvalid: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+            }
+            export namespace Identities {
+                export interface KratosIdentityDTO {
+                    Id: string;
+                    CreatedAt: ApiDateTimeOffset;
+                    UpdatedAt: ApiDateTimeOffset;
+                    SchemaId: string;
+                    Email: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface SearchIdentities extends PaginatedQuery<KratosIdentityDTO> {
+                    SchemaId?: string | null;
+                    EmailPattern?: string | null;
+                    GivenNamePattern?: string | null;
+                    FamilyNamePattern?: string | null;
+                }
+            }
+            export namespace Projects {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface AddAssignmentsToProject extends Command {
+                    ProjectId: string;
+                    Assignments: AssignmentWriteDTO[];
+                }
+                export namespace AddAssignmentsToProject {
+                    export const ErrorCodes = {
+                        ProjectIdNotValid: 1,
+                        ProjectDoesNotExist: 2,
+                        AssignmentsCannotBeNull: 3,
+                        AssignmentsCannotBeEmpty: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface AllProjects extends Query<ProjectDTO[]> {
+                    SortByNameDescending: boolean;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AssignEmployeeToAssignment extends Command {
+                    AssignmentId: string;
+                    EmployeeId: string;
+                }
+                export namespace AssignEmployeeToAssignment {
+                    export const ErrorCodes = {
+                        AssignmentIdNotValid: 1,
+                        ProjectWithAssignmentDoesNotExist: 2,
+                        EmployeeIdNotValid: 3,
+                        EmployeeDoesNotExist: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface AssignmentDTO extends AssignmentWriteDTO {
+                    Id: string;
+                }
+                export interface AssignmentWriteDTO {
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface CreateProject extends Command {
+                    Name: string;
+                }
+                export namespace CreateProject {
+                    export const ErrorCodes = {
+                        NameCannotBeEmpty: 1,
+                        NameTooLong: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface ProjectDTO {
+                    Id: string;
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface ProjectDetails extends Query<ProjectDetailsDTO> {
+                    Id: string;
+                }
+                export interface ProjectDetailsDTO extends ProjectDTO {
+                    Assignments: AssignmentDTO[];
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface UnassignEmployeeFromAssignment extends Command {
+                    AssignmentId: string;
+                }
+                export namespace UnassignEmployeeFromAssignment {
+                    export const ErrorCodes = {
+                        AssignmentIdNotValid: 1,
+                        ProjectWithAssignmentDoesNotExist: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+            }
+            export namespace Users {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface DeleteOwnAccount extends Command {
+                }
+            }
+        }
+    }
+}
+export namespace LeanCode {
+    export namespace Contracts {
+        export namespace Admin {
+            export interface AdminFilterRange<T> {
+                From?: T | null;
+                To?: T | null;
+            }
+            export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
+                /**
+                 * 1-based
+                 */
+                Page: number;
+                PageSize: number;
+                SortDescending?: boolean | null;
+                SortBy?: string | null;
+            }
+            export interface AdminQueryResult<TResult> {
+                Total: number;
+                Items: TResult[];
+            }
+        }
+    }
+    export namespace ForceUpdate {
+        export namespace Contracts {
+            export interface VersionSupport extends Query<VersionSupportDTO> {
+                Platform: PlatformDTO;
+                Version: string;
+            }
+            export interface VersionSupportDTO {
+                CurrentlySupportedVersion: string;
+                MinimumRequiredVersion: string;
+                Result: VersionSupportResultDTO;
+            }
+            export enum PlatformDTO {
+                Android = 0,
+                IOS = 1
+            }
+            export enum VersionSupportResultDTO {
+                UpdateRequired = 0,
+                UpdateSuggested = 1,
+                UpToDate = 2
+            }
+        }
+    }
+}
+",
+}
+`;
+
+exports[`exampleApp generates contracts with defaults 1`] = `
+Object {
+  "test.ts": "export namespace ExampleApp {
+    export namespace Core {
+        export namespace Contracts {
+            export interface Auth {
+            }
+            export interface PaginatedQuery<TResult> extends Query<PaginatedResult<TResult>> {
+                /**
+                 * Zero-based.
+                 */
+                PageNumber: number;
+                PageSize: number;
+            }
+            export namespace PaginatedQuery {
+                export const MinPageSize = 1;
+                export const MaxPageSize = 100;
+            }
+            export interface PaginatedResult<TResult> {
+                Items: TResult[];
+                TotalCount: number;
+            }
+            export interface SortedQuery<TResult, TSort> extends PaginatedQuery<TResult> {
+                SortBy: TSort;
+                SortByDescending: boolean;
+            }
+            export namespace Auth {
+                export interface Clients {
+                }
+                export namespace Clients {
+                    export const AdminApp = \\"admin_app\\";
+                    export const ClientApp = \\"client_app\\";
+                }
+                export interface KnownClaims {
+                }
+                export namespace KnownClaims {
+                    export const UserId = \\"sub\\";
+                    export const Role = \\"role\\";
+                }
+                export interface Roles {
+                }
+                export namespace Roles {
+                    export const User = \\"user\\";
+                    export const Admin = \\"admin\\";
+                }
+                export interface Scopes {
+                }
+                export namespace Scopes {
+                    export const InternalApi = \\"internal_api\\";
+                }
+            }
+            export namespace Dashboards {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AssignmentEmployerEmbed extends Query<string> {
+                }
+            }
+            export namespace Employees {
+                export interface AdminEmployeeDTO {
+                    Id: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     * @attribute LeanCode.Contracts.Admin.AdminSortable
+                     */
+                    Name: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     */
+                    Email: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     */
+                    Date: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AllEmployees extends Query<EmployeeDTO[]> {
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AllEmployeesAdmin extends LeanCode.Contracts.Admin.AdminQuery<AdminEmployeeDTO> {
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+                     */
+                    NameFilter?: string | null;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+                     */
+                    DateFilter?: LeanCode.Contracts.Admin.AdminFilterRange<string> | null;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface CreateEmployee extends Command {
+                    Name: string;
+                    Email: string;
+                }
+                export namespace CreateEmployee {
+                    export const ErrorCodes = {
+                        NameCannotBeEmpty: 1,
+                        NameTooLong: 2,
+                        EmailInvalid: 3,
+                        EmailIsNotUnique: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface EmployeeDTO {
+                    Id: string;
+                    Name: string;
+                    Email: string;
+                }
+            }
+            export namespace Firebase {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AddNotificationToken extends Command {
+                    Token: string;
+                }
+                export namespace AddNotificationToken {
+                    export const ErrorCodes = {
+                        TokenCannotBeEmpty: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface RemoveNotificationToken extends Command {
+                    Token: string;
+                }
+                export namespace RemoveNotificationToken {
+                    export const ErrorCodes = {
+                        TokenCannotBeEmpty: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface SendCustomNotification extends Command {
+                    Content: string;
+                    ImageUrl?: string | null;
+                }
+                export namespace SendCustomNotification {
+                    export const ErrorCodes = {
+                        ContentCannotBeEmpty: 1,
+                        ImageUrlInvalid: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+            }
+            export namespace Identities {
+                export interface KratosIdentityDTO {
+                    Id: string;
+                    CreatedAt: string;
+                    UpdatedAt: string;
+                    SchemaId: string;
+                    Email: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface SearchIdentities extends PaginatedQuery<KratosIdentityDTO> {
+                    SchemaId?: string | null;
+                    EmailPattern?: string | null;
+                    GivenNamePattern?: string | null;
+                    FamilyNamePattern?: string | null;
+                }
+            }
+            export namespace Projects {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface AddAssignmentsToProject extends Command {
+                    ProjectId: string;
+                    Assignments: AssignmentWriteDTO[];
+                }
+                export namespace AddAssignmentsToProject {
+                    export const ErrorCodes = {
+                        ProjectIdNotValid: 1,
+                        ProjectDoesNotExist: 2,
+                        AssignmentsCannotBeNull: 3,
+                        AssignmentsCannotBeEmpty: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface AllProjects extends Query<ProjectDTO[]> {
+                    SortByNameDescending: boolean;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AssignEmployeeToAssignment extends Command {
+                    AssignmentId: string;
+                    EmployeeId: string;
+                }
+                export namespace AssignEmployeeToAssignment {
+                    export const ErrorCodes = {
+                        AssignmentIdNotValid: 1,
+                        ProjectWithAssignmentDoesNotExist: 2,
+                        EmployeeIdNotValid: 3,
+                        EmployeeDoesNotExist: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface AssignmentDTO extends AssignmentWriteDTO {
+                    Id: string;
+                }
+                export interface AssignmentWriteDTO {
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface CreateProject extends Command {
+                    Name: string;
+                }
+                export namespace CreateProject {
+                    export const ErrorCodes = {
+                        NameCannotBeEmpty: 1,
+                        NameTooLong: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface ProjectDTO {
+                    Id: string;
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface ProjectDetails extends Query<ProjectDetailsDTO> {
+                    Id: string;
+                }
+                export interface ProjectDetailsDTO extends ProjectDTO {
+                    Assignments: AssignmentDTO[];
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface UnassignEmployeeFromAssignment extends Command {
+                    AssignmentId: string;
+                }
+                export namespace UnassignEmployeeFromAssignment {
+                    export const ErrorCodes = {
+                        AssignmentIdNotValid: 1,
+                        ProjectWithAssignmentDoesNotExist: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+            }
+            export namespace Users {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface DeleteOwnAccount extends Command {
+                }
+            }
+        }
+    }
+}
+export namespace LeanCode {
+    export namespace Contracts {
+        export namespace Admin {
+            export interface AdminFilterRange<T> {
+                From?: T | null;
+                To?: T | null;
+            }
+            export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
+                /**
+                 * 1-based
+                 */
+                Page: number;
+                PageSize: number;
+                SortDescending?: boolean | null;
+                SortBy?: string | null;
+            }
+            export interface AdminQueryResult<TResult> {
+                Total: number;
+                Items: TResult[];
+            }
+        }
+    }
+    export namespace ForceUpdate {
+        export namespace Contracts {
+            export interface VersionSupport extends Query<VersionSupportDTO> {
+                Platform: PlatformDTO;
+                Version: string;
+            }
+            export interface VersionSupportDTO {
+                CurrentlySupportedVersion: string;
+                MinimumRequiredVersion: string;
+                Result: VersionSupportResultDTO;
+            }
+            export enum PlatformDTO {
+                Android = 0,
+                IOS = 1
+            }
+            export enum VersionSupportResultDTO {
+                UpdateRequired = 0,
+                UpdateSuggested = 1,
+                UpToDate = 2
+            }
+        }
+    }
+}
+",
+}
+`;
+
+exports[`exampleApp generates contracts with name transforms 1`] = `
+Object {
+  "test.ts": "export interface Auth {
+}
+export interface Clients {
+}
+export namespace Clients {
+    export const AdminApp = \\"admin_app\\";
+    export const ClientApp = \\"client_app\\";
+}
+export interface KnownClaims {
+}
+export namespace KnownClaims {
+    export const UserId = \\"sub\\";
+    export const Role = \\"role\\";
+}
+export interface Roles {
+}
+export namespace Roles {
+    export const User = \\"user\\";
+    export const Admin = \\"admin\\";
+}
+export interface Scopes {
+}
+export namespace Scopes {
+    export const InternalApi = \\"internal_api\\";
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface AssignmentEmployerEmbed extends Query<string> {
+}
+export interface AdminEmployeeDTO {
+    Id: string;
+    /**
+     * @attribute LeanCode.Contracts.Admin.AdminColumn
+     * @attribute LeanCode.Contracts.Admin.AdminSortable
+     */
+    Name: string;
+    /**
+     * @attribute LeanCode.Contracts.Admin.AdminColumn
+     */
+    Email: string;
+    /**
+     * @attribute LeanCode.Contracts.Admin.AdminColumn
+     */
+    Date: ApiDate;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface AllEmployees extends Query<EmployeeDTO[]> {
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface AllEmployeesAdmin extends AdminQuery<AdminEmployeeDTO> {
+    /**
+     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+     */
+    NameFilter?: string | null;
+    /**
+     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+     */
+    DateFilter?: AdminFilterRange<ApiDate> | null;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface CreateEmployee extends Command {
+    Name: string;
+    Email: string;
+}
+export namespace CreateEmployee {
+    export const ErrorCodes = {
+        NameCannotBeEmpty: 1,
+        NameTooLong: 2,
+        EmailInvalid: 3,
+        EmailIsNotUnique: 4
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+export interface EmployeeDTO {
+    Id: string;
+    Name: string;
+    Email: string;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface AddNotificationToken extends Command {
+    Token: string;
+}
+export namespace AddNotificationToken {
+    export const ErrorCodes = {
+        TokenCannotBeEmpty: 1
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface RemoveNotificationToken extends Command {
+    Token: string;
+}
+export namespace RemoveNotificationToken {
+    export const ErrorCodes = {
+        TokenCannotBeEmpty: 1
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface SendCustomNotification extends Command {
+    Content: string;
+    ImageUrl?: string | null;
+}
+export namespace SendCustomNotification {
+    export const ErrorCodes = {
+        ContentCannotBeEmpty: 1,
+        ImageUrlInvalid: 2
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+export interface KratosIdentityDTO {
+    Id: string;
+    CreatedAt: ApiDateTimeOffset;
+    UpdatedAt: ApiDateTimeOffset;
+    SchemaId: string;
+    Email: string;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface SearchIdentities extends PaginatedQuery<KratosIdentityDTO> {
+    SchemaId?: string | null;
+    EmailPattern?: string | null;
+    GivenNamePattern?: string | null;
+    FamilyNamePattern?: string | null;
+}
+export interface PaginatedQuery<TResult> extends Query<PaginatedResult<TResult>> {
+    /**
+     * Zero-based.
+     */
+    PageNumber: number;
+    PageSize: number;
+}
+export namespace PaginatedQuery {
+    export const MinPageSize = 1;
+    export const MaxPageSize = 100;
+}
+export interface PaginatedResult<TResult> {
+    Items: TResult[];
+    TotalCount: number;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+ */
+export interface AddAssignmentsToProject extends Command {
+    ProjectId: string;
+    Assignments: AssignmentWriteDTO[];
+}
+export namespace AddAssignmentsToProject {
+    export const ErrorCodes = {
+        ProjectIdNotValid: 1,
+        ProjectDoesNotExist: 2,
+        AssignmentsCannotBeNull: 3,
+        AssignmentsCannotBeEmpty: 4
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+ */
+export interface AllProjects extends Query<ProjectDTO[]> {
+    SortByNameDescending: boolean;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface AssignEmployeeToAssignment extends Command {
+    AssignmentId: string;
+    EmployeeId: string;
+}
+export namespace AssignEmployeeToAssignment {
+    export const ErrorCodes = {
+        AssignmentIdNotValid: 1,
+        ProjectWithAssignmentDoesNotExist: 2,
+        EmployeeIdNotValid: 3,
+        EmployeeDoesNotExist: 4
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+export interface AssignmentDTO extends AssignmentWriteDTO {
+    Id: string;
+}
+export interface AssignmentWriteDTO {
+    Name: string;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+ */
+export interface CreateProject extends Command {
+    Name: string;
+}
+export namespace CreateProject {
+    export const ErrorCodes = {
+        NameCannotBeEmpty: 1,
+        NameTooLong: 2
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+export interface ProjectDTO {
+    Id: string;
+    Name: string;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+ */
+export interface ProjectDetails extends Query<ProjectDetailsDTO> {
+    Id: string;
+}
+export interface ProjectDetailsDTO extends ProjectDTO {
+    Assignments: AssignmentDTO[];
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface UnassignEmployeeFromAssignment extends Command {
+    AssignmentId: string;
+}
+export namespace UnassignEmployeeFromAssignment {
+    export const ErrorCodes = {
+        AssignmentIdNotValid: 1,
+        ProjectWithAssignmentDoesNotExist: 2
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+export interface SortedQuery<TResult, TSort> extends PaginatedQuery<TResult> {
+    SortBy: TSort;
+    SortByDescending: boolean;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface DeleteOwnAccount extends Command {
+}
+export interface AdminFilterRange<T> {
+    From?: T | null;
+    To?: T | null;
+}
+export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
+    /**
+     * 1-based
+     */
+    Page: number;
+    PageSize: number;
+    SortDescending?: boolean | null;
+    SortBy?: string | null;
+}
+export interface AdminQueryResult<TResult> {
+    Total: number;
+    Items: TResult[];
+}
+export interface VersionSupport extends Query<VersionSupportDTO> {
+    Platform: PlatformDTO;
+    Version: string;
+}
+export interface VersionSupportDTO {
+    CurrentlySupportedVersion: string;
+    MinimumRequiredVersion: string;
+    Result: VersionSupportResultDTO;
+}
+export enum PlatformDTO {
+    Android = 0,
+    IOS = 1
+}
+export enum VersionSupportResultDTO {
+    UpdateRequired = 0,
+    UpdateSuggested = 1,
+    UpToDate = 2
+}
+",
+}
+`;

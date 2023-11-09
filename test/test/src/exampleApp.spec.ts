@@ -4,7 +4,7 @@ import "@leancodepl/contractsgenerator-typescript-plugin-contracts";
 import "@leancodepl/contractsgenerator-typescript-plugin-client";
 import "@leancodepl/contractsgenerator-typescript-plugin-admin";
 
-describe("kontomierz", () => {
+describe("exampleApp", () => {
   it("generates contracts with defaults", async () => {
     const result = await generate({
       generates: {
@@ -12,7 +12,7 @@ describe("kontomierz", () => {
       },
       config: {
         input: {
-          raw: resolve(__dirname, "../samples/kontomierz.bin"),
+          raw: resolve(__dirname, "../samples/ExampleApp.pb"),
         },
       },
     });
@@ -27,7 +27,7 @@ describe("kontomierz", () => {
       },
       config: {
         input: {
-          raw: resolve(__dirname, "../samples/kontomierz.bin"),
+          raw: resolve(__dirname, "../samples/ExampleApp.pb"),
         },
         customTypes: {
           DateTimeOffset: "ApiDateTimeOffset",
@@ -47,7 +47,7 @@ describe("kontomierz", () => {
       },
       config: {
         input: {
-          raw: resolve(__dirname, "../samples/kontomierz.bin"),
+          raw: resolve(__dirname, "../samples/ExampleApp.pb"),
         },
         nameTransform: (id: string) => id.split(".").at(-1),
       },
@@ -63,7 +63,7 @@ describe("kontomierz", () => {
       },
       config: {
         input: {
-          raw: resolve(__dirname, "../samples/kontomierz.bin"),
+          raw: resolve(__dirname, "../samples/ExampleApp.pb"),
         },
       },
     });
@@ -78,7 +78,7 @@ describe("kontomierz", () => {
       },
       config: {
         input: {
-          raw: resolve(__dirname, "../samples/kontomierz.bin"),
+          raw: resolve(__dirname, "../samples/ExampleApp.pb"),
         },
         customTypes: {
           String: "CustomStringImpl",
@@ -96,7 +96,7 @@ describe("kontomierz", () => {
       },
       config: {
         input: {
-          raw: resolve(__dirname, "../samples/kontomierz.bin"),
+          raw: resolve(__dirname, "../samples/ExampleApp.pb"),
         },
         nameTransform: (id: string) => id.split(".").at(-1),
       },
@@ -112,7 +112,7 @@ describe("kontomierz", () => {
       },
       config: {
         input: {
-          raw: resolve(__dirname, "../samples/kontomierz.bin"),
+          raw: resolve(__dirname, "../samples/ExampleApp.pb"),
         },
       },
     });
