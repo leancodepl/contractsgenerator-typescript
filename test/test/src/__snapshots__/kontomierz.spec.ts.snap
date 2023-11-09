@@ -307,7 +307,7 @@ Object {
                 SubtransactionId: string;
             }
             export interface ISubtransactionsRelated {
-                SubtransactionIds?: string[];
+                SubtransactionIds?: string[] | null;
             }
             export interface ITransactionRelated {
                 TransactionId: string;
@@ -374,7 +374,7 @@ Object {
                  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsBankAccountAttribute
                  */
                 export interface AssignCustomBankAccountName extends Command, IBankAccountRelated {
-                    Name?: string;
+                    Name?: string | null;
                 }
                 export namespace AssignCustomBankAccountName {
                     export const ErrorCodes = {
@@ -387,16 +387,16 @@ Object {
                 export interface BankAccountDTO {
                     Id: string;
                     Type: BankAccountTypeDTO;
-                    Iban?: string;
+                    Iban?: string | null;
                     IbanHash: string;
                     Name: string;
-                    FriendlyName?: string;
-                    UserAssignedName?: string;
-                    CreditCardNumber?: string;
+                    FriendlyName?: string | null;
+                    UserAssignedName?: string | null;
+                    CreditCardNumber?: string | null;
                     CurrencyCode: string;
-                    BalanceSmallestUnit?: number;
+                    BalanceSmallestUnit?: number | null;
                     MultipleAccessType: MultipleAccessTypeDTO;
-                    MostRecentImport?: ImportDTO;
+                    MostRecentImport?: ImportDTO | null;
                 }
                 export interface BankAccountsDTO {
                     Bank: Shared.Contracts.BankDTO;
@@ -416,14 +416,14 @@ Object {
                 }
                 export interface ImportDTO {
                     Id: string;
-                    KontomatikSessionId?: string;
-                    KontomatikMultipleAccess?: string;
+                    KontomatikSessionId?: string | null;
+                    KontomatikMultipleAccess?: string | null;
                     Status: BankAccountImportStatusDTO;
                     Date: ApiDateTimeOffset;
                     /**
                      * If \`Status\` is \`Failed\` and this property is null it means it's an error on our side.
                      */
-                    KontomatikErrorName?: string;
+                    KontomatikErrorName?: string | null;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -476,7 +476,7 @@ Object {
                      */
                     CategoryId: string;
                     PlannedBalancePlnSmallestUnit: number;
-                    Comment?: string;
+                    Comment?: string | null;
                     Type: CategoryBudgetTypeDTO;
                     BalancePlnSmallestUnit: number;
                 }
@@ -540,7 +540,7 @@ Object {
                      */
                     BillingCycle: ApiDate;
                     PlannedBalancePlnSmallestUnit: number;
-                    Comment?: string;
+                    Comment?: string | null;
                 }
                 export namespace PlanCategoryBudget {
                     export const ErrorCodes = {
@@ -624,15 +624,15 @@ Object {
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  */
                 export interface CategoryBalances extends Query<CategoryBalancesDTO> {
-                    TransactionDateInclusiveFrom?: ApiDate;
-                    TransactionDateInclusiveTo?: ApiDate;
-                    TransactionFilter?: string;
-                    RelevantFilter?: boolean;
-                    CategoryConfirmedFilter?: boolean;
-                    IncomeFilter?: boolean;
-                    BankAccountIdsFilter?: string[];
-                    WalletIdsFilter?: string[];
-                    TagIdsFilter?: string[];
+                    TransactionDateInclusiveFrom?: ApiDate | null;
+                    TransactionDateInclusiveTo?: ApiDate | null;
+                    TransactionFilter?: string | null;
+                    RelevantFilter?: boolean | null;
+                    CategoryConfirmedFilter?: boolean | null;
+                    IncomeFilter?: boolean | null;
+                    BankAccountIdsFilter?: string[] | null;
+                    WalletIdsFilter?: string[] | null;
+                    TagIdsFilter?: string[] | null;
                 }
                 export interface CategoryBalancesDTO {
                     TotalPlnBalanceSmallestUnit: number;
@@ -661,7 +661,7 @@ Object {
                     /**
                      * Other categories if null
                      */
-                    Id?: string;
+                    Id?: string | null;
                     PlnBalanceSmallestUnit: number;
                     TotalBalancePercent: number;
                 }
@@ -682,7 +682,7 @@ Object {
                  */
                 export interface DeleteCategory extends Command, ICategoryRelated {
                     CategorizationHandling: AfterCategoryDeletionCategorizationHandlingDTO;
-                    MoveTransactionsToCategoryId?: string;
+                    MoveTransactionsToCategoryId?: string | null;
                 }
                 export namespace DeleteCategory {
                     export const ErrorCodes = {
@@ -855,7 +855,7 @@ Object {
                  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
                  */
                 export interface AssignCustomSubtransactionTitle extends Command, ISubtransactionRelated {
-                    Title?: string;
+                    Title?: string | null;
                 }
                 export namespace AssignCustomSubtransactionTitle {
                     export const ErrorCodes = {
@@ -870,7 +870,7 @@ Object {
                  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsTransactionAttribute
                  */
                 export interface AssignCustomTransactionTitle extends Command, ITransactionRelated {
-                    Title?: string;
+                    Title?: string | null;
                 }
                 export namespace AssignCustomTransactionTitle {
                     export const ErrorCodes = {
@@ -898,28 +898,28 @@ Object {
                 export interface BalanceInBillingCycleWithComparisonDTO {
                     BalancePlnSmallestUnit: number;
                     ExpensesPlnSmallestUnit: number;
-                    ExpensesLastBillingCycleDifferencePercent?: number;
+                    ExpensesLastBillingCycleDifferencePercent?: number | null;
                     IncomesPlnSmallestUnit: number;
-                    IncomesLastBillingCycleDifferencePercent?: number;
+                    IncomesLastBillingCycleDifferencePercent?: number | null;
                 }
                 /**
                  * Keep filters in sync with \`PaginatedTransactions\` query.
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  */
                 export interface BalanceSummary extends Query<BalanceSummaryDTO> {
-                    TransactionDateInclusiveFrom?: ApiDate;
-                    TransactionDateInclusiveTo?: ApiDate;
-                    Filter?: string;
-                    RelevantFilter?: boolean;
-                    CategoryConfirmedFilter?: boolean;
-                    IncomeFilter?: boolean;
+                    TransactionDateInclusiveFrom?: ApiDate | null;
+                    TransactionDateInclusiveTo?: ApiDate | null;
+                    Filter?: string | null;
+                    RelevantFilter?: boolean | null;
+                    CategoryConfirmedFilter?: boolean | null;
+                    IncomeFilter?: boolean | null;
                     /**
                      * Possibly a group category ID
                      */
-                    CategoryIdFilter?: string;
-                    BankAccountIdsFilter?: string[];
-                    WalletIdsFilter?: string[];
-                    TagIdsFilter?: string[];
+                    CategoryIdFilter?: string | null;
+                    BankAccountIdsFilter?: string[] | null;
+                    WalletIdsFilter?: string[] | null;
+                    TagIdsFilter?: string[] | null;
                 }
                 export interface BalanceSummaryDTO {
                     ExpensesPlnSmallestUnit: number;
@@ -1042,8 +1042,8 @@ Object {
                      * In the same currency as parent transaction.
                      */
                     AmountSmallestUnit: number;
-                    CategoryId?: string;
-                    UserAssignedTitle?: string;
+                    CategoryId?: string | null;
+                    UserAssignedTitle?: string | null;
                     Irrelevant: boolean;
                 }
                 /**
@@ -1067,26 +1067,26 @@ Object {
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  */
                 export interface PaginatedTransactions extends Shared.Contracts.SortedQuery<TransactionDTO, PaginatedTransactionsSortFieldDTO> {
-                    TransactionDateInclusiveFrom?: ApiDate;
-                    TransactionDateInclusiveTo?: ApiDate;
-                    Filter?: string;
-                    RelevantFilter?: boolean;
-                    CategoryConfirmedFilter?: boolean;
-                    IncomeFilter?: boolean;
+                    TransactionDateInclusiveFrom?: ApiDate | null;
+                    TransactionDateInclusiveTo?: ApiDate | null;
+                    Filter?: string | null;
+                    RelevantFilter?: boolean | null;
+                    CategoryConfirmedFilter?: boolean | null;
+                    IncomeFilter?: boolean | null;
                     /**
                      * Possibly a group category ID
                      */
-                    CategoryIdFilter?: string;
-                    BankAccountIdsFilter?: string[];
-                    WalletIdsFilter?: string[];
-                    TagIdsFilter?: string[];
+                    CategoryIdFilter?: string | null;
+                    BankAccountIdsFilter?: string[] | null;
+                    WalletIdsFilter?: string[] | null;
+                    TagIdsFilter?: string[] | null;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsTransactionAttribute
                  */
                 export interface SplitTransaction extends Command, ITransactionRelated {
-                    Subtransactions?: NewSubtransactionDTO[];
+                    Subtransactions?: NewSubtransactionDTO[] | null;
                 }
                 export namespace SplitTransaction {
                     export const ErrorCodes = {
@@ -1110,34 +1110,34 @@ Object {
                      * In the same currency as parent transaction.
                      */
                     AmountSmallestUnit: number;
-                    AmountPlnSmallestUnit?: number;
-                    CategoryId?: string;
+                    AmountPlnSmallestUnit?: number | null;
+                    CategoryId?: string | null;
                     CanConfirmCategory: boolean;
-                    UserAssignedTitle?: string;
+                    UserAssignedTitle?: string | null;
                     Irrelevant: boolean;
                 }
                 export interface TransactionDTO {
                     Id: string;
-                    WalletId?: string;
-                    WalletName?: string;
-                    BankAccountId?: string;
-                    BankAccountName?: string;
-                    Bank?: Shared.Contracts.BankDTO;
+                    WalletId?: string | null;
+                    WalletName?: string | null;
+                    BankAccountId?: string | null;
+                    BankAccountName?: string | null;
+                    Bank?: Shared.Contracts.BankDTO | null;
                     TransactionDate: ApiDate;
                     OriginalTransactionDate: ApiDate;
-                    BookedOnDate?: ApiDate;
-                    AmountPlnSmallestUnit?: number;
+                    BookedOnDate?: ApiDate | null;
+                    AmountPlnSmallestUnit?: number | null;
                     AmountSmallestUnit: number;
                     OriginalAmountSmallestUnit: number;
                     CurrencyCode: string;
-                    AccountBalanceAfterTransactionSmallestUnit?: number;
-                    Title?: string;
-                    OtherPartyName?: string;
-                    OtherPartyIban?: string;
-                    Kind?: string;
-                    Status?: TransactionStatusDTO;
-                    Comment?: string;
-                    UserAssignedTitle?: string;
+                    AccountBalanceAfterTransactionSmallestUnit?: number | null;
+                    Title?: string | null;
+                    OtherPartyName?: string | null;
+                    OtherPartyIban?: string | null;
+                    Kind?: string | null;
+                    Status?: TransactionStatusDTO | null;
+                    Comment?: string | null;
+                    UserAssignedTitle?: string | null;
                     Subtransactions: SubtransactionDTO[];
                     Tags: Tags.TagDTO[];
                 }
@@ -1162,7 +1162,7 @@ Object {
                  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsTransactionAttribute
                  */
                 export interface UpdateTransactionComment extends Command, ITransactionRelated {
-                    Comment?: string;
+                    Comment?: string | null;
                 }
                 export namespace UpdateTransactionComment {
                     export const ErrorCodes = {
@@ -1264,18 +1264,18 @@ Object {
                      */
                     export interface MyTags extends Query<TagDTO[]> {
                         FilterByTransactions: boolean;
-                        TransactionDateInclusiveFrom?: ApiDate;
-                        TransactionDateInclusiveTo?: ApiDate;
-                        TransactionFilter?: string;
-                        RelevantFilter?: boolean;
-                        CategoryConfirmedFilter?: boolean;
-                        IncomeFilter?: boolean;
+                        TransactionDateInclusiveFrom?: ApiDate | null;
+                        TransactionDateInclusiveTo?: ApiDate | null;
+                        TransactionFilter?: string | null;
+                        RelevantFilter?: boolean | null;
+                        CategoryConfirmedFilter?: boolean | null;
+                        IncomeFilter?: boolean | null;
                         /**
                          * Possibly a group category ID
                          */
-                        CategoryIdFilter?: string;
-                        BankAccountIdsFilter?: string[];
-                        WalletIdsFilter?: string[];
+                        CategoryIdFilter?: string | null;
+                        BankAccountIdsFilter?: string[] | null;
+                        WalletIdsFilter?: string[] | null;
                     }
                     export interface TagDTO {
                         Id: string;
@@ -1286,7 +1286,7 @@ Object {
                      * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsTransactionAttribute
                      */
                     export interface TagTransaction extends Command, ITransactionRelated {
-                        Tags?: string[];
+                        Tags?: string[] | null;
                     }
                     export namespace TagTransaction {
                         export const ErrorCodes = {
@@ -1347,8 +1347,8 @@ Object {
                     Email: string;
                 }
                 export interface VerifyAdditionalEmailForMigrationResultDTO {
-                    ValidationError?: VerifyAdditionalEmailForMigrationErrorDTO;
-                    VerificationFlowId?: string;
+                    ValidationError?: VerifyAdditionalEmailForMigrationErrorDTO | null;
+                    VerificationFlowId?: string | null;
                 }
                 export enum VerifyAdditionalEmailForMigrationErrorDTO {
                     EmailNotValid = 0,
@@ -1583,7 +1583,7 @@ Object {
                 export interface RequestImportFromKontomatik extends Command {
                     SessionId: string;
                     SessionIdSignature: string;
-                    MultipleAccessId?: string;
+                    MultipleAccessId?: string | null;
                     Target: string;
                     OfficialName: string;
                     Since: ApiDate;
@@ -1683,14 +1683,14 @@ export namespace LeanCode {
     export namespace Contracts {
         export namespace Admin {
             export interface AdminFilterRange<T> {
-                From?: T;
-                To?: T;
+                From?: T | null;
+                To?: T | null;
             }
             export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
                 Page: number;
                 PageSize: number;
-                SortOrder?: SortOrderDTO;
-                SortBy?: string;
+                SortOrder?: SortOrderDTO | null;
+                SortBy?: string | null;
             }
             export interface AdminQueryResult<TResult> {
                 Total: number;
@@ -1732,7 +1732,7 @@ Object {
                 SubtransactionId: string;
             }
             export interface ISubtransactionsRelated {
-                SubtransactionIds?: string[];
+                SubtransactionIds?: string[] | null;
             }
             export interface ITransactionRelated {
                 TransactionId: string;
@@ -1799,7 +1799,7 @@ Object {
                  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsBankAccountAttribute
                  */
                 export interface AssignCustomBankAccountName extends Command, IBankAccountRelated {
-                    Name?: string;
+                    Name?: string | null;
                 }
                 export namespace AssignCustomBankAccountName {
                     export const ErrorCodes = {
@@ -1812,16 +1812,16 @@ Object {
                 export interface BankAccountDTO {
                     Id: string;
                     Type: BankAccountTypeDTO;
-                    Iban?: string;
+                    Iban?: string | null;
                     IbanHash: string;
                     Name: string;
-                    FriendlyName?: string;
-                    UserAssignedName?: string;
-                    CreditCardNumber?: string;
+                    FriendlyName?: string | null;
+                    UserAssignedName?: string | null;
+                    CreditCardNumber?: string | null;
                     CurrencyCode: string;
-                    BalanceSmallestUnit?: number;
+                    BalanceSmallestUnit?: number | null;
                     MultipleAccessType: MultipleAccessTypeDTO;
-                    MostRecentImport?: ImportDTO;
+                    MostRecentImport?: ImportDTO | null;
                 }
                 export interface BankAccountsDTO {
                     Bank: Shared.Contracts.BankDTO;
@@ -1841,14 +1841,14 @@ Object {
                 }
                 export interface ImportDTO {
                     Id: string;
-                    KontomatikSessionId?: string;
-                    KontomatikMultipleAccess?: string;
+                    KontomatikSessionId?: string | null;
+                    KontomatikMultipleAccess?: string | null;
                     Status: BankAccountImportStatusDTO;
                     Date: string;
                     /**
                      * If \`Status\` is \`Failed\` and this property is null it means it's an error on our side.
                      */
-                    KontomatikErrorName?: string;
+                    KontomatikErrorName?: string | null;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -1901,7 +1901,7 @@ Object {
                      */
                     CategoryId: string;
                     PlannedBalancePlnSmallestUnit: number;
-                    Comment?: string;
+                    Comment?: string | null;
                     Type: CategoryBudgetTypeDTO;
                     BalancePlnSmallestUnit: number;
                 }
@@ -1965,7 +1965,7 @@ Object {
                      */
                     BillingCycle: string;
                     PlannedBalancePlnSmallestUnit: number;
-                    Comment?: string;
+                    Comment?: string | null;
                 }
                 export namespace PlanCategoryBudget {
                     export const ErrorCodes = {
@@ -2049,15 +2049,15 @@ Object {
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  */
                 export interface CategoryBalances extends Query<CategoryBalancesDTO> {
-                    TransactionDateInclusiveFrom?: string;
-                    TransactionDateInclusiveTo?: string;
-                    TransactionFilter?: string;
-                    RelevantFilter?: boolean;
-                    CategoryConfirmedFilter?: boolean;
-                    IncomeFilter?: boolean;
-                    BankAccountIdsFilter?: string[];
-                    WalletIdsFilter?: string[];
-                    TagIdsFilter?: string[];
+                    TransactionDateInclusiveFrom?: string | null;
+                    TransactionDateInclusiveTo?: string | null;
+                    TransactionFilter?: string | null;
+                    RelevantFilter?: boolean | null;
+                    CategoryConfirmedFilter?: boolean | null;
+                    IncomeFilter?: boolean | null;
+                    BankAccountIdsFilter?: string[] | null;
+                    WalletIdsFilter?: string[] | null;
+                    TagIdsFilter?: string[] | null;
                 }
                 export interface CategoryBalancesDTO {
                     TotalPlnBalanceSmallestUnit: number;
@@ -2086,7 +2086,7 @@ Object {
                     /**
                      * Other categories if null
                      */
-                    Id?: string;
+                    Id?: string | null;
                     PlnBalanceSmallestUnit: number;
                     TotalBalancePercent: number;
                 }
@@ -2107,7 +2107,7 @@ Object {
                  */
                 export interface DeleteCategory extends Command, ICategoryRelated {
                     CategorizationHandling: AfterCategoryDeletionCategorizationHandlingDTO;
-                    MoveTransactionsToCategoryId?: string;
+                    MoveTransactionsToCategoryId?: string | null;
                 }
                 export namespace DeleteCategory {
                     export const ErrorCodes = {
@@ -2280,7 +2280,7 @@ Object {
                  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
                  */
                 export interface AssignCustomSubtransactionTitle extends Command, ISubtransactionRelated {
-                    Title?: string;
+                    Title?: string | null;
                 }
                 export namespace AssignCustomSubtransactionTitle {
                     export const ErrorCodes = {
@@ -2295,7 +2295,7 @@ Object {
                  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsTransactionAttribute
                  */
                 export interface AssignCustomTransactionTitle extends Command, ITransactionRelated {
-                    Title?: string;
+                    Title?: string | null;
                 }
                 export namespace AssignCustomTransactionTitle {
                     export const ErrorCodes = {
@@ -2323,28 +2323,28 @@ Object {
                 export interface BalanceInBillingCycleWithComparisonDTO {
                     BalancePlnSmallestUnit: number;
                     ExpensesPlnSmallestUnit: number;
-                    ExpensesLastBillingCycleDifferencePercent?: number;
+                    ExpensesLastBillingCycleDifferencePercent?: number | null;
                     IncomesPlnSmallestUnit: number;
-                    IncomesLastBillingCycleDifferencePercent?: number;
+                    IncomesLastBillingCycleDifferencePercent?: number | null;
                 }
                 /**
                  * Keep filters in sync with \`PaginatedTransactions\` query.
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  */
                 export interface BalanceSummary extends Query<BalanceSummaryDTO> {
-                    TransactionDateInclusiveFrom?: string;
-                    TransactionDateInclusiveTo?: string;
-                    Filter?: string;
-                    RelevantFilter?: boolean;
-                    CategoryConfirmedFilter?: boolean;
-                    IncomeFilter?: boolean;
+                    TransactionDateInclusiveFrom?: string | null;
+                    TransactionDateInclusiveTo?: string | null;
+                    Filter?: string | null;
+                    RelevantFilter?: boolean | null;
+                    CategoryConfirmedFilter?: boolean | null;
+                    IncomeFilter?: boolean | null;
                     /**
                      * Possibly a group category ID
                      */
-                    CategoryIdFilter?: string;
-                    BankAccountIdsFilter?: string[];
-                    WalletIdsFilter?: string[];
-                    TagIdsFilter?: string[];
+                    CategoryIdFilter?: string | null;
+                    BankAccountIdsFilter?: string[] | null;
+                    WalletIdsFilter?: string[] | null;
+                    TagIdsFilter?: string[] | null;
                 }
                 export interface BalanceSummaryDTO {
                     ExpensesPlnSmallestUnit: number;
@@ -2467,8 +2467,8 @@ Object {
                      * In the same currency as parent transaction.
                      */
                     AmountSmallestUnit: number;
-                    CategoryId?: string;
-                    UserAssignedTitle?: string;
+                    CategoryId?: string | null;
+                    UserAssignedTitle?: string | null;
                     Irrelevant: boolean;
                 }
                 /**
@@ -2492,26 +2492,26 @@ Object {
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  */
                 export interface PaginatedTransactions extends Shared.Contracts.SortedQuery<TransactionDTO, PaginatedTransactionsSortFieldDTO> {
-                    TransactionDateInclusiveFrom?: string;
-                    TransactionDateInclusiveTo?: string;
-                    Filter?: string;
-                    RelevantFilter?: boolean;
-                    CategoryConfirmedFilter?: boolean;
-                    IncomeFilter?: boolean;
+                    TransactionDateInclusiveFrom?: string | null;
+                    TransactionDateInclusiveTo?: string | null;
+                    Filter?: string | null;
+                    RelevantFilter?: boolean | null;
+                    CategoryConfirmedFilter?: boolean | null;
+                    IncomeFilter?: boolean | null;
                     /**
                      * Possibly a group category ID
                      */
-                    CategoryIdFilter?: string;
-                    BankAccountIdsFilter?: string[];
-                    WalletIdsFilter?: string[];
-                    TagIdsFilter?: string[];
+                    CategoryIdFilter?: string | null;
+                    BankAccountIdsFilter?: string[] | null;
+                    WalletIdsFilter?: string[] | null;
+                    TagIdsFilter?: string[] | null;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsTransactionAttribute
                  */
                 export interface SplitTransaction extends Command, ITransactionRelated {
-                    Subtransactions?: NewSubtransactionDTO[];
+                    Subtransactions?: NewSubtransactionDTO[] | null;
                 }
                 export namespace SplitTransaction {
                     export const ErrorCodes = {
@@ -2535,34 +2535,34 @@ Object {
                      * In the same currency as parent transaction.
                      */
                     AmountSmallestUnit: number;
-                    AmountPlnSmallestUnit?: number;
-                    CategoryId?: string;
+                    AmountPlnSmallestUnit?: number | null;
+                    CategoryId?: string | null;
                     CanConfirmCategory: boolean;
-                    UserAssignedTitle?: string;
+                    UserAssignedTitle?: string | null;
                     Irrelevant: boolean;
                 }
                 export interface TransactionDTO {
                     Id: string;
-                    WalletId?: string;
-                    WalletName?: string;
-                    BankAccountId?: string;
-                    BankAccountName?: string;
-                    Bank?: Shared.Contracts.BankDTO;
+                    WalletId?: string | null;
+                    WalletName?: string | null;
+                    BankAccountId?: string | null;
+                    BankAccountName?: string | null;
+                    Bank?: Shared.Contracts.BankDTO | null;
                     TransactionDate: string;
                     OriginalTransactionDate: string;
-                    BookedOnDate?: string;
-                    AmountPlnSmallestUnit?: number;
+                    BookedOnDate?: string | null;
+                    AmountPlnSmallestUnit?: number | null;
                     AmountSmallestUnit: number;
                     OriginalAmountSmallestUnit: number;
                     CurrencyCode: string;
-                    AccountBalanceAfterTransactionSmallestUnit?: number;
-                    Title?: string;
-                    OtherPartyName?: string;
-                    OtherPartyIban?: string;
-                    Kind?: string;
-                    Status?: TransactionStatusDTO;
-                    Comment?: string;
-                    UserAssignedTitle?: string;
+                    AccountBalanceAfterTransactionSmallestUnit?: number | null;
+                    Title?: string | null;
+                    OtherPartyName?: string | null;
+                    OtherPartyIban?: string | null;
+                    Kind?: string | null;
+                    Status?: TransactionStatusDTO | null;
+                    Comment?: string | null;
+                    UserAssignedTitle?: string | null;
                     Subtransactions: SubtransactionDTO[];
                     Tags: Tags.TagDTO[];
                 }
@@ -2587,7 +2587,7 @@ Object {
                  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsTransactionAttribute
                  */
                 export interface UpdateTransactionComment extends Command, ITransactionRelated {
-                    Comment?: string;
+                    Comment?: string | null;
                 }
                 export namespace UpdateTransactionComment {
                     export const ErrorCodes = {
@@ -2689,18 +2689,18 @@ Object {
                      */
                     export interface MyTags extends Query<TagDTO[]> {
                         FilterByTransactions: boolean;
-                        TransactionDateInclusiveFrom?: string;
-                        TransactionDateInclusiveTo?: string;
-                        TransactionFilter?: string;
-                        RelevantFilter?: boolean;
-                        CategoryConfirmedFilter?: boolean;
-                        IncomeFilter?: boolean;
+                        TransactionDateInclusiveFrom?: string | null;
+                        TransactionDateInclusiveTo?: string | null;
+                        TransactionFilter?: string | null;
+                        RelevantFilter?: boolean | null;
+                        CategoryConfirmedFilter?: boolean | null;
+                        IncomeFilter?: boolean | null;
                         /**
                          * Possibly a group category ID
                          */
-                        CategoryIdFilter?: string;
-                        BankAccountIdsFilter?: string[];
-                        WalletIdsFilter?: string[];
+                        CategoryIdFilter?: string | null;
+                        BankAccountIdsFilter?: string[] | null;
+                        WalletIdsFilter?: string[] | null;
                     }
                     export interface TagDTO {
                         Id: string;
@@ -2711,7 +2711,7 @@ Object {
                      * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsTransactionAttribute
                      */
                     export interface TagTransaction extends Command, ITransactionRelated {
-                        Tags?: string[];
+                        Tags?: string[] | null;
                     }
                     export namespace TagTransaction {
                         export const ErrorCodes = {
@@ -2772,8 +2772,8 @@ Object {
                     Email: string;
                 }
                 export interface VerifyAdditionalEmailForMigrationResultDTO {
-                    ValidationError?: VerifyAdditionalEmailForMigrationErrorDTO;
-                    VerificationFlowId?: string;
+                    ValidationError?: VerifyAdditionalEmailForMigrationErrorDTO | null;
+                    VerificationFlowId?: string | null;
                 }
                 export enum VerifyAdditionalEmailForMigrationErrorDTO {
                     EmailNotValid = 0,
@@ -3008,7 +3008,7 @@ Object {
                 export interface RequestImportFromKontomatik extends Command {
                     SessionId: string;
                     SessionIdSignature: string;
-                    MultipleAccessId?: string;
+                    MultipleAccessId?: string | null;
                     Target: string;
                     OfficialName: string;
                     Since: string;
@@ -3108,14 +3108,14 @@ export namespace LeanCode {
     export namespace Contracts {
         export namespace Admin {
             export interface AdminFilterRange<T> {
-                From?: T;
-                To?: T;
+                From?: T | null;
+                To?: T | null;
             }
             export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
                 Page: number;
                 PageSize: number;
-                SortOrder?: SortOrderDTO;
-                SortBy?: string;
+                SortOrder?: SortOrderDTO | null;
+                SortBy?: string | null;
             }
             export interface AdminQueryResult<TResult> {
                 Total: number;
@@ -3159,7 +3159,7 @@ export interface IOwnWealthItem {
  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsBankAccountAttribute
  */
 export interface AssignCustomBankAccountName extends Command, IBankAccountRelated {
-    Name?: string;
+    Name?: string | null;
 }
 export namespace AssignCustomBankAccountName {
     export const ErrorCodes = {
@@ -3172,16 +3172,16 @@ export namespace AssignCustomBankAccountName {
 export interface BankAccountDTO {
     Id: string;
     Type: BankAccountTypeDTO;
-    Iban?: string;
+    Iban?: string | null;
     IbanHash: string;
     Name: string;
-    FriendlyName?: string;
-    UserAssignedName?: string;
-    CreditCardNumber?: string;
+    FriendlyName?: string | null;
+    UserAssignedName?: string | null;
+    CreditCardNumber?: string | null;
     CurrencyCode: string;
-    BalanceSmallestUnit?: number;
+    BalanceSmallestUnit?: number | null;
     MultipleAccessType: MultipleAccessTypeDTO;
-    MostRecentImport?: ImportDTO;
+    MostRecentImport?: ImportDTO | null;
 }
 export interface BankAccountsDTO {
     Bank: BankDTO;
@@ -3201,14 +3201,14 @@ export namespace DeleteBankAccount {
 }
 export interface ImportDTO {
     Id: string;
-    KontomatikSessionId?: string;
-    KontomatikMultipleAccess?: string;
+    KontomatikSessionId?: string | null;
+    KontomatikMultipleAccess?: string | null;
     Status: BankAccountImportStatusDTO;
     Date: ApiDateTimeOffset;
     /**
      * If \`Status\` is \`Failed\` and this property is null it means it's an error on our side.
      */
-    KontomatikErrorName?: string;
+    KontomatikErrorName?: string | null;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -3244,7 +3244,7 @@ export interface CategoryBudgetDTO {
      */
     CategoryId: string;
     PlannedBalancePlnSmallestUnit: number;
-    Comment?: string;
+    Comment?: string | null;
     Type: CategoryBudgetTypeDTO;
     BalancePlnSmallestUnit: number;
 }
@@ -3308,7 +3308,7 @@ export interface PlanCategoryBudget extends Command, ICategoryOrCategoryGroupRel
      */
     BillingCycle: ApiDate;
     PlannedBalancePlnSmallestUnit: number;
-    Comment?: string;
+    Comment?: string | null;
 }
 export namespace PlanCategoryBudget {
     export const ErrorCodes = {
@@ -3381,15 +3381,15 @@ export interface CategoryBalanceDTO {
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  */
 export interface CategoryBalances extends Query<CategoryBalancesDTO> {
-    TransactionDateInclusiveFrom?: ApiDate;
-    TransactionDateInclusiveTo?: ApiDate;
-    TransactionFilter?: string;
-    RelevantFilter?: boolean;
-    CategoryConfirmedFilter?: boolean;
-    IncomeFilter?: boolean;
-    BankAccountIdsFilter?: string[];
-    WalletIdsFilter?: string[];
-    TagIdsFilter?: string[];
+    TransactionDateInclusiveFrom?: ApiDate | null;
+    TransactionDateInclusiveTo?: ApiDate | null;
+    TransactionFilter?: string | null;
+    RelevantFilter?: boolean | null;
+    CategoryConfirmedFilter?: boolean | null;
+    IncomeFilter?: boolean | null;
+    BankAccountIdsFilter?: string[] | null;
+    WalletIdsFilter?: string[] | null;
+    TagIdsFilter?: string[] | null;
 }
 export interface CategoryBalancesDTO {
     TotalPlnBalanceSmallestUnit: number;
@@ -3418,7 +3418,7 @@ export interface CategoryGroupBalanceSummaryDTO {
     /**
      * Other categories if null
      */
-    Id?: string;
+    Id?: string | null;
     PlnBalanceSmallestUnit: number;
     TotalBalancePercent: number;
 }
@@ -3439,7 +3439,7 @@ export interface CategoryGroupRelationsDTO {
  */
 export interface DeleteCategory extends Command, ICategoryRelated {
     CategorizationHandling: AfterCategoryDeletionCategorizationHandlingDTO;
-    MoveTransactionsToCategoryId?: string;
+    MoveTransactionsToCategoryId?: string | null;
 }
 export namespace DeleteCategory {
     export const ErrorCodes = {
@@ -3551,7 +3551,7 @@ export interface ISubtransactionRelated {
     SubtransactionId: string;
 }
 export interface ISubtransactionsRelated {
-    SubtransactionIds?: string[];
+    SubtransactionIds?: string[] | null;
 }
 export interface ITransactionRelated {
     TransactionId: string;
@@ -3599,7 +3599,7 @@ export namespace Permissions {
  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsSubtransactionAttribute
  */
 export interface AssignCustomSubtransactionTitle extends Command, ISubtransactionRelated {
-    Title?: string;
+    Title?: string | null;
 }
 export namespace AssignCustomSubtransactionTitle {
     export const ErrorCodes = {
@@ -3614,7 +3614,7 @@ export namespace AssignCustomSubtransactionTitle {
  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsTransactionAttribute
  */
 export interface AssignCustomTransactionTitle extends Command, ITransactionRelated {
-    Title?: string;
+    Title?: string | null;
 }
 export namespace AssignCustomTransactionTitle {
     export const ErrorCodes = {
@@ -3642,28 +3642,28 @@ export interface BalanceInBillingCycleDTO {
 export interface BalanceInBillingCycleWithComparisonDTO {
     BalancePlnSmallestUnit: number;
     ExpensesPlnSmallestUnit: number;
-    ExpensesLastBillingCycleDifferencePercent?: number;
+    ExpensesLastBillingCycleDifferencePercent?: number | null;
     IncomesPlnSmallestUnit: number;
-    IncomesLastBillingCycleDifferencePercent?: number;
+    IncomesLastBillingCycleDifferencePercent?: number | null;
 }
 /**
  * Keep filters in sync with \`PaginatedTransactions\` query.
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  */
 export interface BalanceSummary extends Query<BalanceSummaryDTO> {
-    TransactionDateInclusiveFrom?: ApiDate;
-    TransactionDateInclusiveTo?: ApiDate;
-    Filter?: string;
-    RelevantFilter?: boolean;
-    CategoryConfirmedFilter?: boolean;
-    IncomeFilter?: boolean;
+    TransactionDateInclusiveFrom?: ApiDate | null;
+    TransactionDateInclusiveTo?: ApiDate | null;
+    Filter?: string | null;
+    RelevantFilter?: boolean | null;
+    CategoryConfirmedFilter?: boolean | null;
+    IncomeFilter?: boolean | null;
     /**
      * Possibly a group category ID
      */
-    CategoryIdFilter?: string;
-    BankAccountIdsFilter?: string[];
-    WalletIdsFilter?: string[];
-    TagIdsFilter?: string[];
+    CategoryIdFilter?: string | null;
+    BankAccountIdsFilter?: string[] | null;
+    WalletIdsFilter?: string[] | null;
+    TagIdsFilter?: string[] | null;
 }
 export interface BalanceSummaryDTO {
     ExpensesPlnSmallestUnit: number;
@@ -3845,8 +3845,8 @@ export interface NewSubtransactionDTO {
      * In the same currency as parent transaction.
      */
     AmountSmallestUnit: number;
-    CategoryId?: string;
-    UserAssignedTitle?: string;
+    CategoryId?: string | null;
+    UserAssignedTitle?: string | null;
     Irrelevant: boolean;
 }
 /**
@@ -3870,26 +3870,26 @@ export namespace OverrideTransactionCategory {
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  */
 export interface PaginatedTransactions extends SortedQuery<TransactionDTO, PaginatedTransactionsSortFieldDTO> {
-    TransactionDateInclusiveFrom?: ApiDate;
-    TransactionDateInclusiveTo?: ApiDate;
-    Filter?: string;
-    RelevantFilter?: boolean;
-    CategoryConfirmedFilter?: boolean;
-    IncomeFilter?: boolean;
+    TransactionDateInclusiveFrom?: ApiDate | null;
+    TransactionDateInclusiveTo?: ApiDate | null;
+    Filter?: string | null;
+    RelevantFilter?: boolean | null;
+    CategoryConfirmedFilter?: boolean | null;
+    IncomeFilter?: boolean | null;
     /**
      * Possibly a group category ID
      */
-    CategoryIdFilter?: string;
-    BankAccountIdsFilter?: string[];
-    WalletIdsFilter?: string[];
-    TagIdsFilter?: string[];
+    CategoryIdFilter?: string | null;
+    BankAccountIdsFilter?: string[] | null;
+    WalletIdsFilter?: string[] | null;
+    TagIdsFilter?: string[] | null;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsTransactionAttribute
  */
 export interface SplitTransaction extends Command, ITransactionRelated {
-    Subtransactions?: NewSubtransactionDTO[];
+    Subtransactions?: NewSubtransactionDTO[] | null;
 }
 export namespace SplitTransaction {
     export const ErrorCodes = {
@@ -3913,10 +3913,10 @@ export interface SubtransactionDTO {
      * In the same currency as parent transaction.
      */
     AmountSmallestUnit: number;
-    AmountPlnSmallestUnit?: number;
-    CategoryId?: string;
+    AmountPlnSmallestUnit?: number | null;
+    CategoryId?: string | null;
     CanConfirmCategory: boolean;
-    UserAssignedTitle?: string;
+    UserAssignedTitle?: string | null;
     Irrelevant: boolean;
 }
 /**
@@ -3924,18 +3924,18 @@ export interface SubtransactionDTO {
  */
 export interface MyTags extends Query<TagDTO[]> {
     FilterByTransactions: boolean;
-    TransactionDateInclusiveFrom?: ApiDate;
-    TransactionDateInclusiveTo?: ApiDate;
-    TransactionFilter?: string;
-    RelevantFilter?: boolean;
-    CategoryConfirmedFilter?: boolean;
-    IncomeFilter?: boolean;
+    TransactionDateInclusiveFrom?: ApiDate | null;
+    TransactionDateInclusiveTo?: ApiDate | null;
+    TransactionFilter?: string | null;
+    RelevantFilter?: boolean | null;
+    CategoryConfirmedFilter?: boolean | null;
+    IncomeFilter?: boolean | null;
     /**
      * Possibly a group category ID
      */
-    CategoryIdFilter?: string;
-    BankAccountIdsFilter?: string[];
-    WalletIdsFilter?: string[];
+    CategoryIdFilter?: string | null;
+    BankAccountIdsFilter?: string[] | null;
+    WalletIdsFilter?: string[] | null;
 }
 export interface TagDTO {
     Id: string;
@@ -3946,7 +3946,7 @@ export interface TagDTO {
  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsTransactionAttribute
  */
 export interface TagTransaction extends Command, ITransactionRelated {
-    Tags?: string[];
+    Tags?: string[] | null;
 }
 export namespace TagTransaction {
     export const ErrorCodes = {
@@ -3957,26 +3957,26 @@ export namespace TagTransaction {
 }
 export interface TransactionDTO {
     Id: string;
-    WalletId?: string;
-    WalletName?: string;
-    BankAccountId?: string;
-    BankAccountName?: string;
-    Bank?: BankDTO;
+    WalletId?: string | null;
+    WalletName?: string | null;
+    BankAccountId?: string | null;
+    BankAccountName?: string | null;
+    Bank?: BankDTO | null;
     TransactionDate: ApiDate;
     OriginalTransactionDate: ApiDate;
-    BookedOnDate?: ApiDate;
-    AmountPlnSmallestUnit?: number;
+    BookedOnDate?: ApiDate | null;
+    AmountPlnSmallestUnit?: number | null;
     AmountSmallestUnit: number;
     OriginalAmountSmallestUnit: number;
     CurrencyCode: string;
-    AccountBalanceAfterTransactionSmallestUnit?: number;
-    Title?: string;
-    OtherPartyName?: string;
-    OtherPartyIban?: string;
-    Kind?: string;
-    Status?: TransactionStatusDTO;
-    Comment?: string;
-    UserAssignedTitle?: string;
+    AccountBalanceAfterTransactionSmallestUnit?: number | null;
+    Title?: string | null;
+    OtherPartyName?: string | null;
+    OtherPartyIban?: string | null;
+    Kind?: string | null;
+    Status?: TransactionStatusDTO | null;
+    Comment?: string | null;
+    UserAssignedTitle?: string | null;
     Subtransactions: SubtransactionDTO[];
     Tags: TagDTO[];
 }
@@ -4001,7 +4001,7 @@ export namespace UpdateTransactionAmount {
  * @attribute Kontomierz.Finances.Contracts.AuthorizeWhenOwnsTransactionAttribute
  */
 export interface UpdateTransactionComment extends Command, ITransactionRelated {
-    Comment?: string;
+    Comment?: string | null;
 }
 export namespace UpdateTransactionComment {
     export const ErrorCodes = {
@@ -4074,8 +4074,8 @@ export interface VerifyAdditionalEmailForMigration extends Operation<VerifyAddit
     Email: string;
 }
 export interface VerifyAdditionalEmailForMigrationResultDTO {
-    ValidationError?: VerifyAdditionalEmailForMigrationErrorDTO;
-    VerificationFlowId?: string;
+    ValidationError?: VerifyAdditionalEmailForMigrationErrorDTO | null;
+    VerificationFlowId?: string | null;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -4283,7 +4283,7 @@ export interface KontomatikImportResponseDTO {
 export interface RequestImportFromKontomatik extends Command {
     SessionId: string;
     SessionIdSignature: string;
-    MultipleAccessId?: string;
+    MultipleAccessId?: string | null;
     Target: string;
     OfficialName: string;
     Since: ApiDate;
@@ -4371,14 +4371,14 @@ export interface SortedQuery<TResult, TSort> extends PaginatedQuery<TResult> {
     SortByDescending: boolean;
 }
 export interface AdminFilterRange<T> {
-    From?: T;
-    To?: T;
+    From?: T | null;
+    To?: T | null;
 }
 export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
     Page: number;
     PageSize: number;
-    SortOrder?: SortOrderDTO;
-    SortBy?: string;
+    SortOrder?: SortOrderDTO | null;
+    SortBy?: string | null;
 }
 export interface AdminQueryResult<TResult> {
     Total: number;

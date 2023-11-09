@@ -1,5 +1,9 @@
 import { SchemaOperation } from "@leancodepl/contractsgenerator-typescript-schema";
-import { GenerateContext, generateType, withNullability } from "@leancodepl/contractsgenerator-typescript-types";
+import {
+  GenerateContext,
+  generateType,
+  generateTypeWithNullability,
+} from "@leancodepl/contractsgenerator-typescript-types";
 import ts from "typescript";
 
 export function generateOperation(query: SchemaOperation, context: GenerateContext) {
@@ -12,7 +16,7 @@ export function generateOperation(query: SchemaOperation, context: GenerateConte
       ),
       /* typeArguments */ [
         generateType(query.operationType, context),
-        withNullability(generateType(query.returnType, context), query.returnType.isNullable),
+        generateTypeWithNullability(query.returnType, context),
       ],
       /* argumentsArray */ [ts.factory.createStringLiteral(query.id)],
     ),

@@ -2,6 +2,7 @@ export * from "./generateGenericType";
 export * from "./generateInternalType";
 export * from "./generateKnownType";
 export * from "./generateType";
+export * from "./generateTypeWithNullability";
 export * from "./generateContext";
 export * from "./defaultTypesMap";
 

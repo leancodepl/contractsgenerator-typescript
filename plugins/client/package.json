@@ -1,4 +1,9 @@
 {
   "name": "@leancodepl/contractsgenerator-typescript-plugin-client",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "@leancodepl/contractsgenerator-typescript-plugin": "*",
+    "@leancodepl/contractsgenerator-typescript-schema": "*",
+    "@leancodepl/contractsgenerator-typescript-types": "*"
+  }
 }
