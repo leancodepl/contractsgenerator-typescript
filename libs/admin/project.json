@@ -36,7 +36,7 @@
       "options": {
         "cwd": "libs/admin",
         "commands": [
-          "SERVER_VERSION=2.0.0-alpha.4 node ../../tools/scripts/generate.mjs project --project=LeanCode.Contracts.Admin.csproj -o LeanCode.Contracts.pb"
+          "SERVER_VERSION=2.0.0 node ../../tools/scripts/generate.mjs project --project=LeanCode.Contracts.Admin.csproj -o LeanCode.Contracts.pb"
         ],
         "parallel": false
       }

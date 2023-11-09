@@ -4,7 +4,7 @@ import { exec } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 
-export const serverContractsGeneratorVersion = "2.0.0-alpha.4";
+export const serverContractsGeneratorVersion = "2.0.0";
 
 export async function getSchema(input: GeneratorInput) {
   if (input.raw) {
