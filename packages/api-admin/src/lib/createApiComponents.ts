@@ -12,7 +12,10 @@ export function createApiComponents<
   TContracts extends Record<GetAllQueries<GetAllTables<TAdminComponentsConfig>>, AdminQuery<any>>,
 >(
   { components, enumsMaps }: TAdminComponentsConfig,
-  { cqrsClientConfig, cqrs }: { cqrsClientConfig: CqrsClientConfig; cqrs: any },
+  {
+    cqrsClientConfig,
+    cqrs,
+  }: { cqrsClientConfig: CqrsClientConfig; cqrs: (cqrsClient: ReturnType<typeof mkCqrsClient>) => any },
 ) {
   return mkApiTables<TAdminComponentsConfig, TContracts>({ components, enumsMaps } as TAdminComponentsConfig, {
     cqrsClientConfig,
