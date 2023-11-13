@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Get the version
         id: get_version
         run: echo ::set-output name=version::$(jq -Mr '.version' < lerna.json)
@@ -22,7 +22,9 @@ jobs:
         run: npm install
       - name: Test
         run: npx nx run-many -t test
-      - name: Build & Publish
+      - name: Test Build
+        run: npx nx run-many -t build --parallel=1
+      - name: Publish
         run:
           npx nx run-many -t publish --registry=npm --ver=${{ format('{0}', steps.get_version.outputs.version)}}
           --tag=latest
