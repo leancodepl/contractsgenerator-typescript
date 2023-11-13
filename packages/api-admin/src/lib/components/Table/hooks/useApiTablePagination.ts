@@ -1,3 +1,4 @@
+import { UncapitalizeDeep } from "@leancodepl/utils";
 import { useCallback, useMemo } from "react";
 import usePagination from "../../../hooks/usePagination";
 import { AdminQuery, AdminQueryResult } from "../../../types/admin";
@@ -12,16 +13,16 @@ export const defaultPaginationConfig = {
 export function useApiTablePagination<T>() {
   const { pagination: paginationHandler, useSetTotal } = usePagination();
 
-  const paginationQueryParams = useMemo<Pick<AdminQuery<T>, "pageSize" | "page">>(
+  const paginationQueryParams = useMemo<Pick<AdminQuery<T>, "PageSize" | "Page">>(
     () => ({
-      pageSize: paginationHandler.pageSize ?? defaultPaginationConfig.pageSize,
-      page: paginationHandler.currentPage ?? defaultPaginationConfig.current,
+      PageSize: paginationHandler.pageSize ?? defaultPaginationConfig.pageSize,
+      Page: (paginationHandler.currentPage ?? defaultPaginationConfig.current) - 1,
     }),
     [paginationHandler.currentPage, paginationHandler.pageSize],
   );
 
   const getPaginationConfig = useCallback(
-    (data: AdminQueryResult<T> | undefined) => ({
+    (data: UncapitalizeDeep<AdminQueryResult<T>> | undefined | null) => ({
       ...defaultPaginationConfig,
       onChange: (page: number, pageSize: number) => {
         paginationHandler.onPageChange(page);

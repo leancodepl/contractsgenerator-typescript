@@ -7,7 +7,7 @@ import type {
   EnumsMap,
 } from "@leancodepl/contractsgenerator-typescript-plugin-admin";
 import { mkCqrsClient } from "@leancodepl/react-query-cqrs-client";
-import { assertNotEmpty } from "@leancodepl/utils";
+import { assertNotEmpty, toLowerFirst } from "@leancodepl/utils";
 import { keepPreviousData } from "@tanstack/react-query";
 import { Table as AntTable, TableProps as AntTableProps, TableColumnType, TableProps } from "antd";
 import { ReactNode, useCallback, useMemo, useState } from "react";
@@ -106,7 +106,7 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
 
           return {
             key: column.id,
-            dataIndex: column.id,
+            dataIndex: toLowerFirst(column.id),
             title: column.title,
             render,
             sorter: column.sortable,

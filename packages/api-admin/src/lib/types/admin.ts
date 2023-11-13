@@ -5,14 +5,14 @@
 export interface Query<TResult> {}
 
 export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
-  page: number;
-  pageSize: number;
+  Page: number;
+  PageSize: number;
 
-  sortDescending?: boolean | null;
-  sortBy?: string | null;
+  SortDescending?: boolean | null;
+  SortBy?: string | null;
 }
 
 export interface AdminQueryResult<TResult> {
-  total: number;
-  items: TResult;
+  Total: number;
+  Items: TResult;
 }

@@ -55,7 +55,7 @@ export default function usePagination({
   return {
     useSetTotal,
     pagination,
-    displayPage: displayPage,
+    displayPage,
     page,
     pageSize,
     resetPagination,
