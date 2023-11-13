@@ -4,8 +4,7 @@
   "arrowParens": "avoid",
   "trailingComma": "all",
   "semicolons": false,
-  "tabWidth": 4,
-  "jsxBracketSameLine": true,
+  "tabWidth": 2,
   "endOfLine": "lf",
   "overrides": [
     {

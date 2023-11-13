@@ -1,0 +1,8 @@
+{
+  "name": "@leancodepl/contractsgenerator-typescript-plugin-raw",
+  "version": "0.0.1",
+  "dependencies": {
+    "@leancodepl/contractsgenerator-typescript-plugin": "*",
+    "zod": ">=3.22.0"
+  }
+}

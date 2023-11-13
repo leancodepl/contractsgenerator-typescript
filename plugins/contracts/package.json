@@ -1,0 +1,10 @@
+{
+  "name": "@leancodepl/contractsgenerator-typescript-plugin-contracts",
+  "version": "0.0.1",
+  "dependencies": {
+    "@leancodepl/contractsgenerator-typescript-schema": "*",
+    "@leancodepl/contractsgenerator-typescript-types": "*",
+    "@leancodepl/contractsgenerator-typescript-values": "*",
+    "zod": ">=3.22.0"
+  }
+}

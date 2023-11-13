@@ -1,0 +1,49 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "raw",
+  "sourceRoot": "plugins/raw/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/plugins/raw",
+        "tsConfig": "plugins/raw/tsconfig.lib.json",
+        "packageJson": "plugins/raw/package.json",
+        "main": "plugins/raw/src/index.ts",
+        "assets": ["plugins/raw/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["plugins/raw/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "plugins/raw/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs raw {args.registry} {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "validator": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "plugins/raw",
+        "command": "ts-to-zod src/configuration.ts src/configuration.validator.ts"
+      }
+    }
+  },
+  "tags": ["plugin"]
+}

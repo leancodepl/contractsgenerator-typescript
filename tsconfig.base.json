@@ -1,0 +1,34 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2017",
+    "module": "esnext",
+    "lib": ["ESNext"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@leancodepl/admin": ["packages/api-admin/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript": ["packages/generator/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-contracts": ["plugins/contracts/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin": ["libs/plugin/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin-admin": ["plugins/admin/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin-client": ["plugins/client/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin-contracts": ["plugins/contracts/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin-raw": ["plugins/raw/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-schema": ["libs/schema/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-types": ["libs/types/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-values": ["libs/values/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,0 +1,7 @@
+{
+  "name": "@leancodepl/contractsgenerator-typescript-types",
+  "version": "1.0.0-alpha.0",
+  "dependencies": {
+    "@leancodepl/utils": ">=7.2.1"
+  }
+}

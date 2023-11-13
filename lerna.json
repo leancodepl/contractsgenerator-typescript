@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "version": "1.0.0-alpha.0",
+  "useNx": true,
+  "command": {
+    "version": {
+      "message": "chore(release): %s",
+      "ignoreChanges": ["**/__tests__/**", "**/*.md", "**/jest.config.js"],
+      "conventionalCommits": true,
+      "exact": true
+    }
+  }
+}
