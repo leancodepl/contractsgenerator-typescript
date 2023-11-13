@@ -1,6 +1,14 @@
 name: Release
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        type: choice
+        description: Choose tag
+        options:
+          - alpha
+          - latest
 
 jobs:
   release:
@@ -11,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=version::$(jq -Mr '.version' < lerna.json)
+        run: echo "version=$(jq -Mr '.version' < lerna.json)" >> $GITHUB_OUTPUT
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
@@ -26,7 +34,7 @@ jobs:
         run: npx nx run-many -t build --parallel=1
       - name: Publish
         run:
-          npx nx run-many -t publish --registry=npm --ver=${{ format('{0}', steps.get_version.outputs.version)}}
-          --tag=latest
+          npx nx run-many -t publish --registry=npm --ver=${{steps.get_version.outputs.version}}
+          --tag=${{github.event.inputs.tag}}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
