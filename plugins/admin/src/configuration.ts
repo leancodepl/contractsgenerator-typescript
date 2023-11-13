@@ -1,12 +1,12 @@
 export type AdminGeneratorPluginConfiguration = {
-    input: GeneratorInput;
+  input: GeneratorInput;
 };
 
 export interface GeneratorInput {
-    raw?: string;
-    base?: string;
-    file?: string;
-    include?: string | string[];
-    exclude?: string | string[];
-    project?: string | string[];
+  raw?: string;
+  base?: string;
+  file?: string;
+  include?: string | string[];
+  exclude?: string | string[];
+  project?: string | string[];
 }

@@ -1,32 +1,32 @@
 import {
-    GeneratorPlugin,
-    GeneratorPluginInstance,
-    GeneratorSessionContext,
+  GeneratorPlugin,
+  GeneratorPluginInstance,
+  GeneratorSessionContext,
 } from "@leancodepl/contractsgenerator-typescript-plugin";
 import { adminGeneratorPluginConfigurationSchema } from "./configuration.validator";
 import { generateAdmin } from "./lib/generateAdmin";
 import { printConfig } from "./lib/printConfig";
 
 class AdminGeneratorPlugin implements GeneratorPluginInstance {
-    configuration;
+  configuration;
 
-    constructor(unsafeConfig: unknown, private context: GeneratorSessionContext) {
-        this.configuration = adminGeneratorPluginConfigurationSchema.parse(unsafeConfig);
-    }
+  constructor(unsafeConfig: unknown, private context: GeneratorSessionContext) {
+    this.configuration = adminGeneratorPluginConfigurationSchema.parse(unsafeConfig);
+  }
 
-    async generate(): Promise<string> {
-        const schema = await this.context.getSchema(this.configuration.input);
+  async generate(): Promise<string> {
+    const schema = await this.context.getSchema(this.configuration.input);
 
-        const admin = generateAdmin(schema);
+    const admin = generateAdmin(schema);
 
-        return printConfig(admin);
-    }
+    return printConfig(admin);
+  }
 }
 
 const adminGeneratorPlugin: GeneratorPlugin = {
-    instance(unsafeConfig, context) {
-        return new AdminGeneratorPlugin(unsafeConfig, context.session);
-    },
+  instance(unsafeConfig, context) {
+    return new AdminGeneratorPlugin(unsafeConfig, context.session);
+  },
 };
 
 export default adminGeneratorPlugin;

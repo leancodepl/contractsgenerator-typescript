@@ -1,4 +1,4 @@
-import { assertNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
+import { assertNotEmpty } from "@leancodepl/utils";
 import { leancode } from "./protocol";
 import { SchemaErrorCodes } from "./schemaErrorCodes";
 import { SchemaInterface } from "./schemaInterface";

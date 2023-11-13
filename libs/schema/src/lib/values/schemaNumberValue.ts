@@ -1,4 +1,4 @@
-import { ensureNotEmpty } from "@leancodepl/contractsgenerator-typescript-utils";
+import { ensureNotEmpty } from "@leancodepl/utils";
 import Long from "long";
 import { leancode } from "../protocol";
 import { SchemaValue } from "./schemaValue";

@@ -5,19 +5,14 @@
 export interface Query<TResult> {}
 
 export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
-    Page: number;
-    PageSize: number;
+  page: number;
+  pageSize: number;
 
-    SortOrder?: SortOrderDTO | null;
-    SortBy?: string | null;
+  sortDescending?: boolean | null;
+  sortBy?: string | null;
 }
 
 export interface AdminQueryResult<TResult> {
-    Total: number;
-    Items: TResult;
-}
-
-export enum SortOrderDTO {
-    Descending = 0,
-    Ascending = 1,
+  total: number;
+  items: TResult;
 }
