@@ -13,7 +13,7 @@ import { Table as AntTable, TableProps as AntTableProps, TableColumnType, TableP
 import { ReactNode, useCallback, useMemo, useState } from "react";
 import { mkColumnRender } from "./filters/mkColumnRender";
 import { FilterConfig, mkFilterConfig } from "./filters/mkFilterConfig";
-import { useApiTablePagination } from "./hooks/useApiTablePagination";
+import { ApiTablePaginationConfig, useApiTablePagination } from "./hooks/useApiTablePagination";
 import { useApiTableSorting } from "./hooks/useApiTableSorting";
 import { CqrsClientConfig } from "../../createApiComponents";
 import { AdminQuery, AdminQueryResult } from "../../types/admin";
@@ -52,7 +52,7 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
 
   type ApiTableProps = Omit<AntTableProps<TRecord>, "columns" | "dataSource" | "loading" | "pagination" | "onChange"> &
     TQueryParamsProps &
-    ColumnsProps;
+    ColumnsProps & { pagination?: ApiTablePaginationConfig };
 
   const columnsDefaults = columns.reduce(
     (defaults, column) => ({
@@ -74,7 +74,9 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
   const useQuery = apiClient[query];
 
   function ApiTable({ requestParams, ...props }: ApiTableProps) {
-    const { getPaginationConfig, paginationQueryParams, useSetTotal } = useApiTablePagination<TRecord>();
+    const { getPaginationConfig, paginationQueryParams, useSetTotal } = useApiTablePagination<TRecord>({
+      defaultPageSize: props.pagination?.defaultPageSize,
+    });
 
     const { sortData, sortQueryParams } = useApiTableSorting<TRecord>();
 
@@ -94,7 +96,12 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
 
     useSetTotal(data?.total);
 
-    const paginationConfig = useMemo(() => getPaginationConfig(data), [data, getPaginationConfig]);
+    const paginationConfig = useMemo(
+      () => getPaginationConfig(data, props.pagination),
+      [data, getPaginationConfig, props.pagination],
+    );
+
+    console.log(paginationConfig);
 
     const columns2 = useMemo(
       () =>

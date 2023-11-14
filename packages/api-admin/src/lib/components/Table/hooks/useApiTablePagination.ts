@@ -1,4 +1,5 @@
 import { UncapitalizeDeep } from "@leancodepl/utils";
+import { TablePaginationConfig } from "antd";
 import { useCallback, useMemo } from "react";
 import usePagination from "../../../hooks/usePagination";
 import { AdminQuery, AdminQueryResult } from "../../../types/admin";
@@ -10,8 +11,8 @@ export const defaultPaginationConfig = {
   current: 1,
 };
 
-export function useApiTablePagination<T>() {
-  const { pagination: paginationHandler, useSetTotal } = usePagination();
+export function useApiTablePagination<T>({ defaultPageSize }: { defaultPageSize?: number } = {}) {
+  const { pagination: paginationHandler, useSetTotal } = usePagination({ initialPageSize: defaultPageSize });
 
   const paginationQueryParams = useMemo<Pick<AdminQuery<T>, "PageSize" | "Page">>(
     () => ({
@@ -22,8 +23,9 @@ export function useApiTablePagination<T>() {
   );
 
   const getPaginationConfig = useCallback(
-    (data: UncapitalizeDeep<AdminQueryResult<T>> | undefined | null) => ({
+    (data: UncapitalizeDeep<AdminQueryResult<T>> | undefined | null, pagination?: ApiTablePaginationConfig) => ({
       ...defaultPaginationConfig,
+      ...pagination,
       onChange: (page: number, pageSize: number) => {
         paginationHandler.onPageChange(page);
         paginationHandler.onPageSizeChange(pageSize);
@@ -42,3 +44,5 @@ export function useApiTablePagination<T>() {
     paginationQueryParams,
   };
 }
+
+export type ApiTablePaginationConfig = Omit<TablePaginationConfig, "onChange" | "pageSize" | "current" | "total">;
