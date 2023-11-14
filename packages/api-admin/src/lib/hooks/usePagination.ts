@@ -40,7 +40,7 @@ export default function usePagination({
       if (paginationRef.current) paginationRef.current.total = total;
 
       if (total !== undefined) {
-        const totalPages = Math.ceil(total / pageSize);
+        const totalPages = Math.max(Math.ceil(total / pageSize), 1);
 
         if (totalPages < displayPage) {
           setDisplayPage(totalPages);
