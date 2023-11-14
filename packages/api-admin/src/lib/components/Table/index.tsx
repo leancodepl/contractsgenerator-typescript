@@ -170,7 +170,7 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
 
 export function mkApiTables<
   TAdminComponentsConfig extends AdminComponentsConfig,
-  TCqrs extends (cqrsClient: ReturnType<typeof mkCqrsClient>) => Record<string, (...param: any) => any>,
+  TCqrs extends (cqrsClient: ReturnType<typeof mkCqrsClient>) => Record<string, unknown>,
 >(
   { components, enumsMaps }: TAdminComponentsConfig,
   { cqrsClientConfig, cqrs }: { cqrsClientConfig: CqrsClientConfig; cqrs: TCqrs },

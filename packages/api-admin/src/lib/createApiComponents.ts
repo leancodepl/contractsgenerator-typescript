@@ -7,7 +7,7 @@ export type CqrsClientConfig = Parameters<typeof mkCqrsClient>[0];
 
 export function createApiComponents<
   TAdminComponentsConfig extends AdminComponentsConfig,
-  TCqrs extends (cqrsClient: ReturnType<typeof mkCqrsClient>) => Record<string, (...params: any) => any>,
+  TCqrs extends (cqrsClient: ReturnType<typeof mkCqrsClient>) => Record<string, unknown>,
 >(
   { components, enumsMaps }: TAdminComponentsConfig,
   { cqrsClientConfig, cqrs }: { cqrsClientConfig: CqrsClientConfig; cqrs: TCqrs },
