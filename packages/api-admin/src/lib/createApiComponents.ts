@@ -2,22 +2,17 @@
 import { AdminComponentsConfig } from "@leancodepl/contractsgenerator-typescript-plugin-admin";
 import { mkCqrsClient } from "@leancodepl/react-query-cqrs-client";
 import { mkApiTables } from "./components/Table";
-import { AdminQuery } from "./types/admin";
-import { GetAllQueries, GetAllTables } from "./types/components";
 
 export type CqrsClientConfig = Parameters<typeof mkCqrsClient>[0];
 
 export function createApiComponents<
   TAdminComponentsConfig extends AdminComponentsConfig,
-  TContracts extends Record<GetAllQueries<GetAllTables<TAdminComponentsConfig>>, AdminQuery<any>>,
+  TCqrs extends (cqrsClient: ReturnType<typeof mkCqrsClient>) => Record<string, (...params: any) => any>,
 >(
   { components, enumsMaps }: TAdminComponentsConfig,
-  {
-    cqrsClientConfig,
-    cqrs,
-  }: { cqrsClientConfig: CqrsClientConfig; cqrs: (cqrsClient: ReturnType<typeof mkCqrsClient>) => any },
-) {
-  return mkApiTables<TAdminComponentsConfig, TContracts>({ components, enumsMaps } as TAdminComponentsConfig, {
+  { cqrsClientConfig, cqrs }: { cqrsClientConfig: CqrsClientConfig; cqrs: TCqrs },
+): ReturnType<typeof mkApiTables<TAdminComponentsConfig, TCqrs>> {
+  return mkApiTables<TAdminComponentsConfig, TCqrs>({ components, enumsMaps } as TAdminComponentsConfig, {
     cqrsClientConfig,
     cqrs,
   });
