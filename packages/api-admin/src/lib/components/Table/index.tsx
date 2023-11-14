@@ -20,11 +20,11 @@ import { AdminQuery, AdminQueryResult } from "../../types/admin";
 import { GetAllQueries, GetAllTables, GetTableByQuery } from "../../types/components";
 
 const __createQueryType: ReturnType<typeof mkCqrsClient>["createQuery"] = null as any;
+
+type CreateQueryResult<TQuery, TResult> = ReturnType<typeof __createQueryType<TQuery, TResult>>;
 type CreateAdminQueryResult<TRecord> = CreateQueryResult<AdminQuery<TRecord>, AdminQueryResult<TRecord>>;
 
-export type CreateQueryResult<TQuery, TResult> = ReturnType<typeof __createQueryType<TQuery, TResult>>;
-
-export type PoorsManApiClient = Record<string, CreateAdminQueryResult<any>>;
+type PoorsManApiClient = Record<string, CreateAdminQueryResult<any>>;
 
 function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends AdminQuery<any>, TRecord>(
   { query, columns }: TAdminTable,
@@ -100,8 +100,6 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
       () => getPaginationConfig(data, props.pagination),
       [data, getPaginationConfig, props.pagination],
     );
-
-    console.log(paginationConfig);
 
     const columns2 = useMemo(
       () =>
