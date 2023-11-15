@@ -1,6 +1,6 @@
 {
   "name": "@leancodepl/contractsgenerator-typescript-schema",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "dependencies": {
     "@leancodepl/utils": ">=7.2.1",
     "long": "5.2.3",
