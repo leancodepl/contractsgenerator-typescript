@@ -37,14 +37,14 @@
       },
       "dependsOn": ["build"]
     },
-    "proto-update": {
+    "proto-download": {
       "executor": "nx:run-commands",
       "options": {
         "cwd": "libs/schema",
         "command": "download -o src/lib/protocol --filename contracts.proto https://raw.githubusercontent.com/leancodepl/contractsgenerator/main/contracts.proto"
       }
     },
-    "proto": {
+    "proto-update": {
       "executor": "nx:run-commands",
       "options": {
         "cwd": "libs/schema",
@@ -52,6 +52,14 @@
           "pbjs -t static-module -w commonjs -o src/lib/protocol/index.js src/lib/protocol/contracts.proto --no-create --no-encode --lint \"eslint-disable no-undef,no-prototype-builtins,no-redeclare\"",
           "pbts -o src/lib/protocol/index.d.ts src/lib/protocol/index.js"
         ],
+        "parallel": false
+      }
+    },
+    "proto": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/schema",
+        "commands": ["npx nx run schema:proto-download", "npx nx run schema:proto-update"],
         "parallel": false
       }
     }
