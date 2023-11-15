@@ -14,5 +14,5 @@ export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
 
 export interface AdminQueryResult<TResult> {
   Total: number;
-  Items: TResult;
+  Items: TResult[];
 }

@@ -7,30 +7,31 @@ import type {
   EnumsMap,
 } from "@leancodepl/contractsgenerator-typescript-plugin-admin";
 import { mkCqrsClient } from "@leancodepl/react-query-cqrs-client";
-import { assertNotEmpty, toLowerFirst } from "@leancodepl/utils";
+import { UncapitalizeDeep, assertNotEmpty, toLowerFirst } from "@leancodepl/utils";
 import { keepPreviousData } from "@tanstack/react-query";
 import { Table as AntTable, TableProps as AntTableProps, TableColumnType, TableProps } from "antd";
 import { ReactNode, useCallback, useMemo, useState } from "react";
 import { mkColumnRender } from "./filters/mkColumnRender";
 import { FilterConfig, mkFilterConfig } from "./filters/mkFilterConfig";
-import { useApiTablePagination } from "./hooks/useApiTablePagination";
+import { ApiTablePaginationConfig, useApiTablePagination } from "./hooks/useApiTablePagination";
 import { useApiTableSorting } from "./hooks/useApiTableSorting";
 import { CqrsClientConfig } from "../../createApiComponents";
 import { AdminQuery, AdminQueryResult } from "../../types/admin";
-import { GetAllQueries, GetAllTables, GetTableByQuery, GetQuery } from "../../types/components";
+import { GetAllQueries, GetAllTables, GetTableByQuery } from "../../types/components";
 
 const __createQueryType: ReturnType<typeof mkCqrsClient>["createQuery"] = null as any;
-type CreateQueryResult = ReturnType<typeof __createQueryType<AdminQuery<any>, AdminQueryResult<any>>>;
 
-type PoorsManApiClient = Record<string, CreateQueryResult>;
+type CreateQueryResult<TQuery, TResult> = ReturnType<typeof __createQueryType<TQuery, TResult>>;
+type CreateAdminQueryResult<TRecord> = CreateQueryResult<AdminQuery<TRecord>, AdminQueryResult<TRecord>>;
 
-function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends AdminQuery<any>>(
+type PoorsManApiClient = Record<string, CreateAdminQueryResult<any>>;
+
+function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends AdminQuery<any>, TRecord>(
   { query, columns }: TAdminTable,
   apiClient: PoorsManApiClient,
   enumsMap: EnumsMap,
 ) {
   type TQueryParams = Omit<TQueryConfig, keyof AdminQuery<any>>;
-  type TQueryResponse = TQueryConfig extends AdminQuery<infer TResult> ? TResult : never;
 
   // eslint-disable-next-line @typescript-eslint/ban-types
   type TQueryParamsProps = {} extends TQueryParams ? { requestParams?: TQueryParams } : { requestParams: TQueryParams };
@@ -43,15 +44,15 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
 
   type ColumnProps<TColumn> = TColumn extends AdminTableColumn
     ? {
-        [TKey in `${TColumn["id"]}Render`]?: (value: unknown, record: TQueryResponse) => ReactNode;
+        [TKey in `${TColumn["id"]}Render`]?: (value: unknown, record: TRecord) => ReactNode;
       } & {
-        [TKey in `${TColumn["id"]}Filter`]?: TColumn["filter"] extends undefined ? never : FilterConfig<TQueryResponse>;
+        [TKey in `${TColumn["id"]}Filter`]?: TColumn["filter"] extends undefined ? never : FilterConfig<TRecord>;
       }
     : never;
 
-  type ApiTableProps = Omit<AntTableProps<unknown>, "columns" | "dataSource" | "loading" | "pagination" | "onChange"> &
+  type ApiTableProps = Omit<AntTableProps<TRecord>, "columns" | "dataSource" | "loading" | "pagination" | "onChange"> &
     TQueryParamsProps &
-    ColumnsProps;
+    ColumnsProps & { pagination?: ApiTablePaginationConfig };
 
   const columnsDefaults = columns.reduce(
     (defaults, column) => ({
@@ -65,7 +66,7 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
       string,
       {
         render: (value: any, record: any) => ReactNode;
-        filter?: FilterConfig<TQueryResponse>;
+        filter?: FilterConfig<TRecord>;
       }
     >,
   );
@@ -73,9 +74,11 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
   const useQuery = apiClient[query];
 
   function ApiTable({ requestParams, ...props }: ApiTableProps) {
-    const { getPaginationConfig, paginationQueryParams, useSetTotal } = useApiTablePagination<TQueryResponse>();
+    const { getPaginationConfig, paginationQueryParams, useSetTotal } = useApiTablePagination<TRecord>({
+      defaultPageSize: props.pagination?.defaultPageSize,
+    });
 
-    const { sortData, sortQueryParams } = useApiTableSorting<TQueryResponse>();
+    const { sortData, sortQueryParams } = useApiTableSorting<TRecord>();
 
     const [filtersQueryParams, setFiltersQueryParams] = useState<Record<string, unknown>>({});
 
@@ -93,7 +96,10 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
 
     useSetTotal(data?.total);
 
-    const paginationConfig = useMemo(() => getPaginationConfig(data), [data, getPaginationConfig]);
+    const paginationConfig = useMemo(
+      () => getPaginationConfig(data, props.pagination),
+      [data, getPaginationConfig, props.pagination],
+    );
 
     const columns2 = useMemo(
       () =>
@@ -119,7 +125,7 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
       [props, sortData?.sortData?.columnKey, sortData?.sortData?.order],
     );
 
-    const onChange = useCallback<Exclude<TableProps<TQueryResponse>["onChange"], undefined>>(
+    const onChange = useCallback<Exclude<TableProps<TRecord>["onChange"], undefined>>(
       (_pagination, filters, sorter) => {
         // Sort
         sortData?.onSortDataChange(Array.isArray(sorter) ? sorter[0] : sorter);
@@ -164,19 +170,23 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
 
 export function mkApiTables<
   TAdminComponentsConfig extends AdminComponentsConfig,
-  TContracts extends Record<GetAllQueries<GetAllTables<TAdminComponentsConfig>>, AdminQuery<any>>,
+  TCqrs extends (cqrsClient: ReturnType<typeof mkCqrsClient>) => Record<string, unknown>,
 >(
   { components, enumsMaps }: TAdminComponentsConfig,
-  { cqrsClientConfig, cqrs }: { cqrsClientConfig: CqrsClientConfig; cqrs: any },
+  { cqrsClientConfig, cqrs }: { cqrsClientConfig: CqrsClientConfig; cqrs: TCqrs },
 ): {
   [TQuery in GetAllQueries<GetAllTables<TAdminComponentsConfig>> as `${TQuery}ApiTable`]: ReturnType<
-    typeof mkApiTable<GetTableByQuery<GetAllTables<TAdminComponentsConfig>, TQuery>, GetQuery<TContracts, TQuery>>
+    typeof mkApiTable<
+      GetTableByQuery<GetAllTables<TAdminComponentsConfig>, TQuery>,
+      GetAdminQuery<ReturnType<TCqrs>, TQuery>,
+      GetAdminQueryRecord<ReturnType<TCqrs>, TQuery>
+    >
   >;
 } {
   const apiTables = {} as any;
 
   const cqrsClient = mkCqrsClient(cqrsClientConfig);
-  const apiClient = cqrs(cqrsClient);
+  const apiClient = cqrs(cqrsClient) as PoorsManApiClient;
 
   components.forEach(adminTableApiComponent => {
     apiTables[`${adminTableApiComponent.table.query}ApiTable`] = mkApiTable(
@@ -188,3 +198,21 @@ export function mkApiTables<
 
   return apiTables;
 }
+
+type GetAdminQuery<
+  TCqrs extends Record<string, unknown>,
+  TQueryKey extends string,
+> = TCqrs[TQueryKey] extends CreateQueryResult<infer TQuery, any>
+  ? TQuery extends AdminQuery<any>
+    ? TQuery
+    : AdminQuery<any>
+  : AdminQuery<any>;
+
+type GetAdminQueryRecord<
+  TCqrs extends Record<string, unknown>,
+  TQueryKey extends string,
+> = TCqrs[TQueryKey] extends CreateQueryResult<any, infer TResult>
+  ? TResult extends UncapitalizeDeep<AdminQueryResult<infer TRecord>>
+    ? TRecord
+    : unknown
+  : unknown;
