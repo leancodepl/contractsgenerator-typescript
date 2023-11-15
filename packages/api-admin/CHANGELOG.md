@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.2](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2023-11-15)
+
+### Bug Fixes
+
+- createApiComponents typing
+  ([9514d86](https://github.com/leancodepl/contractsgenerator-typescript/commit/9514d869eda9c86d92aa9e00e7b34eadbbbaaecd))
+- new page when query returns 0 items
+  ([b880057](https://github.com/leancodepl/contractsgenerator-typescript/commit/b8800577494df88e11772189ff3df33c6ab5017d))
+
+### Features
+
+- allow some pagination config in tables
+  ([175192c](https://github.com/leancodepl/contractsgenerator-typescript/commit/175192c5411a6df503b9a06cdac73914edde2bdb))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 # [1.0.0-alpha.1](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.0.0-alpha.0...v1.0.0-alpha.1) (2023-11-13)
 
 ### Bug Fixes
