@@ -80,6 +80,7 @@
   },
   "workspaces": [
     "packages/*",
-    "libs/*"
+    "libs/*",
+    "plugins/*"
   ]
 }
