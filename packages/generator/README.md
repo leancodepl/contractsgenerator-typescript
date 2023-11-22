@@ -75,8 +75,7 @@ module.exports = {
 
 Contracts generator config supports two options:
 
-- `config` (root-level config) - options we would like to provide to all plugins for all output files. Root config
-  requires `input` option to be specified
+- `config` (root-level config) - options we would like to provide to all plugins for all output files
 - `generates`**\*** - dictionary of files to generate where key is path to output file and value is file config. File
   configuration consists of `plugins` field and optional `config` field
 
@@ -166,27 +165,3 @@ module.exports = {
   },
 };
 ```
-
-### Root config `input`
-
-Root config requires `input` option to be provided which is configuration passed to
-[Contracts Generator Server](https://github.com/leancodepl/contractsgenerator). All paths are relative to directory from
-your current CWD. Unless you are using JavaScript files - in that case you can use `__dirname` and
-`path.join`/`path.resolve` for paths relative to configuration file.
-
-Input options are:
-
-- `base` - base path for your backend code source. If you provide that then all the other properties are relative to
-
-this directory.
-
-Then you can provide one of:
-
-- `file`  
-  or
-- `include` and `exclude` - single globs or arrays of globs to match specific .cs files  
-  or
-- `project` - can be multiple
-
-For details on these options please refer to
-[Contracts Generator Server](https://github.com/leancodepl/contractsgenerator).
