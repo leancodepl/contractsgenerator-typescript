@@ -19,8 +19,8 @@ const prepend2 = "Prepend 2\n";
 const output1 = "Output 1\n";
 const output2 = "\nOutput 2\n";
 
-const append1 = "Prepend 1\n";
-const append2 = "Prepend 2\n";
+const append1 = "Append 1\n";
+const append2 = "Append 2\n";
 
 module.exports = {
   generates: {
@@ -51,7 +51,7 @@ const schema = {
 
 export default schema;
 Output 2
-Prepend 1
-Prepend 2
+Append 1
+Append 2
 
 ```
