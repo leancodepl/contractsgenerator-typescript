@@ -30,3 +30,68 @@ Plugin for generating TypeScript types of contracts.
   `LeanCode.Core.Contracts.User.UserDetailsDTO`). This is especially useful when you want to map namespaces, for e.g.
   when you have conflicts, want to remove parts of the namespace (`LeanCode.Core.User.UserDetailsDTO` instead of
   `LeanCode.Core.`**`Contracts`**`.User.UserDetailsDTO`).
+
+## Example
+
+### Config
+
+```js
+module.exports = {
+  generates: {
+    "output.ts": {
+      plugins: ["contracts"],
+    },
+  },
+  config: {
+    input: {
+      base: "../../../backend/src",
+      project: ["Core/Project.Core.Contracts/Project.Core.Contracts.csproj"],
+      nameTransform: nameWithNamespace => nameWithNamespace.split(".").at(-1),
+    },
+  },
+};
+```
+
+### Output
+
+```js
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface Clients {
+}
+export namespace Clients {
+    export const AdminApp = "admin_app";
+    export const ClientApp = "client_app";
+}
+export interface KnownClaims {
+}
+export namespace KnownClaims {
+    export const UserId = "sub";
+    export const Role = "role";
+}
+export interface Roles {
+}
+export namespace Roles {
+    export const User = "user";
+    export const Admin = "admin";
+}
+export interface AddLeagueManager extends Command {
+    TenantId: string;
+    TenantName?: string | null;
+    TenantLogoUri?: string | null;
+    UserName: string;
+    Password: string;
+}
+export namespace AddLeagueManager {
+    export const ErrorCodes = {
+        TenantNotFoundOrAlreadyExists: 1,
+        TenantNameTooLong: 2,
+        TenantLogoUriTooLong: 3,
+        InvalidUserName: 4,
+        InvalidPassword: 5,
+        UserAlreadyExists: 6
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+```

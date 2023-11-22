@@ -35,7 +35,38 @@ This plugin must be used together with the
   when you have conflicts, want to remove parts of the namespace (`LeanCode.Core.User.UserDetailsDTO` instead of
   `LeanCode.Core.`**`Contracts`**`.User.UserDetailsDTO`).
 
-## Example usage
+## Example
+
+### Config
+
+```js
+module.exports = {
+  generates: {
+    "output.ts": {
+      plugins: ["client"],
+    },
+  },
+  config: {
+    input: {
+      base: "../../../backend/src",
+      project: ["Core/Project.Core.Contracts/Project.Core.Contracts.csproj"],
+    },
+  },
+};
+```
+
+### Output
+
+```js
+export default function (cqrsClient: CQRS) {
+    return {
+        DeleteOwnAccount: cqrsClient.createCommand<Project.Core.Contracts.Users.DeleteOwnAccount, {}>("Project.Core.Contracts.Users.DeleteOwnAccount", {}),
+        VersionSupport: cqrsClient.createQuery<LeanCode.ForceUpdate.Contracts.VersionSupport, LeanCode.ForceUpdate.Contracts.VersionSupportDTO>("LeanCode.ForceUpdate.Contracts.VersionSupport")
+    };
+}
+```
+
+### Example usage
 
 ```js
 import { createApiComponents } from "@leancodepl/admin";

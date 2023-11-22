@@ -22,3 +22,49 @@ Plugin for generating api components schema from `AdminQuery` queries. This sche
 
   For details on these options please refer to
   [Contracts Generator Server](https://github.com/leancodepl/contractsgenerator).
+
+## Example
+
+### Config
+
+```js
+module.exports = {
+  generates: {
+    "output.ts": {
+      plugins: ["admin"],
+    },
+  },
+  config: {
+    input: {
+      base: "../../../backend/src",
+      project: ["Core/Project.Core.Contracts/Project.Core.Contracts.csproj"],
+    },
+  },
+};
+```
+
+### Output
+
+```js
+const schema = {
+    "components": [
+        {
+            "type": "table",
+            "table": {
+                "query": "TenantManagersList",
+                "columns": [
+                    {
+                        "id": "Email",
+                        "title": "E-mail",
+                        "sortable": false,
+                        "type": 1
+                    }
+                ]
+            }
+        },
+    ],
+    "enumsMaps": {}
+} as const;
+
+export default schema;
+```
