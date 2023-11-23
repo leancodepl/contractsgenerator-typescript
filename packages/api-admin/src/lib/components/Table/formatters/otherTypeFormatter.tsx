@@ -15,8 +15,8 @@ export const otherTypeFormatters = {
   [KnownType.CommandResult]: (_: unknown) => "Unknown",
   [KnownType.Operation]: (_: unknown) => "Unknown",
   [KnownType.Binary]: (_: unknown) => "Unknown",
+  [KnownType.Topic]: (_: unknown) => "Unknown",
   [KnownType.Attribute]: (_: unknown) => "Unknown",
   [KnownType.AuthorizeWhenAttribute]: (_: unknown) => "Unknown",
   [KnownType.AuthorizeWhenHasAnyOfAttribute]: (_: unknown) => "Unknown",
-  [KnownType.QueryCacheAttribute]: (_: unknown) => "Unknown",
 } as const;
