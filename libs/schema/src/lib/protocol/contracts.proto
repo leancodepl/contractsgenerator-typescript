@@ -31,10 +31,10 @@ enum KnownType {
   CommandResult = 1002;
   Operation = 1003;
   Binary = 1004;
+  Topic = 1005;
   Attribute = 1100;
   AuthorizeWhenAttribute = 1101;
   AuthorizeWhenHasAnyOfAttribute = 1102;
-  QueryCacheAttribute = 1103;
 }
 
 message ValueRef {
@@ -70,6 +70,11 @@ message TypeRef {
     Internal internal = 3;
     Known known = 4;
   }
+}
+
+message NotificationTypeRef {
+  TypeRef type = 1;
+  string tag = 2;
 }
 
 message GenericParameter { string name = 1; }
@@ -153,6 +158,11 @@ message Statement {
     TypeDescriptor typeDescriptor = 1;
     TypeRef returnType = 2;
   }
+  message Topic {
+    TypeDescriptor typeDescriptor = 1;
+    repeated NotificationTypeRef notifications = 2;
+  }
+
   string name = 1;
   string comment = 2;
   repeated AttributeRef attributes = 3;
@@ -162,6 +172,7 @@ message Statement {
     Query query = 12;
     Command command = 13;
     Operation operation = 14;
+    Topic topic = 15;
   }
 }
 

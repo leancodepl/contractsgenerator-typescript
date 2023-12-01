@@ -25,6 +25,6 @@ export class SchemaOperation extends SchemaInterface {
 
 const schemaOperationKind = "operation";
 
-export function isSchemaOperation(schemaOperation: SchemaInterface): schemaOperation is SchemaOperation {
-  return schemaOperation.kind === schemaOperationKind;
+export function isSchemaOperation(schemaInterface: SchemaInterface): schemaInterface is SchemaOperation {
+  return schemaInterface.kind === schemaOperationKind;
 }

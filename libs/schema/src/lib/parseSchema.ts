@@ -6,6 +6,7 @@ import { SchemaEnum } from "./schemaEnum";
 import { SchemaInterface } from "./schemaInterface";
 import { SchemaOperation } from "./schemaOperation";
 import { SchemaQuery } from "./schemaQuery";
+import { SchemaTopic } from "./schemaTopic";
 
 export type SchemaEntity = SchemaInterface | SchemaEnum;
 
@@ -26,6 +27,7 @@ export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
     if (statement.operation) return entities.push(new SchemaOperation({ statement }));
     if (statement.dto) return entities.push(new SchemaInterface({ statement }));
     if (statement.enum) return entities.push(new SchemaEnum({ statement }));
+    if (statement.topic) return entities.push(new SchemaTopic({ statement }));
 
     throw new Error("Unknown statement type");
   });

@@ -25,8 +25,8 @@ export enum KnownType {
   CommandResult = 1002,
   Operation = 1003,
   Binary = 1004,
+  Topic = 1005,
   Attribute = 1100,
   AuthorizeWhenAttribute = 1101,
   AuthorizeWhenHasAnyOfAttribute = 1102,
-  QueryCacheAttribute = 1103,
 }

@@ -8,6 +8,7 @@ export * from "./lib/schemaInterface";
 export * from "./lib/schemaOperation";
 export * from "./lib/schemaProperty";
 export * from "./lib/schemaQuery";
+export * from "./lib/schemaTopic";
 
 export * from "./lib/types/schemaGenericType";
 export * from "./lib/types/schemaInternalType";

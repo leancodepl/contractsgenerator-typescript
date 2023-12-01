@@ -64,7 +64,15 @@ Object {
         AllProjects: cqrsClient.createQuery<ExampleApp.Core.Contracts.Projects.AllProjects, ExampleApp.Core.Contracts.Projects.ProjectDTO[]>(\\"ExampleApp.Core.Contracts.Projects.AllProjects\\"),
         AssignEmployeeToAssignment: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment, ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment\\", ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes),
         CreateProject: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.CreateProject, ExampleApp.Core.Contracts.Projects.CreateProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.CreateProject\\", ExampleApp.Core.Contracts.Projects.CreateProject.ErrorCodes),
+        EmployeeAssignmentsTopic: cqrsClient.createTopic<ExampleApp.Core.Contracts.Projects.EmployeeAssignmentsTopic, {
+            \\"ExampleApp.Core.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO;
+            \\"ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO;
+        }>(\\"ExampleApp.Core.Contracts.Projects.EmployeeAssignmentsTopic\\"),
         ProjectDetails: cqrsClient.createQuery<ExampleApp.Core.Contracts.Projects.ProjectDetails, ExampleApp.Core.Contracts.Projects.ProjectDetailsDTO | null | undefined>(\\"ExampleApp.Core.Contracts.Projects.ProjectDetails\\"),
+        ProjectEmployeesAssignmentsTopic: cqrsClient.createTopic<ExampleApp.Core.Contracts.Projects.ProjectEmployeesAssignmentsTopic, {
+            \\"ExampleApp.Core.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeAssignedToAssignmentDTO;
+            \\"ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO;
+        }>(\\"ExampleApp.Core.Contracts.Projects.ProjectEmployeesAssignmentsTopic\\"),
         UnassignEmployeeFromAssignment: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment, ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment\\", ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes),
         DeleteOwnAccount: cqrsClient.createCommand<ExampleApp.Core.Contracts.Users.DeleteOwnAccount, {}>(\\"ExampleApp.Core.Contracts.Users.DeleteOwnAccount\\", {}),
         VersionSupport: cqrsClient.createQuery<LeanCode.ForceUpdate.Contracts.VersionSupport, LeanCode.ForceUpdate.Contracts.VersionSupportDTO>(\\"LeanCode.ForceUpdate.Contracts.VersionSupport\\")
@@ -90,7 +98,15 @@ Object {
         AllProjects: cqrsClient.createQuery<ExampleApp.Core.Contracts.Projects.AllProjects, ExampleApp.Core.Contracts.Projects.ProjectDTO[]>(\\"ExampleApp.Core.Contracts.Projects.AllProjects\\"),
         AssignEmployeeToAssignment: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment, ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment\\", ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes),
         CreateProject: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.CreateProject, ExampleApp.Core.Contracts.Projects.CreateProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.CreateProject\\", ExampleApp.Core.Contracts.Projects.CreateProject.ErrorCodes),
+        EmployeeAssignmentsTopic: cqrsClient.createTopic<ExampleApp.Core.Contracts.Projects.EmployeeAssignmentsTopic, {
+            \\"ExampleApp.Core.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO;
+            \\"ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO;
+        }>(\\"ExampleApp.Core.Contracts.Projects.EmployeeAssignmentsTopic\\"),
         ProjectDetails: cqrsClient.createQuery<ExampleApp.Core.Contracts.Projects.ProjectDetails, ExampleApp.Core.Contracts.Projects.ProjectDetailsDTO | null | undefined>(\\"ExampleApp.Core.Contracts.Projects.ProjectDetails\\"),
+        ProjectEmployeesAssignmentsTopic: cqrsClient.createTopic<ExampleApp.Core.Contracts.Projects.ProjectEmployeesAssignmentsTopic, {
+            \\"ExampleApp.Core.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeAssignedToAssignmentDTO;
+            \\"ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO;
+        }>(\\"ExampleApp.Core.Contracts.Projects.ProjectEmployeesAssignmentsTopic\\"),
         UnassignEmployeeFromAssignment: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment, ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment\\", ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes),
         DeleteOwnAccount: cqrsClient.createCommand<ExampleApp.Core.Contracts.Users.DeleteOwnAccount, {}>(\\"ExampleApp.Core.Contracts.Users.DeleteOwnAccount\\", {}),
         VersionSupport: cqrsClient.createQuery<LeanCode.ForceUpdate.Contracts.VersionSupport, LeanCode.ForceUpdate.Contracts.VersionSupportDTO>(\\"LeanCode.ForceUpdate.Contracts.VersionSupport\\")
@@ -116,7 +132,15 @@ Object {
         AllProjects: cqrsClient.createQuery<AllProjects, ProjectDTO[]>(\\"ExampleApp.Core.Contracts.Projects.AllProjects\\"),
         AssignEmployeeToAssignment: cqrsClient.createCommand<AssignEmployeeToAssignment, AssignEmployeeToAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment\\", AssignEmployeeToAssignment.ErrorCodes),
         CreateProject: cqrsClient.createCommand<CreateProject, CreateProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.CreateProject\\", CreateProject.ErrorCodes),
+        EmployeeAssignmentsTopic: cqrsClient.createTopic<EmployeeAssignmentsTopic, {
+            \\"ExampleApp.Core.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\": EmployeeAssignedToProjectAssignmentDTO;
+            \\"ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\": EmployeeUnassignedFromProjectAssignmentDTO;
+        }>(\\"ExampleApp.Core.Contracts.Projects.EmployeeAssignmentsTopic\\"),
         ProjectDetails: cqrsClient.createQuery<ProjectDetails, ProjectDetailsDTO | null | undefined>(\\"ExampleApp.Core.Contracts.Projects.ProjectDetails\\"),
+        ProjectEmployeesAssignmentsTopic: cqrsClient.createTopic<ProjectEmployeesAssignmentsTopic, {
+            \\"ExampleApp.Core.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\": EmployeeAssignedToAssignmentDTO;
+            \\"ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\": EmployeeUnassignedFromAssignmentDTO;
+        }>(\\"ExampleApp.Core.Contracts.Projects.ProjectEmployeesAssignmentsTopic\\"),
         UnassignEmployeeFromAssignment: cqrsClient.createCommand<UnassignEmployeeFromAssignment, UnassignEmployeeFromAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment\\", UnassignEmployeeFromAssignment.ErrorCodes),
         DeleteOwnAccount: cqrsClient.createCommand<DeleteOwnAccount, {}>(\\"ExampleApp.Core.Contracts.Users.DeleteOwnAccount\\", {}),
         VersionSupport: cqrsClient.createQuery<VersionSupport, VersionSupportDTO>(\\"LeanCode.ForceUpdate.Contracts.VersionSupport\\")
@@ -357,6 +381,26 @@ Object {
                     } as const;
                     export type ErrorCodes = typeof ErrorCodes;
                 }
+                export interface EmployeeAssignedToAssignmentDTO {
+                    AssignmentId: string;
+                    EmployeeId: string;
+                }
+                export interface EmployeeAssignedToProjectAssignmentDTO {
+                    ProjectId: string;
+                    AssignmentId: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface EmployeeAssignmentsTopic {
+                }
+                export interface EmployeeUnassignedFromAssignmentDTO {
+                    AssignmentId: string;
+                }
+                export interface EmployeeUnassignedFromProjectAssignmentDTO {
+                    ProjectId: string;
+                    AssignmentId: string;
+                }
                 export interface ProjectDTO {
                     Id: string;
                     Name: string;
@@ -369,6 +413,11 @@ Object {
                 }
                 export interface ProjectDetailsDTO extends ProjectDTO {
                     Assignments: AssignmentDTO[];
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface ProjectEmployeesAssignmentsTopic {
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -674,6 +723,26 @@ Object {
                     } as const;
                     export type ErrorCodes = typeof ErrorCodes;
                 }
+                export interface EmployeeAssignedToAssignmentDTO {
+                    AssignmentId: string;
+                    EmployeeId: string;
+                }
+                export interface EmployeeAssignedToProjectAssignmentDTO {
+                    ProjectId: string;
+                    AssignmentId: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface EmployeeAssignmentsTopic {
+                }
+                export interface EmployeeUnassignedFromAssignmentDTO {
+                    AssignmentId: string;
+                }
+                export interface EmployeeUnassignedFromProjectAssignmentDTO {
+                    ProjectId: string;
+                    AssignmentId: string;
+                }
                 export interface ProjectDTO {
                     Id: string;
                     Name: string;
@@ -686,6 +755,11 @@ Object {
                 }
                 export interface ProjectDetailsDTO extends ProjectDTO {
                     Assignments: AssignmentDTO[];
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface ProjectEmployeesAssignmentsTopic {
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -973,6 +1047,26 @@ export namespace CreateProject {
     } as const;
     export type ErrorCodes = typeof ErrorCodes;
 }
+export interface EmployeeAssignedToAssignmentDTO {
+    AssignmentId: string;
+    EmployeeId: string;
+}
+export interface EmployeeAssignedToProjectAssignmentDTO {
+    ProjectId: string;
+    AssignmentId: string;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+ */
+export interface EmployeeAssignmentsTopic {
+}
+export interface EmployeeUnassignedFromAssignmentDTO {
+    AssignmentId: string;
+}
+export interface EmployeeUnassignedFromProjectAssignmentDTO {
+    ProjectId: string;
+    AssignmentId: string;
+}
 export interface ProjectDTO {
     Id: string;
     Name: string;
@@ -985,6 +1079,11 @@ export interface ProjectDetails extends Query<ProjectDetailsDTO> {
 }
 export interface ProjectDetailsDTO extends ProjectDTO {
     Assignments: AssignmentDTO[];
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface ProjectEmployeesAssignmentsTopic {
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute

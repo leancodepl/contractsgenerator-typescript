@@ -57,10 +57,10 @@ $root.leancode = (function() {
          * @property {number} CommandResult=1002 CommandResult value
          * @property {number} Operation=1003 Operation value
          * @property {number} Binary=1004 Binary value
+         * @property {number} Topic=1005 Topic value
          * @property {number} Attribute=1100 Attribute value
          * @property {number} AuthorizeWhenAttribute=1101 AuthorizeWhenAttribute value
          * @property {number} AuthorizeWhenHasAnyOfAttribute=1102 AuthorizeWhenHasAnyOfAttribute value
-         * @property {number} QueryCacheAttribute=1103 QueryCacheAttribute value
          */
         contracts.KnownType = (function() {
             var valuesById = {}, values = Object.create(valuesById);
@@ -90,10 +90,10 @@ $root.leancode = (function() {
             values[valuesById[1002] = "CommandResult"] = 1002;
             values[valuesById[1003] = "Operation"] = 1003;
             values[valuesById[1004] = "Binary"] = 1004;
+            values[valuesById[1005] = "Topic"] = 1005;
             values[valuesById[1100] = "Attribute"] = 1100;
             values[valuesById[1101] = "AuthorizeWhenAttribute"] = 1101;
             values[valuesById[1102] = "AuthorizeWhenHasAnyOfAttribute"] = 1102;
-            values[valuesById[1103] = "QueryCacheAttribute"] = 1103;
             return values;
         })();
 
@@ -1976,10 +1976,10 @@ $root.leancode = (function() {
                         case 1002:
                         case 1003:
                         case 1004:
+                        case 1005:
                         case 1100:
                         case 1101:
                         case 1102:
-                        case 1103:
                             break;
                         }
                     if (message["arguments"] != null && message.hasOwnProperty("arguments")) {
@@ -2117,6 +2117,10 @@ $root.leancode = (function() {
                     case 1004:
                         message.type = 1004;
                         break;
+                    case "Topic":
+                    case 1005:
+                        message.type = 1005;
+                        break;
                     case "Attribute":
                     case 1100:
                         message.type = 1100;
@@ -2128,10 +2132,6 @@ $root.leancode = (function() {
                     case "AuthorizeWhenHasAnyOfAttribute":
                     case 1102:
                         message.type = 1102;
-                        break;
-                    case "QueryCacheAttribute":
-                    case 1103:
-                        message.type = 1103;
                         break;
                     }
                     if (object["arguments"]) {
@@ -2204,6 +2204,194 @@ $root.leancode = (function() {
             })();
 
             return TypeRef;
+        })();
+
+        contracts.NotificationTypeRef = (function() {
+
+            /**
+             * Properties of a NotificationTypeRef.
+             * @memberof leancode.contracts
+             * @interface INotificationTypeRef
+             * @property {leancode.contracts.ITypeRef|null} [type] NotificationTypeRef type
+             * @property {string|null} [tag] NotificationTypeRef tag
+             */
+
+            /**
+             * Constructs a new NotificationTypeRef.
+             * @memberof leancode.contracts
+             * @classdesc Represents a NotificationTypeRef.
+             * @implements INotificationTypeRef
+             * @constructor
+             * @param {leancode.contracts.INotificationTypeRef=} [properties] Properties to set
+             */
+            function NotificationTypeRef(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * NotificationTypeRef type.
+             * @member {leancode.contracts.ITypeRef|null|undefined} type
+             * @memberof leancode.contracts.NotificationTypeRef
+             * @instance
+             */
+            NotificationTypeRef.prototype.type = null;
+
+            /**
+             * NotificationTypeRef tag.
+             * @member {string} tag
+             * @memberof leancode.contracts.NotificationTypeRef
+             * @instance
+             */
+            NotificationTypeRef.prototype.tag = "";
+
+            /**
+             * Decodes a NotificationTypeRef message from the specified reader or buffer.
+             * @function decode
+             * @memberof leancode.contracts.NotificationTypeRef
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {leancode.contracts.NotificationTypeRef} NotificationTypeRef
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            NotificationTypeRef.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.NotificationTypeRef();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1: {
+                            message.type = $root.leancode.contracts.TypeRef.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 2: {
+                            message.tag = reader.string();
+                            break;
+                        }
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a NotificationTypeRef message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof leancode.contracts.NotificationTypeRef
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {leancode.contracts.NotificationTypeRef} NotificationTypeRef
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            NotificationTypeRef.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a NotificationTypeRef message.
+             * @function verify
+             * @memberof leancode.contracts.NotificationTypeRef
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            NotificationTypeRef.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.type != null && message.hasOwnProperty("type")) {
+                    var error = $root.leancode.contracts.TypeRef.verify(message.type);
+                    if (error)
+                        return "type." + error;
+                }
+                if (message.tag != null && message.hasOwnProperty("tag"))
+                    if (!$util.isString(message.tag))
+                        return "tag: string expected";
+                return null;
+            };
+
+            /**
+             * Creates a NotificationTypeRef message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof leancode.contracts.NotificationTypeRef
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {leancode.contracts.NotificationTypeRef} NotificationTypeRef
+             */
+            NotificationTypeRef.fromObject = function fromObject(object) {
+                if (object instanceof $root.leancode.contracts.NotificationTypeRef)
+                    return object;
+                var message = new $root.leancode.contracts.NotificationTypeRef();
+                if (object.type != null) {
+                    if (typeof object.type !== "object")
+                        throw TypeError(".leancode.contracts.NotificationTypeRef.type: object expected");
+                    message.type = $root.leancode.contracts.TypeRef.fromObject(object.type);
+                }
+                if (object.tag != null)
+                    message.tag = String(object.tag);
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a NotificationTypeRef message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof leancode.contracts.NotificationTypeRef
+             * @static
+             * @param {leancode.contracts.NotificationTypeRef} message NotificationTypeRef
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            NotificationTypeRef.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.type = null;
+                    object.tag = "";
+                }
+                if (message.type != null && message.hasOwnProperty("type"))
+                    object.type = $root.leancode.contracts.TypeRef.toObject(message.type, options);
+                if (message.tag != null && message.hasOwnProperty("tag"))
+                    object.tag = message.tag;
+                return object;
+            };
+
+            /**
+             * Converts this NotificationTypeRef to JSON.
+             * @function toJSON
+             * @memberof leancode.contracts.NotificationTypeRef
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            NotificationTypeRef.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            /**
+             * Gets the default type url for NotificationTypeRef
+             * @function getTypeUrl
+             * @memberof leancode.contracts.NotificationTypeRef
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            NotificationTypeRef.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.NotificationTypeRef";
+            };
+
+            return NotificationTypeRef;
         })();
 
         contracts.GenericParameter = (function() {
@@ -4829,6 +5017,7 @@ $root.leancode = (function() {
              * @property {leancode.contracts.Statement.IQuery|null} [query] Statement query
              * @property {leancode.contracts.Statement.ICommand|null} [command] Statement command
              * @property {leancode.contracts.Statement.IOperation|null} [operation] Statement operation
+             * @property {leancode.contracts.Statement.ITopic|null} [topic] Statement topic
              */
 
             /**
@@ -4911,17 +5100,25 @@ $root.leancode = (function() {
              */
             Statement.prototype.operation = null;
 
+            /**
+             * Statement topic.
+             * @member {leancode.contracts.Statement.ITopic|null|undefined} topic
+             * @memberof leancode.contracts.Statement
+             * @instance
+             */
+            Statement.prototype.topic = null;
+
             // OneOf field names bound to virtual getters and setters
             var $oneOfFields;
 
             /**
              * Statement content.
-             * @member {"dto"|"enum"|"query"|"command"|"operation"|undefined} content
+             * @member {"dto"|"enum"|"query"|"command"|"operation"|"topic"|undefined} content
              * @memberof leancode.contracts.Statement
              * @instance
              */
             Object.defineProperty(Statement.prototype, "content", {
-                get: $util.oneOfGetter($oneOfFields = ["dto", "enum", "query", "command", "operation"]),
+                get: $util.oneOfGetter($oneOfFields = ["dto", "enum", "query", "command", "operation", "topic"]),
                 set: $util.oneOfSetter($oneOfFields)
             });
 
@@ -4975,6 +5172,10 @@ $root.leancode = (function() {
                         }
                     case 14: {
                             message.operation = $root.leancode.contracts.Statement.Operation.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 15: {
+                            message.topic = $root.leancode.contracts.Statement.Topic.decode(reader, reader.uint32());
                             break;
                         }
                     default:
@@ -5076,6 +5277,16 @@ $root.leancode = (function() {
                             return "operation." + error;
                     }
                 }
+                if (message.topic != null && message.hasOwnProperty("topic")) {
+                    if (properties.content === 1)
+                        return "content: multiple values";
+                    properties.content = 1;
+                    {
+                        var error = $root.leancode.contracts.Statement.Topic.verify(message.topic);
+                        if (error)
+                            return "topic." + error;
+                    }
+                }
                 return null;
             };
 
@@ -5129,6 +5340,11 @@ $root.leancode = (function() {
                     if (typeof object.operation !== "object")
                         throw TypeError(".leancode.contracts.Statement.operation: object expected");
                     message.operation = $root.leancode.contracts.Statement.Operation.fromObject(object.operation);
+                }
+                if (object.topic != null) {
+                    if (typeof object.topic !== "object")
+                        throw TypeError(".leancode.contracts.Statement.topic: object expected");
+                    message.topic = $root.leancode.contracts.Statement.Topic.fromObject(object.topic);
                 }
                 return message;
             };
@@ -5185,6 +5401,11 @@ $root.leancode = (function() {
                     object.operation = $root.leancode.contracts.Statement.Operation.toObject(message.operation, options);
                     if (options.oneofs)
                         object.content = "operation";
+                }
+                if (message.topic != null && message.hasOwnProperty("topic")) {
+                    object.topic = $root.leancode.contracts.Statement.Topic.toObject(message.topic, options);
+                    if (options.oneofs)
+                        object.content = "topic";
                 }
                 return object;
             };
@@ -6154,6 +6375,214 @@ $root.leancode = (function() {
                 };
 
                 return Operation;
+            })();
+
+            Statement.Topic = (function() {
+
+                /**
+                 * Properties of a Topic.
+                 * @memberof leancode.contracts.Statement
+                 * @interface ITopic
+                 * @property {leancode.contracts.ITypeDescriptor|null} [typeDescriptor] Topic typeDescriptor
+                 * @property {Array.<leancode.contracts.INotificationTypeRef>|null} [notifications] Topic notifications
+                 */
+
+                /**
+                 * Constructs a new Topic.
+                 * @memberof leancode.contracts.Statement
+                 * @classdesc Represents a Topic.
+                 * @implements ITopic
+                 * @constructor
+                 * @param {leancode.contracts.Statement.ITopic=} [properties] Properties to set
+                 */
+                function Topic(properties) {
+                    this.notifications = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Topic typeDescriptor.
+                 * @member {leancode.contracts.ITypeDescriptor|null|undefined} typeDescriptor
+                 * @memberof leancode.contracts.Statement.Topic
+                 * @instance
+                 */
+                Topic.prototype.typeDescriptor = null;
+
+                /**
+                 * Topic notifications.
+                 * @member {Array.<leancode.contracts.INotificationTypeRef>} notifications
+                 * @memberof leancode.contracts.Statement.Topic
+                 * @instance
+                 */
+                Topic.prototype.notifications = $util.emptyArray;
+
+                /**
+                 * Decodes a Topic message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof leancode.contracts.Statement.Topic
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {leancode.contracts.Statement.Topic} Topic
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Topic.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.Statement.Topic();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1: {
+                                message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
+                                break;
+                            }
+                        case 2: {
+                                if (!(message.notifications && message.notifications.length))
+                                    message.notifications = [];
+                                message.notifications.push($root.leancode.contracts.NotificationTypeRef.decode(reader, reader.uint32()));
+                                break;
+                            }
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a Topic message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof leancode.contracts.Statement.Topic
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {leancode.contracts.Statement.Topic} Topic
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Topic.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a Topic message.
+                 * @function verify
+                 * @memberof leancode.contracts.Statement.Topic
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Topic.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.typeDescriptor != null && message.hasOwnProperty("typeDescriptor")) {
+                        var error = $root.leancode.contracts.TypeDescriptor.verify(message.typeDescriptor);
+                        if (error)
+                            return "typeDescriptor." + error;
+                    }
+                    if (message.notifications != null && message.hasOwnProperty("notifications")) {
+                        if (!Array.isArray(message.notifications))
+                            return "notifications: array expected";
+                        for (var i = 0; i < message.notifications.length; ++i) {
+                            var error = $root.leancode.contracts.NotificationTypeRef.verify(message.notifications[i]);
+                            if (error)
+                                return "notifications." + error;
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a Topic message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof leancode.contracts.Statement.Topic
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {leancode.contracts.Statement.Topic} Topic
+                 */
+                Topic.fromObject = function fromObject(object) {
+                    if (object instanceof $root.leancode.contracts.Statement.Topic)
+                        return object;
+                    var message = new $root.leancode.contracts.Statement.Topic();
+                    if (object.typeDescriptor != null) {
+                        if (typeof object.typeDescriptor !== "object")
+                            throw TypeError(".leancode.contracts.Statement.Topic.typeDescriptor: object expected");
+                        message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.fromObject(object.typeDescriptor);
+                    }
+                    if (object.notifications) {
+                        if (!Array.isArray(object.notifications))
+                            throw TypeError(".leancode.contracts.Statement.Topic.notifications: array expected");
+                        message.notifications = [];
+                        for (var i = 0; i < object.notifications.length; ++i) {
+                            if (typeof object.notifications[i] !== "object")
+                                throw TypeError(".leancode.contracts.Statement.Topic.notifications: object expected");
+                            message.notifications[i] = $root.leancode.contracts.NotificationTypeRef.fromObject(object.notifications[i]);
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Topic message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof leancode.contracts.Statement.Topic
+                 * @static
+                 * @param {leancode.contracts.Statement.Topic} message Topic
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Topic.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults)
+                        object.notifications = [];
+                    if (options.defaults)
+                        object.typeDescriptor = null;
+                    if (message.typeDescriptor != null && message.hasOwnProperty("typeDescriptor"))
+                        object.typeDescriptor = $root.leancode.contracts.TypeDescriptor.toObject(message.typeDescriptor, options);
+                    if (message.notifications && message.notifications.length) {
+                        object.notifications = [];
+                        for (var j = 0; j < message.notifications.length; ++j)
+                            object.notifications[j] = $root.leancode.contracts.NotificationTypeRef.toObject(message.notifications[j], options);
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this Topic to JSON.
+                 * @function toJSON
+                 * @memberof leancode.contracts.Statement.Topic
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Topic.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                /**
+                 * Gets the default type url for Topic
+                 * @function getTypeUrl
+                 * @memberof leancode.contracts.Statement.Topic
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Topic.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/leancode.contracts.Statement.Topic";
+                };
+
+                return Topic;
             })();
 
             return Statement;

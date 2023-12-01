@@ -17,6 +17,7 @@ import { ApiTablePaginationConfig, useApiTablePagination } from "./hooks/useApiT
 import { useApiTableSorting } from "./hooks/useApiTableSorting";
 import { CqrsClientConfig } from "../../createApiComponents";
 import { AdminQuery, AdminQueryResult } from "../../types/admin";
+import { CQRS } from "../../types/api";
 import { GetAllQueries, GetAllTables, GetTableByQuery } from "../../types/components";
 
 const __createQueryType: ReturnType<typeof mkCqrsClient>["createQuery"] = null as any;
@@ -168,10 +169,7 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
   return ApiTable;
 }
 
-export function mkApiTables<
-  TAdminComponentsConfig extends AdminComponentsConfig,
-  TCqrs extends (cqrsClient: ReturnType<typeof mkCqrsClient>) => Record<string, unknown>,
->(
+export function mkApiTables<TAdminComponentsConfig extends AdminComponentsConfig, TCqrs extends CQRS>(
   { components, enumsMaps }: TAdminComponentsConfig,
   { cqrsClientConfig, cqrs }: { cqrsClientConfig: CqrsClientConfig; cqrs: TCqrs },
 ): {
@@ -185,7 +183,7 @@ export function mkApiTables<
 } {
   const apiTables = {} as any;
 
-  const cqrsClient = mkCqrsClient(cqrsClientConfig);
+  const cqrsClient = { ...mkCqrsClient(cqrsClientConfig), createTopic: () => void 0 };
   const apiClient = cqrs(cqrsClient) as PoorsManApiClient;
 
   components.forEach(adminTableApiComponent => {
