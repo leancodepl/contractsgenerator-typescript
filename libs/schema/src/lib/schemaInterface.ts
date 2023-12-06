@@ -28,6 +28,7 @@ export class SchemaInterface {
       ...statement.query?.typeDescriptor,
       ...statement.command?.typeDescriptor,
       ...statement.operation?.typeDescriptor,
+      ...statement.topic?.typeDescriptor,
     };
 
     this.id = ensureNotEmpty(statement.name);

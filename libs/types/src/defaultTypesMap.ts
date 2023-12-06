@@ -63,6 +63,6 @@ export const defaultTypesMap: TypesMap = {
     ),
   [leancode.contracts.KnownType.AuthorizeWhenAttribute]: () => undefined,
   [leancode.contracts.KnownType.AuthorizeWhenHasAnyOfAttribute]: () => undefined,
-  [leancode.contracts.KnownType.Topic]: () => undefined,
+  [leancode.contracts.KnownType.Topic]: () => ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Topic")),
   [leancode.contracts.KnownType.Attribute]: () => undefined,
 };
