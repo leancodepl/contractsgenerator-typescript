@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.1](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.0...v1.1.0-alpha.1) (2023-12-08)
+
+### Bug Fixes
+
+- add missing lodash dependencies
+  ([71783f3](https://github.com/leancodepl/contractsgenerator-typescript/commit/71783f3f9e207d60c50210f74079414c3f36c86a))
+- lodash version
+  ([c96e258](https://github.com/leancodepl/contractsgenerator-typescript/commit/c96e258d77258dbb3f62d058b04679212f88097e))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 # [1.1.0-alpha.0](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.0.0-alpha.2...v1.1.0-alpha.0) (2023-12-01)
 
 ### Features
