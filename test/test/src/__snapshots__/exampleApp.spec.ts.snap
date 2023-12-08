@@ -392,7 +392,8 @@ Object {
                 /**
                  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
                  */
-                export interface EmployeeAssignmentsTopic {
+                export interface EmployeeAssignmentsTopic extends Topic {
+                    EmployeeId: string;
                 }
                 export interface EmployeeUnassignedFromAssignmentDTO {
                     AssignmentId: string;
@@ -417,7 +418,8 @@ Object {
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  */
-                export interface ProjectEmployeesAssignmentsTopic {
+                export interface ProjectEmployeesAssignmentsTopic extends Topic {
+                    ProjectId: string;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -734,7 +736,8 @@ Object {
                 /**
                  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
                  */
-                export interface EmployeeAssignmentsTopic {
+                export interface EmployeeAssignmentsTopic extends Topic {
+                    EmployeeId: string;
                 }
                 export interface EmployeeUnassignedFromAssignmentDTO {
                     AssignmentId: string;
@@ -759,7 +762,8 @@ Object {
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  */
-                export interface ProjectEmployeesAssignmentsTopic {
+                export interface ProjectEmployeesAssignmentsTopic extends Topic {
+                    ProjectId: string;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -1058,7 +1062,8 @@ export interface EmployeeAssignedToProjectAssignmentDTO {
 /**
  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
  */
-export interface EmployeeAssignmentsTopic {
+export interface EmployeeAssignmentsTopic extends Topic {
+    EmployeeId: string;
 }
 export interface EmployeeUnassignedFromAssignmentDTO {
     AssignmentId: string;
@@ -1083,7 +1088,8 @@ export interface ProjectDetailsDTO extends ProjectDTO {
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  */
-export interface ProjectEmployeesAssignmentsTopic {
+export interface ProjectEmployeesAssignmentsTopic extends Topic {
+    ProjectId: string;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute

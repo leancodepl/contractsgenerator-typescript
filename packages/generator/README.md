@@ -42,6 +42,8 @@ import type { ReactQueryCqrs as CQRS } from ".";
 export type Query<TResult> = {}
 export type Command = {}
 export type Operation<TResult> = {}
+export type Topic = {}
+
 `.trimStart();
 
 module.exports = {

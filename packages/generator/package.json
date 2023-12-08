@@ -8,6 +8,7 @@
     "@leancodepl/contractsgenerator-typescript-schema": "1.1.0-alpha.0",
     "@leancodepl/utils": ">=7.2.3",
     "lilconfig": "2.1.0",
+    "lodash": "^4.0.0",
     "node-cache": "5.1.2",
     "object-hash": "3.0.0",
     "yaml": "2.3.1",

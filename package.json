@@ -13,7 +13,7 @@
     "@tanstack/react-query": "5.8.1",
     "antd": "5.5.2",
     "lilconfig": "2.1.0",
-    "lodash": "4.17.21",
+    "lodash": "^4.0.0",
     "long": "5.2.3",
     "node-cache": "5.1.2",
     "object-hash": "3.0.0",
