@@ -2,6 +2,7 @@ import { GeneratorInput } from "@leancodepl/contractsgenerator-typescript-plugin
 import { GeneratorSchema, parseSchema } from "@leancodepl/contractsgenerator-typescript-schema";
 import { exec } from "node:child_process";
 import { readFile } from "node:fs/promises";
+import { platform } from "node:os";
 import { join, resolve } from "node:path";
 
 export const serverContractsGeneratorVersion = "3.0.0-alpha.3";
@@ -58,6 +59,7 @@ export async function getSchema(input: GeneratorInput) {
       `${serverVersion} "${script}" ${params}`,
       {
         encoding: "buffer",
+        shell: inferShell(),
       },
       (error, stdout) => {
         if (error) {
@@ -69,4 +71,20 @@ export async function getSchema(input: GeneratorInput) {
       },
     );
   });
+}
+
+function inferShell(): string | undefined {
+  const shellEnv = process.env.CONTRACTS_GENERATOR_SHELL;
+
+  if (shellEnv) {
+    return shellEnv;
+  }
+
+  // Minimal support for Git Bash on Windows
+
+  if (platform() === "win32") {
+    return "bash";
+  }
+
+  return undefined;
 }
