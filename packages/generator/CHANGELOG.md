@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.2](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.1...v1.1.0-alpha.2) (2024-01-16)
+
+### Bug Fixes
+
+- allow overriding shell for generate.sh script, override default shell on windows
+  ([777bb69](https://github.com/leancodepl/contractsgenerator-typescript/commit/777bb69a4c1a0142ae9345e3584724654c00f8c4))
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See
+[Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
 # [1.1.0-alpha.1](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.0...v1.1.0-alpha.1) (2023-12-08)
 
 ### Bug Fixes
