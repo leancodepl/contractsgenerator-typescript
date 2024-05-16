@@ -19,14 +19,14 @@ export function NumberRangePickerFilter({
         <InputNumber
           placeholder="From"
           size="small"
-          value={selectedKeys[0]}
+          value={typeof selectedKeys[0] === "bigint" ? selectedKeys[0].toString() : selectedKeys[0]}
           onChange={value => setSelectedKeys?.([value as Key, selectedKeys[1]])}
         />
         -
         <InputNumber
           placeholder="To"
           size="small"
-          value={selectedKeys[1]}
+          value={typeof selectedKeys[1] === "bigint" ? selectedKeys[1].toString() : selectedKeys[1]}
           onChange={value => setSelectedKeys?.([selectedKeys[0], value as Key])}
         />
       </Space>

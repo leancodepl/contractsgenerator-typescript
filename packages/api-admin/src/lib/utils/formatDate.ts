@@ -1,6 +1,8 @@
 import dayjs, { Dayjs, duration } from "dayjs";
+import bigIntSupport from "dayjs/plugin/bigIntSupport";
 
 dayjs.extend(duration);
+dayjs.extend(bigIntSupport);
 
 type FormatDateParams = {
   options?: Intl.DateTimeFormatOptions;

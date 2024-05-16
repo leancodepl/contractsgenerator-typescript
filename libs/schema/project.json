@@ -1,33 +1,37 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "name": "schema",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/schema/src",
   "projectType": "library",
+  "tags": [
+    "lib"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/libs/schema",
         "tsConfig": "libs/schema/tsconfig.lib.json",
         "packageJson": "libs/schema/package.json",
         "main": "libs/schema/src/index.ts",
-        "assets": ["libs/schema/*.md"]
+        "assets": [
+          "libs/schema/*.md"
+        ]
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/schema/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
-        "jestConfig": "libs/schema/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "libs/schema/jest.config.ts"
       }
     },
     "publish": {
@@ -35,7 +39,9 @@
       "options": {
         "command": "node tools/scripts/publish.mjs schema {args.registry} {args.ver} {args.tag}"
       },
-      "dependsOn": ["build"]
+      "dependsOn": [
+        "build"
+      ]
     },
     "proto-download": {
       "executor": "nx:run-commands",
@@ -59,10 +65,12 @@
       "executor": "nx:run-commands",
       "options": {
         "cwd": "libs/schema",
-        "commands": ["npx nx run schema:proto-download", "npx nx run schema:proto-update"],
+        "commands": [
+          "npx nx run schema:proto-download",
+          "npx nx run schema:proto-update"
+        ],
         "parallel": false
       }
     }
-  },
-  "tags": ["lib"]
+  }
 }

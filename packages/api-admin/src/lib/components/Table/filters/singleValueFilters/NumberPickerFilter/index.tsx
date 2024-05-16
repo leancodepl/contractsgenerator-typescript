@@ -14,7 +14,7 @@ export function NumberPickerFilter({ setSelectedKeys, selectedKeys, confirm, cle
       <InputNumber
         placeholder="Input number"
         size="small"
-        value={selectedKeys[0]}
+        value={typeof selectedKeys[0] === "bigint" ? selectedKeys[0].toString() : selectedKeys[0]}
         onChange={value => setSelectedKeys?.([value as Key])}
       />
       <ConfirmResetButtons clearFilters={clearFilters} confirm={confirm} />

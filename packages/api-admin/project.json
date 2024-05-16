@@ -6,15 +6,13 @@
   "tags": [],
   "targets": {
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["packages/api-admin/**/*.{ts,tsx,js,jsx}"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "build": {
       "executor": "@nx/vite:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "defaultConfiguration": "production",
       "options": {
         "outputPath": "dist/packages/api-admin"
@@ -30,7 +28,9 @@
     },
     "contracts": {
       "executor": "nx:run-commands",
-      "dependsOn": ["generator:build:bin"],
+      "dependsOn": [
+        "generator:build:bin"
+      ],
       "options": {
         "command": "ts-node-esm -r tsconfig-paths/register scripts/generateAdminTypes.ts",
         "cwd": "packages/api-admin"
@@ -38,7 +38,9 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["{workspaceRoot}/coverage/packages/api-admin"],
+      "outputs": [
+        "{workspaceRoot}/coverage/packages/api-admin"
+      ],
       "options": {
         "passWithNoTests": true,
         "reportsDirectory": "../../coverage/packages/api-admin"
@@ -49,7 +51,9 @@
       "options": {
         "command": "node tools/scripts/publish.mjs api-admin {args.registry} {args.ver} {args.tag}"
       },
-      "dependsOn": ["build"]
+      "dependsOn": [
+        "build"
+      ]
     }
   }
 }

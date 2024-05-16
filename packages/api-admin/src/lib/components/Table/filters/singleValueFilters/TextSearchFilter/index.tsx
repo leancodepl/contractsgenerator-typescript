@@ -19,7 +19,7 @@ export function TextSearchFilter({
         autoFocus
         placeholder={placeholder}
         style={{ width: 188, marginBottom: 8, display: "block" }}
-        value={selectedKeys?.[0]}
+        value={typeof selectedKeys?.[0] === "bigint" ? selectedKeys[0].toString() : selectedKeys?.[0]}
         onChange={e => setSelectedKeys?.(e.target.value ? [e.target.value] : [])}
         onPressEnter={() => confirm()}
       />
