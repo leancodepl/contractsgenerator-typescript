@@ -1,10 +1,10 @@
-import { SchemaCommand } from "@leancodepl/contractsgenerator-typescript-schema";
+import ts from "typescript"
+import { SchemaCommand } from "@leancodepl/contractsgenerator-typescript-schema"
 import {
-    extractMinimalReferenceTypeName,
     GenerateContext,
+    extractMinimalReferenceTypeName,
     generateType,
-} from "@leancodepl/contractsgenerator-typescript-types";
-import ts from "typescript";
+} from "@leancodepl/contractsgenerator-typescript-types"
 
 export function generateCommand(command: SchemaCommand, context: GenerateContext) {
     const errorCodesType = command.errorCodes.hasErrors
@@ -15,7 +15,7 @@ export function generateCommand(command: SchemaCommand, context: GenerateContext
               ),
               /* typeArguments */ undefined,
           )
-        : ts.factory.createTypeLiteralNode(/* members */ undefined);
+        : ts.factory.createTypeLiteralNode(/* members */ undefined)
 
     const errorCodesArgument = command.errorCodes.hasErrors
         ? ts.factory.createPropertyAccessExpression(
@@ -24,7 +24,7 @@ export function generateCommand(command: SchemaCommand, context: GenerateContext
               ),
               /* name */ "ErrorCodes",
           )
-        : ts.factory.createObjectLiteralExpression(/* properties */ undefined, /* multiline */ false);
+        : ts.factory.createObjectLiteralExpression(/* properties */ undefined, /* multiline */ false)
 
     return ts.factory.createPropertyAssignment(
         /* name */ command.getName(context.nameTransform),
@@ -36,5 +36,5 @@ export function generateCommand(command: SchemaCommand, context: GenerateContext
             /* typeArguments */ [generateType(command.commandType, context), errorCodesType],
             /* argumentsArray */ [ts.factory.createStringLiteral(command.id), errorCodesArgument],
         ),
-    );
+    )
 }

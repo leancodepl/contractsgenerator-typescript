@@ -12,10 +12,17 @@
     }
   },
   "dependencies": {
+    "@ant-design/icons": ">=5.3.7",
+    "@leancodepl/api-date": ">=7.2.3",
     "@leancodepl/api-date-dayjs": ">=7.2.3",
     "@leancodepl/react-query-cqrs-client": ">=7.2.3",
     "@leancodepl/utils": ">=7.2.3",
+    "@nx/vite": ">=19.0.0",
     "@tanstack/react-query": ">=5.0.0",
-    "antd": ">=5.5.2"
+    "@vitejs/plugin-react": ">=4.0.0",
+    "antd": ">=5.5.2",
+    "dayjs": "^1.9.0",
+    "vite": ">=5.0.0",
+    "vite-plugin-dts": ">=2.3.0"
   }
 }

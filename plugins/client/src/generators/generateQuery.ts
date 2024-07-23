@@ -1,24 +1,24 @@
-import { SchemaQuery } from "@leancodepl/contractsgenerator-typescript-schema";
+import ts from "typescript"
+import { SchemaQuery } from "@leancodepl/contractsgenerator-typescript-schema"
 import {
-  GenerateContext,
-  generateType,
-  generateTypeWithNullability,
-} from "@leancodepl/contractsgenerator-typescript-types";
-import ts from "typescript";
+    GenerateContext,
+    generateType,
+    generateTypeWithNullability,
+} from "@leancodepl/contractsgenerator-typescript-types"
 
 export function generateQuery(query: SchemaQuery, context: GenerateContext) {
-  return ts.factory.createPropertyAssignment(
-    /* name */ query.getName(context.nameTransform),
-    /* initializer */ ts.factory.createCallExpression(
-      /* expression */ ts.factory.createPropertyAccessExpression(
-        /* expression */ ts.factory.createIdentifier("cqrsClient"),
-        /* name */ "createQuery",
-      ),
-      /* typeArguments */ [
-        generateType(query.queryType, context),
-        generateTypeWithNullability(query.returnType, context),
-      ],
-      /* argumentsArray */ [ts.factory.createStringLiteral(query.id)],
-    ),
-  );
+    return ts.factory.createPropertyAssignment(
+        /* name */ query.getName(context.nameTransform),
+        /* initializer */ ts.factory.createCallExpression(
+            /* expression */ ts.factory.createPropertyAccessExpression(
+                /* expression */ ts.factory.createIdentifier("cqrsClient"),
+                /* name */ "createQuery",
+            ),
+            /* typeArguments */ [
+                generateType(query.queryType, context),
+                generateTypeWithNullability(query.returnType, context),
+            ],
+            /* argumentsArray */ [ts.factory.createStringLiteral(query.id)],
+        ),
+    )
 }

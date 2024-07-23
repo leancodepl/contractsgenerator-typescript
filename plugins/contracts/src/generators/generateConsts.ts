@@ -1,12 +1,12 @@
-import { SchemaInterface } from "@leancodepl/contractsgenerator-typescript-schema";
-import { generateValue } from "@leancodepl/contractsgenerator-typescript-values";
-import ts from "typescript";
-import { ContractsContext } from "../contractsContext";
-import { withJsDoc } from "../utils/withJsDoc";
+import ts from "typescript"
+import { SchemaInterface } from "@leancodepl/contractsgenerator-typescript-schema"
+import { generateValue } from "@leancodepl/contractsgenerator-typescript-values"
+import { ContractsContext } from "../contractsContext"
+import { withJsDoc } from "../utils/withJsDoc"
 
 export function generateConsts(schemaInterface: SchemaInterface, context: ContractsContext) {
     if (schemaInterface.constants.length < 1) {
-        return [];
+        return []
     }
 
     const constants = schemaInterface.constants.map(constant => {
@@ -23,12 +23,12 @@ export function generateConsts(schemaInterface: SchemaInterface, context: Contra
                 ],
                 /* flags */ ts.NodeFlags.Const,
             ),
-        );
+        )
 
-        const jsDoc = constant.comment ? ts.factory.createJSDocComment(constant.comment) : undefined;
+        const jsDoc = constant.comment ? ts.factory.createJSDocComment(constant.comment) : undefined
 
-        return withJsDoc(constStatement, jsDoc, context);
-    });
+        return withJsDoc(constStatement, jsDoc, context)
+    })
 
     return [
         ts.factory.createModuleDeclaration(
@@ -37,5 +37,5 @@ export function generateConsts(schemaInterface: SchemaInterface, context: Contra
             /* body */ ts.factory.createModuleBlock(constants),
             /* flags */ ts.NodeFlags.Namespace,
         ),
-    ];
+    ]
 }

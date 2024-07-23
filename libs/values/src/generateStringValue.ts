@@ -1,6 +1,6 @@
-import { SchemaStringValue } from "@leancodepl/contractsgenerator-typescript-schema";
-import ts from "typescript";
+import ts from "typescript"
+import { SchemaStringValue } from "@leancodepl/contractsgenerator-typescript-schema"
 
 export function generateStringValue(stringValue: SchemaStringValue) {
-    return ts.factory.createStringLiteral(stringValue.value);
+    return ts.factory.createStringLiteral(stringValue.value)
 }

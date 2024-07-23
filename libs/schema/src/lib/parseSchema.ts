@@ -1,40 +1,40 @@
-import { sortBy } from "lodash";
-import protobuf from "protobufjs";
-import { leancode } from "./protocol";
-import { SchemaCommand } from "./schemaCommand";
-import { SchemaEnum } from "./schemaEnum";
-import { SchemaInterface } from "./schemaInterface";
-import { SchemaOperation } from "./schemaOperation";
-import { SchemaQuery } from "./schemaQuery";
-import { SchemaTopic } from "./schemaTopic";
+import { sortBy } from "lodash"
+import protobuf from "protobufjs"
+import { leancode } from "./protocol"
+import { SchemaCommand } from "./schemaCommand"
+import { SchemaEnum } from "./schemaEnum"
+import { SchemaInterface } from "./schemaInterface"
+import { SchemaOperation } from "./schemaOperation"
+import { SchemaQuery } from "./schemaQuery"
+import { SchemaTopic } from "./schemaTopic"
 
-export type SchemaEntity = SchemaInterface | SchemaEnum;
+export type SchemaEntity = SchemaEnum | SchemaInterface
 
 export interface GeneratorSchema {
-  entities: SchemaEntity[];
+    entities: SchemaEntity[]
 }
 
 export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
-  const reader = protobuf.Reader.create(schemaBytes);
+    const reader = protobuf.Reader.create(schemaBytes)
 
-  const schema = leancode.contracts.Export.decode(reader);
+    const schema = leancode.contracts.Export.decode(reader)
 
-  let entities: SchemaEntity[] = [];
+    let entities: SchemaEntity[] = []
 
-  schema.statements.forEach(statement => {
-    if (statement.query) return entities.push(new SchemaQuery({ statement }));
-    if (statement.command) return entities.push(new SchemaCommand({ statement }));
-    if (statement.operation) return entities.push(new SchemaOperation({ statement }));
-    if (statement.dto) return entities.push(new SchemaInterface({ statement }));
-    if (statement.enum) return entities.push(new SchemaEnum({ statement }));
-    if (statement.topic) return entities.push(new SchemaTopic({ statement }));
+    schema.statements.forEach(statement => {
+        if (statement.query) return entities.push(new SchemaQuery({ statement }))
+        if (statement.command) return entities.push(new SchemaCommand({ statement }))
+        if (statement.operation) return entities.push(new SchemaOperation({ statement }))
+        if (statement.dto) return entities.push(new SchemaInterface({ statement }))
+        if (statement.enum) return entities.push(new SchemaEnum({ statement }))
+        if (statement.topic) return entities.push(new SchemaTopic({ statement }))
 
-    throw new Error("Unknown statement type");
-  });
+        throw new Error("Unknown statement type")
+    })
 
-  entities = sortBy(entities, ({ id }) => id);
+    entities = sortBy(entities, ({ id }) => id)
 
-  return {
-    entities,
-  };
+    return {
+        entities,
+    }
 }

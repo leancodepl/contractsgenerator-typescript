@@ -1,21 +1,21 @@
-import { GeneratorInput } from "@leancodepl/contractsgenerator-typescript-plugin";
-import { GeneratorSchema } from "@leancodepl/contractsgenerator-typescript-schema";
-import NodeCache from "node-cache";
-import hash from "object-hash";
-import { getSchema } from "./getSchema";
+import NodeCache from "node-cache"
+import hash from "object-hash"
+import { GeneratorInput } from "@leancodepl/contractsgenerator-typescript-plugin"
+import { GeneratorSchema } from "@leancodepl/contractsgenerator-typescript-schema"
+import { getSchema } from "./getSchema"
 
 export function getSchemaCached(cache: NodeCache) {
-  return async (input: GeneratorInput) => {
-    const inputHash = hash(input);
+    return async (input: GeneratorInput) => {
+        const inputHash = hash(input)
 
-    const cachedSchema = cache.get<GeneratorSchema>(inputHash);
+        const cachedSchema = cache.get<GeneratorSchema>(inputHash)
 
-    if (cachedSchema) return cachedSchema;
+        if (cachedSchema) return cachedSchema
 
-    const schema = await getSchema(input);
+        const schema = await getSchema(input)
 
-    cache.set(inputHash, schema);
+        cache.set(inputHash, schema)
 
-    return schema;
-  };
+        return schema
+    }
 }
