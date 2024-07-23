@@ -6,6 +6,6 @@
     "@leancodepl/utils": ">=7.2.3",
     "lodash": "^4.0.0",
     "long": "5.2.3",
-    "protobufjs": "7.2.3"
+    "protobufjs": "7.3.2"
   }
 }
