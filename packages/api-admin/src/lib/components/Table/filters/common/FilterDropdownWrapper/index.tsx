@@ -1,14 +1,14 @@
-import { Space } from "antd";
-import { ReactNode } from "react";
+import { ReactNode } from "react"
+import { Space } from "antd"
 
 type FilterDropdownWrapperProps = {
-  children?: ReactNode;
-};
+    children?: ReactNode
+}
 
 export function FilterDropdownWrapper({ children }: FilterDropdownWrapperProps) {
-  return (
-    <Space direction="vertical" size="small" style={{ padding: 8 }}>
-      {children}
-    </Space>
-  );
+    return (
+        <Space direction="vertical" size="small" style={{ padding: 8 }}>
+            {children}
+        </Space>
+    )
 }

@@ -1,5 +1,8 @@
 {
   "name": "@leancodepl/contractsgenerator-typescript-values",
   "version": "1.1.0-alpha.2",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  }
 }

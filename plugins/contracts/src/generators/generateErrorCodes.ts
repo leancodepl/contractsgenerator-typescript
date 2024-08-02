@@ -1,11 +1,11 @@
-import { SchemaCommand } from "@leancodepl/contractsgenerator-typescript-schema";
-import ts from "typescript";
-import { ContractsContext } from "../contractsContext";
+import ts from "typescript"
+import { SchemaCommand } from "@leancodepl/contractsgenerator-typescript-schema"
+import { ContractsContext } from "../contractsContext"
 
 export function generateErrorCodes(command: SchemaCommand, context: ContractsContext) {
-    const errorCodes = command.errorCodes;
+    const errorCodes = command.errorCodes
 
-    if (!errorCodes.hasErrors) return [];
+    if (!errorCodes.hasErrors) return []
 
     const errorCodesStatements = [
         ts.factory.createVariableStatement(
@@ -39,7 +39,7 @@ export function generateErrorCodes(command: SchemaCommand, context: ContractsCon
             /* typeParameters */ undefined,
             /* type */ ts.factory.createTypeQueryNode(/* exprName */ ts.factory.createIdentifier("ErrorCodes")),
         ),
-    ];
+    ]
 
     return [
         ts.factory.createModuleDeclaration(
@@ -48,5 +48,5 @@ export function generateErrorCodes(command: SchemaCommand, context: ContractsCon
             /* body */ ts.factory.createModuleBlock(errorCodesStatements),
             /* flags */ ts.NodeFlags.Namespace,
         ),
-    ];
+    ]
 }

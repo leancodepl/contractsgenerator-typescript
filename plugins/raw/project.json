@@ -3,23 +3,17 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "plugins/raw/src",
   "projectType": "library",
-  "tags": [
-    "plugin"
-  ],
+  "tags": ["plugin"],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/plugins/raw",
         "tsConfig": "plugins/raw/tsconfig.lib.json",
         "packageJson": "plugins/raw/package.json",
         "main": "plugins/raw/src/index.ts",
-        "assets": [
-          "plugins/raw/*.md"
-        ]
+        "assets": ["plugins/raw/*.md"]
       }
     },
     "lint": {
@@ -27,9 +21,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "plugins/raw/jest.config.ts"
       }
@@ -39,9 +31,7 @@
       "options": {
         "command": "node tools/scripts/publish.mjs raw {args.registry} {args.ver} {args.tag}"
       },
-      "dependsOn": [
-        "build"
-      ]
+      "dependsOn": ["build"]
     },
     "validator": {
       "executor": "nx:run-commands",

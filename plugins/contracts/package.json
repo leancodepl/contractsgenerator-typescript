@@ -8,5 +8,8 @@
     "@leancodepl/contractsgenerator-typescript-values": "1.1.0-alpha.2",
     "lodash": "^4.0.0",
     "zod": ">=3.22.0"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
   }
 }

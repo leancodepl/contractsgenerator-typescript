@@ -1,12 +1,12 @@
-import { SchemaEnumMember } from "@leancodepl/contractsgenerator-typescript-schema";
-import { generateValue } from "@leancodepl/contractsgenerator-typescript-values";
-import ts from "typescript";
-import { ContractsContext } from "../contractsContext";
-import { withJsDoc } from "../utils/withJsDoc";
-import { generateAttribute } from "./generateAttribute";
+import ts from "typescript"
+import { SchemaEnumMember } from "@leancodepl/contractsgenerator-typescript-schema"
+import { generateValue } from "@leancodepl/contractsgenerator-typescript-values"
+import { ContractsContext } from "../contractsContext"
+import { withJsDoc } from "../utils/withJsDoc"
+import { generateAttribute } from "./generateAttribute"
 
 export function generateEnumMember(enumMember: SchemaEnumMember, context: ContractsContext) {
-    const constantStatement = ts.factory.createEnumMember(enumMember.name, generateValue(enumMember.value));
+    const constantStatement = ts.factory.createEnumMember(enumMember.name, generateValue(enumMember.value))
 
     const jsDoc = enumMember.comment
         ? ts.factory.createJSDocComment(
@@ -14,7 +14,7 @@ export function generateEnumMember(enumMember: SchemaEnumMember, context: Contra
 
               enumMember.attributes.map(attribute => generateAttribute(attribute, context)),
           )
-        : undefined;
+        : undefined
 
-    return withJsDoc(constantStatement, jsDoc, context);
+    return withJsDoc(constantStatement, jsDoc, context)
 }
