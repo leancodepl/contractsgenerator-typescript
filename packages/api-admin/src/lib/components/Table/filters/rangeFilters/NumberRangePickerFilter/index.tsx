@@ -2,6 +2,7 @@ import { InputNumber, Space } from "antd";
 import { FilterDropdownProps } from "antd/lib/table/interface";
 import { Key } from "react";
 import { ConfirmResetButtons } from "../../common/ConfirmResetButtons";
+import { bigIntToString } from "../../../../../utils/bigIntToString";
 
 type DatePickerFilterProps = {
   placeholder?: string;
@@ -34,5 +35,3 @@ export function NumberRangePickerFilter({
     </div>
   );
 }
-
-const bigIntToString = (value: Key) => (typeof value === "bigint" ? value.toString() : value);
