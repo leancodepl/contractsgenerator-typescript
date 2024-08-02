@@ -1,6 +1,7 @@
 import { Input } from "antd";
 import { FilterDropdownProps } from "antd/lib/table/interface";
 import { ConfirmResetButtons } from "../../common/ConfirmResetButtons";
+import { bigIntToString } from "../../../../../utils/bigIntToString";
 
 type TextSearchFilterProps = {
   placeholder: string;
@@ -19,7 +20,7 @@ export function TextSearchFilter({
         autoFocus
         placeholder={placeholder}
         style={{ width: 188, marginBottom: 8, display: "block" }}
-        value={selectedKeys?.[0]}
+        value={bigIntToString(selectedKeys?.[0])}
         onChange={e => setSelectedKeys?.(e.target.value ? [e.target.value] : [])}
         onPressEnter={() => confirm()}
       />

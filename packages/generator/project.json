@@ -1,18 +1,26 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "name": "generator",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/generator/src",
   "projectType": "library",
+  "tags": [
+    "package"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/packages/generator",
         "tsConfig": "packages/generator/tsconfig.lib.json",
         "packageJson": "packages/generator/package.json",
         "main": "packages/generator/src/index.ts",
-        "assets": ["packages/generator/*.md", "packages/generator/src/generate.sh"]
+        "assets": [
+          "packages/generator/*.md",
+          "packages/generator/src/generate.sh"
+        ]
       },
       "configurations": {
         "bin": {
@@ -21,18 +29,15 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["packages/generator/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
-        "jestConfig": "packages/generator/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "packages/generator/jest.config.ts"
       }
     },
     "publish": {
@@ -40,7 +45,9 @@
       "options": {
         "command": "node tools/scripts/publish.mjs generator {args.registry} {args.ver} {args.tag}"
       },
-      "dependsOn": ["build"]
+      "dependsOn": [
+        "build"
+      ]
     },
     "validator": {
       "executor": "nx:run-commands",
@@ -49,6 +56,5 @@
         "command": "ts-to-zod src/generate.ts src/schema.ts"
       }
     }
-  },
-  "tags": ["package"]
+  }
 }

@@ -3,31 +3,35 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "plugins/client/src",
   "projectType": "library",
+  "tags": [
+    "plugin"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/plugins/client",
         "tsConfig": "plugins/client/tsconfig.lib.json",
         "packageJson": "plugins/client/package.json",
         "main": "plugins/client/src/index.ts",
-        "assets": ["plugins/client/*.md"]
+        "assets": [
+          "plugins/client/*.md"
+        ]
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["plugins/client/**/*.ts"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
-        "jestConfig": "plugins/client/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "plugins/client/jest.config.ts"
       }
     },
     "publish": {
@@ -35,7 +39,9 @@
       "options": {
         "command": "node tools/scripts/publish.mjs client {args.registry} {args.ver} {args.tag}"
       },
-      "dependsOn": ["build"]
+      "dependsOn": [
+        "build"
+      ]
     },
     "validator": {
       "executor": "nx:run-commands",
@@ -44,6 +50,5 @@
         "command": "ts-to-zod src/configuration.ts src/configuration.validator.ts"
       }
     }
-  },
-  "tags": ["plugin"]
+  }
 }

@@ -2,6 +2,7 @@ import { InputNumber, Space } from "antd";
 import { FilterDropdownProps } from "antd/lib/table/interface";
 import { Key } from "react";
 import { ConfirmResetButtons } from "../../common/ConfirmResetButtons";
+import { bigIntToString } from "../../../../../utils/bigIntToString";
 
 type DatePickerFilterProps = {
   placeholder?: string;
@@ -19,14 +20,14 @@ export function NumberRangePickerFilter({
         <InputNumber
           placeholder="From"
           size="small"
-          value={selectedKeys[0]}
+          value={bigIntToString(selectedKeys[0])}
           onChange={value => setSelectedKeys?.([value as Key, selectedKeys[1]])}
         />
         -
         <InputNumber
           placeholder="To"
           size="small"
-          value={selectedKeys[1]}
+          value={bigIntToString(selectedKeys[1])}
           onChange={value => setSelectedKeys?.([selectedKeys[0], value as Key])}
         />
       </Space>
