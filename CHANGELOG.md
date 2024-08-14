@@ -1,5 +1,21 @@
 # Change Log
 
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [1.1.0-alpha.3](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.2...v1.1.0-alpha.3) (2024-08-14)
+
+
+### Bug Fixes
+
+* move big int util to utils folder ([4081864](https://github.com/leancodepl/contractsgenerator-typescript/commit/4081864d61a2a85d54af9e209c2f033059e4140f))
+
+
+
+
+
+# Change Log
+
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
