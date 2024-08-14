@@ -1,11 +1,11 @@
 {
   "name": "@leancodepl/contractsgenerator-typescript",
-  "version": "1.1.0-alpha.2",
+  "version": "1.1.0-alpha.3",
   "license": "Apache-2.0",
   "bin": "src/bin.js",
   "dependencies": {
-    "@leancodepl/contractsgenerator-typescript-plugin": "1.1.0-alpha.2",
-    "@leancodepl/contractsgenerator-typescript-schema": "1.1.0-alpha.2",
+    "@leancodepl/contractsgenerator-typescript-plugin": "1.1.0-alpha.3",
+    "@leancodepl/contractsgenerator-typescript-schema": "1.1.0-alpha.3",
     "@leancodepl/utils": ">=7.2.3",
     "lilconfig": "2.1.0",
     "lodash": "^4.0.0",
