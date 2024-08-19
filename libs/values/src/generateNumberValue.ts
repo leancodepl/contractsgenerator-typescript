@@ -5,7 +5,7 @@ export function generateNumberValue(numberValue: SchemaNumberValue) {
     if (numberValue.value < 0)
         return ts.factory.createPrefixUnaryExpression(
             ts.SyntaxKind.MinusToken,
-            ts.factory.createNumericLiteral(Math.abs(numberValue.value)),
+            ts.factory.createNumericLiteral(-numberValue.value),
         )
 
     return ts.factory.createNumericLiteral(numberValue.value)
