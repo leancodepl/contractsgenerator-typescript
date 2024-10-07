@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.5](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.4...v1.1.0-alpha.5) (2024-10-07)
+
+
+### Bug Fixes
+
+* respect nameTransform when generating admin table ([b33243c](https://github.com/leancodepl/contractsgenerator-typescript/commit/b33243c397522a38fc3a59288f3936cf3a30adc1))
+
+
+
+
+
 # [1.1.0-alpha.4](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.3...v1.1.0-alpha.4) (2024-08-19)
 
 **Note:** Version bump only for package @leancodepl/contractsgenerator-typescript-plugin-admin
