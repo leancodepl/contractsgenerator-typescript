@@ -12,4 +12,5 @@ export const generatorInputSchema = z.object({
 
 export const adminGeneratorPluginConfigurationSchema = z.object({
   input: generatorInputSchema,
+  nameTransform: z.function().args(z.string()).returns(z.string()).optional(),
 });

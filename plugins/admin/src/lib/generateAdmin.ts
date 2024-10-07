@@ -24,18 +24,20 @@ import {
 export interface AdminContext {
     schema: GeneratorSchema
     requireEnum: (enumId: string) => void
+    nameTransform: (id: string) => string
 }
 
 export function admin(): string {
     return "admin"
 }
 
-export function generateAdmin(schema: GeneratorSchema): AdminComponentsConfig {
+export function generateAdmin(schema: GeneratorSchema, nameTransform: (id: string) => string): AdminComponentsConfig {
     const requiredEnums = new Set<string>()
 
     const context: AdminContext = {
         schema,
         requireEnum: enumId => requiredEnums.add(enumId),
+        nameTransform,
     }
 
     const apiTables = generateApiTables(context)
@@ -60,7 +62,7 @@ export function generateApiTable(adminQuery: SchemaInterface, context: AdminCont
     return {
         type: "table",
         table: {
-            query: adminQuery.getName(id => id),
+            query: adminQuery.getName(context.nameTransform),
             columns: getColumns(adminQueryResultType, adminQuery, context),
         },
     }

@@ -17,7 +17,7 @@ class AdminGeneratorPlugin implements GeneratorPluginInstance {
   async generate(): Promise<string> {
     const schema = await this.context.getSchema(this.configuration.input);
 
-    const admin = generateAdmin(schema);
+    const admin = generateAdmin(schema, this.configuration.nameTransform ?? (id => id));
 
     return printConfig(admin);
   }
