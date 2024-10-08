@@ -129,6 +129,8 @@ export function mkFilterConfig<T>(filter: AdminFilterConfig, enumsMap: EnumsMap)
                     text: entry[1],
                     value: entry[0],
                 })),
+                filterMultiple: false,
+                formatForRequest: value => formatApiFilter(value),
             }
         }
     }
@@ -138,5 +140,5 @@ export function mkFilterConfig<T>(filter: AdminFilterConfig, enumsMap: EnumsMap)
 }
 
 export function formatApiFilter(filters: FilterValue | null) {
-    return filters?.[0]
+    return filters?.at(0)
 }
