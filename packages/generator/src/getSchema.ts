@@ -5,7 +5,7 @@ import { join, resolve } from "node:path"
 import { GeneratorInput } from "@leancodepl/contractsgenerator-typescript-plugin"
 import { GeneratorSchema, parseSchema } from "@leancodepl/contractsgenerator-typescript-schema"
 
-export const serverContractsGeneratorVersion = "3.0.0-alpha.3"
+export const serverContractsGeneratorVersion = "3.0.0"
 
 export async function getSchema(input: GeneratorInput) {
     if (input.raw) {
