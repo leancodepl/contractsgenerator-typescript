@@ -5,7 +5,7 @@ import { join, resolve } from "node:path"
 import { GeneratorInput } from "@leancodepl/contractsgenerator-typescript-plugin"
 import { GeneratorSchema, parseSchema } from "@leancodepl/contractsgenerator-typescript-schema"
 
-export const serverContractsGeneratorVersion = "3.0.0"
+const defaultServerContractsGeneratorVersion = "3.0.0"
 
 export async function getSchema(input: GeneratorInput) {
     if (input.raw) {
@@ -51,7 +51,7 @@ export async function getSchema(input: GeneratorInput) {
 
     params += ` --output=-`
 
-    const serverVersion = `SERVER_VERSION=${serverContractsGeneratorVersion}`
+    const serverVersion = `SERVER_VERSION=${input.serverVersion ?? defaultServerContractsGeneratorVersion}`
     const script = resolve(__dirname, "generate.sh")
 
     return await new Promise<GeneratorSchema>((resolve, reject) => {
