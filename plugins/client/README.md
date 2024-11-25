@@ -12,6 +12,8 @@ This plugin must be used together with the
   paths are relative to directory from your current CWD. Unless you are using JavaScript files - in that case you can
   use `__dirname` and `path.join`/`path.resolve` for paths relative to configuration file.
 
+  - `serverVersion` - version of the contracts generator that should be used. Default: `3.0.0`
+
   - `base` - base path for your backend code source. If you provide that then all the other properties are relative to
     this directory.
 
