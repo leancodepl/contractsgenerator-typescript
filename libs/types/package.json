@@ -1,9 +1,9 @@
 {
   "name": "@leancodepl/contractsgenerator-typescript-types",
-  "version": "1.1.0-alpha.5",
+  "version": "1.1.0-alpha.6",
   "license": "Apache-2.0",
   "dependencies": {
-    "@leancodepl/contractsgenerator-typescript-schema": "1.1.0-alpha.5",
+    "@leancodepl/contractsgenerator-typescript-schema": "1.1.0-alpha.6",
     "@leancodepl/utils": ">=7.2.3",
     "typescript": ">=5.5.0"
   }

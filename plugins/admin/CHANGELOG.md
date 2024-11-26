@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.6](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.5...v1.1.0-alpha.6) (2024-11-26)
+
+
+### Bug Fixes
+
+* add missing dependencies to packages ([edd393b](https://github.com/leancodepl/contractsgenerator-typescript/commit/edd393b092cbbbca85ab9cdacc664b5979efede3))
+
+
+### Features
+
+* add overriding server version ([0e4bac0](https://github.com/leancodepl/contractsgenerator-typescript/commit/0e4bac0b9648dc46482fec8a98302b6fa5ec8915))
+
+
+
+
+
 # [1.1.0-alpha.5](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.4...v1.1.0-alpha.5) (2024-10-07)
 
 

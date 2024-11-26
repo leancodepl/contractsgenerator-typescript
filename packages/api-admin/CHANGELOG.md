@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.6](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.5...v1.1.0-alpha.6) (2024-11-26)
+
+
+### Bug Fixes
+
+* add missing dependencies to packages ([edd393b](https://github.com/leancodepl/contractsgenerator-typescript/commit/edd393b092cbbbca85ab9cdacc664b5979efede3))
+* enum filter ([f324071](https://github.com/leancodepl/contractsgenerator-typescript/commit/f32407120271dc72bd17d23b51254180f44826a0))
+
+
+
+
+
 # [1.1.0-alpha.5](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.4...v1.1.0-alpha.5) (2024-10-07)
 
 **Note:** Version bump only for package @leancodepl/admin
