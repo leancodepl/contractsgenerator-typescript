@@ -9,6 +9,8 @@ Plugin for generating api components schema from `AdminQuery` queries. This sche
   paths are relative to directory from your current CWD. Unless you are using JavaScript files - in that case you can
   use `__dirname` and `path.join`/`path.resolve` for paths relative to configuration file.
 
+  - `serverVersion` - version of the contracts generator that should be used.
+
   - `base` - base path for your backend code source. If you provide that then all the other properties are relative to
     this directory.
 

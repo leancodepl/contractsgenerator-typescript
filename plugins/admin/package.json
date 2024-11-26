@@ -4,6 +4,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@leancodepl/utils": ">=7.2.3",
+    "@leancodepl/contractsgenerator-typescript-schema": "1.1.0-alpha.5",
+    "@leancodepl/contractsgenerator-typescript-plugin": "1.1.0-alpha.5",
     "zod": ">=3.22.0"
   }
 }
