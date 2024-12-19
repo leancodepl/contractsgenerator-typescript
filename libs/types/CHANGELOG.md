@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0-alpha.7](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.6...v1.1.0-alpha.7) (2024-12-19)
+
+
+### Bug Fixes
+
+* generate nullable generic type arguments ([6f4d089](https://github.com/leancodepl/contractsgenerator-typescript/commit/6f4d0891b82de1811586296f3416092a2d05094e))
+
+
+
+
+
 # [1.1.0-alpha.6](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.5...v1.1.0-alpha.6) (2024-11-26)
 
 
