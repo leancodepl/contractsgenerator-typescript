@@ -19,22 +19,24 @@ Object {
                             \\"field\\": \\"NameFilter\\",
                             \\"type\\": 1
                         }
-                    },
+                    }
+                ]
+            }
+        },
+        {
+            \\"type\\": \\"table\\",
+            \\"table\\": {
+                \\"query\\": \\"AllProjectsAdmin\\",
+                \\"columns\\": [
                     {
-                        \\"id\\": \\"Email\\",
-                        \\"title\\": \\"Email\\",
-                        \\"sortable\\": false,
-                        \\"type\\": 1
-                    },
-                    {
-                        \\"id\\": \\"Date\\",
-                        \\"title\\": \\"Date\\",
-                        \\"sortable\\": false,
-                        \\"type\\": 200,
+                        \\"id\\": \\"Name\\",
+                        \\"title\\": \\"Name\\",
+                        \\"sortable\\": true,
+                        \\"type\\": 1,
                         \\"filter\\": {
-                            \\"variant\\": \\"range\\",
-                            \\"field\\": \\"DateFilter\\",
-                            \\"type\\": 200
+                            \\"variant\\": \\"single\\",
+                            \\"field\\": \\"NameFilter\\",
+                            \\"type\\": 1
                         }
                     }
                 ]
@@ -52,29 +54,40 @@ exports[`exampleApp generates client with custom types map 1`] = `
 Object {
   "test.ts": "export default function (cqrsClient: CQRS) {
     return {
-        AssignmentEmployerEmbed: cqrsClient.createQuery<ExampleApp.Core.Contracts.Dashboards.AssignmentEmployerEmbed, string>(\\"ExampleApp.Core.Contracts.Dashboards.AssignmentEmployerEmbed\\"),
-        AllEmployees: cqrsClient.createQuery<ExampleApp.Core.Contracts.Employees.AllEmployees, ExampleApp.Core.Contracts.Employees.EmployeeDTO[]>(\\"ExampleApp.Core.Contracts.Employees.AllEmployees\\"),
-        AllEmployeesAdmin: cqrsClient.createQuery<ExampleApp.Core.Contracts.Employees.AllEmployeesAdmin, LeanCode.Contracts.Admin.AdminQueryResult<ExampleApp.Core.Contracts.Employees.AdminEmployeeDTO>>(\\"ExampleApp.Core.Contracts.Employees.AllEmployeesAdmin\\"),
-        CreateEmployee: cqrsClient.createCommand<ExampleApp.Core.Contracts.Employees.CreateEmployee, ExampleApp.Core.Contracts.Employees.CreateEmployee.ErrorCodes>(\\"ExampleApp.Core.Contracts.Employees.CreateEmployee\\", ExampleApp.Core.Contracts.Employees.CreateEmployee.ErrorCodes),
-        AddNotificationToken: cqrsClient.createCommand<ExampleApp.Core.Contracts.Firebase.AddNotificationToken, ExampleApp.Core.Contracts.Firebase.AddNotificationToken.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.AddNotificationToken\\", ExampleApp.Core.Contracts.Firebase.AddNotificationToken.ErrorCodes),
-        RemoveNotificationToken: cqrsClient.createCommand<ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken, ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken\\", ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken.ErrorCodes),
-        SendCustomNotification: cqrsClient.createCommand<ExampleApp.Core.Contracts.Firebase.SendCustomNotification, ExampleApp.Core.Contracts.Firebase.SendCustomNotification.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.SendCustomNotification\\", ExampleApp.Core.Contracts.Firebase.SendCustomNotification.ErrorCodes),
-        SearchIdentities: cqrsClient.createQuery<ExampleApp.Core.Contracts.Identities.SearchIdentities, ExampleApp.Core.Contracts.PaginatedResult<ExampleApp.Core.Contracts.Identities.KratosIdentityDTO>>(\\"ExampleApp.Core.Contracts.Identities.SearchIdentities\\"),
-        AddAssignmentsToProject: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject, ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject\\", ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject.ErrorCodes),
-        AllProjects: cqrsClient.createQuery<ExampleApp.Core.Contracts.Projects.AllProjects, ExampleApp.Core.Contracts.Projects.ProjectDTO[]>(\\"ExampleApp.Core.Contracts.Projects.AllProjects\\"),
-        AssignEmployeeToAssignment: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment, ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment\\", ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes),
-        CreateProject: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.CreateProject, ExampleApp.Core.Contracts.Projects.CreateProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.CreateProject\\", ExampleApp.Core.Contracts.Projects.CreateProject.ErrorCodes),
-        EmployeeAssignmentsTopic: cqrsClient.createTopic<ExampleApp.Core.Contracts.Projects.EmployeeAssignmentsTopic, {
-            \\"ExampleApp.Core.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO;
-            \\"ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO;
-        }>(\\"ExampleApp.Core.Contracts.Projects.EmployeeAssignmentsTopic\\"),
-        ProjectDetails: cqrsClient.createQuery<ExampleApp.Core.Contracts.Projects.ProjectDetails, ExampleApp.Core.Contracts.Projects.ProjectDetailsDTO | null | undefined>(\\"ExampleApp.Core.Contracts.Projects.ProjectDetails\\"),
-        ProjectEmployeesAssignmentsTopic: cqrsClient.createTopic<ExampleApp.Core.Contracts.Projects.ProjectEmployeesAssignmentsTopic, {
-            \\"ExampleApp.Core.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeAssignedToAssignmentDTO;
-            \\"ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO;
-        }>(\\"ExampleApp.Core.Contracts.Projects.ProjectEmployeesAssignmentsTopic\\"),
-        UnassignEmployeeFromAssignment: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment, ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment\\", ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes),
-        DeleteOwnAccount: cqrsClient.createCommand<ExampleApp.Core.Contracts.Users.DeleteOwnAccount, {}>(\\"ExampleApp.Core.Contracts.Users.DeleteOwnAccount\\", {}),
+        AddTimeslot: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot, ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot\\", ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot.ErrorCodes),
+        CreateServiceProvider: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider, ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider\\", ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider.ErrorCodes),
+        MyReservationById: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationById, ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationById\\"),
+        MyReservationByTimeslotId: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationByTimeslotId, ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationByTimeslotId\\"),
+        MyReservations: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservations, ExampleApp.Examples.Contracts.PaginatedResult<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTO>>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservations\\"),
+        ReserveTimeslot: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Booking.Reservations.ReserveTimeslot, ExampleApp.Examples.Contracts.Booking.Reservations.ReserveTimeslot.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.ReserveTimeslot\\", ExampleApp.Examples.Contracts.Booking.Reservations.ReserveTimeslot.ErrorCodes),
+        AllServiceProviders: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.ServiceProviders.AllServiceProviders, ExampleApp.Examples.Contracts.PaginatedResult<ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderSummaryDTO>>(\\"ExampleApp.Examples.Contracts.Booking.ServiceProviders.AllServiceProviders\\"),
+        ServiceProviderDetails: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderDetails, ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderDetailsDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderDetails\\"),
+        AssignmentEmployerEmbed: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Dashboards.AssignmentEmployerEmbed, string>(\\"ExampleApp.Examples.Contracts.Dashboards.AssignmentEmployerEmbed\\"),
+        AllEmployees: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Employees.AllEmployees, ExampleApp.Examples.Contracts.Employees.EmployeeDTO[]>(\\"ExampleApp.Examples.Contracts.Employees.AllEmployees\\"),
+        AllEmployeesAdmin: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Employees.AllEmployeesAdmin, LeanCode.Contracts.Admin.AdminQueryResult<ExampleApp.Examples.Contracts.Employees.AdminEmployeeDTO>>(\\"ExampleApp.Examples.Contracts.Employees.AllEmployeesAdmin\\"),
+        CreateEmployee: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Employees.CreateEmployee, ExampleApp.Examples.Contracts.Employees.CreateEmployee.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Employees.CreateEmployee\\", ExampleApp.Examples.Contracts.Employees.CreateEmployee.ErrorCodes),
+        AddNotificationToken: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Firebase.AddNotificationToken, ExampleApp.Examples.Contracts.Firebase.AddNotificationToken.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.AddNotificationToken\\", ExampleApp.Examples.Contracts.Firebase.AddNotificationToken.ErrorCodes),
+        RemoveNotificationToken: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken, ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken\\", ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken.ErrorCodes),
+        SendCustomNotification: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Firebase.SendCustomNotification, ExampleApp.Examples.Contracts.Firebase.SendCustomNotification.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.SendCustomNotification\\", ExampleApp.Examples.Contracts.Firebase.SendCustomNotification.ErrorCodes),
+        SearchIdentities: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Identities.SearchIdentities, ExampleApp.Examples.Contracts.PaginatedResult<ExampleApp.Examples.Contracts.Identities.KratosIdentityDTO>>(\\"ExampleApp.Examples.Contracts.Identities.SearchIdentities\\"),
+        AddAssignmentsToProject: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject, ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject\\", ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject.ErrorCodes),
+        AllProjects: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Projects.AllProjects, ExampleApp.Examples.Contracts.Projects.ProjectDTO[]>(\\"ExampleApp.Examples.Contracts.Projects.AllProjects\\"),
+        AllProjectsAdmin: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Projects.AllProjectsAdmin, LeanCode.Contracts.Admin.AdminQueryResult<ExampleApp.Examples.Contracts.Projects.AdminProjectDTO>>(\\"ExampleApp.Examples.Contracts.Projects.AllProjectsAdmin\\"),
+        AssignEmployeeToAssignment: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Projects.AssignEmployeeToAssignment, ExampleApp.Examples.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.AssignEmployeeToAssignment\\", ExampleApp.Examples.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes),
+        CreateProject: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Projects.CreateProject, ExampleApp.Examples.Contracts.Projects.CreateProject.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.CreateProject\\", ExampleApp.Examples.Contracts.Projects.CreateProject.ErrorCodes),
+        EmployeeAssignmentsTopic: cqrsClient.createTopic<ExampleApp.Examples.Contracts.Projects.EmployeeAssignmentsTopic, {
+            \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\": ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO;
+            \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\": ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO;
+        }>(\\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignmentsTopic\\"),
+        ProjectDetails: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Projects.ProjectDetails, ExampleApp.Examples.Contracts.Projects.ProjectDetailsDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Projects.ProjectDetails\\"),
+        ProjectEmployeesAssignmentsTopic: cqrsClient.createTopic<ExampleApp.Examples.Contracts.Projects.ProjectEmployeesAssignmentsTopic, {
+            \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\": ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToAssignmentDTO;
+            \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\": ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO;
+        }>(\\"ExampleApp.Examples.Contracts.Projects.ProjectEmployeesAssignmentsTopic\\"),
+        UnassignEmployeeFromAssignment: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Projects.UnassignEmployeeFromAssignment, ExampleApp.Examples.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.UnassignEmployeeFromAssignment\\", ExampleApp.Examples.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes),
+        DeleteOwnAccount: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Users.DeleteOwnAccount, {}>(\\"ExampleApp.Examples.Contracts.Users.DeleteOwnAccount\\", {}),
+        RatingAlreadySent: cqrsClient.createQuery<LeanCode.AppRating.Contracts.RatingAlreadySent, boolean>(\\"LeanCode.AppRating.Contracts.RatingAlreadySent\\"),
+        SubmitAppRating: cqrsClient.createCommand<LeanCode.AppRating.Contracts.SubmitAppRating, LeanCode.AppRating.Contracts.SubmitAppRating.ErrorCodes>(\\"LeanCode.AppRating.Contracts.SubmitAppRating\\", LeanCode.AppRating.Contracts.SubmitAppRating.ErrorCodes),
         VersionSupport: cqrsClient.createQuery<LeanCode.ForceUpdate.Contracts.VersionSupport, LeanCode.ForceUpdate.Contracts.VersionSupportDTO>(\\"LeanCode.ForceUpdate.Contracts.VersionSupport\\")
     };
 }
@@ -86,29 +99,40 @@ exports[`exampleApp generates client with defaults 1`] = `
 Object {
   "test.ts": "export default function (cqrsClient: CQRS) {
     return {
-        AssignmentEmployerEmbed: cqrsClient.createQuery<ExampleApp.Core.Contracts.Dashboards.AssignmentEmployerEmbed, string>(\\"ExampleApp.Core.Contracts.Dashboards.AssignmentEmployerEmbed\\"),
-        AllEmployees: cqrsClient.createQuery<ExampleApp.Core.Contracts.Employees.AllEmployees, ExampleApp.Core.Contracts.Employees.EmployeeDTO[]>(\\"ExampleApp.Core.Contracts.Employees.AllEmployees\\"),
-        AllEmployeesAdmin: cqrsClient.createQuery<ExampleApp.Core.Contracts.Employees.AllEmployeesAdmin, LeanCode.Contracts.Admin.AdminQueryResult<ExampleApp.Core.Contracts.Employees.AdminEmployeeDTO>>(\\"ExampleApp.Core.Contracts.Employees.AllEmployeesAdmin\\"),
-        CreateEmployee: cqrsClient.createCommand<ExampleApp.Core.Contracts.Employees.CreateEmployee, ExampleApp.Core.Contracts.Employees.CreateEmployee.ErrorCodes>(\\"ExampleApp.Core.Contracts.Employees.CreateEmployee\\", ExampleApp.Core.Contracts.Employees.CreateEmployee.ErrorCodes),
-        AddNotificationToken: cqrsClient.createCommand<ExampleApp.Core.Contracts.Firebase.AddNotificationToken, ExampleApp.Core.Contracts.Firebase.AddNotificationToken.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.AddNotificationToken\\", ExampleApp.Core.Contracts.Firebase.AddNotificationToken.ErrorCodes),
-        RemoveNotificationToken: cqrsClient.createCommand<ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken, ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken\\", ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken.ErrorCodes),
-        SendCustomNotification: cqrsClient.createCommand<ExampleApp.Core.Contracts.Firebase.SendCustomNotification, ExampleApp.Core.Contracts.Firebase.SendCustomNotification.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.SendCustomNotification\\", ExampleApp.Core.Contracts.Firebase.SendCustomNotification.ErrorCodes),
-        SearchIdentities: cqrsClient.createQuery<ExampleApp.Core.Contracts.Identities.SearchIdentities, ExampleApp.Core.Contracts.PaginatedResult<ExampleApp.Core.Contracts.Identities.KratosIdentityDTO>>(\\"ExampleApp.Core.Contracts.Identities.SearchIdentities\\"),
-        AddAssignmentsToProject: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject, ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject\\", ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject.ErrorCodes),
-        AllProjects: cqrsClient.createQuery<ExampleApp.Core.Contracts.Projects.AllProjects, ExampleApp.Core.Contracts.Projects.ProjectDTO[]>(\\"ExampleApp.Core.Contracts.Projects.AllProjects\\"),
-        AssignEmployeeToAssignment: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment, ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment\\", ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes),
-        CreateProject: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.CreateProject, ExampleApp.Core.Contracts.Projects.CreateProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.CreateProject\\", ExampleApp.Core.Contracts.Projects.CreateProject.ErrorCodes),
-        EmployeeAssignmentsTopic: cqrsClient.createTopic<ExampleApp.Core.Contracts.Projects.EmployeeAssignmentsTopic, {
-            \\"ExampleApp.Core.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO;
-            \\"ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO;
-        }>(\\"ExampleApp.Core.Contracts.Projects.EmployeeAssignmentsTopic\\"),
-        ProjectDetails: cqrsClient.createQuery<ExampleApp.Core.Contracts.Projects.ProjectDetails, ExampleApp.Core.Contracts.Projects.ProjectDetailsDTO | null | undefined>(\\"ExampleApp.Core.Contracts.Projects.ProjectDetails\\"),
-        ProjectEmployeesAssignmentsTopic: cqrsClient.createTopic<ExampleApp.Core.Contracts.Projects.ProjectEmployeesAssignmentsTopic, {
-            \\"ExampleApp.Core.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeAssignedToAssignmentDTO;
-            \\"ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\": ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO;
-        }>(\\"ExampleApp.Core.Contracts.Projects.ProjectEmployeesAssignmentsTopic\\"),
-        UnassignEmployeeFromAssignment: cqrsClient.createCommand<ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment, ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment\\", ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes),
-        DeleteOwnAccount: cqrsClient.createCommand<ExampleApp.Core.Contracts.Users.DeleteOwnAccount, {}>(\\"ExampleApp.Core.Contracts.Users.DeleteOwnAccount\\", {}),
+        AddTimeslot: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot, ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot\\", ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot.ErrorCodes),
+        CreateServiceProvider: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider, ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider\\", ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider.ErrorCodes),
+        MyReservationById: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationById, ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationById\\"),
+        MyReservationByTimeslotId: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationByTimeslotId, ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationByTimeslotId\\"),
+        MyReservations: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservations, ExampleApp.Examples.Contracts.PaginatedResult<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTO>>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservations\\"),
+        ReserveTimeslot: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Booking.Reservations.ReserveTimeslot, ExampleApp.Examples.Contracts.Booking.Reservations.ReserveTimeslot.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.ReserveTimeslot\\", ExampleApp.Examples.Contracts.Booking.Reservations.ReserveTimeslot.ErrorCodes),
+        AllServiceProviders: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.ServiceProviders.AllServiceProviders, ExampleApp.Examples.Contracts.PaginatedResult<ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderSummaryDTO>>(\\"ExampleApp.Examples.Contracts.Booking.ServiceProviders.AllServiceProviders\\"),
+        ServiceProviderDetails: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderDetails, ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderDetailsDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderDetails\\"),
+        AssignmentEmployerEmbed: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Dashboards.AssignmentEmployerEmbed, string>(\\"ExampleApp.Examples.Contracts.Dashboards.AssignmentEmployerEmbed\\"),
+        AllEmployees: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Employees.AllEmployees, ExampleApp.Examples.Contracts.Employees.EmployeeDTO[]>(\\"ExampleApp.Examples.Contracts.Employees.AllEmployees\\"),
+        AllEmployeesAdmin: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Employees.AllEmployeesAdmin, LeanCode.Contracts.Admin.AdminQueryResult<ExampleApp.Examples.Contracts.Employees.AdminEmployeeDTO>>(\\"ExampleApp.Examples.Contracts.Employees.AllEmployeesAdmin\\"),
+        CreateEmployee: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Employees.CreateEmployee, ExampleApp.Examples.Contracts.Employees.CreateEmployee.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Employees.CreateEmployee\\", ExampleApp.Examples.Contracts.Employees.CreateEmployee.ErrorCodes),
+        AddNotificationToken: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Firebase.AddNotificationToken, ExampleApp.Examples.Contracts.Firebase.AddNotificationToken.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.AddNotificationToken\\", ExampleApp.Examples.Contracts.Firebase.AddNotificationToken.ErrorCodes),
+        RemoveNotificationToken: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken, ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken\\", ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken.ErrorCodes),
+        SendCustomNotification: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Firebase.SendCustomNotification, ExampleApp.Examples.Contracts.Firebase.SendCustomNotification.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.SendCustomNotification\\", ExampleApp.Examples.Contracts.Firebase.SendCustomNotification.ErrorCodes),
+        SearchIdentities: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Identities.SearchIdentities, ExampleApp.Examples.Contracts.PaginatedResult<ExampleApp.Examples.Contracts.Identities.KratosIdentityDTO>>(\\"ExampleApp.Examples.Contracts.Identities.SearchIdentities\\"),
+        AddAssignmentsToProject: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject, ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject\\", ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject.ErrorCodes),
+        AllProjects: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Projects.AllProjects, ExampleApp.Examples.Contracts.Projects.ProjectDTO[]>(\\"ExampleApp.Examples.Contracts.Projects.AllProjects\\"),
+        AllProjectsAdmin: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Projects.AllProjectsAdmin, LeanCode.Contracts.Admin.AdminQueryResult<ExampleApp.Examples.Contracts.Projects.AdminProjectDTO>>(\\"ExampleApp.Examples.Contracts.Projects.AllProjectsAdmin\\"),
+        AssignEmployeeToAssignment: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Projects.AssignEmployeeToAssignment, ExampleApp.Examples.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.AssignEmployeeToAssignment\\", ExampleApp.Examples.Contracts.Projects.AssignEmployeeToAssignment.ErrorCodes),
+        CreateProject: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Projects.CreateProject, ExampleApp.Examples.Contracts.Projects.CreateProject.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.CreateProject\\", ExampleApp.Examples.Contracts.Projects.CreateProject.ErrorCodes),
+        EmployeeAssignmentsTopic: cqrsClient.createTopic<ExampleApp.Examples.Contracts.Projects.EmployeeAssignmentsTopic, {
+            \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\": ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO;
+            \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\": ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO;
+        }>(\\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignmentsTopic\\"),
+        ProjectDetails: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Projects.ProjectDetails, ExampleApp.Examples.Contracts.Projects.ProjectDetailsDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Projects.ProjectDetails\\"),
+        ProjectEmployeesAssignmentsTopic: cqrsClient.createTopic<ExampleApp.Examples.Contracts.Projects.ProjectEmployeesAssignmentsTopic, {
+            \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\": ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToAssignmentDTO;
+            \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\": ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO;
+        }>(\\"ExampleApp.Examples.Contracts.Projects.ProjectEmployeesAssignmentsTopic\\"),
+        UnassignEmployeeFromAssignment: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Projects.UnassignEmployeeFromAssignment, ExampleApp.Examples.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.UnassignEmployeeFromAssignment\\", ExampleApp.Examples.Contracts.Projects.UnassignEmployeeFromAssignment.ErrorCodes),
+        DeleteOwnAccount: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Users.DeleteOwnAccount, {}>(\\"ExampleApp.Examples.Contracts.Users.DeleteOwnAccount\\", {}),
+        RatingAlreadySent: cqrsClient.createQuery<LeanCode.AppRating.Contracts.RatingAlreadySent, boolean>(\\"LeanCode.AppRating.Contracts.RatingAlreadySent\\"),
+        SubmitAppRating: cqrsClient.createCommand<LeanCode.AppRating.Contracts.SubmitAppRating, LeanCode.AppRating.Contracts.SubmitAppRating.ErrorCodes>(\\"LeanCode.AppRating.Contracts.SubmitAppRating\\", LeanCode.AppRating.Contracts.SubmitAppRating.ErrorCodes),
         VersionSupport: cqrsClient.createQuery<LeanCode.ForceUpdate.Contracts.VersionSupport, LeanCode.ForceUpdate.Contracts.VersionSupportDTO>(\\"LeanCode.ForceUpdate.Contracts.VersionSupport\\")
     };
 }
@@ -120,29 +144,40 @@ exports[`exampleApp generates client with name transforms 1`] = `
 Object {
   "test.ts": "export default function (cqrsClient: CQRS) {
     return {
-        AssignmentEmployerEmbed: cqrsClient.createQuery<AssignmentEmployerEmbed, string>(\\"ExampleApp.Core.Contracts.Dashboards.AssignmentEmployerEmbed\\"),
-        AllEmployees: cqrsClient.createQuery<AllEmployees, EmployeeDTO[]>(\\"ExampleApp.Core.Contracts.Employees.AllEmployees\\"),
-        AllEmployeesAdmin: cqrsClient.createQuery<AllEmployeesAdmin, AdminQueryResult<AdminEmployeeDTO>>(\\"ExampleApp.Core.Contracts.Employees.AllEmployeesAdmin\\"),
-        CreateEmployee: cqrsClient.createCommand<CreateEmployee, CreateEmployee.ErrorCodes>(\\"ExampleApp.Core.Contracts.Employees.CreateEmployee\\", CreateEmployee.ErrorCodes),
-        AddNotificationToken: cqrsClient.createCommand<AddNotificationToken, AddNotificationToken.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.AddNotificationToken\\", AddNotificationToken.ErrorCodes),
-        RemoveNotificationToken: cqrsClient.createCommand<RemoveNotificationToken, RemoveNotificationToken.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.RemoveNotificationToken\\", RemoveNotificationToken.ErrorCodes),
-        SendCustomNotification: cqrsClient.createCommand<SendCustomNotification, SendCustomNotification.ErrorCodes>(\\"ExampleApp.Core.Contracts.Firebase.SendCustomNotification\\", SendCustomNotification.ErrorCodes),
-        SearchIdentities: cqrsClient.createQuery<SearchIdentities, PaginatedResult<KratosIdentityDTO>>(\\"ExampleApp.Core.Contracts.Identities.SearchIdentities\\"),
-        AddAssignmentsToProject: cqrsClient.createCommand<AddAssignmentsToProject, AddAssignmentsToProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AddAssignmentsToProject\\", AddAssignmentsToProject.ErrorCodes),
-        AllProjects: cqrsClient.createQuery<AllProjects, ProjectDTO[]>(\\"ExampleApp.Core.Contracts.Projects.AllProjects\\"),
-        AssignEmployeeToAssignment: cqrsClient.createCommand<AssignEmployeeToAssignment, AssignEmployeeToAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.AssignEmployeeToAssignment\\", AssignEmployeeToAssignment.ErrorCodes),
-        CreateProject: cqrsClient.createCommand<CreateProject, CreateProject.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.CreateProject\\", CreateProject.ErrorCodes),
+        AddTimeslot: cqrsClient.createCommand<AddTimeslot, AddTimeslot.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot\\", AddTimeslot.ErrorCodes),
+        CreateServiceProvider: cqrsClient.createCommand<CreateServiceProvider, CreateServiceProvider.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider\\", CreateServiceProvider.ErrorCodes),
+        MyReservationById: cqrsClient.createQuery<MyReservationById, MyReservationDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationById\\"),
+        MyReservationByTimeslotId: cqrsClient.createQuery<MyReservationByTimeslotId, MyReservationDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationByTimeslotId\\"),
+        MyReservations: cqrsClient.createQuery<MyReservations, PaginatedResult<MyReservationDTO>>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservations\\"),
+        ReserveTimeslot: cqrsClient.createCommand<ReserveTimeslot, ReserveTimeslot.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.ReserveTimeslot\\", ReserveTimeslot.ErrorCodes),
+        AllServiceProviders: cqrsClient.createQuery<AllServiceProviders, PaginatedResult<ServiceProviderSummaryDTO>>(\\"ExampleApp.Examples.Contracts.Booking.ServiceProviders.AllServiceProviders\\"),
+        ServiceProviderDetails: cqrsClient.createQuery<ServiceProviderDetails, ServiceProviderDetailsDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderDetails\\"),
+        AssignmentEmployerEmbed: cqrsClient.createQuery<AssignmentEmployerEmbed, string>(\\"ExampleApp.Examples.Contracts.Dashboards.AssignmentEmployerEmbed\\"),
+        AllEmployees: cqrsClient.createQuery<AllEmployees, EmployeeDTO[]>(\\"ExampleApp.Examples.Contracts.Employees.AllEmployees\\"),
+        AllEmployeesAdmin: cqrsClient.createQuery<AllEmployeesAdmin, AdminQueryResult<AdminEmployeeDTO>>(\\"ExampleApp.Examples.Contracts.Employees.AllEmployeesAdmin\\"),
+        CreateEmployee: cqrsClient.createCommand<CreateEmployee, CreateEmployee.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Employees.CreateEmployee\\", CreateEmployee.ErrorCodes),
+        AddNotificationToken: cqrsClient.createCommand<AddNotificationToken, AddNotificationToken.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.AddNotificationToken\\", AddNotificationToken.ErrorCodes),
+        RemoveNotificationToken: cqrsClient.createCommand<RemoveNotificationToken, RemoveNotificationToken.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken\\", RemoveNotificationToken.ErrorCodes),
+        SendCustomNotification: cqrsClient.createCommand<SendCustomNotification, SendCustomNotification.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.SendCustomNotification\\", SendCustomNotification.ErrorCodes),
+        SearchIdentities: cqrsClient.createQuery<SearchIdentities, PaginatedResult<KratosIdentityDTO>>(\\"ExampleApp.Examples.Contracts.Identities.SearchIdentities\\"),
+        AddAssignmentsToProject: cqrsClient.createCommand<AddAssignmentsToProject, AddAssignmentsToProject.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject\\", AddAssignmentsToProject.ErrorCodes),
+        AllProjects: cqrsClient.createQuery<AllProjects, ProjectDTO[]>(\\"ExampleApp.Examples.Contracts.Projects.AllProjects\\"),
+        AllProjectsAdmin: cqrsClient.createQuery<AllProjectsAdmin, AdminQueryResult<AdminProjectDTO>>(\\"ExampleApp.Examples.Contracts.Projects.AllProjectsAdmin\\"),
+        AssignEmployeeToAssignment: cqrsClient.createCommand<AssignEmployeeToAssignment, AssignEmployeeToAssignment.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.AssignEmployeeToAssignment\\", AssignEmployeeToAssignment.ErrorCodes),
+        CreateProject: cqrsClient.createCommand<CreateProject, CreateProject.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.CreateProject\\", CreateProject.ErrorCodes),
         EmployeeAssignmentsTopic: cqrsClient.createTopic<EmployeeAssignmentsTopic, {
-            \\"ExampleApp.Core.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\": EmployeeAssignedToProjectAssignmentDTO;
-            \\"ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\": EmployeeUnassignedFromProjectAssignmentDTO;
-        }>(\\"ExampleApp.Core.Contracts.Projects.EmployeeAssignmentsTopic\\"),
-        ProjectDetails: cqrsClient.createQuery<ProjectDetails, ProjectDetailsDTO | null | undefined>(\\"ExampleApp.Core.Contracts.Projects.ProjectDetails\\"),
+            \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\": EmployeeAssignedToProjectAssignmentDTO;
+            \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\": EmployeeUnassignedFromProjectAssignmentDTO;
+        }>(\\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignmentsTopic\\"),
+        ProjectDetails: cqrsClient.createQuery<ProjectDetails, ProjectDetailsDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Projects.ProjectDetails\\"),
         ProjectEmployeesAssignmentsTopic: cqrsClient.createTopic<ProjectEmployeesAssignmentsTopic, {
-            \\"ExampleApp.Core.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\": EmployeeAssignedToAssignmentDTO;
-            \\"ExampleApp.Core.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\": EmployeeUnassignedFromAssignmentDTO;
-        }>(\\"ExampleApp.Core.Contracts.Projects.ProjectEmployeesAssignmentsTopic\\"),
-        UnassignEmployeeFromAssignment: cqrsClient.createCommand<UnassignEmployeeFromAssignment, UnassignEmployeeFromAssignment.ErrorCodes>(\\"ExampleApp.Core.Contracts.Projects.UnassignEmployeeFromAssignment\\", UnassignEmployeeFromAssignment.ErrorCodes),
-        DeleteOwnAccount: cqrsClient.createCommand<DeleteOwnAccount, {}>(\\"ExampleApp.Core.Contracts.Users.DeleteOwnAccount\\", {}),
+            \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\": EmployeeAssignedToAssignmentDTO;
+            \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\": EmployeeUnassignedFromAssignmentDTO;
+        }>(\\"ExampleApp.Examples.Contracts.Projects.ProjectEmployeesAssignmentsTopic\\"),
+        UnassignEmployeeFromAssignment: cqrsClient.createCommand<UnassignEmployeeFromAssignment, UnassignEmployeeFromAssignment.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.UnassignEmployeeFromAssignment\\", UnassignEmployeeFromAssignment.ErrorCodes),
+        DeleteOwnAccount: cqrsClient.createCommand<DeleteOwnAccount, {}>(\\"ExampleApp.Examples.Contracts.Users.DeleteOwnAccount\\", {}),
+        RatingAlreadySent: cqrsClient.createQuery<RatingAlreadySent, boolean>(\\"LeanCode.AppRating.Contracts.RatingAlreadySent\\"),
+        SubmitAppRating: cqrsClient.createCommand<SubmitAppRating, SubmitAppRating.ErrorCodes>(\\"LeanCode.AppRating.Contracts.SubmitAppRating\\", SubmitAppRating.ErrorCodes),
         VersionSupport: cqrsClient.createQuery<VersionSupport, VersionSupportDTO>(\\"LeanCode.ForceUpdate.Contracts.VersionSupport\\")
     };
 }
@@ -153,7 +188,7 @@ Object {
 exports[`exampleApp generates contracts with custom types map 1`] = `
 Object {
   "test.ts": "export namespace ExampleApp {
-    export namespace Core {
+    export namespace Examples {
         export namespace Contracts {
             export interface Auth {
             }
@@ -177,12 +212,6 @@ Object {
                 SortByDescending: boolean;
             }
             export namespace Auth {
-                export interface Clients {
-                }
-                export namespace Clients {
-                    export const AdminApp = \\"admin_app\\";
-                    export const ClientApp = \\"client_app\\";
-                }
                 export interface KnownClaims {
                 }
                 export namespace KnownClaims {
@@ -195,10 +224,205 @@ Object {
                     export const User = \\"user\\";
                     export const Admin = \\"admin\\";
                 }
-                export interface Scopes {
+            }
+            export namespace Booking {
+                export interface LocationDTO {
+                    Latitude: number;
+                    Longitude: number;
                 }
-                export namespace Scopes {
-                    export const InternalApi = \\"internal_api\\";
+                /**
+                 * The DTO representing a monetary value, e.g. amount with a currency.
+                 * The amount of money, in the smallest currency unit (e.g. grosz, cent).
+                 * The (three letter) currency name, e.g. PLN, USD.
+                 */
+                export interface MoneyDTO {
+                    /**
+                     * The amount of money, in the smallest currency unit (e.g. grosz, cent).
+                     */
+                    Value: number;
+                    /**
+                     * The (three letter) currency name, e.g. PLN, USD.
+                     */
+                    Currency: string;
+                }
+                export enum ServiceProviderTypeDTO {
+                    Hairdresser = 0,
+                    BarberShop = 1,
+                    Groomer = 2
+                }
+                export namespace Management {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface AddTimeslot extends Command {
+                        ServiceProviderId: string;
+                        Date: ApiDate;
+                        StartTime: ApiTime;
+                        EndTime: ApiTime;
+                        Price: MoneyDTO;
+                    }
+                    export namespace AddTimeslot {
+                        export const ErrorCodes = {
+                            ServiceProviderIdIsInvalid: 1,
+                            ServiceProviderDoesNotExist: 2,
+                            EndTimeMustBeAfterStartTime: 3,
+                            PriceIsNull: 4,
+                            TimeslotOverlapsWithExisting: 5,
+                            ValueCannotBeNegative: 10001,
+                            CurrencyIsInvalid: 10002
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface CreateServiceProvider extends Command {
+                        Name: string;
+                        Type: ServiceProviderTypeDTO;
+                        Description: string;
+                        PromotionalBanner: string;
+                        ListItemPicture: string;
+                        Address: string;
+                        Location: LocationDTO;
+                        Ratings: number;
+                    }
+                    export namespace CreateServiceProvider {
+                        export const ErrorCodes = {
+                            NameIsNullOrEmpty: 1,
+                            NameIsTooLong: 2,
+                            TypeIsNullOrInvalid: 3,
+                            DescriptionIsNullOrEmpty: 4,
+                            DescriptionIsTooLong: 5,
+                            PromotionalBannerIsInvalid: 6,
+                            ListItemPictureIsInvalid: 7,
+                            AddressIsNullOrEmpty: 8,
+                            AddressIsTooLong: 9,
+                            LocationIsNull: 10,
+                            LatitudeIsOutOfRange: 11001,
+                            LongitudeIsOutOfRange: 11002
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                }
+                export namespace Reservations {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     * @attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute
+                     */
+                    export interface MyReservationById extends Query<MyReservationDTO>, Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelated {
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface MyReservationByTimeslotId extends Query<MyReservationDTO> {
+                        TimeslotId: string;
+                    }
+                    export interface MyReservationDTO {
+                        Id: string;
+                        TimeslotId: string;
+                        ServiceProviderId: string;
+                        ServiceProviderName: string;
+                        Type: ServiceProviderTypeDTO;
+                        Address: string;
+                        Location: LocationDTO;
+                        Date: ApiDate;
+                        StartTime: ApiTime;
+                        EndTime: ApiTime;
+                        Price: MoneyDTO;
+                        Status: ReservationStatusDTO;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface MyReservations extends PaginatedQuery<MyReservationDTO> {
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface ReserveTimeslot extends Command {
+                        CalendarDayId: string;
+                        TimeslotId: string;
+                    }
+                    export namespace ReserveTimeslot {
+                        export const ErrorCodes = {
+                            TimeslotIdInvalid: 1,
+                            TimeslotCannotBeReserved: 2,
+                            CalendarDayIdInvalid: 3,
+                            CalendarDayDoesNotExist: 4
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                    export enum ReservationStatusDTO {
+                        Pending = 0,
+                        Confirmed = 1,
+                        Rejected = 2,
+                        Paid = 3
+                    }
+                    export namespace Authorization {
+                        export namespace AuthorizeWhenOwnsReservationAttribute {
+                            export interface IReservationRelated {
+                                ReservationId: string;
+                            }
+                            export interface IWhenOwnsReservation {
+                            }
+                        }
+                    }
+                }
+                export namespace ServiceProviders {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface AllServiceProviders extends SortedQuery<ServiceProviderSummaryDTO, ServiceProviderSortFieldsDTO> {
+                        NameFilter?: string | null;
+                        TypeFilter?: ServiceProviderTypeDTO | null;
+                        PromotedOnly: boolean;
+                    }
+                    /**
+                     * The query will return details about service provider and all available timeslots from
+                     * to
+                     *     +X days (configurable on query level).
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface ServiceProviderDetails extends Query<ServiceProviderDetailsDTO> {
+                        ServiceProviderId: string;
+                        CalendarDate: ApiDate;
+                    }
+                    export interface ServiceProviderDetailsDTO {
+                        Id: string;
+                        Name: string;
+                        Description: string;
+                        Type: ServiceProviderTypeDTO;
+                        Address: string;
+                        Location: LocationDTO;
+                        IsPromotionActive: boolean;
+                        Ratings: number;
+                        PromotionalBanner: string;
+                        ListItemPicture: string;
+                        Timeslots: TimeslotDTO[];
+                    }
+                    export interface ServiceProviderSummaryDTO {
+                        Id: string;
+                        Name: string;
+                        Type: ServiceProviderTypeDTO;
+                        ListItemPicture: string;
+                        IsPromotionActive: boolean;
+                        Address: string;
+                        Location: LocationDTO;
+                        Ratings: number;
+                    }
+                    export interface TimeslotDTO {
+                        Id: string;
+                        CalendarDayId: string;
+                        StartTime: ApiTime;
+                        EndTime: ApiTime;
+                        Price: MoneyDTO;
+                        IsReserved: boolean;
+                    }
+                    export enum ServiceProviderSortFieldsDTO {
+                        Name = 0,
+                        Type = 1,
+                        Ratings = 2
+                    }
                 }
             }
             export namespace Dashboards {
@@ -216,14 +440,6 @@ Object {
                      * @attribute LeanCode.Contracts.Admin.AdminSortable
                      */
                     Name: string;
-                    /**
-                     * @attribute LeanCode.Contracts.Admin.AdminColumn
-                     */
-                    Email: string;
-                    /**
-                     * @attribute LeanCode.Contracts.Admin.AdminColumn
-                     */
-                    Date: ApiDate;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -238,10 +454,6 @@ Object {
                      * @attribute LeanCode.Contracts.Admin.AdminFilterFor
                      */
                     NameFilter?: string | null;
-                    /**
-                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
-                     */
-                    DateFilter?: LeanCode.Contracts.Admin.AdminFilterRange<ApiDate> | null;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -340,11 +552,29 @@ Object {
                     } as const;
                     export type ErrorCodes = typeof ErrorCodes;
                 }
+                export interface AdminProjectDTO {
+                    Id: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     * @attribute LeanCode.Contracts.Admin.AdminSortable
+                     */
+                    Name: string;
+                    Optional?: ValueDTO<string | null | undefined> | null;
+                }
                 /**
                  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
                  */
                 export interface AllProjects extends Query<ProjectDTO[]> {
                     SortByNameDescending: boolean;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AllProjectsAdmin extends LeanCode.Contracts.Admin.AdminQuery<AdminProjectDTO> {
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+                     */
+                    NameFilter?: string | null;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -364,6 +594,7 @@ Object {
                 }
                 export interface AssignmentDTO extends AssignmentWriteDTO {
                     Id: string;
+                    AssignedEmployeeId?: string | null;
                 }
                 export interface AssignmentWriteDTO {
                     Name: string;
@@ -434,6 +665,9 @@ Object {
                     } as const;
                     export type ErrorCodes = typeof ErrorCodes;
                 }
+                export interface ValueDTO<T> {
+                    Value: T;
+                }
             }
             export namespace Users {
                 /**
@@ -446,6 +680,47 @@ Object {
     }
 }
 export namespace LeanCode {
+    export namespace AppRating {
+        export namespace Contracts {
+            export interface Permissions {
+            }
+            export namespace Permissions {
+                export const RateApp = \\"RateApp\\";
+            }
+            /**
+             * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+             */
+            export interface RatingAlreadySent extends Query<boolean> {
+            }
+            /**
+             * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+             */
+            export interface SubmitAppRating extends Command {
+                Rating: number;
+                AdditionalComment?: string | null;
+                Platform: PlatformDTO;
+                SystemVersion: string;
+                AppVersion: string;
+                Metadata?: Record<string, Partial<Record<string, any>>> | null;
+            }
+            export namespace SubmitAppRating {
+                export const ErrorCodes = {
+                    RatingInvalid: 1,
+                    AdditionalCommentTooLong: 2,
+                    PlatformInvalid: 3,
+                    SystemVersionRequired: 4,
+                    SystemVersionTooLong: 5,
+                    AppVersionRequired: 6,
+                    AppVersionTooLong: 7
+                } as const;
+                export type ErrorCodes = typeof ErrorCodes;
+            }
+            export enum PlatformDTO {
+                Android = 0,
+                IOS = 1
+            }
+        }
+    }
     export namespace Contracts {
         export namespace Admin {
             export interface AdminFilterRange<T> {
@@ -454,7 +729,7 @@ export namespace LeanCode {
             }
             export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
                 /**
-                 * 1-based
+                 * 0-based
                  */
                 Page: number;
                 PageSize: number;
@@ -497,7 +772,7 @@ export namespace LeanCode {
 exports[`exampleApp generates contracts with defaults 1`] = `
 Object {
   "test.ts": "export namespace ExampleApp {
-    export namespace Core {
+    export namespace Examples {
         export namespace Contracts {
             export interface Auth {
             }
@@ -521,12 +796,6 @@ Object {
                 SortByDescending: boolean;
             }
             export namespace Auth {
-                export interface Clients {
-                }
-                export namespace Clients {
-                    export const AdminApp = \\"admin_app\\";
-                    export const ClientApp = \\"client_app\\";
-                }
                 export interface KnownClaims {
                 }
                 export namespace KnownClaims {
@@ -539,10 +808,205 @@ Object {
                     export const User = \\"user\\";
                     export const Admin = \\"admin\\";
                 }
-                export interface Scopes {
+            }
+            export namespace Booking {
+                export interface LocationDTO {
+                    Latitude: number;
+                    Longitude: number;
                 }
-                export namespace Scopes {
-                    export const InternalApi = \\"internal_api\\";
+                /**
+                 * The DTO representing a monetary value, e.g. amount with a currency.
+                 * The amount of money, in the smallest currency unit (e.g. grosz, cent).
+                 * The (three letter) currency name, e.g. PLN, USD.
+                 */
+                export interface MoneyDTO {
+                    /**
+                     * The amount of money, in the smallest currency unit (e.g. grosz, cent).
+                     */
+                    Value: number;
+                    /**
+                     * The (three letter) currency name, e.g. PLN, USD.
+                     */
+                    Currency: string;
+                }
+                export enum ServiceProviderTypeDTO {
+                    Hairdresser = 0,
+                    BarberShop = 1,
+                    Groomer = 2
+                }
+                export namespace Management {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface AddTimeslot extends Command {
+                        ServiceProviderId: string;
+                        Date: string;
+                        StartTime: string;
+                        EndTime: string;
+                        Price: MoneyDTO;
+                    }
+                    export namespace AddTimeslot {
+                        export const ErrorCodes = {
+                            ServiceProviderIdIsInvalid: 1,
+                            ServiceProviderDoesNotExist: 2,
+                            EndTimeMustBeAfterStartTime: 3,
+                            PriceIsNull: 4,
+                            TimeslotOverlapsWithExisting: 5,
+                            ValueCannotBeNegative: 10001,
+                            CurrencyIsInvalid: 10002
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface CreateServiceProvider extends Command {
+                        Name: string;
+                        Type: ServiceProviderTypeDTO;
+                        Description: string;
+                        PromotionalBanner: string;
+                        ListItemPicture: string;
+                        Address: string;
+                        Location: LocationDTO;
+                        Ratings: number;
+                    }
+                    export namespace CreateServiceProvider {
+                        export const ErrorCodes = {
+                            NameIsNullOrEmpty: 1,
+                            NameIsTooLong: 2,
+                            TypeIsNullOrInvalid: 3,
+                            DescriptionIsNullOrEmpty: 4,
+                            DescriptionIsTooLong: 5,
+                            PromotionalBannerIsInvalid: 6,
+                            ListItemPictureIsInvalid: 7,
+                            AddressIsNullOrEmpty: 8,
+                            AddressIsTooLong: 9,
+                            LocationIsNull: 10,
+                            LatitudeIsOutOfRange: 11001,
+                            LongitudeIsOutOfRange: 11002
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                }
+                export namespace Reservations {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     * @attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute
+                     */
+                    export interface MyReservationById extends Query<MyReservationDTO>, Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelated {
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface MyReservationByTimeslotId extends Query<MyReservationDTO> {
+                        TimeslotId: string;
+                    }
+                    export interface MyReservationDTO {
+                        Id: string;
+                        TimeslotId: string;
+                        ServiceProviderId: string;
+                        ServiceProviderName: string;
+                        Type: ServiceProviderTypeDTO;
+                        Address: string;
+                        Location: LocationDTO;
+                        Date: string;
+                        StartTime: string;
+                        EndTime: string;
+                        Price: MoneyDTO;
+                        Status: ReservationStatusDTO;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface MyReservations extends PaginatedQuery<MyReservationDTO> {
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface ReserveTimeslot extends Command {
+                        CalendarDayId: string;
+                        TimeslotId: string;
+                    }
+                    export namespace ReserveTimeslot {
+                        export const ErrorCodes = {
+                            TimeslotIdInvalid: 1,
+                            TimeslotCannotBeReserved: 2,
+                            CalendarDayIdInvalid: 3,
+                            CalendarDayDoesNotExist: 4
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                    export enum ReservationStatusDTO {
+                        Pending = 0,
+                        Confirmed = 1,
+                        Rejected = 2,
+                        Paid = 3
+                    }
+                    export namespace Authorization {
+                        export namespace AuthorizeWhenOwnsReservationAttribute {
+                            export interface IReservationRelated {
+                                ReservationId: string;
+                            }
+                            export interface IWhenOwnsReservation {
+                            }
+                        }
+                    }
+                }
+                export namespace ServiceProviders {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface AllServiceProviders extends SortedQuery<ServiceProviderSummaryDTO, ServiceProviderSortFieldsDTO> {
+                        NameFilter?: string | null;
+                        TypeFilter?: ServiceProviderTypeDTO | null;
+                        PromotedOnly: boolean;
+                    }
+                    /**
+                     * The query will return details about service provider and all available timeslots from
+                     * to
+                     *     +X days (configurable on query level).
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface ServiceProviderDetails extends Query<ServiceProviderDetailsDTO> {
+                        ServiceProviderId: string;
+                        CalendarDate: string;
+                    }
+                    export interface ServiceProviderDetailsDTO {
+                        Id: string;
+                        Name: string;
+                        Description: string;
+                        Type: ServiceProviderTypeDTO;
+                        Address: string;
+                        Location: LocationDTO;
+                        IsPromotionActive: boolean;
+                        Ratings: number;
+                        PromotionalBanner: string;
+                        ListItemPicture: string;
+                        Timeslots: TimeslotDTO[];
+                    }
+                    export interface ServiceProviderSummaryDTO {
+                        Id: string;
+                        Name: string;
+                        Type: ServiceProviderTypeDTO;
+                        ListItemPicture: string;
+                        IsPromotionActive: boolean;
+                        Address: string;
+                        Location: LocationDTO;
+                        Ratings: number;
+                    }
+                    export interface TimeslotDTO {
+                        Id: string;
+                        CalendarDayId: string;
+                        StartTime: string;
+                        EndTime: string;
+                        Price: MoneyDTO;
+                        IsReserved: boolean;
+                    }
+                    export enum ServiceProviderSortFieldsDTO {
+                        Name = 0,
+                        Type = 1,
+                        Ratings = 2
+                    }
                 }
             }
             export namespace Dashboards {
@@ -560,14 +1024,6 @@ Object {
                      * @attribute LeanCode.Contracts.Admin.AdminSortable
                      */
                     Name: string;
-                    /**
-                     * @attribute LeanCode.Contracts.Admin.AdminColumn
-                     */
-                    Email: string;
-                    /**
-                     * @attribute LeanCode.Contracts.Admin.AdminColumn
-                     */
-                    Date: string;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -582,10 +1038,6 @@ Object {
                      * @attribute LeanCode.Contracts.Admin.AdminFilterFor
                      */
                     NameFilter?: string | null;
-                    /**
-                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
-                     */
-                    DateFilter?: LeanCode.Contracts.Admin.AdminFilterRange<string> | null;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -684,11 +1136,29 @@ Object {
                     } as const;
                     export type ErrorCodes = typeof ErrorCodes;
                 }
+                export interface AdminProjectDTO {
+                    Id: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     * @attribute LeanCode.Contracts.Admin.AdminSortable
+                     */
+                    Name: string;
+                    Optional?: ValueDTO<string | null | undefined> | null;
+                }
                 /**
                  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
                  */
                 export interface AllProjects extends Query<ProjectDTO[]> {
                     SortByNameDescending: boolean;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AllProjectsAdmin extends LeanCode.Contracts.Admin.AdminQuery<AdminProjectDTO> {
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+                     */
+                    NameFilter?: string | null;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -708,6 +1178,7 @@ Object {
                 }
                 export interface AssignmentDTO extends AssignmentWriteDTO {
                     Id: string;
+                    AssignedEmployeeId?: string | null;
                 }
                 export interface AssignmentWriteDTO {
                     Name: string;
@@ -778,6 +1249,9 @@ Object {
                     } as const;
                     export type ErrorCodes = typeof ErrorCodes;
                 }
+                export interface ValueDTO<T> {
+                    Value: T;
+                }
             }
             export namespace Users {
                 /**
@@ -790,6 +1264,47 @@ Object {
     }
 }
 export namespace LeanCode {
+    export namespace AppRating {
+        export namespace Contracts {
+            export interface Permissions {
+            }
+            export namespace Permissions {
+                export const RateApp = \\"RateApp\\";
+            }
+            /**
+             * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+             */
+            export interface RatingAlreadySent extends Query<boolean> {
+            }
+            /**
+             * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+             */
+            export interface SubmitAppRating extends Command {
+                Rating: number;
+                AdditionalComment?: string | null;
+                Platform: PlatformDTO;
+                SystemVersion: string;
+                AppVersion: string;
+                Metadata?: Record<string, Partial<Record<string, any>>> | null;
+            }
+            export namespace SubmitAppRating {
+                export const ErrorCodes = {
+                    RatingInvalid: 1,
+                    AdditionalCommentTooLong: 2,
+                    PlatformInvalid: 3,
+                    SystemVersionRequired: 4,
+                    SystemVersionTooLong: 5,
+                    AppVersionRequired: 6,
+                    AppVersionTooLong: 7
+                } as const;
+                export type ErrorCodes = typeof ErrorCodes;
+            }
+            export enum PlatformDTO {
+                Android = 0,
+                IOS = 1
+            }
+        }
+    }
     export namespace Contracts {
         export namespace Admin {
             export interface AdminFilterRange<T> {
@@ -798,7 +1313,7 @@ export namespace LeanCode {
             }
             export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
                 /**
-                 * 1-based
+                 * 0-based
                  */
                 Page: number;
                 PageSize: number;
@@ -842,12 +1357,6 @@ exports[`exampleApp generates contracts with name transforms 1`] = `
 Object {
   "test.ts": "export interface Auth {
 }
-export interface Clients {
-}
-export namespace Clients {
-    export const AdminApp = \\"admin_app\\";
-    export const ClientApp = \\"client_app\\";
-}
 export interface KnownClaims {
 }
 export namespace KnownClaims {
@@ -860,10 +1369,177 @@ export namespace Roles {
     export const User = \\"user\\";
     export const Admin = \\"admin\\";
 }
-export interface Scopes {
+export interface LocationDTO {
+    Latitude: number;
+    Longitude: number;
 }
-export namespace Scopes {
-    export const InternalApi = \\"internal_api\\";
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface AddTimeslot extends Command {
+    ServiceProviderId: string;
+    Date: ApiDate;
+    StartTime: ApiTime;
+    EndTime: ApiTime;
+    Price: MoneyDTO;
+}
+export namespace AddTimeslot {
+    export const ErrorCodes = {
+        ServiceProviderIdIsInvalid: 1,
+        ServiceProviderDoesNotExist: 2,
+        EndTimeMustBeAfterStartTime: 3,
+        PriceIsNull: 4,
+        TimeslotOverlapsWithExisting: 5,
+        ValueCannotBeNegative: 10001,
+        CurrencyIsInvalid: 10002
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface CreateServiceProvider extends Command {
+    Name: string;
+    Type: ServiceProviderTypeDTO;
+    Description: string;
+    PromotionalBanner: string;
+    ListItemPicture: string;
+    Address: string;
+    Location: LocationDTO;
+    Ratings: number;
+}
+export namespace CreateServiceProvider {
+    export const ErrorCodes = {
+        NameIsNullOrEmpty: 1,
+        NameIsTooLong: 2,
+        TypeIsNullOrInvalid: 3,
+        DescriptionIsNullOrEmpty: 4,
+        DescriptionIsTooLong: 5,
+        PromotionalBannerIsInvalid: 6,
+        ListItemPictureIsInvalid: 7,
+        AddressIsNullOrEmpty: 8,
+        AddressIsTooLong: 9,
+        LocationIsNull: 10,
+        LatitudeIsOutOfRange: 11001,
+        LongitudeIsOutOfRange: 11002
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+/**
+ * The DTO representing a monetary value, e.g. amount with a currency.
+ * The amount of money, in the smallest currency unit (e.g. grosz, cent).
+ * The (three letter) currency name, e.g. PLN, USD.
+ */
+export interface MoneyDTO {
+    /**
+     * The amount of money, in the smallest currency unit (e.g. grosz, cent).
+     */
+    Value: number;
+    /**
+     * The (three letter) currency name, e.g. PLN, USD.
+     */
+    Currency: string;
+}
+export interface IReservationRelated {
+    ReservationId: string;
+}
+export interface IWhenOwnsReservation {
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ * @attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute
+ */
+export interface MyReservationById extends Query<MyReservationDTO>, IReservationRelated {
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface MyReservationByTimeslotId extends Query<MyReservationDTO> {
+    TimeslotId: string;
+}
+export interface MyReservationDTO {
+    Id: string;
+    TimeslotId: string;
+    ServiceProviderId: string;
+    ServiceProviderName: string;
+    Type: ServiceProviderTypeDTO;
+    Address: string;
+    Location: LocationDTO;
+    Date: ApiDate;
+    StartTime: ApiTime;
+    EndTime: ApiTime;
+    Price: MoneyDTO;
+    Status: ReservationStatusDTO;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface MyReservations extends PaginatedQuery<MyReservationDTO> {
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface ReserveTimeslot extends Command {
+    CalendarDayId: string;
+    TimeslotId: string;
+}
+export namespace ReserveTimeslot {
+    export const ErrorCodes = {
+        TimeslotIdInvalid: 1,
+        TimeslotCannotBeReserved: 2,
+        CalendarDayIdInvalid: 3,
+        CalendarDayDoesNotExist: 4
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface AllServiceProviders extends SortedQuery<ServiceProviderSummaryDTO, ServiceProviderSortFieldsDTO> {
+    NameFilter?: string | null;
+    TypeFilter?: ServiceProviderTypeDTO | null;
+    PromotedOnly: boolean;
+}
+/**
+ * The query will return details about service provider and all available timeslots from
+ * to
+ *     +X days (configurable on query level).
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface ServiceProviderDetails extends Query<ServiceProviderDetailsDTO> {
+    ServiceProviderId: string;
+    CalendarDate: ApiDate;
+}
+export interface ServiceProviderDetailsDTO {
+    Id: string;
+    Name: string;
+    Description: string;
+    Type: ServiceProviderTypeDTO;
+    Address: string;
+    Location: LocationDTO;
+    IsPromotionActive: boolean;
+    Ratings: number;
+    PromotionalBanner: string;
+    ListItemPicture: string;
+    Timeslots: TimeslotDTO[];
+}
+export interface ServiceProviderSummaryDTO {
+    Id: string;
+    Name: string;
+    Type: ServiceProviderTypeDTO;
+    ListItemPicture: string;
+    IsPromotionActive: boolean;
+    Address: string;
+    Location: LocationDTO;
+    Ratings: number;
+}
+export interface TimeslotDTO {
+    Id: string;
+    CalendarDayId: string;
+    StartTime: ApiTime;
+    EndTime: ApiTime;
+    Price: MoneyDTO;
+    IsReserved: boolean;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -877,14 +1553,6 @@ export interface AdminEmployeeDTO {
      * @attribute LeanCode.Contracts.Admin.AdminSortable
      */
     Name: string;
-    /**
-     * @attribute LeanCode.Contracts.Admin.AdminColumn
-     */
-    Email: string;
-    /**
-     * @attribute LeanCode.Contracts.Admin.AdminColumn
-     */
-    Date: ApiDate;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -899,10 +1567,6 @@ export interface AllEmployeesAdmin extends AdminQuery<AdminEmployeeDTO> {
      * @attribute LeanCode.Contracts.Admin.AdminFilterFor
      */
     NameFilter?: string | null;
-    /**
-     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
-     */
-    DateFilter?: AdminFilterRange<ApiDate> | null;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -1010,11 +1674,29 @@ export namespace AddAssignmentsToProject {
     } as const;
     export type ErrorCodes = typeof ErrorCodes;
 }
+export interface AdminProjectDTO {
+    Id: string;
+    /**
+     * @attribute LeanCode.Contracts.Admin.AdminColumn
+     * @attribute LeanCode.Contracts.Admin.AdminSortable
+     */
+    Name: string;
+    Optional?: ValueDTO<string | null | undefined> | null;
+}
 /**
  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
  */
 export interface AllProjects extends Query<ProjectDTO[]> {
     SortByNameDescending: boolean;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface AllProjectsAdmin extends AdminQuery<AdminProjectDTO> {
+    /**
+     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+     */
+    NameFilter?: string | null;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -1034,6 +1716,7 @@ export namespace AssignEmployeeToAssignment {
 }
 export interface AssignmentDTO extends AssignmentWriteDTO {
     Id: string;
+    AssignedEmployeeId?: string | null;
 }
 export interface AssignmentWriteDTO {
     Name: string;
@@ -1104,6 +1787,9 @@ export namespace UnassignEmployeeFromAssignment {
     } as const;
     export type ErrorCodes = typeof ErrorCodes;
 }
+export interface ValueDTO<T> {
+    Value: T;
+}
 export interface SortedQuery<TResult, TSort> extends PaginatedQuery<TResult> {
     SortBy: TSort;
     SortByDescending: boolean;
@@ -1113,13 +1799,46 @@ export interface SortedQuery<TResult, TSort> extends PaginatedQuery<TResult> {
  */
 export interface DeleteOwnAccount extends Command {
 }
+export interface Permissions {
+}
+export namespace Permissions {
+    export const RateApp = \\"RateApp\\";
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface RatingAlreadySent extends Query<boolean> {
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface SubmitAppRating extends Command {
+    Rating: number;
+    AdditionalComment?: string | null;
+    Platform: PlatformDTO;
+    SystemVersion: string;
+    AppVersion: string;
+    Metadata?: Record<string, Partial<Record<string, any>>> | null;
+}
+export namespace SubmitAppRating {
+    export const ErrorCodes = {
+        RatingInvalid: 1,
+        AdditionalCommentTooLong: 2,
+        PlatformInvalid: 3,
+        SystemVersionRequired: 4,
+        SystemVersionTooLong: 5,
+        AppVersionRequired: 6,
+        AppVersionTooLong: 7
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
 export interface AdminFilterRange<T> {
     From?: T | null;
     To?: T | null;
 }
 export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
     /**
-     * 1-based
+     * 0-based
      */
     Page: number;
     PageSize: number;
@@ -1138,6 +1857,26 @@ export interface VersionSupportDTO {
     CurrentlySupportedVersion: string;
     MinimumRequiredVersion: string;
     Result: VersionSupportResultDTO;
+}
+export enum ReservationStatusDTO {
+    Pending = 0,
+    Confirmed = 1,
+    Rejected = 2,
+    Paid = 3
+}
+export enum ServiceProviderTypeDTO {
+    Hairdresser = 0,
+    BarberShop = 1,
+    Groomer = 2
+}
+export enum ServiceProviderSortFieldsDTO {
+    Name = 0,
+    Type = 1,
+    Ratings = 2
+}
+export enum PlatformDTO {
+    Android = 0,
+    IOS = 1
 }
 export enum PlatformDTO {
     Android = 0,
