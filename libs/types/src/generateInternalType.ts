@@ -1,7 +1,7 @@
 import ts from "typescript"
 import { SchemaInternalType } from "@leancodepl/contractsgenerator-typescript-schema"
 import { GenerateContext } from "./generateContext"
-import { generateType } from "./generateType"
+import { generateTypeWithNullability } from "./generateTypeWithNullability"
 import { extractMinimalReferenceTypeName } from "./utils/extractMinimalReferenceTypeName"
 
 export function generateInternalType(internalType: SchemaInternalType, context: GenerateContext) {
@@ -10,6 +10,6 @@ export function generateInternalType(internalType: SchemaInternalType, context: 
 
     return ts.factory.createTypeReferenceNode(
         name,
-        internalType.typeArguments.map(type => generateType(type, context)),
+        internalType.typeArguments.map(type => generateTypeWithNullability(type, context)),
     )
 }
