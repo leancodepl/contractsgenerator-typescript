@@ -10,7 +10,6 @@ export interface GeneratorInput {
     include?: string | string[]
     exclude?: string | string[]
     project?: string | string[]
-    serverVersion?: string
 }
 
 export type GeneratorSessionContext = {

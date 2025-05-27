@@ -8,7 +8,6 @@ export const generatorInputSchema = z.object({
     include: z.union([z.string(), z.array(z.string())]).optional(),
     exclude: z.union([z.string(), z.array(z.string())]).optional(),
     project: z.union([z.string(), z.array(z.string())]).optional(),
-    serverVersion: z.string().optional(),
 })
 
 export const adminGeneratorPluginConfigurationSchema = z.object({

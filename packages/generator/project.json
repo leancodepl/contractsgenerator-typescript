@@ -13,7 +13,7 @@
         "tsConfig": "packages/generator/tsconfig.lib.json",
         "packageJson": "packages/generator/package.json",
         "main": "packages/generator/src/index.ts",
-        "assets": ["packages/generator/*.md", "packages/generator/src/generate.sh"]
+        "assets": ["packages/generator/*.md"]
       },
       "configurations": {
         "bin": {
