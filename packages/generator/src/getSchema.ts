@@ -1,11 +1,9 @@
-import { exec } from "node:child_process"
+import { execFile, execFileSync } from "node:child_process"
 import { readFile } from "node:fs/promises"
 import { platform } from "node:os"
-import { join, resolve } from "node:path"
+import { join } from "node:path"
 import { GeneratorInput } from "@leancodepl/contractsgenerator-typescript-plugin"
 import { GeneratorSchema, parseSchema } from "@leancodepl/contractsgenerator-typescript-schema"
-
-const defaultServerContractsGeneratorVersion = "3.0.0"
 
 export async function getSchema(input: GeneratorInput) {
     if (input.raw) {
@@ -14,52 +12,48 @@ export async function getSchema(input: GeneratorInput) {
         return parseSchema(buf)
     }
 
-    let params = ""
+    let params: string[]
 
     function withBase(path: string) {
-        return input?.base ? join(input.base, path) : path
+        return input.base ? join(input.base, path) : path
     }
 
-    if (input?.project) {
-        let projects
-        if (Array.isArray(input.project)) {
-            projects = input.project.map(p => withBase(p))
-        } else {
-            projects = [withBase(input.project)]
-        }
-
-        params = `project --project ${projects.map(p => `"${p}"`).join(" ")}`
+    if (input.project) {
+        params = [
+            "project",
+            "--project",
+            ...(Array.isArray(input.project) ? input.project.map(withBase) : [withBase(input.project)]),
+        ]
     } else if (input?.file) {
-        params = `file --input="${withBase(input.file)}"`
-    } else if (input) {
-        params = `path`
+        params = ["file", "--input", withBase(input.file)]
+    } else {
+        params = ["path"]
 
         if (input.base) {
-            params += ` --directory="${input.base}"`
+            params.push("--directory", input.base)
         }
 
-        const include = input.include ? (Array.isArray(input.include) ? input.include : [input.include]) : ["**/*.cs"]
-
-        params += ` --include ${include.map(i => `"${i}"`).join(" ")}`
+        params.push(
+            "--include",
+            ...(input.include ? (Array.isArray(input.include) ? input.include : [input.include]) : ["**/*.cs"]),
+        )
 
         if (input.exclude) {
-            params += ` --exclude ${(Array.isArray(input.exclude) ? input.exclude : [input.exclude])
-                .map(e => `"${e}"`)
-                .join(" ")}`
+            params.push("--exclude", ...(Array.isArray(input.exclude) ? input.exclude : [input.exclude]))
         }
     }
 
-    params += ` --output=-`
+    params.push("--output=-")
 
-    const serverVersion = `SERVER_VERSION=${input.serverVersion ?? defaultServerContractsGeneratorVersion}`
-    const script = resolve(__dirname, "generate.sh")
+    const dotnet = platform() === "win32" ? "dotnet.exe" : "dotnet"
 
     return await new Promise<GeneratorSchema>((resolve, reject) => {
-        exec(
-            `${serverVersion} "${script}" ${params}`,
+        execFileSync(dotnet, ["tool", "restore"])
+        execFile(
+            dotnet,
+            ["tool", "run", "dotnet-contracts-generate", "--", ...params],
             {
                 encoding: "buffer",
-                shell: inferShell(),
             },
             (error, stdout) => {
                 if (error) {
@@ -71,20 +65,4 @@ export async function getSchema(input: GeneratorInput) {
             },
         )
     })
-}
-
-function inferShell(): string | undefined {
-    const shellEnv = process.env.CONTRACTS_GENERATOR_SHELL
-
-    if (shellEnv) {
-        return shellEnv
-    }
-
-    // Minimal support for Git Bash on Windows
-
-    if (platform() === "win32") {
-        return "bash"
-    }
-
-    return undefined
 }
