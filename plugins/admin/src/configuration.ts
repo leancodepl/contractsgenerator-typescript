@@ -10,4 +10,5 @@ export interface GeneratorInput {
   include?: string | string[];
   exclude?: string | string[];
   project?: string | string[];
+  options?: string[];
 }

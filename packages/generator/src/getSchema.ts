@@ -24,7 +24,7 @@ export async function getSchema(input: GeneratorInput) {
             "--project",
             ...(Array.isArray(input.project) ? input.project.map(withBase) : [withBase(input.project)]),
         ]
-    } else if (input?.file) {
+    } else if (input.file) {
         params = ["file", "--input", withBase(input.file)]
     } else {
         params = ["path"]
@@ -44,6 +44,10 @@ export async function getSchema(input: GeneratorInput) {
     }
 
     params.push("--output=-")
+
+    if (input.options) {
+        params.push(...input.options)
+    }
 
     const dotnet = platform() === "win32" ? "dotnet.exe" : "dotnet"
 
