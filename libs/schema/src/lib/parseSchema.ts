@@ -7,6 +7,7 @@ import { SchemaInterface } from "./schemaInterface"
 import { SchemaOperation } from "./schemaOperation"
 import { SchemaQuery } from "./schemaQuery"
 import { SchemaTopic } from "./schemaTopic"
+import { Buffer } from "node:buffer"
 
 export type SchemaEntity = SchemaEnum | SchemaInterface
 
@@ -15,7 +16,7 @@ export interface GeneratorSchema {
 }
 
 export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
-    const reader = protobuf.Reader.create(schemaBytes)
+    const reader = protobuf.Reader.create(schemaBytes as unknown as Uint8Array)
 
     const schema = leancode.contracts.Export.decode(reader)
 
