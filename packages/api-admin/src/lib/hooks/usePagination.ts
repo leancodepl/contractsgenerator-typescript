@@ -16,7 +16,7 @@ export default function usePagination({
 }: { initialPage?: number; initialPageSize?: number } = {}) {
     const [displayPage, setDisplayPage] = useState(initialPage)
     const [pageSize, onPageSizeChange] = useState(initialPageSize)
-    const paginationRef = useRef<PaginationData>()
+    const paginationRef = useRef<PaginationData>(null)
 
     const pagination = useMemo<PaginationData>(
         () => ({

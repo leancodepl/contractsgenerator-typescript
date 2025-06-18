@@ -5,17 +5,6 @@ import { join } from "path"
 import { defineConfig } from "vite"
 import dts from "vite-plugin-dts"
 
-// These options were migrated by @nx/vite:convert-to-inferred from the project.json file.
-const configValues = { default: {}, development: {}, production: {} }
-
-// Determine the correct configValue to use based on the configuration
-const nxConfiguration = process.env.NX_TASK_TARGET_CONFIGURATION ?? "default"
-
-const options = {
-    ...configValues.default,
-    ...(configValues[nxConfiguration] ?? {}),
-}
-
 export default defineConfig({
     root: __dirname,
     cacheDir: "../../node_modules/.vite/api-admin",
@@ -23,8 +12,7 @@ export default defineConfig({
     plugins: [
         dts({
             entryRoot: "src",
-            tsConfigFilePath: join(__dirname, "tsconfig.lib.json"),
-            skipDiagnostics: true,
+            tsconfigPath: join(__dirname, "tsconfig.lib.json"),
         }),
         react(),
         nxViteTsPaths(),

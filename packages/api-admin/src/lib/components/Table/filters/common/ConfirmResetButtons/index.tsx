@@ -10,7 +10,7 @@ export function ConfirmResetButtons({ confirm, clearFilters }: ConfirmResetButto
             <Button icon={<SearchOutlined />} size="small" type="primary" onClick={() => confirm()}>
                 Filter
             </Button>
-            <Button size="small" onClick={clearFilters}>
+            <Button size="small" onClick={() => clearFilters?.()}>
                 Reset
             </Button>
         </Space>

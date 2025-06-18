@@ -23,7 +23,7 @@ export function DatePickerFilter({
                 autoFocus
                 showTime={type === "dateTimeOffset"}
                 value={selectedKeys[0] ? dayjs(selectedKeys[0]) : null}
-                onChange={(_, date) => setSelectedKeys?.([date])}
+                onChange={(_, date) => setSelectedKeys?.(Array.isArray(date) ? date : [date])}
             />
             <ConfirmResetButtons clearFilters={clearFilters} confirm={confirm} />
         </FilterDropdownWrapper>
