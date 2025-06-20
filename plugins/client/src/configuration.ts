@@ -29,6 +29,7 @@ export const customTypesMapSchema = z.strictObject({
     TimeOnly: z.string().optional(),
     DateTimeOffset: z.string().optional(),
     TimeSpan: z.string().optional(),
+    DateTime: z.string().optional(),
 })
 
 export const clientGeneratorPluginConfigurationSchema = z.object({

@@ -7,14 +7,17 @@ import "@leancodepl/contractsgenerator-typescript-plugin-contracts"
 describe("exampleApp", () => {
     it("generates contracts with defaults", async () => {
         const result = await generate({
-            generates: {
-                "test.ts": { plugins: ["contracts"] },
-            },
-            config: {
-                input: {
-                    raw: resolve(__dirname, "../samples/ExampleApp.pb"),
-                },
-            },
+            generates: { "test.ts": { plugins: ["contracts"] } },
+            config: { input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") } },
+        })
+
+        expect(result).toMatchSnapshot()
+    })
+
+    it("generates contracts with defaults with protocolless version", async () => {
+        const result = await generate({
+            generates: { "test.ts": { plugins: ["contracts"] } },
+            config: { input: { raw: resolve(__dirname, "../samples/ExampleApp-0.0.pb") } },
         })
 
         expect(result).toMatchSnapshot()
@@ -22,18 +25,10 @@ describe("exampleApp", () => {
 
     it("generates contracts with custom types map", async () => {
         const result = await generate({
-            generates: {
-                "test.ts": { plugins: ["contracts"] },
-            },
+            generates: { "test.ts": { plugins: ["contracts"] } },
             config: {
-                input: {
-                    raw: resolve(__dirname, "../samples/ExampleApp.pb"),
-                },
-                customTypes: {
-                    DateTimeOffset: "ApiDateTimeOffset",
-                    DateOnly: "ApiDate",
-                    TimeOnly: "ApiTime",
-                },
+                input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") },
+                customTypes: { DateTimeOffset: "ApiDateTimeOffset", DateOnly: "ApiDate", TimeOnly: "ApiTime" },
             },
         })
 
@@ -42,13 +37,9 @@ describe("exampleApp", () => {
 
     it("generates contracts with name transforms", async () => {
         const result = await generate({
-            generates: {
-                "test.ts": { plugins: ["contracts"] },
-            },
+            generates: { "test.ts": { plugins: ["contracts"] } },
             config: {
-                input: {
-                    raw: resolve(__dirname, "../samples/ExampleApp.pb"),
-                },
+                input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") },
                 nameTransform: (id: string) => id.split(".").at(-1),
             },
         })
@@ -58,14 +49,8 @@ describe("exampleApp", () => {
 
     it("generates client with defaults", async () => {
         const result = await generate({
-            generates: {
-                "test.ts": { plugins: ["client"] },
-            },
-            config: {
-                input: {
-                    raw: resolve(__dirname, "../samples/ExampleApp.pb"),
-                },
-            },
+            generates: { "test.ts": { plugins: ["client"] } },
+            config: { input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") } },
         })
 
         expect(result).toMatchSnapshot()
@@ -73,16 +58,10 @@ describe("exampleApp", () => {
 
     it("generates client with custom types map", async () => {
         const result = await generate({
-            generates: {
-                "test.ts": { plugins: ["client"] },
-            },
+            generates: { "test.ts": { plugins: ["client"] } },
             config: {
-                input: {
-                    raw: resolve(__dirname, "../samples/ExampleApp.pb"),
-                },
-                customTypes: {
-                    String: "CustomStringImpl",
-                },
+                input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") },
+                customTypes: { String: "CustomStringImpl" },
             },
         })
 
@@ -91,13 +70,9 @@ describe("exampleApp", () => {
 
     it("generates client with name transforms", async () => {
         const result = await generate({
-            generates: {
-                "test.ts": { plugins: ["client"] },
-            },
+            generates: { "test.ts": { plugins: ["client"] } },
             config: {
-                input: {
-                    raw: resolve(__dirname, "../samples/ExampleApp.pb"),
-                },
+                input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") },
                 nameTransform: (id: string) => id.split(".").at(-1),
             },
         })
@@ -107,13 +82,19 @@ describe("exampleApp", () => {
 
     it("generates admin", async () => {
         const result = await generate({
-            generates: {
-                "test.ts": { plugins: ["admin"] },
-            },
+            generates: { "test.ts": { plugins: ["admin"] } },
+            config: { input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") } },
+        })
+
+        expect(result).toMatchSnapshot()
+    })
+
+    it("generates contracts with datetime extension", async () => {
+        const result = await generate({
+            generates: { "test.ts": { plugins: ["contracts"] } },
             config: {
-                input: {
-                    raw: resolve(__dirname, "../samples/ExampleApp.pb"),
-                },
+                input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0-datetime.pb") },
+                customTypes: { DateTime: "ApiDateTime" },
             },
         })
 

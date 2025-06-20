@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`exampleApp generates admin 1`] = `
 Object {
@@ -56,6 +56,8 @@ Object {
     return {
         AddTimeslot: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot, ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot\\", ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot.ErrorCodes),
         CreateServiceProvider: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider, ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider\\", ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider.ErrorCodes),
+        ServiceProviderLogoUploadLink: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Management.ServiceProviderLogoUploadLink, ExampleApp.Examples.Contracts.Booking.Management.ServiceProviderLogoUploadLinkDTO>(\\"ExampleApp.Examples.Contracts.Booking.Management.ServiceProviderLogoUploadLink\\"),
+        CancelReservation: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Booking.Reservations.CancelReservation, ExampleApp.Examples.Contracts.Booking.Reservations.CancelReservation.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.CancelReservation\\", ExampleApp.Examples.Contracts.Booking.Reservations.CancelReservation.ErrorCodes),
         MyReservationById: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationById, ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationById\\"),
         MyReservationByTimeslotId: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationByTimeslotId, ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationByTimeslotId\\"),
         MyReservations: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservations, ExampleApp.Examples.Contracts.PaginatedResult<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTO>>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservations\\"),
@@ -66,8 +68,6 @@ Object {
         AllEmployees: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Employees.AllEmployees, ExampleApp.Examples.Contracts.Employees.EmployeeDTO[]>(\\"ExampleApp.Examples.Contracts.Employees.AllEmployees\\"),
         AllEmployeesAdmin: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Employees.AllEmployeesAdmin, LeanCode.Contracts.Admin.AdminQueryResult<ExampleApp.Examples.Contracts.Employees.AdminEmployeeDTO>>(\\"ExampleApp.Examples.Contracts.Employees.AllEmployeesAdmin\\"),
         CreateEmployee: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Employees.CreateEmployee, ExampleApp.Examples.Contracts.Employees.CreateEmployee.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Employees.CreateEmployee\\", ExampleApp.Examples.Contracts.Employees.CreateEmployee.ErrorCodes),
-        AddNotificationToken: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Firebase.AddNotificationToken, ExampleApp.Examples.Contracts.Firebase.AddNotificationToken.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.AddNotificationToken\\", ExampleApp.Examples.Contracts.Firebase.AddNotificationToken.ErrorCodes),
-        RemoveNotificationToken: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken, ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken\\", ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken.ErrorCodes),
         SendCustomNotification: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Firebase.SendCustomNotification, ExampleApp.Examples.Contracts.Firebase.SendCustomNotification.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.SendCustomNotification\\", ExampleApp.Examples.Contracts.Firebase.SendCustomNotification.ErrorCodes),
         SearchIdentities: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Identities.SearchIdentities, ExampleApp.Examples.Contracts.PaginatedResult<ExampleApp.Examples.Contracts.Identities.KratosIdentityDTO>>(\\"ExampleApp.Examples.Contracts.Identities.SearchIdentities\\"),
         AddAssignmentsToProject: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject, ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject\\", ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject.ErrorCodes),
@@ -101,6 +101,8 @@ Object {
     return {
         AddTimeslot: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot, ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot\\", ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot.ErrorCodes),
         CreateServiceProvider: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider, ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider\\", ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider.ErrorCodes),
+        ServiceProviderLogoUploadLink: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Management.ServiceProviderLogoUploadLink, ExampleApp.Examples.Contracts.Booking.Management.ServiceProviderLogoUploadLinkDTO>(\\"ExampleApp.Examples.Contracts.Booking.Management.ServiceProviderLogoUploadLink\\"),
+        CancelReservation: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Booking.Reservations.CancelReservation, ExampleApp.Examples.Contracts.Booking.Reservations.CancelReservation.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.CancelReservation\\", ExampleApp.Examples.Contracts.Booking.Reservations.CancelReservation.ErrorCodes),
         MyReservationById: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationById, ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationById\\"),
         MyReservationByTimeslotId: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationByTimeslotId, ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationByTimeslotId\\"),
         MyReservations: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservations, ExampleApp.Examples.Contracts.PaginatedResult<ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTO>>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservations\\"),
@@ -111,8 +113,6 @@ Object {
         AllEmployees: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Employees.AllEmployees, ExampleApp.Examples.Contracts.Employees.EmployeeDTO[]>(\\"ExampleApp.Examples.Contracts.Employees.AllEmployees\\"),
         AllEmployeesAdmin: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Employees.AllEmployeesAdmin, LeanCode.Contracts.Admin.AdminQueryResult<ExampleApp.Examples.Contracts.Employees.AdminEmployeeDTO>>(\\"ExampleApp.Examples.Contracts.Employees.AllEmployeesAdmin\\"),
         CreateEmployee: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Employees.CreateEmployee, ExampleApp.Examples.Contracts.Employees.CreateEmployee.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Employees.CreateEmployee\\", ExampleApp.Examples.Contracts.Employees.CreateEmployee.ErrorCodes),
-        AddNotificationToken: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Firebase.AddNotificationToken, ExampleApp.Examples.Contracts.Firebase.AddNotificationToken.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.AddNotificationToken\\", ExampleApp.Examples.Contracts.Firebase.AddNotificationToken.ErrorCodes),
-        RemoveNotificationToken: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken, ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken\\", ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken.ErrorCodes),
         SendCustomNotification: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Firebase.SendCustomNotification, ExampleApp.Examples.Contracts.Firebase.SendCustomNotification.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.SendCustomNotification\\", ExampleApp.Examples.Contracts.Firebase.SendCustomNotification.ErrorCodes),
         SearchIdentities: cqrsClient.createQuery<ExampleApp.Examples.Contracts.Identities.SearchIdentities, ExampleApp.Examples.Contracts.PaginatedResult<ExampleApp.Examples.Contracts.Identities.KratosIdentityDTO>>(\\"ExampleApp.Examples.Contracts.Identities.SearchIdentities\\"),
         AddAssignmentsToProject: cqrsClient.createCommand<ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject, ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject\\", ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject.ErrorCodes),
@@ -146,6 +146,8 @@ Object {
     return {
         AddTimeslot: cqrsClient.createCommand<AddTimeslot, AddTimeslot.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Management.AddTimeslot\\", AddTimeslot.ErrorCodes),
         CreateServiceProvider: cqrsClient.createCommand<CreateServiceProvider, CreateServiceProvider.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Management.CreateServiceProvider\\", CreateServiceProvider.ErrorCodes),
+        ServiceProviderLogoUploadLink: cqrsClient.createQuery<ServiceProviderLogoUploadLink, ServiceProviderLogoUploadLinkDTO>(\\"ExampleApp.Examples.Contracts.Booking.Management.ServiceProviderLogoUploadLink\\"),
+        CancelReservation: cqrsClient.createCommand<CancelReservation, CancelReservation.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.CancelReservation\\", CancelReservation.ErrorCodes),
         MyReservationById: cqrsClient.createQuery<MyReservationById, MyReservationDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationById\\"),
         MyReservationByTimeslotId: cqrsClient.createQuery<MyReservationByTimeslotId, MyReservationDTO | null | undefined>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationByTimeslotId\\"),
         MyReservations: cqrsClient.createQuery<MyReservations, PaginatedResult<MyReservationDTO>>(\\"ExampleApp.Examples.Contracts.Booking.Reservations.MyReservations\\"),
@@ -156,8 +158,6 @@ Object {
         AllEmployees: cqrsClient.createQuery<AllEmployees, EmployeeDTO[]>(\\"ExampleApp.Examples.Contracts.Employees.AllEmployees\\"),
         AllEmployeesAdmin: cqrsClient.createQuery<AllEmployeesAdmin, AdminQueryResult<AdminEmployeeDTO>>(\\"ExampleApp.Examples.Contracts.Employees.AllEmployeesAdmin\\"),
         CreateEmployee: cqrsClient.createCommand<CreateEmployee, CreateEmployee.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Employees.CreateEmployee\\", CreateEmployee.ErrorCodes),
-        AddNotificationToken: cqrsClient.createCommand<AddNotificationToken, AddNotificationToken.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.AddNotificationToken\\", AddNotificationToken.ErrorCodes),
-        RemoveNotificationToken: cqrsClient.createCommand<RemoveNotificationToken, RemoveNotificationToken.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.RemoveNotificationToken\\", RemoveNotificationToken.ErrorCodes),
         SendCustomNotification: cqrsClient.createCommand<SendCustomNotification, SendCustomNotification.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Firebase.SendCustomNotification\\", SendCustomNotification.ErrorCodes),
         SearchIdentities: cqrsClient.createQuery<SearchIdentities, PaginatedResult<KratosIdentityDTO>>(\\"ExampleApp.Examples.Contracts.Identities.SearchIdentities\\"),
         AddAssignmentsToProject: cqrsClient.createCommand<AddAssignmentsToProject, AddAssignmentsToProject.ErrorCodes>(\\"ExampleApp.Examples.Contracts.Projects.AddAssignmentsToProject\\", AddAssignmentsToProject.ErrorCodes),
@@ -280,8 +280,8 @@ Object {
                         Name: string;
                         Type: ServiceProviderTypeDTO;
                         Description: string;
-                        PromotionalBanner: string;
-                        ListItemPicture: string;
+                        CoverPhoto: string;
+                        Thumbnail: string;
                         Address: string;
                         Location: LocationDTO;
                         Ratings: number;
@@ -293,8 +293,8 @@ Object {
                             TypeIsNullOrInvalid: 3,
                             DescriptionIsNullOrEmpty: 4,
                             DescriptionIsTooLong: 5,
-                            PromotionalBannerIsInvalid: 6,
-                            ListItemPictureIsInvalid: 7,
+                            CoverPhotoIsInvalid: 6,
+                            ThumbnailIsInvalid: 7,
                             AddressIsNullOrEmpty: 8,
                             AddressIsTooLong: 9,
                             LocationIsNull: 10,
@@ -303,8 +303,31 @@ Object {
                         } as const;
                         export type ErrorCodes = typeof ErrorCodes;
                     }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface ServiceProviderLogoUploadLink extends Query<ServiceProviderLogoUploadLinkDTO> {
+                    }
+                    export interface ServiceProviderLogoUploadLinkDTO {
+                        Link: string;
+                        RequiredHeaders: Record<string, string>;
+                    }
                 }
                 export namespace Reservations {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     * @attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute
+                     */
+                    export interface CancelReservation extends Command, Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelated {
+                    }
+                    export namespace CancelReservation {
+                        export const ErrorCodes = {
+                            ReservationIdIsInvalid: 1,
+                            ReservationDoesNotExist: 2,
+                            ReservationCannotBeCancelled: 3
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
                     /**
                      * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                      * @attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute
@@ -336,6 +359,26 @@ Object {
                      */
                     export interface MyReservations extends PaginatedQuery<MyReservationDTO> {
                     }
+                    export interface ReservationCancelledNotificationDTO {
+                        ReservationId: string;
+                        CalendarDayId: string;
+                        TimeslotId: string;
+                        ServiceProviderId: string;
+                        ServiceProviderName: string;
+                        Date: ApiDate;
+                        StartTime: ApiTime;
+                        EndTime: ApiTime;
+                    }
+                    export interface ReservationCreatedNotificationDTO {
+                        ReservationId: string;
+                        CalendarDayId: string;
+                        TimeslotId: string;
+                        ServiceProviderId: string;
+                        ServiceProviderName: string;
+                        Date: ApiDate;
+                        StartTime: ApiTime;
+                        EndTime: ApiTime;
+                    }
                     /**
                      * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                      */
@@ -356,7 +399,9 @@ Object {
                         Pending = 0,
                         Confirmed = 1,
                         Rejected = 2,
-                        Paid = 3
+                        Paid = 3,
+                        Cancelled = 4,
+                        Completed = 5
                     }
                     export namespace Authorization {
                         export namespace AuthorizeWhenOwnsReservationAttribute {
@@ -396,15 +441,15 @@ Object {
                         Location: LocationDTO;
                         IsPromotionActive: boolean;
                         Ratings: number;
-                        PromotionalBanner: string;
-                        ListItemPicture: string;
+                        CoverPhoto: string;
+                        Thumbnail: string;
                         Timeslots: TimeslotDTO[];
                     }
                     export interface ServiceProviderSummaryDTO {
                         Id: string;
                         Name: string;
                         Type: ServiceProviderTypeDTO;
-                        ListItemPicture: string;
+                        Thumbnail: string;
                         IsPromotionActive: boolean;
                         Address: string;
                         Location: LocationDTO;
@@ -481,30 +526,6 @@ Object {
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
                  */
-                export interface AddNotificationToken extends Command {
-                    Token: string;
-                }
-                export namespace AddNotificationToken {
-                    export const ErrorCodes = {
-                        TokenCannotBeEmpty: 1
-                    } as const;
-                    export type ErrorCodes = typeof ErrorCodes;
-                }
-                /**
-                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
-                 */
-                export interface RemoveNotificationToken extends Command {
-                    Token: string;
-                }
-                export namespace RemoveNotificationToken {
-                    export const ErrorCodes = {
-                        TokenCannotBeEmpty: 1
-                    } as const;
-                    export type ErrorCodes = typeof ErrorCodes;
-                }
-                /**
-                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
-                 */
                 export interface SendCustomNotification extends Command {
                     Content: string;
                     ImageUrl?: string | null;
@@ -559,7 +580,6 @@ Object {
                      * @attribute LeanCode.Contracts.Admin.AdminSortable
                      */
                     Name: string;
-                    Optional?: ValueDTO<string | null | undefined> | null;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
@@ -665,8 +685,606 @@ Object {
                     } as const;
                     export type ErrorCodes = typeof ErrorCodes;
                 }
-                export interface ValueDTO<T> {
-                    Value: T;
+            }
+            export namespace Users {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface DeleteOwnAccount extends Command {
+                }
+            }
+        }
+    }
+}
+export namespace LeanCode {
+    export namespace AppRating {
+        export namespace Contracts {
+            export interface Permissions {
+            }
+            export namespace Permissions {
+                export const RateApp = \\"RateApp\\";
+            }
+            /**
+             * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+             */
+            export interface RatingAlreadySent extends Query<boolean> {
+            }
+            /**
+             * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+             */
+            export interface SubmitAppRating extends Command {
+                Rating: number;
+                AdditionalComment?: string | null;
+                Platform: PlatformDTO;
+                SystemVersion: string;
+                AppVersion: string;
+                Metadata?: Record<string, Partial<Record<string, any>>> | null;
+            }
+            export namespace SubmitAppRating {
+                export const ErrorCodes = {
+                    RatingInvalid: 1,
+                    AdditionalCommentTooLong: 2,
+                    PlatformInvalid: 3,
+                    SystemVersionRequired: 4,
+                    SystemVersionTooLong: 5,
+                    AppVersionRequired: 6,
+                    AppVersionTooLong: 7
+                } as const;
+                export type ErrorCodes = typeof ErrorCodes;
+            }
+            export enum PlatformDTO {
+                Android = 0,
+                IOS = 1
+            }
+        }
+    }
+    export namespace Contracts {
+        export namespace Admin {
+            export interface AdminFilterRange<T> {
+                From?: T | null;
+                To?: T | null;
+            }
+            export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
+                /**
+                 * 0-based
+                 */
+                Page: number;
+                PageSize: number;
+                SortDescending?: boolean | null;
+                SortBy?: string | null;
+            }
+            export interface AdminQueryResult<TResult> {
+                Total: number;
+                Items: TResult[];
+            }
+        }
+    }
+    export namespace ForceUpdate {
+        export namespace Contracts {
+            export interface VersionSupport extends Query<VersionSupportDTO> {
+                Platform: PlatformDTO;
+                Version: string;
+            }
+            export interface VersionSupportDTO {
+                CurrentlySupportedVersion: string;
+                MinimumRequiredVersion: string;
+                Result: VersionSupportResultDTO;
+            }
+            export enum PlatformDTO {
+                Android = 0,
+                IOS = 1
+            }
+            export enum VersionSupportResultDTO {
+                UpdateRequired = 0,
+                UpdateSuggested = 1,
+                UpToDate = 2
+            }
+        }
+    }
+}
+",
+}
+`;
+
+exports[`exampleApp generates contracts with datetime extension 1`] = `
+Object {
+  "test.ts": "export namespace ExampleApp {
+    export namespace Examples {
+        export namespace Contracts {
+            export interface Auth {
+            }
+            export interface PaginatedQuery<TResult> extends Query<PaginatedResult<TResult>> {
+                /**
+                 * Zero-based.
+                 */
+                PageNumber: number;
+                PageSize: number;
+            }
+            export namespace PaginatedQuery {
+                export const MinPageSize = 1;
+                export const MaxPageSize = 100;
+            }
+            export interface PaginatedResult<TResult> {
+                Items: TResult[];
+                TotalCount: number;
+            }
+            export interface SortedQuery<TResult, TSort> extends PaginatedQuery<TResult> {
+                SortBy: TSort;
+                SortByDescending: boolean;
+            }
+            export namespace Auth {
+                export interface KnownClaims {
+                }
+                export namespace KnownClaims {
+                    export const UserId = \\"sub\\";
+                    export const Role = \\"role\\";
+                }
+                export interface Roles {
+                }
+                export namespace Roles {
+                    export const User = \\"user\\";
+                    export const Admin = \\"admin\\";
+                }
+            }
+            export namespace Booking {
+                export interface LocationDTO {
+                    Latitude: number;
+                    Longitude: number;
+                }
+                /**
+                 * The DTO representing a monetary value, e.g. amount with a currency.
+                 * The amount of money, in the smallest currency unit (e.g. grosz, cent).
+                 * The (three letter) currency name, e.g. PLN, USD.
+                 */
+                export interface MoneyDTO {
+                    /**
+                     * The amount of money, in the smallest currency unit (e.g. grosz, cent).
+                     */
+                    Value: number;
+                    /**
+                     * The (three letter) currency name, e.g. PLN, USD.
+                     */
+                    Currency: string;
+                }
+                export enum ServiceProviderTypeDTO {
+                    Hairdresser = 0,
+                    BarberShop = 1,
+                    Groomer = 2
+                }
+                export namespace Management {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface AddTimeslot extends Command {
+                        ServiceProviderId: string;
+                        Date: ApiDateTime;
+                        StartTime: string;
+                        EndTime: string;
+                        Price: MoneyDTO;
+                    }
+                    export namespace AddTimeslot {
+                        export const ErrorCodes = {
+                            ServiceProviderIdIsInvalid: 1,
+                            ServiceProviderDoesNotExist: 2,
+                            EndTimeMustBeAfterStartTime: 3,
+                            PriceIsNull: 4,
+                            TimeslotOverlapsWithExisting: 5,
+                            ValueCannotBeNegative: 10001,
+                            CurrencyIsInvalid: 10002
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface CreateServiceProvider extends Command {
+                        Name: string;
+                        Type: ServiceProviderTypeDTO;
+                        Description: string;
+                        CoverPhoto: string;
+                        Thumbnail: string;
+                        Address: string;
+                        Location: LocationDTO;
+                        Ratings: number;
+                    }
+                    export namespace CreateServiceProvider {
+                        export const ErrorCodes = {
+                            NameIsNullOrEmpty: 1,
+                            NameIsTooLong: 2,
+                            TypeIsNullOrInvalid: 3,
+                            DescriptionIsNullOrEmpty: 4,
+                            DescriptionIsTooLong: 5,
+                            CoverPhotoIsInvalid: 6,
+                            ThumbnailIsInvalid: 7,
+                            AddressIsNullOrEmpty: 8,
+                            AddressIsTooLong: 9,
+                            LocationIsNull: 10,
+                            LatitudeIsOutOfRange: 11001,
+                            LongitudeIsOutOfRange: 11002
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface ServiceProviderLogoUploadLink extends Query<ServiceProviderLogoUploadLinkDTO> {
+                    }
+                    export interface ServiceProviderLogoUploadLinkDTO {
+                        Link: string;
+                        RequiredHeaders: Record<string, string>;
+                    }
+                }
+                export namespace Reservations {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     * @attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute
+                     */
+                    export interface CancelReservation extends Command, Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelated {
+                    }
+                    export namespace CancelReservation {
+                        export const ErrorCodes = {
+                            ReservationIdIsInvalid: 1,
+                            ReservationDoesNotExist: 2,
+                            ReservationCannotBeCancelled: 3
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     * @attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute
+                     */
+                    export interface MyReservationById extends Query<MyReservationDTO>, Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelated {
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface MyReservationByTimeslotId extends Query<MyReservationDTO> {
+                        TimeslotId: string;
+                    }
+                    export interface MyReservationDTO {
+                        Id: string;
+                        TimeslotId: string;
+                        ServiceProviderId: string;
+                        ServiceProviderName: string;
+                        Type: ServiceProviderTypeDTO;
+                        Address: string;
+                        Location: LocationDTO;
+                        Date: string;
+                        StartTime: string;
+                        EndTime: string;
+                        Price: MoneyDTO;
+                        Status: ReservationStatusDTO;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface MyReservations extends PaginatedQuery<MyReservationDTO> {
+                    }
+                    export interface ReservationCancelledNotificationDTO {
+                        ReservationId: string;
+                        CalendarDayId: string;
+                        TimeslotId: string;
+                        ServiceProviderId: string;
+                        ServiceProviderName: string;
+                        Date: string;
+                        StartTime: string;
+                        EndTime: string;
+                    }
+                    export interface ReservationCreatedNotificationDTO {
+                        ReservationId: string;
+                        CalendarDayId: string;
+                        TimeslotId: string;
+                        ServiceProviderId: string;
+                        ServiceProviderName: string;
+                        Date: string;
+                        StartTime: string;
+                        EndTime: string;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface ReserveTimeslot extends Command {
+                        CalendarDayId: string;
+                        TimeslotId: string;
+                    }
+                    export namespace ReserveTimeslot {
+                        export const ErrorCodes = {
+                            TimeslotIdInvalid: 1,
+                            TimeslotCannotBeReserved: 2,
+                            CalendarDayIdInvalid: 3,
+                            CalendarDayDoesNotExist: 4
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                    export enum ReservationStatusDTO {
+                        Pending = 0,
+                        Confirmed = 1,
+                        Rejected = 2,
+                        Paid = 3,
+                        Cancelled = 4,
+                        Completed = 5
+                    }
+                    export namespace Authorization {
+                        export namespace AuthorizeWhenOwnsReservationAttribute {
+                            export interface IReservationRelated {
+                                ReservationId: string;
+                            }
+                            export interface IWhenOwnsReservation {
+                            }
+                        }
+                    }
+                }
+                export namespace ServiceProviders {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface AllServiceProviders extends SortedQuery<ServiceProviderSummaryDTO, ServiceProviderSortFieldsDTO> {
+                        NameFilter?: string | null;
+                        TypeFilter?: ServiceProviderTypeDTO | null;
+                        PromotedOnly: boolean;
+                    }
+                    /**
+                     * The query will return details about service provider and all available timeslots from
+                     * to
+                     *     +X days (configurable on query level).
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface ServiceProviderDetails extends Query<ServiceProviderDetailsDTO> {
+                        ServiceProviderId: string;
+                        CalendarDate: string;
+                    }
+                    export interface ServiceProviderDetailsDTO {
+                        Id: string;
+                        Name: string;
+                        Description: string;
+                        Type: ServiceProviderTypeDTO;
+                        Address: string;
+                        Location: LocationDTO;
+                        IsPromotionActive: boolean;
+                        Ratings: number;
+                        CoverPhoto: string;
+                        Thumbnail: string;
+                        Timeslots: TimeslotDTO[];
+                    }
+                    export interface ServiceProviderSummaryDTO {
+                        Id: string;
+                        Name: string;
+                        Type: ServiceProviderTypeDTO;
+                        Thumbnail: string;
+                        IsPromotionActive: boolean;
+                        Address: string;
+                        Location: LocationDTO;
+                        Ratings: number;
+                    }
+                    export interface TimeslotDTO {
+                        Id: string;
+                        CalendarDayId: string;
+                        StartTime: string;
+                        EndTime: string;
+                        Price: MoneyDTO;
+                        IsReserved: boolean;
+                    }
+                    export enum ServiceProviderSortFieldsDTO {
+                        Name = 0,
+                        Type = 1,
+                        Ratings = 2
+                    }
+                }
+            }
+            export namespace Dashboards {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AssignmentEmployerEmbed extends Query<string> {
+                }
+            }
+            export namespace Employees {
+                export interface AdminEmployeeDTO {
+                    Id: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     * @attribute LeanCode.Contracts.Admin.AdminSortable
+                     */
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AllEmployees extends Query<EmployeeDTO[]> {
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AllEmployeesAdmin extends LeanCode.Contracts.Admin.AdminQuery<AdminEmployeeDTO> {
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+                     */
+                    NameFilter?: string | null;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface CreateEmployee extends Command {
+                    Name: string;
+                    Email: string;
+                }
+                export namespace CreateEmployee {
+                    export const ErrorCodes = {
+                        NameCannotBeEmpty: 1,
+                        NameTooLong: 2,
+                        EmailInvalid: 3,
+                        EmailIsNotUnique: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface EmployeeDTO {
+                    Id: string;
+                    Name: string;
+                    Email: string;
+                }
+            }
+            export namespace Firebase {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface SendCustomNotification extends Command {
+                    Content: string;
+                    ImageUrl?: string | null;
+                }
+                export namespace SendCustomNotification {
+                    export const ErrorCodes = {
+                        ContentCannotBeEmpty: 1,
+                        ImageUrlInvalid: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+            }
+            export namespace Identities {
+                export interface KratosIdentityDTO {
+                    Id: string;
+                    CreatedAt: string;
+                    UpdatedAt: string;
+                    SchemaId: string;
+                    Email: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface SearchIdentities extends PaginatedQuery<KratosIdentityDTO> {
+                    SchemaId?: string | null;
+                    EmailPattern?: string | null;
+                    GivenNamePattern?: string | null;
+                    FamilyNamePattern?: string | null;
+                }
+            }
+            export namespace Projects {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface AddAssignmentsToProject extends Command {
+                    ProjectId: string;
+                    Assignments: AssignmentWriteDTO[];
+                }
+                export namespace AddAssignmentsToProject {
+                    export const ErrorCodes = {
+                        ProjectIdNotValid: 1,
+                        ProjectDoesNotExist: 2,
+                        AssignmentsCannotBeNull: 3,
+                        AssignmentsCannotBeEmpty: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface AdminProjectDTO {
+                    Id: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     * @attribute LeanCode.Contracts.Admin.AdminSortable
+                     */
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface AllProjects extends Query<ProjectDTO[]> {
+                    SortByNameDescending: boolean;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AllProjectsAdmin extends LeanCode.Contracts.Admin.AdminQuery<AdminProjectDTO> {
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+                     */
+                    NameFilter?: string | null;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AssignEmployeeToAssignment extends Command {
+                    AssignmentId: string;
+                    EmployeeId: string;
+                }
+                export namespace AssignEmployeeToAssignment {
+                    export const ErrorCodes = {
+                        AssignmentIdNotValid: 1,
+                        ProjectWithAssignmentDoesNotExist: 2,
+                        EmployeeIdNotValid: 3,
+                        EmployeeDoesNotExist: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface AssignmentDTO extends AssignmentWriteDTO {
+                    Id: string;
+                    AssignedEmployeeId?: string | null;
+                }
+                export interface AssignmentWriteDTO {
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface CreateProject extends Command {
+                    Name: string;
+                }
+                export namespace CreateProject {
+                    export const ErrorCodes = {
+                        NameCannotBeEmpty: 1,
+                        NameTooLong: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface EmployeeAssignedToAssignmentDTO {
+                    AssignmentId: string;
+                    EmployeeId: string;
+                }
+                export interface EmployeeAssignedToProjectAssignmentDTO {
+                    ProjectId: string;
+                    AssignmentId: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface EmployeeAssignmentsTopic extends Topic {
+                    EmployeeId: string;
+                }
+                export interface EmployeeUnassignedFromAssignmentDTO {
+                    AssignmentId: string;
+                }
+                export interface EmployeeUnassignedFromProjectAssignmentDTO {
+                    ProjectId: string;
+                    AssignmentId: string;
+                }
+                export interface ProjectDTO {
+                    Id: string;
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface ProjectDetails extends Query<ProjectDetailsDTO> {
+                    Id: string;
+                }
+                export interface ProjectDetailsDTO extends ProjectDTO {
+                    Assignments: AssignmentDTO[];
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface ProjectEmployeesAssignmentsTopic extends Topic {
+                    ProjectId: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface UnassignEmployeeFromAssignment extends Command {
+                    AssignmentId: string;
+                }
+                export namespace UnassignEmployeeFromAssignment {
+                    export const ErrorCodes = {
+                        AssignmentIdNotValid: 1,
+                        ProjectWithAssignmentDoesNotExist: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
                 }
             }
             export namespace Users {
@@ -770,6 +1388,607 @@ export namespace LeanCode {
 `;
 
 exports[`exampleApp generates contracts with defaults 1`] = `
+Object {
+  "test.ts": "export namespace ExampleApp {
+    export namespace Examples {
+        export namespace Contracts {
+            export interface Auth {
+            }
+            export interface PaginatedQuery<TResult> extends Query<PaginatedResult<TResult>> {
+                /**
+                 * Zero-based.
+                 */
+                PageNumber: number;
+                PageSize: number;
+            }
+            export namespace PaginatedQuery {
+                export const MinPageSize = 1;
+                export const MaxPageSize = 100;
+            }
+            export interface PaginatedResult<TResult> {
+                Items: TResult[];
+                TotalCount: number;
+            }
+            export interface SortedQuery<TResult, TSort> extends PaginatedQuery<TResult> {
+                SortBy: TSort;
+                SortByDescending: boolean;
+            }
+            export namespace Auth {
+                export interface KnownClaims {
+                }
+                export namespace KnownClaims {
+                    export const UserId = \\"sub\\";
+                    export const Role = \\"role\\";
+                }
+                export interface Roles {
+                }
+                export namespace Roles {
+                    export const User = \\"user\\";
+                    export const Admin = \\"admin\\";
+                }
+            }
+            export namespace Booking {
+                export interface LocationDTO {
+                    Latitude: number;
+                    Longitude: number;
+                }
+                /**
+                 * The DTO representing a monetary value, e.g. amount with a currency.
+                 * The amount of money, in the smallest currency unit (e.g. grosz, cent).
+                 * The (three letter) currency name, e.g. PLN, USD.
+                 */
+                export interface MoneyDTO {
+                    /**
+                     * The amount of money, in the smallest currency unit (e.g. grosz, cent).
+                     */
+                    Value: number;
+                    /**
+                     * The (three letter) currency name, e.g. PLN, USD.
+                     */
+                    Currency: string;
+                }
+                export enum ServiceProviderTypeDTO {
+                    Hairdresser = 0,
+                    BarberShop = 1,
+                    Groomer = 2
+                }
+                export namespace Management {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface AddTimeslot extends Command {
+                        ServiceProviderId: string;
+                        Date: string;
+                        StartTime: string;
+                        EndTime: string;
+                        Price: MoneyDTO;
+                    }
+                    export namespace AddTimeslot {
+                        export const ErrorCodes = {
+                            ServiceProviderIdIsInvalid: 1,
+                            ServiceProviderDoesNotExist: 2,
+                            EndTimeMustBeAfterStartTime: 3,
+                            PriceIsNull: 4,
+                            TimeslotOverlapsWithExisting: 5,
+                            ValueCannotBeNegative: 10001,
+                            CurrencyIsInvalid: 10002
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface CreateServiceProvider extends Command {
+                        Name: string;
+                        Type: ServiceProviderTypeDTO;
+                        Description: string;
+                        CoverPhoto: string;
+                        Thumbnail: string;
+                        Address: string;
+                        Location: LocationDTO;
+                        Ratings: number;
+                    }
+                    export namespace CreateServiceProvider {
+                        export const ErrorCodes = {
+                            NameIsNullOrEmpty: 1,
+                            NameIsTooLong: 2,
+                            TypeIsNullOrInvalid: 3,
+                            DescriptionIsNullOrEmpty: 4,
+                            DescriptionIsTooLong: 5,
+                            CoverPhotoIsInvalid: 6,
+                            ThumbnailIsInvalid: 7,
+                            AddressIsNullOrEmpty: 8,
+                            AddressIsTooLong: 9,
+                            LocationIsNull: 10,
+                            LatitudeIsOutOfRange: 11001,
+                            LongitudeIsOutOfRange: 11002
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface ServiceProviderLogoUploadLink extends Query<ServiceProviderLogoUploadLinkDTO> {
+                    }
+                    export interface ServiceProviderLogoUploadLinkDTO {
+                        Link: string;
+                        RequiredHeaders: Record<string, string>;
+                    }
+                }
+                export namespace Reservations {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     * @attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute
+                     */
+                    export interface CancelReservation extends Command, Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelated {
+                    }
+                    export namespace CancelReservation {
+                        export const ErrorCodes = {
+                            ReservationIdIsInvalid: 1,
+                            ReservationDoesNotExist: 2,
+                            ReservationCannotBeCancelled: 3
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     * @attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute
+                     */
+                    export interface MyReservationById extends Query<MyReservationDTO>, Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelated {
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface MyReservationByTimeslotId extends Query<MyReservationDTO> {
+                        TimeslotId: string;
+                    }
+                    export interface MyReservationDTO {
+                        Id: string;
+                        TimeslotId: string;
+                        ServiceProviderId: string;
+                        ServiceProviderName: string;
+                        Type: ServiceProviderTypeDTO;
+                        Address: string;
+                        Location: LocationDTO;
+                        Date: string;
+                        StartTime: string;
+                        EndTime: string;
+                        Price: MoneyDTO;
+                        Status: ReservationStatusDTO;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface MyReservations extends PaginatedQuery<MyReservationDTO> {
+                    }
+                    export interface ReservationCancelledNotificationDTO {
+                        ReservationId: string;
+                        CalendarDayId: string;
+                        TimeslotId: string;
+                        ServiceProviderId: string;
+                        ServiceProviderName: string;
+                        Date: string;
+                        StartTime: string;
+                        EndTime: string;
+                    }
+                    export interface ReservationCreatedNotificationDTO {
+                        ReservationId: string;
+                        CalendarDayId: string;
+                        TimeslotId: string;
+                        ServiceProviderId: string;
+                        ServiceProviderName: string;
+                        Date: string;
+                        StartTime: string;
+                        EndTime: string;
+                    }
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface ReserveTimeslot extends Command {
+                        CalendarDayId: string;
+                        TimeslotId: string;
+                    }
+                    export namespace ReserveTimeslot {
+                        export const ErrorCodes = {
+                            TimeslotIdInvalid: 1,
+                            TimeslotCannotBeReserved: 2,
+                            CalendarDayIdInvalid: 3,
+                            CalendarDayDoesNotExist: 4
+                        } as const;
+                        export type ErrorCodes = typeof ErrorCodes;
+                    }
+                    export enum ReservationStatusDTO {
+                        Pending = 0,
+                        Confirmed = 1,
+                        Rejected = 2,
+                        Paid = 3,
+                        Cancelled = 4,
+                        Completed = 5
+                    }
+                    export namespace Authorization {
+                        export namespace AuthorizeWhenOwnsReservationAttribute {
+                            export interface IReservationRelated {
+                                ReservationId: string;
+                            }
+                            export interface IWhenOwnsReservation {
+                            }
+                        }
+                    }
+                }
+                export namespace ServiceProviders {
+                    /**
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface AllServiceProviders extends SortedQuery<ServiceProviderSummaryDTO, ServiceProviderSortFieldsDTO> {
+                        NameFilter?: string | null;
+                        TypeFilter?: ServiceProviderTypeDTO | null;
+                        PromotedOnly: boolean;
+                    }
+                    /**
+                     * The query will return details about service provider and all available timeslots from
+                     * to
+                     *     +X days (configurable on query level).
+                     * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                     */
+                    export interface ServiceProviderDetails extends Query<ServiceProviderDetailsDTO> {
+                        ServiceProviderId: string;
+                        CalendarDate: string;
+                    }
+                    export interface ServiceProviderDetailsDTO {
+                        Id: string;
+                        Name: string;
+                        Description: string;
+                        Type: ServiceProviderTypeDTO;
+                        Address: string;
+                        Location: LocationDTO;
+                        IsPromotionActive: boolean;
+                        Ratings: number;
+                        CoverPhoto: string;
+                        Thumbnail: string;
+                        Timeslots: TimeslotDTO[];
+                    }
+                    export interface ServiceProviderSummaryDTO {
+                        Id: string;
+                        Name: string;
+                        Type: ServiceProviderTypeDTO;
+                        Thumbnail: string;
+                        IsPromotionActive: boolean;
+                        Address: string;
+                        Location: LocationDTO;
+                        Ratings: number;
+                    }
+                    export interface TimeslotDTO {
+                        Id: string;
+                        CalendarDayId: string;
+                        StartTime: string;
+                        EndTime: string;
+                        Price: MoneyDTO;
+                        IsReserved: boolean;
+                    }
+                    export enum ServiceProviderSortFieldsDTO {
+                        Name = 0,
+                        Type = 1,
+                        Ratings = 2
+                    }
+                }
+            }
+            export namespace Dashboards {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AssignmentEmployerEmbed extends Query<string> {
+                }
+            }
+            export namespace Employees {
+                export interface AdminEmployeeDTO {
+                    Id: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     * @attribute LeanCode.Contracts.Admin.AdminSortable
+                     */
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AllEmployees extends Query<EmployeeDTO[]> {
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AllEmployeesAdmin extends LeanCode.Contracts.Admin.AdminQuery<AdminEmployeeDTO> {
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+                     */
+                    NameFilter?: string | null;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface CreateEmployee extends Command {
+                    Name: string;
+                    Email: string;
+                }
+                export namespace CreateEmployee {
+                    export const ErrorCodes = {
+                        NameCannotBeEmpty: 1,
+                        NameTooLong: 2,
+                        EmailInvalid: 3,
+                        EmailIsNotUnique: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface EmployeeDTO {
+                    Id: string;
+                    Name: string;
+                    Email: string;
+                }
+            }
+            export namespace Firebase {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface SendCustomNotification extends Command {
+                    Content: string;
+                    ImageUrl?: string | null;
+                }
+                export namespace SendCustomNotification {
+                    export const ErrorCodes = {
+                        ContentCannotBeEmpty: 1,
+                        ImageUrlInvalid: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+            }
+            export namespace Identities {
+                export interface KratosIdentityDTO {
+                    Id: string;
+                    CreatedAt: string;
+                    UpdatedAt: string;
+                    SchemaId: string;
+                    Email: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface SearchIdentities extends PaginatedQuery<KratosIdentityDTO> {
+                    SchemaId?: string | null;
+                    EmailPattern?: string | null;
+                    GivenNamePattern?: string | null;
+                    FamilyNamePattern?: string | null;
+                }
+            }
+            export namespace Projects {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface AddAssignmentsToProject extends Command {
+                    ProjectId: string;
+                    Assignments: AssignmentWriteDTO[];
+                }
+                export namespace AddAssignmentsToProject {
+                    export const ErrorCodes = {
+                        ProjectIdNotValid: 1,
+                        ProjectDoesNotExist: 2,
+                        AssignmentsCannotBeNull: 3,
+                        AssignmentsCannotBeEmpty: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface AdminProjectDTO {
+                    Id: string;
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminColumn
+                     * @attribute LeanCode.Contracts.Admin.AdminSortable
+                     */
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface AllProjects extends Query<ProjectDTO[]> {
+                    SortByNameDescending: boolean;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AllProjectsAdmin extends LeanCode.Contracts.Admin.AdminQuery<AdminProjectDTO> {
+                    /**
+                     * @attribute LeanCode.Contracts.Admin.AdminFilterFor
+                     */
+                    NameFilter?: string | null;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface AssignEmployeeToAssignment extends Command {
+                    AssignmentId: string;
+                    EmployeeId: string;
+                }
+                export namespace AssignEmployeeToAssignment {
+                    export const ErrorCodes = {
+                        AssignmentIdNotValid: 1,
+                        ProjectWithAssignmentDoesNotExist: 2,
+                        EmployeeIdNotValid: 3,
+                        EmployeeDoesNotExist: 4
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface AssignmentDTO extends AssignmentWriteDTO {
+                    Id: string;
+                    AssignedEmployeeId?: string | null;
+                }
+                export interface AssignmentWriteDTO {
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface CreateProject extends Command {
+                    Name: string;
+                }
+                export namespace CreateProject {
+                    export const ErrorCodes = {
+                        NameCannotBeEmpty: 1,
+                        NameTooLong: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface EmployeeAssignedToAssignmentDTO {
+                    AssignmentId: string;
+                    EmployeeId: string;
+                }
+                export interface EmployeeAssignedToProjectAssignmentDTO {
+                    ProjectId: string;
+                    AssignmentId: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface EmployeeAssignmentsTopic extends Topic {
+                    EmployeeId: string;
+                }
+                export interface EmployeeUnassignedFromAssignmentDTO {
+                    AssignmentId: string;
+                }
+                export interface EmployeeUnassignedFromProjectAssignmentDTO {
+                    ProjectId: string;
+                    AssignmentId: string;
+                }
+                export interface ProjectDTO {
+                    Id: string;
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface ProjectDetails extends Query<ProjectDetailsDTO> {
+                    Id: string;
+                }
+                export interface ProjectDetailsDTO extends ProjectDTO {
+                    Assignments: AssignmentDTO[];
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface ProjectEmployeesAssignmentsTopic extends Topic {
+                    ProjectId: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface UnassignEmployeeFromAssignment extends Command {
+                    AssignmentId: string;
+                }
+                export namespace UnassignEmployeeFromAssignment {
+                    export const ErrorCodes = {
+                        AssignmentIdNotValid: 1,
+                        ProjectWithAssignmentDoesNotExist: 2
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+            }
+            export namespace Users {
+                /**
+                 * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+                 */
+                export interface DeleteOwnAccount extends Command {
+                }
+            }
+        }
+    }
+}
+export namespace LeanCode {
+    export namespace AppRating {
+        export namespace Contracts {
+            export interface Permissions {
+            }
+            export namespace Permissions {
+                export const RateApp = \\"RateApp\\";
+            }
+            /**
+             * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+             */
+            export interface RatingAlreadySent extends Query<boolean> {
+            }
+            /**
+             * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+             */
+            export interface SubmitAppRating extends Command {
+                Rating: number;
+                AdditionalComment?: string | null;
+                Platform: PlatformDTO;
+                SystemVersion: string;
+                AppVersion: string;
+                Metadata?: Record<string, Partial<Record<string, any>>> | null;
+            }
+            export namespace SubmitAppRating {
+                export const ErrorCodes = {
+                    RatingInvalid: 1,
+                    AdditionalCommentTooLong: 2,
+                    PlatformInvalid: 3,
+                    SystemVersionRequired: 4,
+                    SystemVersionTooLong: 5,
+                    AppVersionRequired: 6,
+                    AppVersionTooLong: 7
+                } as const;
+                export type ErrorCodes = typeof ErrorCodes;
+            }
+            export enum PlatformDTO {
+                Android = 0,
+                IOS = 1
+            }
+        }
+    }
+    export namespace Contracts {
+        export namespace Admin {
+            export interface AdminFilterRange<T> {
+                From?: T | null;
+                To?: T | null;
+            }
+            export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {
+                /**
+                 * 0-based
+                 */
+                Page: number;
+                PageSize: number;
+                SortDescending?: boolean | null;
+                SortBy?: string | null;
+            }
+            export interface AdminQueryResult<TResult> {
+                Total: number;
+                Items: TResult[];
+            }
+        }
+    }
+    export namespace ForceUpdate {
+        export namespace Contracts {
+            export interface VersionSupport extends Query<VersionSupportDTO> {
+                Platform: PlatformDTO;
+                Version: string;
+            }
+            export interface VersionSupportDTO {
+                CurrentlySupportedVersion: string;
+                MinimumRequiredVersion: string;
+                Result: VersionSupportResultDTO;
+            }
+            export enum PlatformDTO {
+                Android = 0,
+                IOS = 1
+            }
+            export enum VersionSupportResultDTO {
+                UpdateRequired = 0,
+                UpdateSuggested = 1,
+                UpToDate = 2
+            }
+        }
+    }
+}
+",
+}
+`;
+
+exports[`exampleApp generates contracts with defaults with protocolless version 1`] = `
 Object {
   "test.ts": "export namespace ExampleApp {
     export namespace Examples {
@@ -1378,9 +2597,9 @@ export interface LocationDTO {
  */
 export interface AddTimeslot extends Command {
     ServiceProviderId: string;
-    Date: ApiDate;
-    StartTime: ApiTime;
-    EndTime: ApiTime;
+    Date: string;
+    StartTime: string;
+    EndTime: string;
     Price: MoneyDTO;
 }
 export namespace AddTimeslot {
@@ -1402,8 +2621,8 @@ export interface CreateServiceProvider extends Command {
     Name: string;
     Type: ServiceProviderTypeDTO;
     Description: string;
-    PromotionalBanner: string;
-    ListItemPicture: string;
+    CoverPhoto: string;
+    Thumbnail: string;
     Address: string;
     Location: LocationDTO;
     Ratings: number;
@@ -1415,8 +2634,8 @@ export namespace CreateServiceProvider {
         TypeIsNullOrInvalid: 3,
         DescriptionIsNullOrEmpty: 4,
         DescriptionIsTooLong: 5,
-        PromotionalBannerIsInvalid: 6,
-        ListItemPictureIsInvalid: 7,
+        CoverPhotoIsInvalid: 6,
+        ThumbnailIsInvalid: 7,
         AddressIsNullOrEmpty: 8,
         AddressIsTooLong: 9,
         LocationIsNull: 10,
@@ -1424,6 +2643,15 @@ export namespace CreateServiceProvider {
         LongitudeIsOutOfRange: 11002
     } as const;
     export type ErrorCodes = typeof ErrorCodes;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ */
+export interface ServiceProviderLogoUploadLink extends Query<ServiceProviderLogoUploadLinkDTO> {
+}
+export interface ServiceProviderLogoUploadLinkDTO {
+    Link: string;
+    RequiredHeaders: Record<string, string>;
 }
 /**
  * The DTO representing a monetary value, e.g. amount with a currency.
@@ -1449,6 +2677,20 @@ export interface IWhenOwnsReservation {
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  * @attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute
  */
+export interface CancelReservation extends Command, IReservationRelated {
+}
+export namespace CancelReservation {
+    export const ErrorCodes = {
+        ReservationIdIsInvalid: 1,
+        ReservationDoesNotExist: 2,
+        ReservationCannotBeCancelled: 3
+    } as const;
+    export type ErrorCodes = typeof ErrorCodes;
+}
+/**
+ * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
+ * @attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute
+ */
 export interface MyReservationById extends Query<MyReservationDTO>, IReservationRelated {
 }
 /**
@@ -1465,9 +2707,9 @@ export interface MyReservationDTO {
     Type: ServiceProviderTypeDTO;
     Address: string;
     Location: LocationDTO;
-    Date: ApiDate;
-    StartTime: ApiTime;
-    EndTime: ApiTime;
+    Date: string;
+    StartTime: string;
+    EndTime: string;
     Price: MoneyDTO;
     Status: ReservationStatusDTO;
 }
@@ -1475,6 +2717,26 @@ export interface MyReservationDTO {
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  */
 export interface MyReservations extends PaginatedQuery<MyReservationDTO> {
+}
+export interface ReservationCancelledNotificationDTO {
+    ReservationId: string;
+    CalendarDayId: string;
+    TimeslotId: string;
+    ServiceProviderId: string;
+    ServiceProviderName: string;
+    Date: string;
+    StartTime: string;
+    EndTime: string;
+}
+export interface ReservationCreatedNotificationDTO {
+    ReservationId: string;
+    CalendarDayId: string;
+    TimeslotId: string;
+    ServiceProviderId: string;
+    ServiceProviderName: string;
+    Date: string;
+    StartTime: string;
+    EndTime: string;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
@@ -1508,7 +2770,7 @@ export interface AllServiceProviders extends SortedQuery<ServiceProviderSummaryD
  */
 export interface ServiceProviderDetails extends Query<ServiceProviderDetailsDTO> {
     ServiceProviderId: string;
-    CalendarDate: ApiDate;
+    CalendarDate: string;
 }
 export interface ServiceProviderDetailsDTO {
     Id: string;
@@ -1519,15 +2781,15 @@ export interface ServiceProviderDetailsDTO {
     Location: LocationDTO;
     IsPromotionActive: boolean;
     Ratings: number;
-    PromotionalBanner: string;
-    ListItemPicture: string;
+    CoverPhoto: string;
+    Thumbnail: string;
     Timeslots: TimeslotDTO[];
 }
 export interface ServiceProviderSummaryDTO {
     Id: string;
     Name: string;
     Type: ServiceProviderTypeDTO;
-    ListItemPicture: string;
+    Thumbnail: string;
     IsPromotionActive: boolean;
     Address: string;
     Location: LocationDTO;
@@ -1536,8 +2798,8 @@ export interface ServiceProviderSummaryDTO {
 export interface TimeslotDTO {
     Id: string;
     CalendarDayId: string;
-    StartTime: ApiTime;
-    EndTime: ApiTime;
+    StartTime: string;
+    EndTime: string;
     Price: MoneyDTO;
     IsReserved: boolean;
 }
@@ -1592,30 +2854,6 @@ export interface EmployeeDTO {
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
  */
-export interface AddNotificationToken extends Command {
-    Token: string;
-}
-export namespace AddNotificationToken {
-    export const ErrorCodes = {
-        TokenCannotBeEmpty: 1
-    } as const;
-    export type ErrorCodes = typeof ErrorCodes;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
-export interface RemoveNotificationToken extends Command {
-    Token: string;
-}
-export namespace RemoveNotificationToken {
-    export const ErrorCodes = {
-        TokenCannotBeEmpty: 1
-    } as const;
-    export type ErrorCodes = typeof ErrorCodes;
-}
-/**
- * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute
- */
 export interface SendCustomNotification extends Command {
     Content: string;
     ImageUrl?: string | null;
@@ -1629,8 +2867,8 @@ export namespace SendCustomNotification {
 }
 export interface KratosIdentityDTO {
     Id: string;
-    CreatedAt: ApiDateTimeOffset;
-    UpdatedAt: ApiDateTimeOffset;
+    CreatedAt: string;
+    UpdatedAt: string;
     SchemaId: string;
     Email: string;
 }
@@ -1681,7 +2919,6 @@ export interface AdminProjectDTO {
      * @attribute LeanCode.Contracts.Admin.AdminSortable
      */
     Name: string;
-    Optional?: ValueDTO<string | null | undefined> | null;
 }
 /**
  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
@@ -1787,9 +3024,6 @@ export namespace UnassignEmployeeFromAssignment {
     } as const;
     export type ErrorCodes = typeof ErrorCodes;
 }
-export interface ValueDTO<T> {
-    Value: T;
-}
 export interface SortedQuery<TResult, TSort> extends PaginatedQuery<TResult> {
     SortBy: TSort;
     SortByDescending: boolean;
@@ -1862,7 +3096,9 @@ export enum ReservationStatusDTO {
     Pending = 0,
     Confirmed = 1,
     Rejected = 2,
-    Paid = 3
+    Paid = 3,
+    Cancelled = 4,
+    Completed = 5
 }
 export enum ServiceProviderTypeDTO {
     Hairdresser = 0,

@@ -6,7 +6,7 @@ export type GeneratorInput = z.infer<typeof generatorInputSchema>
 
 export type CustomTypesMap = z.infer<typeof customTypesMapSchema>
 
-export const generatorInputSchema = z.object({
+export const generatorInputSchema = z.strictObject({
     raw: z.string().optional(),
     base: z.string().optional(),
     file: z.string().optional(),
@@ -16,7 +16,7 @@ export const generatorInputSchema = z.object({
     options: z.array(z.string()).optional(),
 })
 
-export const customTypesMapSchema = z.object({
+export const customTypesMapSchema = z.strictObject({
     String: z.string().optional(),
     Guid: z.string().optional(),
     Uri: z.string().optional(),
@@ -35,6 +35,7 @@ export const customTypesMapSchema = z.object({
     TimeOnly: z.string().optional(),
     DateTimeOffset: z.string().optional(),
     TimeSpan: z.string().optional(),
+    DateTime: z.string().optional(),
 })
 
 export const contractsGeneratorPluginConfigurationSchema = z.object({

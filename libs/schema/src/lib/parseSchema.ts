@@ -41,7 +41,7 @@ export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
     return {
         entities,
         protocol: {
-            version: schema.protocol?.version ?? "0.0.0",
+            version: schema.protocol?.version ?? "0.0",
             extensions: new SchemaExtensions(schema.protocol?.extensions ?? []),
         },
     }

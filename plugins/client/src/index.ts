@@ -1,18 +1,13 @@
-import { transform } from "lodash"
-import ts from "typescript"
 import {
     GeneratorPlugin,
     GeneratorPluginInstance,
     GeneratorSessionContext,
 } from "@leancodepl/contractsgenerator-typescript-plugin"
-import { isSchemaInterface, leancode } from "@leancodepl/contractsgenerator-typescript-schema"
-import { createCustomTypeMapper, defaultTypesMap, TypesMap } from "@leancodepl/contractsgenerator-typescript-types"
+import { isSchemaInterface } from "@leancodepl/contractsgenerator-typescript-schema"
+import { getTypesMap } from "@leancodepl/contractsgenerator-typescript-types"
+import ts from "typescript"
 import { ClientContext } from "./clientContext"
-import {
-    ClientGeneratorPluginConfiguration,
-    clientGeneratorPluginConfigurationSchema,
-    CustomTypesMap,
-} from "./configuration"
+import { clientGeneratorPluginConfigurationSchema } from "./configuration"
 import { generateClient } from "./generators/generateClient"
 
 class ClientGeneratorPlugin implements GeneratorPluginInstance {
@@ -44,7 +39,10 @@ class ClientGeneratorPlugin implements GeneratorPluginInstance {
         const context: ClientContext = {
             currentNamespace: [],
             nameTransform: this.configuration.nameTransform ?? (id => id),
-            typesMap: getTypesMap(this.configuration.customTypes),
+            typesMap: getTypesMap({
+                customTypes: this.configuration.customTypes,
+                extensions: schema.protocol.extensions,
+            }),
             printNode,
             configuration: this.configuration,
         }
@@ -59,19 +57,6 @@ class ClientGeneratorPlugin implements GeneratorPluginInstance {
 
         return printNode(sourceFile)
     }
-}
-
-function getTypesMap(customTypes: ClientGeneratorPluginConfiguration["customTypes"]): TypesMap {
-    if (!customTypes) return defaultTypesMap
-
-    return transform(
-        customTypes,
-        (typesMap, value, key) => {
-            const knownType = leancode.contracts.KnownType[key as keyof CustomTypesMap]
-            typesMap[knownType] = createCustomTypeMapper(value)
-        },
-        defaultTypesMap,
-    )
 }
 
 const clientGeneratorPlugin: GeneratorPlugin = {

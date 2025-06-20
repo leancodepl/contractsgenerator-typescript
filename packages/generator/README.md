@@ -16,8 +16,6 @@ npx @leancodepl/contractsgenerator-typescript
 One thing to remember is that TypeScript Contracts Generator relies on
 [Contracts Generator Server](https://github.com/leancodepl/contractsgenerator). Consequently Contracts Generator Server
 needs `dotnet` as its runtime. That means in order for generator to work you need to have `dotnet` runtime installed.
-Another thing which also needs to be noted - currently TypeScript Contracts Generator works in POSIX shells (due to
-`generate.sh` script). This means **on Windows you need to be using Git Bash or alternative**.
 
 ## Configuration file
 
@@ -44,33 +42,25 @@ export type Command = {}
 export type Operation<TResult> = {}
 export type Topic = {}
 
-`.trimStart();
+`.trimStart()
 
 module.exports = {
-  generates: {
-    "src/api/api-components-schema.ts": {
-      plugins: ["admin"],
+    generates: {
+        "src/api/api-components-schema.ts": { plugins: ["admin"] },
+        "src/api/cqrs.ts": { plugins: [{ raw: { prepend: preamble } }, "contracts", "client"] },
     },
-    "src/api/cqrs.ts": {
-      plugins: [{ raw: { prepend: preamble } }, "contracts", "client"],
+    config: {
+        customTypes: { DateOnly: "ApiDateOnly", TimeOnly: "ApiTimeOnly", DateTimeOffset: "ApiDateTimeOffset" },
+        input: {
+            base: "../../../backend/src",
+            project: [
+                "Core/Project.Core.Contracts/Project.Core.Contracts.csproj",
+                "Clients/Project.Clients.Contracts/Project.Clients.Contracts.csproj",
+            ],
+        },
+        nameTransform: nameWithNamespace => nameWithNamespace.split(".").at(-1),
     },
-  },
-  config: {
-    customTypes: {
-      DateOnly: "ApiDateOnly",
-      TimeOnly: "ApiTimeOnly",
-      DateTimeOffset: "ApiDateTimeOffset",
-    },
-    input: {
-      base: "../../../backend/src",
-      project: [
-        "Core/Project.Core.Contracts/Project.Core.Contracts.csproj",
-        "Clients/Project.Clients.Contracts/Project.Clients.Contracts.csproj",
-      ],
-    },
-    nameTransform: nameWithNamespace => nameWithNamespace.split(".").at(-1),
-  },
-};
+}
 ```
 
 ## Configuration options
@@ -81,10 +71,10 @@ Contracts generator config supports two options:
 - `generates`**\*** - dictionary of files to generate where key is path to output file and value is file config. File
   configuration consists of `plugins` field and optional `config` field
 
-  - `config` (output-level config) - same as config, but only applies for the specific file
-  - `plugins`**\*** - list of plugins. Plugin is specified either by it's name or dictionary whose only key is plugin
-    name and value is plugin-level config. Specified config is the same as root/output config, but only applies for the
-    specific plugin
+    - `config` (output-level config) - same as config, but only applies for the specific file
+    - `plugins`**\*** - list of plugins. Plugin is specified either by it's name or dictionary whose only key is plugin
+      name and value is plugin-level config. Specified config is the same as root/output config, but only applies for
+      the specific plugin
 
 ### `config` field
 
@@ -94,16 +84,13 @@ The `config` field is used to pass configuration to plugins. There are 3 levels 
 
 ```js
 module.exports = {
-  generates: {
-    // ...
-  },
-  config: {
-    input: {
-      base: "../../../backend/src",
-      project: ["Core/Project.Core.Contracts/Project.Core.Contracts.csproj"],
+    generates: {
+        // ...
     },
-  },
-};
+    config: {
+        input: { base: "../../../backend/src", project: ["Core/Project.Core.Contracts/Project.Core.Contracts.csproj"] },
+    },
+}
 ```
 
 - Output level - options are passed to every plugin for the specified output file. Each field in output level config
@@ -111,27 +98,24 @@ module.exports = {
 
 ```js
 module.exports = {
-  generates: {
-    "src/api/cqrs.ts": {
-      plugins: [
-        /* ... */
-      ],
-      config: {
-        input: {
-          base: "../../../backend/src",
-          project: ["Extended/Project.Extended.Contracts/Project.Extended.Contracts.csproj"],
+    generates: {
+        "src/api/cqrs.ts": {
+            plugins: [
+                /* ... */
+            ],
+            config: {
+                input: {
+                    base: "../../../backend/src",
+                    project: ["Extended/Project.Extended.Contracts/Project.Extended.Contracts.csproj"],
+                },
+            },
         },
-      },
     },
-  },
-  config: {
-    // overridden by output-level-config
-    input: {
-      base: "../../../backend/src",
-      project: ["Core/Project.Core.Contracts/Project.Core.Contracts.csproj"],
+    config: {
+        // overridden by output-level-config
+        input: { base: "../../../backend/src", project: ["Core/Project.Core.Contracts/Project.Core.Contracts.csproj"] },
     },
-  },
-};
+}
 ```
 
 - Plugin level - options are passed to specified plugin. Each field in plugin level config overrides root-level and
@@ -139,35 +123,34 @@ module.exports = {
 
 ```js
 module.exports = {
-  generates: {
-    "src/api/cqrs.ts": {
-      plugins: [
-        {
-          contracts: {
-            input: "../../../backend/src",
-            project: ["Extended/Project.Extended.Contracts/Project.Extended.Contracts.csproj"],
-          },
+    generates: {
+        "src/api/cqrs.ts": {
+            plugins: [
+                {
+                    contracts: {
+                        input: "../../../backend/src",
+                        project: ["Extended/Project.Extended.Contracts/Project.Extended.Contracts.csproj"],
+                    },
+                },
+            ],
+            config: {
+                // overridden by plugin-level config
+                input: {
+                    base: "../../../backend/src",
+                    project: ["Extended/Project.Extended.Contracts/Project.Extended.Contracts.csproj"],
+                },
+            },
         },
-      ],
-      config: {
-        // overridden by plugin-level config
-        input: {
-          base: "../../../backend/src",
-          project: ["Extended/Project.Extended.Contracts/Project.Extended.Contracts.csproj"],
-        },
-      },
     },
-  },
-  config: {
-    // overridden by output-level and then plugin-level config
-    input: {
-      base: "../../../backend/src",
-      project: ["Core/Project.Core.Contracts/Project.Core.Contracts.csproj"],
+    config: {
+        // overridden by output-level and then plugin-level config
+        input: { base: "../../../backend/src", project: ["Core/Project.Core.Contracts/Project.Core.Contracts.csproj"] },
     },
-  },
-};
+}
 ```
 
 ## Overriding shell
 
-Generating contract from backend is done by running shell script. By default this script is run with `'/bin/sh'` on Unix systems and `bash` on Windows. You can override it by providing `CONTRACTS_GENERATOR_SHELL` env variable with the target shell
+Generating contract from backend is done by running shell script. By default this script is run with `'/bin/sh'` on Unix
+systems and `bash` on Windows. You can override it by providing `CONTRACTS_GENERATOR_SHELL` env variable with the target
+shell
