@@ -1,5 +1,5 @@
 import ts from "typescript"
-import { SchemaInterface, isSchemaCommand } from "@leancodepl/contractsgenerator-typescript-schema"
+import { isSchemaCommand, SchemaInterface } from "@leancodepl/contractsgenerator-typescript-schema"
 import { generateType } from "@leancodepl/contractsgenerator-typescript-types"
 import { ContractsContext } from "../contractsContext"
 import { withExtends } from "../utils/withExtends"

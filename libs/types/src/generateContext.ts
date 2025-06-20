@@ -1,5 +1,5 @@
 import ts from "typescript"
-import { SchemaType, leancode } from "@leancodepl/contractsgenerator-typescript-schema"
+import { leancode, SchemaType } from "@leancodepl/contractsgenerator-typescript-schema"
 
 export interface GenerateContext {
     currentNamespace: string[]

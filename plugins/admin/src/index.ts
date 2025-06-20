@@ -3,9 +3,9 @@ import {
     GeneratorPluginInstance,
     GeneratorSessionContext,
 } from "@leancodepl/contractsgenerator-typescript-plugin"
+import { adminGeneratorPluginConfigurationSchema } from "./configuration"
 import { generateAdmin } from "./lib/generateAdmin"
 import { printConfig } from "./lib/printConfig"
-import { adminGeneratorPluginConfigurationSchema } from "./configuration"
 
 class AdminGeneratorPlugin implements GeneratorPluginInstance {
     configuration

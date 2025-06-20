@@ -1,16 +1,16 @@
+import { transform } from "lodash"
+import ts from "typescript"
 import {
     GeneratorPlugin,
     GeneratorPluginInstance,
     GeneratorSessionContext,
 } from "@leancodepl/contractsgenerator-typescript-plugin"
 import { leancode } from "@leancodepl/contractsgenerator-typescript-schema"
-import { TypesMap, createCustomTypeMapper, defaultTypesMap } from "@leancodepl/contractsgenerator-typescript-types"
-import { transform } from "lodash"
-import ts from "typescript"
+import { createCustomTypeMapper, defaultTypesMap, TypesMap } from "@leancodepl/contractsgenerator-typescript-types"
 import {
     ContractsGeneratorPluginConfiguration,
-    CustomTypesMap,
     contractsGeneratorPluginConfigurationSchema,
+    CustomTypesMap,
 } from "./configuration"
 import { ContractsContext } from "./contractsContext"
 import { generateNamespaces } from "./generators/generateNamespace"

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { AdminComponentsConfig } from "@leancodepl/contractsgenerator-typescript-plugin-admin";
 import { mkCqrsClient } from "@leancodepl/react-query-cqrs-client";
 import { mkApiTables } from "./components/Table";

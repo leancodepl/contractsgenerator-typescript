@@ -1,8 +1,8 @@
 import ts from "typescript"
 import { SchemaCommand } from "@leancodepl/contractsgenerator-typescript-schema"
 import {
-    GenerateContext,
     extractMinimalReferenceTypeName,
+    GenerateContext,
     generateType,
 } from "@leancodepl/contractsgenerator-typescript-types"
 

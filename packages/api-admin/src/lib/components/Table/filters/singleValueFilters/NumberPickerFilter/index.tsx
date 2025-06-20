@@ -5,9 +5,9 @@ import { bigIntToString } from "../../../../../utils/bigIntToString"
 import { ConfirmResetButtons } from "../../common/ConfirmResetButtons"
 import { FilterDropdownWrapper } from "../../common/FilterDropdownWrapper"
 
-type DatePickerFilterProps = {
+type DatePickerFilterProps = FilterDropdownProps & {
     placeholder?: string
-} & FilterDropdownProps
+}
 
 export function NumberPickerFilter({ setSelectedKeys, selectedKeys, confirm, clearFilters }: DatePickerFilterProps) {
     return (

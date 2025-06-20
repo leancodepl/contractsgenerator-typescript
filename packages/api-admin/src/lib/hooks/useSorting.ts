@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-redeclare */
+
 import { Key, useMemo, useState } from "react"
-import type { SortOrder, SorterResult } from "antd/lib/table/interface"
+import type { SorterResult, SortOrder } from "antd/lib/table/interface"
 
 export type SortData<TRecord> = {
     sortData?: SorterResult<TRecord>
@@ -13,48 +14,28 @@ export default function useSorting<TKey extends Key>({
 }: {
     defaultSortKey: TKey
     defaultSortDirection: SortOrder
-}): {
-    sortData: SortData<any>
-    sortKey: TKey
-    sortDirection: SortOrder
-    isDescending: boolean
-}
+}): { sortData: SortData<any>; sortKey: TKey; sortDirection: SortOrder; isDescending: boolean }
 export default function useSorting<TKey extends Key>({
     defaultSortKey,
     defaultSortDirection,
 }: {
     defaultSortKey: TKey
     defaultSortDirection?: SortOrder
-}): {
-    sortData: SortData<any>
-    sortKey: TKey
-    sortDirection?: SortOrder
-    isDescending?: boolean
-}
+}): { sortData: SortData<any>; sortKey: TKey; sortDirection?: SortOrder; isDescending?: boolean }
 export default function useSorting<TKey extends Key>({
     defaultSortKey,
     defaultSortDirection,
 }: {
     defaultSortKey?: TKey
     defaultSortDirection: SortOrder
-}): {
-    sortData: SortData<any>
-    sortKey?: TKey
-    sortDirection: SortOrder
-    isDescending: boolean
-}
+}): { sortData: SortData<any>; sortKey?: TKey; sortDirection: SortOrder; isDescending: boolean }
 export default function useSorting<TKey extends Key>({
     defaultSortKey,
     defaultSortDirection,
 }: {
     defaultSortKey?: TKey
     defaultSortDirection?: SortOrder
-}): {
-    sortData: SortData<any>
-    sortKey?: TKey
-    sortDirection?: SortOrder
-    isDescending?: boolean
-}
+}): { sortData: SortData<any>; sortKey?: TKey; sortDirection?: SortOrder; isDescending?: boolean }
 export default function useSorting<TKey extends Key>({
     defaultSortKey,
     defaultSortDirection,
@@ -68,18 +49,10 @@ export default function useSorting<TKey extends Key>({
                 setSortDirection(sortData.order)
                 setSortKey(sortData.columnKey as any)
             },
-            sortData: {
-                order: sortDirection,
-                columnKey: sortKey,
-            },
+            sortData: { order: sortDirection, columnKey: sortKey },
         }),
         [sortDirection, sortKey],
     )
 
-    return {
-        sortData,
-        sortKey,
-        sortDirection,
-        isDescending: sortDirection === "descend",
-    } as any
+    return { sortData, sortKey, sortDirection, isDescending: sortDirection === "descend" } as any
 }

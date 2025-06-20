@@ -1,10 +1,10 @@
 import ts from "typescript"
 import {
-    SchemaInterface,
     isSchemaCommand,
     isSchemaOperation,
     isSchemaQuery,
     isSchemaTopic,
+    SchemaInterface,
 } from "@leancodepl/contractsgenerator-typescript-schema"
 import { ClientContext } from "../clientContext"
 import { generateCommand } from "./generateCommand"

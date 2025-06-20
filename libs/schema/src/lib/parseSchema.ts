@@ -1,20 +1,17 @@
 import { sortBy } from "lodash"
+import { Buffer } from "node:buffer"
 import protobuf from "protobufjs"
 import { leancode } from "./protocol"
 import { SchemaCommand } from "./schemaCommand"
 import { SchemaEnum } from "./schemaEnum"
+import { SchemaExtensions } from "./schemaExtensions"
 import { SchemaInterface } from "./schemaInterface"
 import { SchemaOperation } from "./schemaOperation"
 import { SchemaQuery } from "./schemaQuery"
 import { SchemaTopic } from "./schemaTopic"
-import { Buffer } from "node:buffer"
-import { SchemaExtensions } from "./schemaExtensions"
 
 export type SchemaEntity = SchemaEnum | SchemaInterface
-export type Protocol = {
-    version: string
-    extensions: SchemaExtensions
-}
+export type Protocol = { version: string; extensions: SchemaExtensions }
 
 export interface GeneratorSchema {
     entities: SchemaEntity[]

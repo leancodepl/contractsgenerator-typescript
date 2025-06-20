@@ -1,4 +1,4 @@
-/*eslint-disable no-undef,no-prototype-builtins,no-redeclare*/
+ 
 "use strict";
 
 var $protobuf = require("protobufjs/minimal");

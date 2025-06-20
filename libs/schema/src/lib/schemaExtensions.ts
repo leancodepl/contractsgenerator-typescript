@@ -1,8 +1,3 @@
-import { ensureNotEmpty } from "@leancodepl/utils"
-import { leancode } from "./protocol"
-import { SchemaInterface } from "./schemaInterface"
-import { createType } from "./types"
-
 export enum KnownExtensions {
     DateTime = "datetime",
 }

@@ -4,10 +4,10 @@ import { DatePicker } from "../../../../DatePicker"
 import { ConfirmResetButtons } from "../../common/ConfirmResetButtons"
 import { FilterDropdownWrapper } from "../../common/FilterDropdownWrapper"
 
-type DatePickerFilterProps = {
+type DatePickerFilterProps = FilterDropdownProps & {
     placeholder?: string
     type?: "dateOnly" | "dateTimeOffset"
-} & FilterDropdownProps
+}
 
 export function DatePickerFilter({
     setSelectedKeys,
@@ -19,7 +19,7 @@ export function DatePickerFilter({
     return (
         <FilterDropdownWrapper>
             <DatePicker
-                // eslint-disable-next-line jsx-a11y/no-autofocus
+                 
                 autoFocus
                 showTime={type === "dateTimeOffset"}
                 value={selectedKeys[0] ? dayjs(selectedKeys[0]) : null}

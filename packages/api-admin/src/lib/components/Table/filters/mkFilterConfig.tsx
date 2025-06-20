@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { TableColumnType } from "antd"
 import { FilterValue } from "antd/lib/table/interface"
 import dayjs from "dayjs"
@@ -13,10 +13,10 @@ import { NumberPickerFilter } from "./singleValueFilters/NumberPickerFilter"
 import { TextSearchFilter } from "./singleValueFilters/TextSearchFilter"
 import { TimePickerFilter } from "./singleValueFilters/TimePickerFilter"
 
-export type FilterConfig<TRecordType> = {
+export type FilterConfig<TRecordType> = Pick<TableColumnType<TRecordType>, "filterDropdown" | "filterMultiple" | "filters"> & {
     onChange?: (value: FilterValue | null) => void
     formatForRequest?: (value: FilterValue | null) => any
-} & Pick<TableColumnType<TRecordType>, "filterDropdown" | "filterMultiple" | "filters">
+}
 
 export function mkFilterConfig<T>(filter: AdminFilterConfig, enumsMap: EnumsMap): FilterConfig<T> {
     switch (filter.variant) {

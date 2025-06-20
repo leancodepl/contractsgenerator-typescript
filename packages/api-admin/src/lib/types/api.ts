@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 
 import { mkCqrsClient } from "@leancodepl/react-query-cqrs-client"
 
@@ -13,4 +13,4 @@ export type PoorMansAPI = {
 
 export type ClientFactoryContracts = Record<string, [ContractParams, ContractResponse]>
 
-export type CQRS = (cqrsClient: { createTopic: any } & ReturnType<typeof mkCqrsClient>) => Record<string, unknown>
+export type CQRS = (cqrsClient: ReturnType<typeof mkCqrsClient> & { createTopic: any }) => Record<string, unknown>

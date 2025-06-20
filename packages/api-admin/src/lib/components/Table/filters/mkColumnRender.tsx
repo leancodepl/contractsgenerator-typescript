@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { ReactNode } from "react"
 import { AdminTableColumn, EnumsMap } from "@leancodepl/contractsgenerator-typescript-plugin-admin"
 import { defaultFormatters } from "../formatters/defaultFormatters"

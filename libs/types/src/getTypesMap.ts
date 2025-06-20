@@ -9,15 +9,15 @@ type CustomTypesMap = Partial<
     Record<
         Exclude<
             keyof typeof leancode.contracts.KnownType,
+            | "Array"
+            | "Attribute"
             | "AuthorizeWhenAttribute"
             | "AuthorizeWhenHasAnyOfAttribute"
-            | "Attribute"
-            | "Topic"
             | "CommandResult"
-            | "Query"
-            | "Operation"
             | "Map"
-            | "Array"
+            | "Operation"
+            | "Query"
+            | "Topic"
         >,
         string
     >

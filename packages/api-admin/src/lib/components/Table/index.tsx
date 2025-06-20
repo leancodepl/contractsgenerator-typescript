@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactNode, useCallback, useMemo, useState } from "react"
 import { keepPreviousData } from "@tanstack/react-query"
 import { Table as AntTable, TableProps as AntTableProps, TableColumnType, TableProps } from "antd"
-/* eslint-disable react-hooks/rules-of-hooks */
 import type {
     AdminComponentsConfig,
     AdminTableColumn,
@@ -10,7 +8,7 @@ import type {
     EnumsMap,
 } from "@leancodepl/contractsgenerator-typescript-plugin-admin"
 import { mkCqrsClient } from "@leancodepl/react-query-cqrs-client"
-import { UncapitalizeDeep, assertNotEmpty, toLowerFirst } from "@leancodepl/utils"
+import { assertNotEmpty, toLowerFirst, UncapitalizeDeep } from "@leancodepl/utils"
 import { CqrsClientConfig } from "../../createApiComponents"
 import { AdminQuery, AdminQueryResult } from "../../types/admin"
 import { CQRS } from "../../types/api"
@@ -20,6 +18,7 @@ import { FilterConfig, mkFilterConfig } from "./filters/mkFilterConfig"
 import { ApiTablePaginationConfig, useApiTablePagination } from "./hooks/useApiTablePagination"
 import { useApiTableSorting } from "./hooks/useApiTableSorting"
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const __createQueryType: ReturnType<typeof mkCqrsClient>["createQuery"] = null as any
 
 type CreateQueryResult<TQuery, TResult> = ReturnType<typeof __createQueryType<TQuery, TResult>>
@@ -34,28 +33,23 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
 ) {
     type TQueryParams = Omit<TQueryConfig, keyof AdminQuery<any>>
 
-    // eslint-disable-next-line @typescript-eslint/ban-types
     type TQueryParamsProps = {} extends TQueryParams
         ? { requestParams?: TQueryParams }
         : { requestParams: TQueryParams }
 
     type Columns = TAdminTable["columns"]
 
-    type ColumnsProps = {
-        [TKey in keyof Columns]: ColumnProps<Columns[TKey]>
-    }[number]
+    type ColumnsProps = { [TKey in keyof Columns]: ColumnProps<Columns[TKey]> }[number]
 
     type ColumnProps<TColumn> = TColumn extends AdminTableColumn
         ? {
               [TKey in `${TColumn["id"]}Filter`]?: TColumn["filter"] extends undefined ? never : FilterConfig<TRecord>
-          } & {
-              [TKey in `${TColumn["id"]}Render`]?: (value: unknown, record: TRecord) => ReactNode
-          }
+          } & { [TKey in `${TColumn["id"]}Render`]?: (value: unknown, record: TRecord) => ReactNode }
         : never
 
-    type ApiTableProps = { pagination?: ApiTablePaginationConfig } & ColumnsProps &
+    type ApiTableProps = ColumnsProps &
         Omit<AntTableProps<TRecord>, "columns" | "dataSource" | "loading" | "onChange" | "pagination"> &
-        TQueryParamsProps
+        TQueryParamsProps & { pagination?: ApiTablePaginationConfig }
 
     const columnsDefaults = columns.reduce(
         (defaults, column) => ({
@@ -65,13 +59,7 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
                 filter: column.filter ? mkFilterConfig(column.filter, enumsMap) : undefined,
             },
         }),
-        {} as Record<
-            string,
-            {
-                render: (value: any, record: any) => ReactNode
-                filter?: FilterConfig<TRecord>
-            }
-        >,
+        {} as Record<string, { render: (value: any, record: any) => ReactNode; filter?: FilterConfig<TRecord> }>,
     )
 
     const useQuery = apiClient[query]
@@ -86,15 +74,8 @@ function mkApiTable<TAdminTable extends AdminTableConfig, TQueryConfig extends A
         const [filtersQueryParams, setFiltersQueryParams] = useState<Record<string, unknown>>({})
 
         const { data, isLoading } = useQuery(
-            {
-                ...requestParams,
-                ...sortQueryParams,
-                ...filtersQueryParams,
-                ...paginationQueryParams,
-            },
-            {
-                placeholderData: keepPreviousData,
-            },
+            { ...requestParams, ...sortQueryParams, ...filtersQueryParams, ...paginationQueryParams },
+            { placeholderData: keepPreviousData },
         )
 
         useSetTotal(data?.total)
