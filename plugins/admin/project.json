@@ -3,17 +3,23 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "plugins/admin/src",
   "projectType": "library",
-  "tags": ["plugin"],
+  "tags": [
+    "plugin"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/plugins/admin",
         "tsConfig": "plugins/admin/tsconfig.lib.json",
         "packageJson": "plugins/admin/package.json",
         "main": "plugins/admin/src/index.ts",
-        "assets": ["plugins/admin/*.md"]
+        "assets": [
+          "plugins/admin/*.md"
+        ]
       }
     },
     "lint": {
@@ -35,14 +41,9 @@
       "options": {
         "command": "node tools/scripts/publish.mjs admin {args.registry} {args.ver} {args.tag}"
       },
-      "dependsOn": ["build"]
-    },
-    "validator": {
-      "executor": "nx:run-commands",
-      "options": {
-        "cwd": "plugins/admin",
-        "command": "ts-to-zod src/configuration.ts src/configuration.validator.ts"
-      }
+      "dependsOn": [
+        "build"
+      ]
     }
   }
 }

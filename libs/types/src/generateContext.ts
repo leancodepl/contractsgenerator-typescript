@@ -9,5 +9,5 @@ export interface GenerateContext {
 
 export type TypesMap = Record<
     leancode.contracts.KnownType,
-    (config: { typeArguments: SchemaType[]; context: GenerateContext }) => ts.TypeNode | undefined
+    ((config: { typeArguments: SchemaType[]; context: GenerateContext }) => ts.TypeNode | undefined) | undefined
 >

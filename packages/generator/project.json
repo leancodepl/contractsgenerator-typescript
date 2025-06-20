@@ -3,17 +3,23 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/generator/src",
   "projectType": "library",
-  "tags": ["package"],
+  "tags": [
+    "package"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/packages/generator",
         "tsConfig": "packages/generator/tsconfig.lib.json",
         "packageJson": "packages/generator/package.json",
         "main": "packages/generator/src/index.ts",
-        "assets": ["packages/generator/*.md"]
+        "assets": [
+          "packages/generator/*.md"
+        ]
       },
       "configurations": {
         "bin": {
@@ -40,14 +46,9 @@
       "options": {
         "command": "node tools/scripts/publish.mjs generator {args.registry} {args.ver} {args.tag}"
       },
-      "dependsOn": ["build"]
-    },
-    "validator": {
-      "executor": "nx:run-commands",
-      "options": {
-        "cwd": "packages/generator",
-        "command": "ts-to-zod src/generate.ts src/schema.ts"
-      }
+      "dependsOn": [
+        "build"
+      ]
     }
   }
 }

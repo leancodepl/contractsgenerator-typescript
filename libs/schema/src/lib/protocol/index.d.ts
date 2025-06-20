@@ -27,6 +27,7 @@ export namespace leancode {
             TimeOnly = 201,
             DateTimeOffset = 202,
             TimeSpan = 203,
+            DateTime = 204,
             Array = 300,
             Map = 301,
             Query = 1000,
@@ -2530,6 +2531,86 @@ export namespace leancode {
             }
         }
 
+        /** Properties of a Protocol. */
+        interface IProtocol {
+
+            /** Protocol version */
+            version?: (string|null);
+
+            /** Protocol extensions */
+            extensions?: (string[]|null);
+        }
+
+        /** Represents a Protocol. */
+        class Protocol implements IProtocol {
+
+            /**
+             * Constructs a new Protocol.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: leancode.contracts.IProtocol);
+
+            /** Protocol version. */
+            public version: string;
+
+            /** Protocol extensions. */
+            public extensions: string[];
+
+            /**
+             * Decodes a Protocol message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns Protocol
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): leancode.contracts.Protocol;
+
+            /**
+             * Decodes a Protocol message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns Protocol
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): leancode.contracts.Protocol;
+
+            /**
+             * Verifies a Protocol message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a Protocol message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns Protocol
+             */
+            public static fromObject(object: { [k: string]: any }): leancode.contracts.Protocol;
+
+            /**
+             * Creates a plain object from a Protocol message. Also converts values to other types if specified.
+             * @param message Protocol
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: leancode.contracts.Protocol, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this Protocol to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+
+            /**
+             * Gets the default type url for Protocol
+             * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns The default type url
+             */
+            public static getTypeUrl(typeUrlPrefix?: string): string;
+        }
+
         /** Properties of an Export. */
         interface IExport {
 
@@ -2541,6 +2622,9 @@ export namespace leancode {
 
             /** Export knownErrorGroups */
             knownErrorGroups?: (leancode.contracts.ErrorCode.IGroup[]|null);
+
+            /** Export protocol */
+            protocol?: (leancode.contracts.IProtocol|null);
         }
 
         /** Represents an Export. */
@@ -2560,6 +2644,9 @@ export namespace leancode {
 
             /** Export knownErrorGroups. */
             public knownErrorGroups: leancode.contracts.ErrorCode.IGroup[];
+
+            /** Export protocol. */
+            public protocol?: (leancode.contracts.IProtocol|null);
 
             /**
              * Decodes an Export message from the specified reader or buffer.

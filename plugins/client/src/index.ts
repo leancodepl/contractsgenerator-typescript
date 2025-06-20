@@ -1,5 +1,3 @@
-import { transform } from "lodash"
-import ts from "typescript"
 import {
     GeneratorPlugin,
     GeneratorPluginInstance,
@@ -7,9 +5,14 @@ import {
 } from "@leancodepl/contractsgenerator-typescript-plugin"
 import { isSchemaInterface, leancode } from "@leancodepl/contractsgenerator-typescript-schema"
 import { TypesMap, createCustomTypeMapper, defaultTypesMap } from "@leancodepl/contractsgenerator-typescript-types"
+import { transform } from "lodash"
+import ts from "typescript"
 import { ClientContext } from "./clientContext"
-import { ClientGeneratorPluginConfiguration, CustomTypesMap } from "./configuration"
-import { clientGeneratorPluginConfigurationSchema } from "./configuration.validator"
+import {
+    ClientGeneratorPluginConfiguration,
+    CustomTypesMap,
+    clientGeneratorPluginConfigurationSchema,
+} from "./configuration"
 import { generateClient } from "./generators/generateClient"
 
 class ClientGeneratorPlugin implements GeneratorPluginInstance {
@@ -25,9 +28,7 @@ class ClientGeneratorPlugin implements GeneratorPluginInstance {
     async generate(): Promise<string> {
         const schema = await this.context.getSchema(this.configuration.input)
 
-        const printer = ts.createPrinter({
-            newLine: ts.NewLineKind.LineFeed,
-        })
+        const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed })
 
         const printNode = (node: ts.Node) =>
             printer.printNode(

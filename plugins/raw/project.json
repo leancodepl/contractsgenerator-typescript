@@ -3,24 +3,33 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "plugins/raw/src",
   "projectType": "library",
-  "tags": ["plugin"],
+  "tags": [
+    "plugin"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/plugins/raw",
         "tsConfig": "plugins/raw/tsconfig.lib.json",
         "packageJson": "plugins/raw/package.json",
         "main": "plugins/raw/src/index.ts",
-        "assets": ["plugins/raw/*.md"]
+        "assets": [
+          "plugins/raw/*.md"
+        ]
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint"
     },
     "test": {
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}", "{workspaceRoot}/coverage/plugins/admin"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}",
+        "{workspaceRoot}/coverage/plugins/admin"
+      ],
       "options": {
         "passWithNoTests": true
       },
@@ -36,14 +45,9 @@
       "options": {
         "command": "node tools/scripts/publish.mjs raw {args.registry} {args.ver} {args.tag}"
       },
-      "dependsOn": ["build"]
-    },
-    "validator": {
-      "executor": "nx:run-commands",
-      "options": {
-        "cwd": "plugins/raw",
-        "command": "ts-to-zod src/configuration.ts src/configuration.validator.ts"
-      }
+      "dependsOn": [
+        "build"
+      ]
     }
   }
 }

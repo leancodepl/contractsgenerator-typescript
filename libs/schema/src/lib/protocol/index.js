@@ -50,6 +50,7 @@ $root.leancode = (function() {
          * @property {number} TimeOnly=201 TimeOnly value
          * @property {number} DateTimeOffset=202 DateTimeOffset value
          * @property {number} TimeSpan=203 TimeSpan value
+         * @property {number} DateTime=204 DateTime value
          * @property {number} Array=300 Array value
          * @property {number} Map=301 Map value
          * @property {number} Query=1000 Query value
@@ -83,6 +84,7 @@ $root.leancode = (function() {
             values[valuesById[201] = "TimeOnly"] = 201;
             values[valuesById[202] = "DateTimeOffset"] = 202;
             values[valuesById[203] = "TimeSpan"] = 203;
+            values[valuesById[204] = "DateTime"] = 204;
             values[valuesById[300] = "Array"] = 300;
             values[valuesById[301] = "Map"] = 301;
             values[valuesById[1000] = "Query"] = 1000;
@@ -190,12 +192,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ValueRef.decode = function decode(reader, length) {
+            ValueRef.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.ValueRef();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             message["null"] = $root.leancode.contracts.ValueRef.Null.decode(reader, reader.uint32());
@@ -445,12 +449,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Null.decode = function decode(reader, length) {
+                Null.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.ValueRef.Null();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         default:
                             reader.skipType(tag & 7);
@@ -589,12 +595,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Number.decode = function decode(reader, length) {
+                Number.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.ValueRef.Number();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.value = reader.int64();
@@ -764,12 +772,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                FloatingPointNumber.decode = function decode(reader, length) {
+                FloatingPointNumber.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.ValueRef.FloatingPointNumber();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.value = reader.double();
@@ -925,12 +935,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                String.decode = function decode(reader, length) {
+                String.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.ValueRef.String();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.value = reader.string();
@@ -1086,12 +1098,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Boolean.decode = function decode(reader, length) {
+                Boolean.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.ValueRef.Boolean();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.value = reader.bool();
@@ -1291,12 +1305,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            TypeRef.decode = function decode(reader, length) {
+            TypeRef.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.TypeRef();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             message.nullable = reader.bool();
@@ -1520,12 +1536,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Generic.decode = function decode(reader, length) {
+                Generic.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.TypeRef.Generic();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.name = reader.string();
@@ -1691,12 +1709,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Internal.decode = function decode(reader, length) {
+                Internal.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.TypeRef.Internal();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.name = reader.string();
@@ -1894,12 +1914,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Known.decode = function decode(reader, length) {
+                Known.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.TypeRef.Known();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.type = reader.int32();
@@ -1969,6 +1991,7 @@ $root.leancode = (function() {
                         case 201:
                         case 202:
                         case 203:
+                        case 204:
                         case 300:
                         case 301:
                         case 1000:
@@ -2088,6 +2111,10 @@ $root.leancode = (function() {
                     case "TimeSpan":
                     case 203:
                         message.type = 203;
+                        break;
+                    case "DateTime":
+                    case 204:
+                        message.type = 204;
                         break;
                     case "Array":
                     case 300:
@@ -2258,12 +2285,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            NotificationTypeRef.decode = function decode(reader, length) {
+            NotificationTypeRef.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.NotificationTypeRef();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             message.type = $root.leancode.contracts.TypeRef.decode(reader, reader.uint32());
@@ -2437,12 +2466,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            GenericParameter.decode = function decode(reader, length) {
+            GenericParameter.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.GenericParameter();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             message.name = reader.string();
@@ -2621,12 +2652,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            AttributeArgument.decode = function decode(reader, length) {
+            AttributeArgument.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.AttributeArgument();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             message.positional = $root.leancode.contracts.AttributeArgument.Positional.decode(reader, reader.uint32());
@@ -2822,12 +2855,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Positional.decode = function decode(reader, length) {
+                Positional.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.AttributeArgument.Positional();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.position = reader.int32();
@@ -3010,12 +3045,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Named.decode = function decode(reader, length) {
+                Named.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.AttributeArgument.Named();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.name = reader.string();
@@ -3202,12 +3239,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            AttributeRef.decode = function decode(reader, length) {
+            AttributeRef.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.AttributeRef();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             message.attributeName = reader.string();
@@ -3423,12 +3462,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            PropertyRef.decode = function decode(reader, length) {
+            PropertyRef.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.PropertyRef();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             message.type = $root.leancode.contracts.TypeRef.decode(reader, reader.uint32());
@@ -3664,12 +3705,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ConstantRef.decode = function decode(reader, length) {
+            ConstantRef.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.ConstantRef();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             message.name = reader.string();
@@ -3883,12 +3926,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            EnumValue.decode = function decode(reader, length) {
+            EnumValue.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.EnumValue();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             message.name = reader.string();
@@ -4138,12 +4183,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            ErrorCode.decode = function decode(reader, length) {
+            ErrorCode.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.ErrorCode();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             message.single = $root.leancode.contracts.ErrorCode.Single.decode(reader, reader.uint32());
@@ -4339,12 +4386,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Single.decode = function decode(reader, length) {
+                Single.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.ErrorCode.Single();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.name = reader.string();
@@ -4532,12 +4581,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Group.decode = function decode(reader, length) {
+                Group.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.ErrorCode.Group();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.name = reader.string();
@@ -4772,12 +4823,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            TypeDescriptor.decode = function decode(reader, length) {
+            TypeDescriptor.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.TypeDescriptor();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             if (!(message["extends"] && message["extends"].length))
@@ -5133,12 +5186,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Statement.decode = function decode(reader, length) {
+            Statement.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.Statement();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             message.name = reader.string();
@@ -5479,12 +5534,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                DTO.decode = function decode(reader, length) {
+                DTO.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.Statement.DTO();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
@@ -5646,12 +5703,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Enum.decode = function decode(reader, length) {
+                Enum.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.Statement.Enum();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 if (!(message.members && message.members.length))
@@ -5835,12 +5894,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Query.decode = function decode(reader, length) {
+                Query.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.Statement.Query();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
@@ -6029,12 +6090,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Command.decode = function decode(reader, length) {
+                Command.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.Statement.Command();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
@@ -6236,12 +6299,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Operation.decode = function decode(reader, length) {
+                Operation.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.Statement.Operation();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
@@ -6430,12 +6495,14 @@ $root.leancode = (function() {
                  * @throws {Error} If the payload is not a reader or valid buffer
                  * @throws {$protobuf.util.ProtocolError} If required fields are missing
                  */
-                Topic.decode = function decode(reader, length) {
+                Topic.decode = function decode(reader, length, error) {
                     if (!(reader instanceof $Reader))
                         reader = $Reader.create(reader);
                     var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.Statement.Topic();
                     while (reader.pos < end) {
                         var tag = reader.uint32();
+                        if (tag === error)
+                            break;
                         switch (tag >>> 3) {
                         case 1: {
                                 message.typeDescriptor = $root.leancode.contracts.TypeDescriptor.decode(reader, reader.uint32());
@@ -6588,6 +6655,206 @@ $root.leancode = (function() {
             return Statement;
         })();
 
+        contracts.Protocol = (function() {
+
+            /**
+             * Properties of a Protocol.
+             * @memberof leancode.contracts
+             * @interface IProtocol
+             * @property {string|null} [version] Protocol version
+             * @property {Array.<string>|null} [extensions] Protocol extensions
+             */
+
+            /**
+             * Constructs a new Protocol.
+             * @memberof leancode.contracts
+             * @classdesc Represents a Protocol.
+             * @implements IProtocol
+             * @constructor
+             * @param {leancode.contracts.IProtocol=} [properties] Properties to set
+             */
+            function Protocol(properties) {
+                this.extensions = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+
+            /**
+             * Protocol version.
+             * @member {string} version
+             * @memberof leancode.contracts.Protocol
+             * @instance
+             */
+            Protocol.prototype.version = "";
+
+            /**
+             * Protocol extensions.
+             * @member {Array.<string>} extensions
+             * @memberof leancode.contracts.Protocol
+             * @instance
+             */
+            Protocol.prototype.extensions = $util.emptyArray;
+
+            /**
+             * Decodes a Protocol message from the specified reader or buffer.
+             * @function decode
+             * @memberof leancode.contracts.Protocol
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {leancode.contracts.Protocol} Protocol
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Protocol.decode = function decode(reader, length, error) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.Protocol();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    if (tag === error)
+                        break;
+                    switch (tag >>> 3) {
+                    case 1: {
+                            message.version = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            if (!(message.extensions && message.extensions.length))
+                                message.extensions = [];
+                            message.extensions.push(reader.string());
+                            break;
+                        }
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+
+            /**
+             * Decodes a Protocol message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof leancode.contracts.Protocol
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {leancode.contracts.Protocol} Protocol
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            Protocol.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+
+            /**
+             * Verifies a Protocol message.
+             * @function verify
+             * @memberof leancode.contracts.Protocol
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            Protocol.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.version != null && message.hasOwnProperty("version"))
+                    if (!$util.isString(message.version))
+                        return "version: string expected";
+                if (message.extensions != null && message.hasOwnProperty("extensions")) {
+                    if (!Array.isArray(message.extensions))
+                        return "extensions: array expected";
+                    for (var i = 0; i < message.extensions.length; ++i)
+                        if (!$util.isString(message.extensions[i]))
+                            return "extensions: string[] expected";
+                }
+                return null;
+            };
+
+            /**
+             * Creates a Protocol message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof leancode.contracts.Protocol
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {leancode.contracts.Protocol} Protocol
+             */
+            Protocol.fromObject = function fromObject(object) {
+                if (object instanceof $root.leancode.contracts.Protocol)
+                    return object;
+                var message = new $root.leancode.contracts.Protocol();
+                if (object.version != null)
+                    message.version = String(object.version);
+                if (object.extensions) {
+                    if (!Array.isArray(object.extensions))
+                        throw TypeError(".leancode.contracts.Protocol.extensions: array expected");
+                    message.extensions = [];
+                    for (var i = 0; i < object.extensions.length; ++i)
+                        message.extensions[i] = String(object.extensions[i]);
+                }
+                return message;
+            };
+
+            /**
+             * Creates a plain object from a Protocol message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof leancode.contracts.Protocol
+             * @static
+             * @param {leancode.contracts.Protocol} message Protocol
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            Protocol.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults)
+                    object.extensions = [];
+                if (options.defaults)
+                    object.version = "";
+                if (message.version != null && message.hasOwnProperty("version"))
+                    object.version = message.version;
+                if (message.extensions && message.extensions.length) {
+                    object.extensions = [];
+                    for (var j = 0; j < message.extensions.length; ++j)
+                        object.extensions[j] = message.extensions[j];
+                }
+                return object;
+            };
+
+            /**
+             * Converts this Protocol to JSON.
+             * @function toJSON
+             * @memberof leancode.contracts.Protocol
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            Protocol.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+
+            /**
+             * Gets the default type url for Protocol
+             * @function getTypeUrl
+             * @memberof leancode.contracts.Protocol
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            Protocol.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/leancode.contracts.Protocol";
+            };
+
+            return Protocol;
+        })();
+
         contracts.Export = (function() {
 
             /**
@@ -6597,6 +6864,7 @@ $root.leancode = (function() {
              * @property {string|null} [projectName] Export projectName
              * @property {Array.<leancode.contracts.IStatement>|null} [statements] Export statements
              * @property {Array.<leancode.contracts.ErrorCode.IGroup>|null} [knownErrorGroups] Export knownErrorGroups
+             * @property {leancode.contracts.IProtocol|null} [protocol] Export protocol
              */
 
             /**
@@ -6641,6 +6909,14 @@ $root.leancode = (function() {
             Export.prototype.knownErrorGroups = $util.emptyArray;
 
             /**
+             * Export protocol.
+             * @member {leancode.contracts.IProtocol|null|undefined} protocol
+             * @memberof leancode.contracts.Export
+             * @instance
+             */
+            Export.prototype.protocol = null;
+
+            /**
              * Decodes an Export message from the specified reader or buffer.
              * @function decode
              * @memberof leancode.contracts.Export
@@ -6651,12 +6927,14 @@ $root.leancode = (function() {
              * @throws {Error} If the payload is not a reader or valid buffer
              * @throws {$protobuf.util.ProtocolError} If required fields are missing
              */
-            Export.decode = function decode(reader, length) {
+            Export.decode = function decode(reader, length, error) {
                 if (!(reader instanceof $Reader))
                     reader = $Reader.create(reader);
                 var end = length === undefined ? reader.len : reader.pos + length, message = new $root.leancode.contracts.Export();
                 while (reader.pos < end) {
                     var tag = reader.uint32();
+                    if (tag === error)
+                        break;
                     switch (tag >>> 3) {
                     case 1: {
                             message.projectName = reader.string();
@@ -6672,6 +6950,10 @@ $root.leancode = (function() {
                             if (!(message.knownErrorGroups && message.knownErrorGroups.length))
                                 message.knownErrorGroups = [];
                             message.knownErrorGroups.push($root.leancode.contracts.ErrorCode.Group.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 4: {
+                            message.protocol = $root.leancode.contracts.Protocol.decode(reader, reader.uint32());
                             break;
                         }
                     default:
@@ -6730,6 +7012,11 @@ $root.leancode = (function() {
                             return "knownErrorGroups." + error;
                     }
                 }
+                if (message.protocol != null && message.hasOwnProperty("protocol")) {
+                    var error = $root.leancode.contracts.Protocol.verify(message.protocol);
+                    if (error)
+                        return "protocol." + error;
+                }
                 return null;
             };
 
@@ -6767,6 +7054,11 @@ $root.leancode = (function() {
                         message.knownErrorGroups[i] = $root.leancode.contracts.ErrorCode.Group.fromObject(object.knownErrorGroups[i]);
                     }
                 }
+                if (object.protocol != null) {
+                    if (typeof object.protocol !== "object")
+                        throw TypeError(".leancode.contracts.Export.protocol: object expected");
+                    message.protocol = $root.leancode.contracts.Protocol.fromObject(object.protocol);
+                }
                 return message;
             };
 
@@ -6787,8 +7079,10 @@ $root.leancode = (function() {
                     object.statements = [];
                     object.knownErrorGroups = [];
                 }
-                if (options.defaults)
+                if (options.defaults) {
                     object.projectName = "";
+                    object.protocol = null;
+                }
                 if (message.projectName != null && message.hasOwnProperty("projectName"))
                     object.projectName = message.projectName;
                 if (message.statements && message.statements.length) {
@@ -6801,6 +7095,8 @@ $root.leancode = (function() {
                     for (var j = 0; j < message.knownErrorGroups.length; ++j)
                         object.knownErrorGroups[j] = $root.leancode.contracts.ErrorCode.Group.toObject(message.knownErrorGroups[j], options);
                 }
+                if (message.protocol != null && message.hasOwnProperty("protocol"))
+                    object.protocol = $root.leancode.contracts.Protocol.toObject(message.protocol, options);
                 return object;
             };
 

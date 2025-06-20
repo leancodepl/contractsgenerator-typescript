@@ -8,11 +8,17 @@ import { SchemaOperation } from "./schemaOperation"
 import { SchemaQuery } from "./schemaQuery"
 import { SchemaTopic } from "./schemaTopic"
 import { Buffer } from "node:buffer"
+import { SchemaExtensions } from "./schemaExtensions"
 
 export type SchemaEntity = SchemaEnum | SchemaInterface
+export type Protocol = {
+    version: string
+    extensions: SchemaExtensions
+}
 
 export interface GeneratorSchema {
     entities: SchemaEntity[]
+    protocol: Protocol
 }
 
 export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
@@ -37,5 +43,9 @@ export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
 
     return {
         entities,
+        protocol: {
+            version: schema.protocol?.version ?? "0.0.0",
+            extensions: new SchemaExtensions(schema.protocol?.extensions ?? []),
+        },
     }
 }
