@@ -148,9 +148,3 @@ module.exports = {
     },
 }
 ```
-
-## Overriding shell
-
-Generating contract from backend is done by running shell script. By default this script is run with `'/bin/sh'` on Unix
-systems and `bash` on Windows. You can override it by providing `CONTRACTS_GENERATOR_SHELL` env variable with the target
-shell

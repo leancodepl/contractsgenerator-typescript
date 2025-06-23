@@ -17,7 +17,6 @@ export function TextSearchFilter({
     return (
         <div style={{ padding: 8 }}>
             <Input
-                 
                 autoFocus
                 placeholder={placeholder}
                 style={{ width: 188, marginBottom: 8, display: "block" }}

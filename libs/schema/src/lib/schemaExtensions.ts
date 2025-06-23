@@ -2,12 +2,12 @@ export enum KnownExtensions {
     DateTime = "datetime",
 }
 
+const knownExtensions: string[] = Object.values(KnownExtensions)
+
 export class SchemaExtensions {
     extensions: KnownExtensions[] = []
 
     constructor(extensions: string[]) {
-        const knownExtensions = Object.values(KnownExtensions) as string[]
-
         for (const extension of extensions) {
             if (knownExtensions.includes(extension)) {
                 this.extensions.push(extension as KnownExtensions)

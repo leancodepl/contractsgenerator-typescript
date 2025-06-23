@@ -19,7 +19,7 @@ export interface GeneratorSchema {
 }
 
 export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
-    const reader = protobuf.Reader.create(schemaBytes as unknown as Uint8Array)
+    const reader = protobuf.Reader.create(schemaBytes)
 
     const schema = leancode.contracts.Export.decode(reader)
 

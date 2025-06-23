@@ -1,4 +1,3 @@
- 
 import { TableColumnType } from "antd"
 import { FilterValue } from "antd/lib/table/interface"
 import dayjs from "dayjs"
@@ -13,7 +12,10 @@ import { NumberPickerFilter } from "./singleValueFilters/NumberPickerFilter"
 import { TextSearchFilter } from "./singleValueFilters/TextSearchFilter"
 import { TimePickerFilter } from "./singleValueFilters/TimePickerFilter"
 
-export type FilterConfig<TRecordType> = Pick<TableColumnType<TRecordType>, "filterDropdown" | "filterMultiple" | "filters"> & {
+export type FilterConfig<TRecordType> = Pick<
+    TableColumnType<TRecordType>,
+    "filterDropdown" | "filterMultiple" | "filters"
+> & {
     onChange?: (value: FilterValue | null) => void
     formatForRequest?: (value: FilterValue | null) => any
 }

@@ -16,7 +16,6 @@ export function TimeRangePickerFilter({
         <div style={{ padding: 8, display: "flex", flexDirection: "column", gap: 8 }}>
             <Space>
                 <TimeRangePicker
-                     
                     autoFocus
                     value={[
                         selectedKeys[0] ? dayjs(selectedKeys[0]) : null,

@@ -4,7 +4,6 @@ import { dateFormatters } from "./dateFormatter"
 import { otherTypeFormatters } from "./otherTypeFormatter"
 import { simpleTypeFormatters } from "./simpleTypeFormatter"
 
- 
 export const defaultFormatters: Record<leancode.contracts.KnownType, (value: any) => ReactNode> = {
     ...simpleTypeFormatters,
     ...dateFormatters,

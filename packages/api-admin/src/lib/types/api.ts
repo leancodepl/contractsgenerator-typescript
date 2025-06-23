@@ -1,5 +1,3 @@
- 
-
 import { mkCqrsClient } from "@leancodepl/react-query-cqrs-client"
 
 type ContractParams = Record<string, any> | undefined

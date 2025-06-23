@@ -19,7 +19,6 @@ export function DatePickerFilter({
     return (
         <FilterDropdownWrapper>
             <DatePicker
-                 
                 autoFocus
                 showTime={type === "dateTimeOffset"}
                 value={selectedKeys[0] ? dayjs(selectedKeys[0]) : null}
