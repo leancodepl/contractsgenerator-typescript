@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod/v4"
 
 export const generatorInputSchema = z.strictObject({
     raw: z.string().optional(),
@@ -35,7 +35,7 @@ export const customTypesMapSchema = z.strictObject({
 export const clientGeneratorPluginConfigurationSchema = z.object({
     input: generatorInputSchema,
     customTypes: customTypesMapSchema.optional(),
-    nameTransform: z.function().args(z.string()).returns(z.string()).optional(),
+    nameTransform: z.custom<(name: string) => string>().optional(),
 })
 
 export type GeneratorInput = z.infer<typeof generatorInputSchema>
