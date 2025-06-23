@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.7...v1.1.0) (2025-06-23)
+
+
+### Features
+
+* add date time handling ([bfc0c39](https://github.com/leancodepl/contractsgenerator-typescript/commit/bfc0c39208a4b7b6dd97bfd58b93ccc7f0ec7b5f))
+
+
+
+
+
 # [1.1.0-alpha.7](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.6...v1.1.0-alpha.7) (2024-12-19)
 
 **Note:** Version bump only for package @leancodepl/contractsgenerator-typescript-schema

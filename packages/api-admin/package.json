@@ -1,6 +1,6 @@
 {
   "name": "@leancodepl/admin",
-  "version": "1.1.0-alpha.7",
+  "version": "1.1.0",
   "license": "Apache-2.0",
   "main": "./index.js",
   "types": "./index.d.ts",
@@ -15,8 +15,8 @@
     "@ant-design/icons": ">=5.3.7",
     "@leancodepl/api-date": ">=7.2.3",
     "@leancodepl/api-date-dayjs": ">=7.2.3",
-    "@leancodepl/contractsgenerator-typescript-plugin-admin": "1.1.0-alpha.7",
-    "@leancodepl/contractsgenerator-typescript-schema": "1.1.0-alpha.7",
+    "@leancodepl/contractsgenerator-typescript-plugin-admin": "1.1.0",
+    "@leancodepl/contractsgenerator-typescript-schema": "1.1.0",
     "@leancodepl/react-query-cqrs-client": ">=7.2.3",
     "@leancodepl/utils": ">=7.2.3",
     "@nx/vite": ">=19.0.0",
