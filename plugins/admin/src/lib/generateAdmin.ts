@@ -1,16 +1,16 @@
 import {
     GeneratorSchema,
+    isSchemaEnum,
+    isSchemaInterface,
+    isSchemaInternalType,
+    isSchemaKnownType,
+    isSchemaStringValue,
     SchemaAttribute,
     SchemaEntity,
     SchemaEnumMember,
     SchemaInterface,
     SchemaProperty,
     SchemaType,
-    isSchemaEnum,
-    isSchemaInterface,
-    isSchemaInternalType,
-    isSchemaKnownType,
-    isSchemaStringValue,
 } from "@leancodepl/contractsgenerator-typescript-schema"
 import { assertNotEmpty, ensureNotEmpty } from "@leancodepl/utils"
 import {
@@ -34,11 +34,7 @@ export function admin(): string {
 export function generateAdmin(schema: GeneratorSchema, nameTransform: (id: string) => string): AdminComponentsConfig {
     const requiredEnums = new Set<string>()
 
-    const context: AdminContext = {
-        schema,
-        requireEnum: enumId => requiredEnums.add(enumId),
-        nameTransform,
-    }
+    const context: AdminContext = { schema, requireEnum: enumId => requiredEnums.add(enumId), nameTransform }
 
     const apiTables = generateApiTables(context)
 
@@ -167,19 +163,11 @@ export function getColumnFilter(
             if (relatedEntity && isSchemaEnum(relatedEntity)) {
                 context.requireEnum(relatedEntity.id)
 
-                return {
-                    variant: "enum",
-                    field: filterField.name,
-                    enum: relatedEntity.id,
-                }
+                return { variant: "enum", field: filterField.name, enum: relatedEntity.id }
             }
         }
     } else if (isSchemaKnownType(type)) {
-        return {
-            variant: "single",
-            field: filterField.name,
-            type: type.type as FilterableKnownType,
-        }
+        return { variant: "single", field: filterField.name, type: type.type as FilterableKnownType }
     }
 
     throw new Error(`Unsupported filter type received for ${adminQuery.id}.${schemaProperty.name}`)

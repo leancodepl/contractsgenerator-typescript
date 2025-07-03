@@ -1,11 +1,11 @@
 import { groupBy, toPairs } from "lodash"
 import ts from "typescript"
 import {
+    isSchemaEnum,
+    isSchemaInterface,
     SchemaEntity,
     SchemaEnum,
     SchemaInterface,
-    isSchemaEnum,
-    isSchemaInterface,
 } from "@leancodepl/contractsgenerator-typescript-schema"
 import { ContractsContext } from "../contractsContext"
 import { generateEnum } from "./generateEnum"

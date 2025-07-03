@@ -13,6 +13,7 @@
     "target": "es2017",
     "module": "esnext",
     "lib": ["ESNext"],
+    "strict": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",

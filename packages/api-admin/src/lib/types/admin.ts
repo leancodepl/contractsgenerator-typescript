@@ -1,7 +1,6 @@
 /* eslint-disable unused-imports/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-empty-interface */
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-interface
 export interface Query<TResult> {}
 
 export interface AdminQuery<TResult> extends Query<AdminQueryResult<TResult>> {

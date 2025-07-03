@@ -9,11 +9,10 @@
       "executor": "@nx/eslint:lint"
     },
     "build": {
-      "executor": "@nx/vite:build",
-      "outputs": ["{options.outputPath}"],
+      "outputs": ["{projectRoot}/{options.outDir}", "{workspaceRoot}/dist/packages/api-admin"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/api-admin"
+        "outDir": "../../dist/packages/api-admin"
       },
       "configurations": {
         "development": {
@@ -33,11 +32,17 @@
       }
     },
     "test": {
-      "executor": "@nx/vite:test",
-      "outputs": ["{workspaceRoot}/coverage/packages/api-admin"],
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/jest.preset.js",
+        {
+          "externalDependencies": ["vitest"]
+        }
+      ],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "../../coverage/packages/api-admin"
+        "coverage.reportsDirectory": "../../coverage/packages/api-admin"
       }
     },
     "publish": {

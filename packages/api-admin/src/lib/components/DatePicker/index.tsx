@@ -1,10 +1,8 @@
-import { forwardRef } from "react"
+import { ComponentPropsWithoutRef, forwardRef } from "react"
 import { DatePicker } from "antd"
-import { PickerTimeProps, RangePickerTimeProps } from "antd/lib/date-picker/generatePicker"
-import { Dayjs } from "dayjs"
 
-export type TimePickerProps = Omit<PickerTimeProps<Dayjs>, "picker">
-export type TimeRangePickerProps = Omit<RangePickerTimeProps<Dayjs>, "picker">
+export type TimePickerProps = Omit<ComponentPropsWithoutRef<typeof DatePicker>, "picker">
+export type TimeRangePickerProps = Omit<ComponentPropsWithoutRef<typeof DatePicker.RangePicker>, "picker">
 
 export const TimePicker = forwardRef<never, TimePickerProps>((props, ref) => (
     <DatePicker {...props} ref={ref} picker="time" />

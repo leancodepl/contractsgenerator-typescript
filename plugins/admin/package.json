@@ -1,10 +1,10 @@
 {
   "name": "@leancodepl/contractsgenerator-typescript-plugin-admin",
-  "version": "1.1.0-alpha.7",
+  "version": "1.1.0",
   "license": "Apache-2.0",
   "dependencies": {
-    "@leancodepl/contractsgenerator-typescript-plugin": "1.1.0-alpha.7",
-    "@leancodepl/contractsgenerator-typescript-schema": "1.1.0-alpha.7",
+    "@leancodepl/contractsgenerator-typescript-plugin": "1.1.0",
+    "@leancodepl/contractsgenerator-typescript-schema": "1.1.0",
     "@leancodepl/utils": ">=7.2.3",
     "zod": ">=3.22.0"
   }

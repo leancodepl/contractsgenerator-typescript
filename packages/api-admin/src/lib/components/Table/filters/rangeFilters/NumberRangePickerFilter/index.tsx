@@ -4,9 +4,9 @@ import { FilterDropdownProps } from "antd/lib/table/interface"
 import { bigIntToString } from "../../../../../utils/bigIntToString"
 import { ConfirmResetButtons } from "../../common/ConfirmResetButtons"
 
-type DatePickerFilterProps = {
+type DatePickerFilterProps = FilterDropdownProps & {
     placeholder?: string
-} & FilterDropdownProps
+}
 
 export function NumberRangePickerFilter({
     setSelectedKeys,

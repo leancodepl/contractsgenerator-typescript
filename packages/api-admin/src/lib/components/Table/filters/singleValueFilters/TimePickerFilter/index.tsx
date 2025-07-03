@@ -10,10 +10,9 @@ export function TimePickerFilter({ setSelectedKeys, selectedKeys, confirm, clear
     return (
         <FilterDropdownWrapper>
             <TimePicker
-                // eslint-disable-next-line jsx-a11y/no-autofocus
                 autoFocus
                 value={selectedKeys[0] ? dayjs(selectedKeys[0]) : null}
-                onChange={(_, date) => setSelectedKeys?.([date])}
+                onChange={(_, date) => setSelectedKeys?.(Array.isArray(date) ? date : [date])}
             />
             <ConfirmResetButtons clearFilters={clearFilters} confirm={confirm} />
         </FilterDropdownWrapper>

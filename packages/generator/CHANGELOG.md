@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.7...v1.1.0) (2025-06-23)
+
+
+### Features
+
+* add date time handling ([bfc0c39](https://github.com/leancodepl/contractsgenerator-typescript/commit/bfc0c39208a4b7b6dd97bfd58b93ccc7f0ec7b5f))
+* allow passing arbitrary options to server generator ([b05b744](https://github.com/leancodepl/contractsgenerator-typescript/commit/b05b7441050010f5802c0da82d0a93f370f061f2))
+* invoke server generator via dotnet tool, remove serverVersion config option ([2a06500](https://github.com/leancodepl/contractsgenerator-typescript/commit/2a06500d4e6417e615824074da7b20964fcdd86d))
+
+
+
+
+
 # [1.1.0-alpha.7](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.6...v1.1.0-alpha.7) (2024-12-19)
 
 **Note:** Version bump only for package @leancodepl/contractsgenerator-typescript

@@ -1,14 +1,11 @@
-import { transform } from "lodash"
-import ts from "typescript"
 import {
     GeneratorPlugin,
     GeneratorPluginInstance,
     GeneratorSessionContext,
 } from "@leancodepl/contractsgenerator-typescript-plugin"
-import { leancode } from "@leancodepl/contractsgenerator-typescript-schema"
-import { TypesMap, createCustomTypeMapper, defaultTypesMap } from "@leancodepl/contractsgenerator-typescript-types"
-import { ContractsGeneratorPluginConfiguration, CustomTypesMap } from "./configuration"
-import { contractsGeneratorPluginConfigurationSchema } from "./configuration.validator"
+import { getTypesMap } from "@leancodepl/contractsgenerator-typescript-types"
+import ts from "typescript"
+import { contractsGeneratorPluginConfigurationSchema } from "./configuration"
 import { ContractsContext } from "./contractsContext"
 import { generateNamespaces } from "./generators/generateNamespace"
 
@@ -25,9 +22,7 @@ class ContractsGeneratorPlugin implements GeneratorPluginInstance {
     async generate(): Promise<string> {
         const schema = await this.context.getSchema(this.configuration.input)
 
-        const printer = ts.createPrinter({
-            newLine: ts.NewLineKind.LineFeed,
-        })
+        const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed })
 
         const printNode = (node: ts.Node) =>
             printer.printNode(
@@ -43,7 +38,10 @@ class ContractsGeneratorPlugin implements GeneratorPluginInstance {
         const context: ContractsContext = {
             currentNamespace: [],
             nameTransform: this.configuration.nameTransform ?? (id => id),
-            typesMap: getTypesMap(this.configuration.customTypes),
+            typesMap: getTypesMap({
+                customTypes: this.configuration.customTypes,
+                extensions: schema.protocol.extensions,
+            }),
             schemaEntities: schema.entities,
             printNode,
             configuration: this.configuration,
@@ -59,19 +57,6 @@ class ContractsGeneratorPlugin implements GeneratorPluginInstance {
 
         return printNode(sourceFile)
     }
-}
-
-function getTypesMap(customTypes: ContractsGeneratorPluginConfiguration["customTypes"]): TypesMap {
-    if (!customTypes) return defaultTypesMap
-
-    return transform(
-        customTypes,
-        (typesMap, value, key) => {
-            const knownType = leancode.contracts.KnownType[key as keyof CustomTypesMap]
-            typesMap[knownType] = createCustomTypeMapper(value)
-        },
-        defaultTypesMap,
-    )
 }
 
 const contractsGeneratorPlugin: GeneratorPlugin = {

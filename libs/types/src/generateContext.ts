@@ -1,5 +1,5 @@
 import ts from "typescript"
-import { SchemaType, leancode } from "@leancodepl/contractsgenerator-typescript-schema"
+import { leancode, SchemaType } from "@leancodepl/contractsgenerator-typescript-schema"
 
 export interface GenerateContext {
     currentNamespace: string[]
@@ -9,5 +9,5 @@ export interface GenerateContext {
 
 export type TypesMap = Record<
     leancode.contracts.KnownType,
-    (config: { typeArguments: SchemaType[]; context: GenerateContext }) => ts.TypeNode | undefined
+    ((config: { typeArguments: SchemaType[]; context: GenerateContext }) => ts.TypeNode | undefined) | undefined
 >

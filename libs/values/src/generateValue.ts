@@ -1,10 +1,10 @@
 import ts from "typescript"
 import {
-    SchemaValue,
     isSchemaBooleanValue,
     isSchemaNullValue,
     isSchemaNumberValue,
     isSchemaStringValue,
+    SchemaValue,
 } from "@leancodepl/contractsgenerator-typescript-schema"
 import { generateBooleanValue } from "./generateBooleanValue"
 import { generateNullValue } from "./generateNullValue"

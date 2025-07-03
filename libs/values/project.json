@@ -27,10 +27,15 @@
       "dependsOn": ["build"]
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}", "{workspaceRoot}/coverage/plugins/values"],
       "options": {
-        "jestConfig": "libs/values/jest.config.ts"
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "coverage": true
+        }
       }
     }
   }

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.7...v1.1.0) (2025-06-23)
+
+**Note:** Version bump only for package @leancodepl/contractsgenerator-typescript-values
+
+
+
+
+
 # [1.1.0-alpha.7](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.6...v1.1.0-alpha.7) (2024-12-19)
 
 **Note:** Version bump only for package @leancodepl/contractsgenerator-typescript-values

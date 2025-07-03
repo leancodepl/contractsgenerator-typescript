@@ -1,9 +1,9 @@
 import ts from "typescript"
 import {
-    SchemaType,
     isSchemaGenericType,
     isSchemaInternalType,
     isSchemaKnownType,
+    SchemaType,
 } from "@leancodepl/contractsgenerator-typescript-schema"
 import { GenerateContext } from "./generateContext"
 import { generateGenericType } from "./generateGenericType"

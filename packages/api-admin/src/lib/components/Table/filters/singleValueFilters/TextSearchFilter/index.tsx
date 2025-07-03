@@ -3,9 +3,9 @@ import { FilterDropdownProps } from "antd/lib/table/interface"
 import { bigIntToString } from "../../../../../utils/bigIntToString"
 import { ConfirmResetButtons } from "../../common/ConfirmResetButtons"
 
-type TextSearchFilterProps = {
+type TextSearchFilterProps = FilterDropdownProps & {
     placeholder: string
-} & FilterDropdownProps
+}
 
 export function TextSearchFilter({
     setSelectedKeys,
@@ -17,7 +17,6 @@ export function TextSearchFilter({
     return (
         <div style={{ padding: 8 }}>
             <Input
-                // eslint-disable-next-line jsx-a11y/no-autofocus
                 autoFocus
                 placeholder={placeholder}
                 style={{ width: 188, marginBottom: 8, display: "block" }}
