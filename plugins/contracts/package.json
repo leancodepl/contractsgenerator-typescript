@@ -1,12 +1,12 @@
 {
   "name": "@leancodepl/contractsgenerator-typescript-plugin-contracts",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "Apache-2.0",
   "dependencies": {
-    "@leancodepl/contractsgenerator-typescript-plugin": "1.1.0",
-    "@leancodepl/contractsgenerator-typescript-schema": "1.1.0",
-    "@leancodepl/contractsgenerator-typescript-types": "1.1.0",
-    "@leancodepl/contractsgenerator-typescript-values": "1.1.0",
+    "@leancodepl/contractsgenerator-typescript-plugin": "1.1.1",
+    "@leancodepl/contractsgenerator-typescript-schema": "1.1.1",
+    "@leancodepl/contractsgenerator-typescript-types": "1.1.1",
+    "@leancodepl/contractsgenerator-typescript-values": "1.1.1",
     "lodash": "^4.0.0",
     "zod": ">=3.22.0"
   },
