@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0...v1.1.1) (2025-10-02)
+
+
+### Bug Fixes
+
+* generate arguments passed to obsolete attribute ([8b8c7bf](https://github.com/leancodepl/contractsgenerator-typescript/commit/8b8c7bfc572e1848a19608fef00aed3da22d13f8))
+
+
+### Features
+
+* generate attribute parameters in the JSDoc ([75baf52](https://github.com/leancodepl/contractsgenerator-typescript/commit/75baf5210226ef4e47b39337efbeaa21509989cb))
+* use " instead of ' for string parameters ([dff7532](https://github.com/leancodepl/contractsgenerator-typescript/commit/dff7532a1b66eaf65bd8433ca78338fd2404991b))
+
+
+
+
+
 # [1.1.0](https://github.com/leancodepl/contractsgenerator-typescript/compare/v1.1.0-alpha.7...v1.1.0) (2025-06-23)
 
 
