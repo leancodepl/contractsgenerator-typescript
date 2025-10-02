@@ -7,13 +7,13 @@ import {
 import { ContractsContext } from "../contractsContext"
 
 export function generateAttribute(attribute: SchemaAttribute, _context: ContractsContext) {
-    if (attribute.name === "System.ObsoleteAttribute") {
-        return ts.factory.createJSDocUnknownTag(ts.factory.createIdentifier("deprecated"))
-    }
-
     const formattedArguments = [...attribute.positionalArguments, ...attribute.namedArguments]
         .map(formatArgument)
         .join(", ")
+
+    if (attribute.name === "System.ObsoleteAttribute") {
+        return ts.factory.createJSDocUnknownTag(ts.factory.createIdentifier("deprecated"), formattedArguments)
+    }
 
     let comment = attribute.name
 
