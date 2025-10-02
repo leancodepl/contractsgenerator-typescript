@@ -28,7 +28,7 @@ function formatArgument(argument: SchemaAttributeArgument) {
     let formattedValue: string
 
     if (typeof argument.value.value === "string") {
-        formattedValue = `'${argument.value.value}'`
+        formattedValue = `"${argument.value.value}"`
     } else {
         formattedValue = argument.value.value?.toString() ?? "null"
     }
