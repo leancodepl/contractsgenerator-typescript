@@ -2,6 +2,7 @@
   "name": "@leancodepl/contractsgenerator-typescript-plugin-contracts",
   "version": "1.1.2",
   "license": "Apache-2.0",
+  "repository": "https://github.com/leancodepl/contractsgenerator-typescript",
   "dependencies": {
     "@leancodepl/contractsgenerator-typescript-plugin": "1.1.2",
     "@leancodepl/contractsgenerator-typescript-schema": "1.1.2",

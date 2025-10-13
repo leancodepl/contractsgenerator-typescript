@@ -5,6 +5,7 @@
   "main": "./index.js",
   "types": "./index.d.ts",
   "type": "module",
+  "repository": "https://github.com/leancodepl/contractsgenerator-typescript",
   "exports": {
     ".": {
       "import": "./index.cjs",
