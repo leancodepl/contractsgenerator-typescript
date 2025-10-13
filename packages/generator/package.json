@@ -3,6 +3,7 @@
   "version": "1.1.1",
   "license": "Apache-2.0",
   "bin": "src/bin.js",
+  "repository": "https://github.com/leancodepl/contractsgenerator-typescript",
   "dependencies": {
     "@leancodepl/contractsgenerator-typescript-plugin": "1.1.1",
     "@leancodepl/contractsgenerator-typescript-schema": "1.1.1",
