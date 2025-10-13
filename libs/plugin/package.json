@@ -1,9 +1,9 @@
 {
   "name": "@leancodepl/contractsgenerator-typescript-plugin",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "Apache-2.0",
   "dependencies": {
-    "@leancodepl/contractsgenerator-typescript-schema": "1.1.1",
+    "@leancodepl/contractsgenerator-typescript-schema": "1.1.2",
     "node-cache": "^5.0.0"
   }
 }
