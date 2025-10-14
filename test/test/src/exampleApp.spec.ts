@@ -1,6 +1,5 @@
 import { resolve } from "path"
 import { generate } from "@leancodepl/contractsgenerator-typescript"
-import "@leancodepl/contractsgenerator-typescript-plugin-admin"
 import "@leancodepl/contractsgenerator-typescript-plugin-client"
 import "@leancodepl/contractsgenerator-typescript-plugin-contracts"
 
@@ -75,15 +74,6 @@ describe("exampleApp", () => {
                 input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") },
                 nameTransform: (id: string) => id.split(".").at(-1),
             },
-        })
-
-        expect(result).toMatchSnapshot()
-    })
-
-    it("generates admin", async () => {
-        const result = await generate({
-            generates: { "test.ts": { plugins: ["admin"] } },
-            config: { input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") } },
         })
 
         expect(result).toMatchSnapshot()

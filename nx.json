@@ -2,18 +2,6 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "plugins": [
     {
-      "plugin": "@nx/vite/plugin",
-      "options": {
-        "buildTargetName": "build",
-        "serveTargetName": "serve",
-        "previewTargetName": "preview",
-        "testTargetName": "test",
-        "serveStaticTargetName": "serve-static",
-        "devTargetName": "dev",
-        "typecheckTargetName": "typecheck"
-      }
-    },
-    {
       "plugin": "@nx/jest/plugin",
       "options": {
         "targetName": "test"
@@ -22,11 +10,20 @@
   ],
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
     },
     "@nx/jest:jest": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/jest.preset.js"
+      ],
       "options": {
         "passWithNoTests": true
       },
@@ -37,15 +34,18 @@
         }
       }
     },
-    "@nx/vite:test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
-    },
     "@nx/eslint:lint": {
-      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json"
+      ]
     }
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/.eslintrc.json",
@@ -61,23 +61,6 @@
     "libsDir": "libs"
   },
   "defaultProject": "generator",
-  "generators": {
-    "@nx/react": {
-      "application": {
-        "style": "none",
-        "linter": "eslint",
-        "bundler": "vite",
-        "babel": true
-      },
-      "library": {
-        "style": "none",
-        "linter": "eslint",
-        "unitTestRunner": "vitest"
-      },
-      "component": {
-        "style": "none"
-      }
-    }
-  },
+  "generators": {},
   "useInferencePlugins": false
 }
