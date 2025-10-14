@@ -3,17 +3,23 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/values/src",
   "projectType": "library",
-  "tags": ["lib"],
+  "tags": [
+    "lib"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/libs/values",
         "tsConfig": "libs/values/tsconfig.lib.json",
         "packageJson": "libs/values/package.json",
         "main": "libs/values/src/index.ts",
-        "assets": ["libs/values/*.md"]
+        "assets": [
+          "libs/values/*.md"
+        ]
       }
     },
     "lint": {
@@ -24,10 +30,15 @@
       "options": {
         "command": "node tools/scripts/publish.mjs values {args.registry} {args.ver} {args.tag}"
       },
-      "dependsOn": ["build"]
+      "dependsOn": [
+        "build"
+      ]
     },
     "test": {
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}", "{workspaceRoot}/coverage/plugins/values"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}",
+        "{workspaceRoot}/coverage/plugins/values"
+      ],
       "options": {
         "passWithNoTests": true
       },

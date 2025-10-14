@@ -9,36 +9,36 @@ export type ContractsGeneratorPluginConfiguration = z.infer<typeof contractsGene
 const contractsGeneratorPluginOptionsSchema = z.record(z.string(), z.unknown())
 
 const contractsGeneratorPluginConfigurationSchema = z.union([
-    z.record(z.string(), contractsGeneratorPluginOptionsSchema),
-    z.string(),
+  z.record(z.string(), contractsGeneratorPluginOptionsSchema),
+  z.string(),
 ])
 
 const contractsGeneratorFileConfigurationSchema = z.object({
-    plugins: z.array(contractsGeneratorPluginConfigurationSchema),
-    config: contractsGeneratorPluginOptionsSchema.optional(),
+  plugins: z.array(contractsGeneratorPluginConfigurationSchema),
+  config: contractsGeneratorPluginOptionsSchema.optional(),
 })
 
 const contractsGeneratorConfigurationSchema = z.object({
-    config: contractsGeneratorPluginOptionsSchema.optional(),
-    generates: z.record(z.string(), contractsGeneratorFileConfigurationSchema),
+  config: contractsGeneratorPluginOptionsSchema.optional(),
+  generates: z.record(z.string(), contractsGeneratorFileConfigurationSchema),
 })
 
 export async function generate(unsafeConfig: unknown) {
-    const config = contractsGeneratorConfigurationSchema.parse(unsafeConfig)
+  const config = contractsGeneratorConfigurationSchema.parse(unsafeConfig)
 
-    const sessionContext: GeneratorSessionContext = { getSchema: getSchemaCached(cache), metadata: {}, cache }
+  const sessionContext: GeneratorSessionContext = { getSchema: getSchemaCached(cache), metadata: {}, cache }
 
-    const configl1 = config.config
+  const configl1 = config.config
 
-    const outputs: Record<string, string> = {}
+  const outputs: Record<string, string> = {}
 
-    for (const file in config.generates) {
-        const configuration = config.generates[file]
+  for (const file in config.generates) {
+    const configuration = config.generates[file]
 
-        const configl2 = configuration.config ?? {}
+    const configl2 = configuration.config ?? {}
 
-        outputs[file] = await generateFile({ ...configl1, ...configl2 }, configuration.plugins, sessionContext)
-    }
+    outputs[file] = await generateFile({ ...configl1, ...configl2 }, configuration.plugins, sessionContext)
+  }
 
-    return outputs
+  return outputs
 }

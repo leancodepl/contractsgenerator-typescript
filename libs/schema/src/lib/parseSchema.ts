@@ -14,35 +14,35 @@ export type SchemaEntity = SchemaEnum | SchemaInterface
 export type Protocol = { version: string; extensions: SchemaExtensions }
 
 export interface GeneratorSchema {
-    entities: SchemaEntity[]
-    protocol: Protocol
+  entities: SchemaEntity[]
+  protocol: Protocol
 }
 
 export function parseSchema(schemaBytes: Buffer): GeneratorSchema {
-    const reader = protobuf.Reader.create(schemaBytes)
+  const reader = protobuf.Reader.create(schemaBytes)
 
-    const schema = leancode.contracts.Export.decode(reader)
+  const schema = leancode.contracts.Export.decode(reader)
 
-    let entities: SchemaEntity[] = []
+  let entities: SchemaEntity[] = []
 
-    schema.statements.forEach(statement => {
-        if (statement.query) return entities.push(new SchemaQuery({ statement }))
-        if (statement.command) return entities.push(new SchemaCommand({ statement }))
-        if (statement.operation) return entities.push(new SchemaOperation({ statement }))
-        if (statement.dto) return entities.push(new SchemaInterface({ statement }))
-        if (statement.enum) return entities.push(new SchemaEnum({ statement }))
-        if (statement.topic) return entities.push(new SchemaTopic({ statement }))
+  schema.statements.forEach(statement => {
+    if (statement.query) return entities.push(new SchemaQuery({ statement }))
+    if (statement.command) return entities.push(new SchemaCommand({ statement }))
+    if (statement.operation) return entities.push(new SchemaOperation({ statement }))
+    if (statement.dto) return entities.push(new SchemaInterface({ statement }))
+    if (statement.enum) return entities.push(new SchemaEnum({ statement }))
+    if (statement.topic) return entities.push(new SchemaTopic({ statement }))
 
-        throw new Error("Unknown statement type")
-    })
+    throw new Error("Unknown statement type")
+  })
 
-    entities = sortBy(entities, ({ id }) => id)
+  entities = sortBy(entities, ({ id }) => id)
 
-    return {
-        entities,
-        protocol: {
-            version: schema.protocol?.version ?? "0.0",
-            extensions: new SchemaExtensions(schema.protocol?.extensions ?? []),
-        },
-    }
+  return {
+    entities,
+    protocol: {
+      version: schema.protocol?.version ?? "0.0",
+      extensions: new SchemaExtensions(schema.protocol?.extensions ?? []),
+    },
+  }
 }

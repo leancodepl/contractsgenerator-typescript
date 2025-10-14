@@ -1,5 +1,5 @@
-import { ensureNotEmpty } from "@leancodepl/utils";
+import { ensureNotEmpty } from "@leancodepl/utils"
 
 export function getNameFromFullName(name: string | null | undefined) {
-    return ensureNotEmpty(name?.split(".").at(-1));
+  return ensureNotEmpty(name?.split(".").at(-1))
 }

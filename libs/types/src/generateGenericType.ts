@@ -3,5 +3,5 @@ import { SchemaGenericType } from "@leancodepl/contractsgenerator-typescript-sch
 import { GenerateContext } from "./generateContext"
 
 export function generateGenericType(genericType: SchemaGenericType, _context: GenerateContext) {
-    return ts.factory.createTypeReferenceNode(genericType.name)
+  return ts.factory.createTypeReferenceNode(genericType.name)
 }

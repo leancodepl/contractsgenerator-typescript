@@ -1,2 +1,2 @@
-export * from "./lib/generatorPlugin";
-export * from "./lib/generatorPluginInstance";
+export * from "./lib/generatorPlugin"
+export * from "./lib/generatorPluginInstance"

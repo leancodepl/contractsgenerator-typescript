@@ -1,1 +1,1 @@
-export * from "./generateValue";
+export * from "./generateValue"

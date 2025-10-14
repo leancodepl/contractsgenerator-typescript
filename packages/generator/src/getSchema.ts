@@ -6,67 +6,67 @@ import { GeneratorInput } from "@leancodepl/contractsgenerator-typescript-plugin
 import { GeneratorSchema, parseSchema } from "@leancodepl/contractsgenerator-typescript-schema"
 
 export async function getSchema(input: GeneratorInput) {
-    if (input.raw) {
-        const buf = await readFile(input.raw)
+  if (input.raw) {
+    const buf = await readFile(input.raw)
 
-        return parseSchema(buf)
+    return parseSchema(buf)
+  }
+
+  let params: string[]
+
+  function withBase(path: string) {
+    return input.base ? join(input.base, path) : path
+  }
+
+  if (input.project) {
+    params = [
+      "project",
+      "--project",
+      ...(Array.isArray(input.project) ? input.project.map(withBase) : [withBase(input.project)]),
+    ]
+  } else if (input.file) {
+    params = ["file", "--input", withBase(input.file)]
+  } else {
+    params = ["path"]
+
+    if (input.base) {
+      params.push("--directory", input.base)
     }
 
-    let params: string[]
+    params.push(
+      "--include",
+      ...(input.include ? (Array.isArray(input.include) ? input.include : [input.include]) : ["**/*.cs"]),
+    )
 
-    function withBase(path: string) {
-        return input.base ? join(input.base, path) : path
+    if (input.exclude) {
+      params.push("--exclude", ...(Array.isArray(input.exclude) ? input.exclude : [input.exclude]))
     }
+  }
 
-    if (input.project) {
-        params = [
-            "project",
-            "--project",
-            ...(Array.isArray(input.project) ? input.project.map(withBase) : [withBase(input.project)]),
-        ]
-    } else if (input.file) {
-        params = ["file", "--input", withBase(input.file)]
-    } else {
-        params = ["path"]
+  params.push("--output=-")
 
-        if (input.base) {
-            params.push("--directory", input.base)
+  if (input.options) {
+    params.push(...input.options)
+  }
+
+  const dotnet = platform() === "win32" ? "dotnet.exe" : "dotnet"
+
+  return await new Promise<GeneratorSchema>((resolve, reject) => {
+    execFileSync(dotnet, ["tool", "restore"])
+    execFile(
+      dotnet,
+      ["tool", "run", "dotnet-contracts-generate", "--", ...params],
+      {
+        encoding: "buffer",
+      },
+      (error, stdout) => {
+        if (error) {
+          reject(error)
+          return
         }
 
-        params.push(
-            "--include",
-            ...(input.include ? (Array.isArray(input.include) ? input.include : [input.include]) : ["**/*.cs"]),
-        )
-
-        if (input.exclude) {
-            params.push("--exclude", ...(Array.isArray(input.exclude) ? input.exclude : [input.exclude]))
-        }
-    }
-
-    params.push("--output=-")
-
-    if (input.options) {
-        params.push(...input.options)
-    }
-
-    const dotnet = platform() === "win32" ? "dotnet.exe" : "dotnet"
-
-    return await new Promise<GeneratorSchema>((resolve, reject) => {
-        execFileSync(dotnet, ["tool", "restore"])
-        execFile(
-            dotnet,
-            ["tool", "run", "dotnet-contracts-generate", "--", ...params],
-            {
-                encoding: "buffer",
-            },
-            (error, stdout) => {
-                if (error) {
-                    reject(error)
-                    return
-                }
-
-                resolve(parseSchema(stdout))
-            },
-        )
-    })
+        resolve(parseSchema(stdout))
+      },
+    )
+  })
 }

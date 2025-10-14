@@ -1,19 +1,19 @@
-import { ensureNotEmpty } from "@leancodepl/utils";
-import { leancode } from "../protocol";
-import { SchemaValue } from "./schemaValue";
+import { ensureNotEmpty } from "@leancodepl/utils"
+import { leancode } from "../protocol"
+import { SchemaValue } from "./schemaValue"
 
 export class SchemaBooleanValue implements SchemaValue<boolean> {
-    kind = schemaBooleanValueKind;
+  kind = schemaBooleanValueKind
 
-    value;
+  value
 
-    constructor({ boolValue }: { boolValue: leancode.contracts.ValueRef.IBoolean }) {
-        this.value = ensureNotEmpty(boolValue.value);
-    }
+  constructor({ boolValue }: { boolValue: leancode.contracts.ValueRef.IBoolean }) {
+    this.value = ensureNotEmpty(boolValue.value)
+  }
 }
 
-const schemaBooleanValueKind = "boolean";
+const schemaBooleanValueKind = "boolean"
 
 export function isSchemaBooleanValue(value: SchemaValue): value is SchemaBooleanValue {
-    return value.kind === schemaBooleanValueKind;
+  return value.kind === schemaBooleanValueKind
 }
