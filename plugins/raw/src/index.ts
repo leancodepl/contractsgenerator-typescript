@@ -2,29 +2,29 @@ import { GeneratorPlugin, GeneratorPluginInstance } from "@leancodepl/contractsg
 import { rawGeneratorPluginConfigurationSchema } from "./configuration"
 
 class RawGeneratorPlugin implements GeneratorPluginInstance {
-    configuration
+  configuration
 
-    constructor(unsafeConfig: unknown) {
-        this.configuration = rawGeneratorPluginConfigurationSchema.parse(unsafeConfig)
-    }
+  constructor(unsafeConfig: unknown) {
+    this.configuration = rawGeneratorPluginConfigurationSchema.parse(unsafeConfig)
+  }
 
-    async beforeAll() {
-        return this.configuration.prepend
-    }
+  async beforeAll() {
+    return this.configuration.prepend
+  }
 
-    async generate() {
-        return this.configuration.output
-    }
+  async generate() {
+    return this.configuration.output
+  }
 
-    async afterAll() {
-        return this.configuration.append
-    }
+  async afterAll() {
+    return this.configuration.append
+  }
 }
 
 const rawGeneratorPlugin: GeneratorPlugin = {
-    instance(unsafeConfig, _context) {
-        return new RawGeneratorPlugin(unsafeConfig)
-    },
+  instance(unsafeConfig, _context) {
+    return new RawGeneratorPlugin(unsafeConfig)
+  },
 }
 
 export default rawGeneratorPlugin

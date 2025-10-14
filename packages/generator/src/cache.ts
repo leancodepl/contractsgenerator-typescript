@@ -1,3 +1,3 @@
-import NodeCache from "node-cache";
+import NodeCache from "node-cache"
 
-export const cache = new NodeCache({ checkperiod: 0, useClones: false });
+export const cache = new NodeCache({ checkperiod: 0, useClones: false })

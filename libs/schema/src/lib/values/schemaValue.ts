@@ -1,5 +1,5 @@
 export interface SchemaValue<T = any> {
-    kind: string
+  kind: string
 
-    value: T
+  value: T
 }
