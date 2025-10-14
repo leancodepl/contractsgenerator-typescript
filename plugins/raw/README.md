@@ -27,7 +27,6 @@ module.exports = {
     "output.ts": {
       plugins: [
         { raw: { prepend: prepend1, output: output1, append: append1 } },
-        "admin",
         { raw: { prepend: prepend2, output: output2, append: append2 } },
       ],
     },

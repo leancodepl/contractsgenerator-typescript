@@ -3,7 +3,6 @@
 ## Packages
 
 - [Contracts Generator](packages/generator) - utility for generating contracts/client/schema from backend contracts
-- [Admin App Generator](packages/api-admin/) - package for generating strongly typed components from generated schema
   and client
 
 ## Available plugins
@@ -11,7 +10,6 @@
 - [contracts](plugins/contracts/) - type generation
 - [client](plugins/client/) - api factory generation; requires `contracts` to also be used
 - [raw](plugins/raw) - prepend/append text to generated file;
-- [admin](plugins/admin) - api components schema generation; used by [Admin App Generator](packages/api-admin/)
 
 ## Development
 

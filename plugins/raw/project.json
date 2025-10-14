@@ -27,8 +27,7 @@
     },
     "test": {
       "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}",
-        "{workspaceRoot}/coverage/plugins/admin"
+        "{workspaceRoot}/coverage/{projectRoot}"
       ],
       "options": {
         "passWithNoTests": true

@@ -46,7 +46,6 @@ export type Topic = {}
 
 module.exports = {
     generates: {
-        "src/api/api-components-schema.ts": { plugins: ["admin"] },
         "src/api/cqrs.ts": { plugins: [{ raw: { prepend: preamble } }, "contracts", "client"] },
     },
     config: {

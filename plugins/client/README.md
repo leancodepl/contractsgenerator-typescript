@@ -69,7 +69,6 @@ export default function (cqrsClient: CQRS) {
 ### Example usage
 
 ```js
-import { createApiComponents } from "@leancodepl/admin";
 import { TokenProvider } from "@leancodepl/cqrs-client-base";
 import { mkCqrsClient } from "@leancodepl/react-query-cqrs-client";
 import { QueryClient } from "@tanstack/react-query";
