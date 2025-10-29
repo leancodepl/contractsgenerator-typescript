@@ -4,7 +4,7 @@ import { SchemaInterface } from "./schemaInterface"
 import { createType } from "./types"
 
 export class SchemaQuery extends SchemaInterface {
-  kind = schemaQueryKind
+  override kind = schemaQueryKind
 
   returnType
   queryType

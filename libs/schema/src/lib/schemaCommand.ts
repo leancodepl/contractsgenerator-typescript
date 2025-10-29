@@ -5,7 +5,7 @@ import { SchemaInterface } from "./schemaInterface"
 import { createType } from "./types"
 
 export class SchemaCommand extends SchemaInterface {
-  kind = schemaCommandKind
+  override kind = schemaCommandKind
 
   errorCodes
   commandType

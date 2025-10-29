@@ -51,5 +51,8 @@
     "packages/*",
     "libs/*",
     "plugins/*"
-  ]
+  ],
+  "nx": {
+    "includedScripts": []
+  }
 }

@@ -4,7 +4,7 @@ import { SchemaInterface } from "./schemaInterface"
 import { createType } from "./types"
 
 export class SchemaTopic extends SchemaInterface {
-  kind = schemaTopicKind
+  override kind = schemaTopicKind
 
   notifications
   topicType

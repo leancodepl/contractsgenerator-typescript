@@ -1,6 +1,6 @@
 import { sortBy } from "lodash"
 import { Buffer } from "node:buffer"
-import protobuf from "protobufjs"
+import * as protobuf from "protobufjs"
 import { leancode } from "./protocol"
 import { SchemaCommand } from "./schemaCommand"
 import { SchemaEnum } from "./schemaEnum"
