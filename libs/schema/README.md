@@ -1,6 +1,7 @@
 # @leancodepl/contractsgenerator-typescript-schema
 
-Schema definitions and types for parsing LeanCode backend contracts. Provides TypeScript interfaces for contract components including DTOs, commands, queries, operations, and topics.
+Schema definitions and types for parsing LeanCode backend contracts. Provides TypeScript interfaces for contract
+components including DTOs, commands, queries, operations, and topics.
 
 ## Installation
 
@@ -21,6 +22,7 @@ yarn add @leancodepl/contractsgenerator-typescript-schema
 Parses raw protobuf contract data into a structured schema object.
 
 **Parameters:**
+
 - `raw: Uint8Array` - Raw protobuf bytes from the contracts generator server
 
 **Returns:** `GeneratorSchema` - Parsed schema with components and enums
@@ -42,45 +44,40 @@ The package exports TypeScript interfaces for all schema components:
 ### Parsing Contract Schema
 
 ```typescript
-import { parseSchema } from "@leancodepl/contractsgenerator-typescript-schema";
+import { parseSchema } from "@leancodepl/contractsgenerator-typescript-schema"
 
-const rawData = await fetchContractsFromServer();
-const schema = parseSchema(rawData);
+const rawData = await fetchContractsFromServer()
+const schema = parseSchema(rawData)
 
 schema.components.forEach(component => {
-  console.log(component.name);
-});
+  console.log(component.name)
+})
 ```
 
 ### Working with Schema Components
 
 ```typescript
-import { parseSchema, SchemaCommand, SchemaQuery } from "@leancodepl/contractsgenerator-typescript-schema";
+import { parseSchema, SchemaCommand, SchemaQuery } from "@leancodepl/contractsgenerator-typescript-schema"
 
-const schema = parseSchema(contractData);
+const schema = parseSchema(contractData)
 
-const commands = schema.components.filter(
-  (c): c is SchemaCommand => c.type === "command"
-);
+const commands = schema.components.filter((c): c is SchemaCommand => c.type === "command")
 
-const queries = schema.components.filter(
-  (c): c is SchemaQuery => c.type === "query"
-);
+const queries = schema.components.filter((c): c is SchemaQuery => c.type === "query")
 ```
 
 ### Accessing Type Information
 
 ```typescript
-import { parseSchema } from "@leancodepl/contractsgenerator-typescript-schema";
+import { parseSchema } from "@leancodepl/contractsgenerator-typescript-schema"
 
-const schema = parseSchema(contractData);
+const schema = parseSchema(contractData)
 
 schema.components.forEach(component => {
   if (component.type === "interface") {
     component.properties.forEach(prop => {
-      console.log(`${prop.name}: ${prop.typeRef.name}`);
-    });
+      console.log(`${prop.name}: ${prop.typeRef.name}`)
+    })
   }
-});
+})
 ```
-
