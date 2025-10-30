@@ -39,7 +39,15 @@ describe("exampleApp", () => {
       generates: { "test.ts": { plugins: ["contracts"] } },
       config: {
         input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") },
-        nameTransform: (id: string) => id.split(".").at(-1),
+        nameTransform: (id: string) => {
+          const parts = id.split(".")
+
+          if (parts.includes("AppRating") && parts.at(-1) === "PlatformDTO") {
+            return `AppRating${parts.at(-1)}`
+          }
+
+          return parts.at(-1)
+        },
       },
     })
 

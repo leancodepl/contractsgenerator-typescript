@@ -18,6 +18,8 @@ export function generateNamespaces(schemaEntities: SchemaEntity[], context: Cont
 }
 
 function generateNamespace(generatorNamespace: GeneratorNamespace, context: ContractsContext): ts.Statement[] {
+  throwErrorForDuplicateNames(generatorNamespace, context)
+
   const childContext = {
     ...context,
     currentNamespace: generatorNamespace.name
@@ -79,5 +81,34 @@ function extractNamespaces(
     namespaces: toPairs(namespaces).map(([name, schemaInterfaces]) =>
       extractNamespaces(schemaInterfaces, depth + 1, name, context),
     ),
+  }
+}
+
+function throwErrorForDuplicateNames(generatorNamespace: GeneratorNamespace, context: ContractsContext) {
+  const interfaceNames = generatorNamespace.interfaces.map(i => i.getName(context.nameTransform))
+  const enumNames = generatorNamespace.enums.map(e => e.getName(context.nameTransform))
+
+  const allNames = [...interfaceNames, ...enumNames]
+
+  const namesOccurrencesCounts = allNames.reduce((acc, name) => {
+    acc.set(name, (acc.get(name) ?? 0) + 1)
+    return acc
+  }, new Map<string, number>())
+
+  const duplicateNames = Array.from(namesOccurrencesCounts.entries())
+    .filter(([_, count]) => count > 1)
+    .map(([name]) => name)
+
+  if (duplicateNames.length > 0) {
+    const names = duplicateNames.join(", ")
+
+    if (context.currentNamespace.length > 0 || generatorNamespace.name) {
+      const fullNamespaceName = generatorNamespace.name
+        ? [...context.currentNamespace, generatorNamespace.name]
+        : context.currentNamespace
+      throw new Error(`Error: namespace ${fullNamespaceName.join(".")} has duplicate names: ${names}`)
+    } else {
+      throw new Error(`Error: duplicate names: ${names}`)
+    }
   }
 }
