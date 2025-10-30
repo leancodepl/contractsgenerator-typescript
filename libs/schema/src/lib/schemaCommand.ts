@@ -1,33 +1,33 @@
-import { assertNotEmpty } from "@leancodepl/utils";
-import { leancode } from "./protocol";
-import { SchemaErrorCodes } from "./schemaErrorCodes";
-import { SchemaInterface } from "./schemaInterface";
-import { createType } from "./types";
+import { assertNotEmpty } from "@leancodepl/utils"
+import { leancode } from "./protocol"
+import { SchemaErrorCodes } from "./schemaErrorCodes"
+import { SchemaInterface } from "./schemaInterface"
+import { createType } from "./types"
 
 export class SchemaCommand extends SchemaInterface {
-  kind = schemaCommandKind;
+  kind = schemaCommandKind
 
-  errorCodes;
-  commandType;
+  errorCodes
+  commandType
 
   constructor({ statement }: { statement: leancode.contracts.IStatement }) {
-    super({ statement });
+    super({ statement })
 
-    assertNotEmpty(statement.command);
+    assertNotEmpty(statement.command)
 
-    this.errorCodes = new SchemaErrorCodes({ errorCodes: statement.command.errorCodes ?? [] });
+    this.errorCodes = new SchemaErrorCodes({ errorCodes: statement.command.errorCodes ?? [] })
     this.commandType = createType({
       type: {
         internal: {
           name: this.id,
         },
       },
-    });
+    })
   }
 }
 
-const schemaCommandKind = "command";
+const schemaCommandKind = "command"
 
 export function isSchemaCommand(schemaInterface: SchemaInterface): schemaInterface is SchemaCommand {
-  return schemaInterface.kind === schemaCommandKind;
+  return schemaInterface.kind === schemaCommandKind
 }

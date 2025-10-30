@@ -1,13 +1,13 @@
-import { SchemaValue } from "./schemaValue";
+import { SchemaValue } from "./schemaValue"
 
 export class SchemaNullValue implements SchemaValue<null> {
-    kind = schemaNullValueKind;
+  kind = schemaNullValueKind
 
-    value = null;
+  value = null
 }
 
-const schemaNullValueKind = "null";
+const schemaNullValueKind = "null"
 
 export function isSchemaNullValue(value: SchemaValue): value is SchemaNullValue {
-    return value.kind === schemaNullValueKind;
+  return value.kind === schemaNullValueKind
 }

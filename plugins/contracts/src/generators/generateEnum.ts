@@ -6,19 +6,19 @@ import { generateAttribute } from "./generateAttribute"
 import { generateEnumMember } from "./generateEnumMember"
 
 export function generateEnum(schemaEnum: SchemaEnum, context: ContractsContext) {
-    const enumStatement = ts.factory.createEnumDeclaration(
-        /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-        /* name */ schemaEnum.getName(context.nameTransform),
-        /* members */ schemaEnum.members.map(enumMember => generateEnumMember(enumMember, context)),
-    )
+  const enumStatement = ts.factory.createEnumDeclaration(
+    /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+    /* name */ schemaEnum.getName(context.nameTransform),
+    /* members */ schemaEnum.members.map(enumMember => generateEnumMember(enumMember, context)),
+  )
 
-    const jsDoc =
-        schemaEnum.comment || schemaEnum.attributes.length > 0
-            ? ts.factory.createJSDocComment(
-                  schemaEnum.comment,
-                  schemaEnum.attributes.map(attribute => generateAttribute(attribute, context)),
-              )
-            : undefined
+  const jsDoc =
+    schemaEnum.comment || schemaEnum.attributes.length > 0
+      ? ts.factory.createJSDocComment(
+          schemaEnum.comment,
+          schemaEnum.attributes.map(attribute => generateAttribute(attribute, context)),
+        )
+      : undefined
 
-    return withJsDoc(enumStatement, jsDoc, context)
+  return withJsDoc(enumStatement, jsDoc, context)
 }

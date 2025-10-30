@@ -1,5 +1,5 @@
 export interface SchemaType {
-    kind: string;
+  kind: string
 
-    isNullable: boolean;
+  isNullable: boolean
 }

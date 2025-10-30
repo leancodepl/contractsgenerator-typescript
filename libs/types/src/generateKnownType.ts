@@ -2,15 +2,15 @@ import { SchemaKnownType } from "@leancodepl/contractsgenerator-typescript-schem
 import { GenerateContext } from "./generateContext"
 
 export function generateKnownType(knownType: SchemaKnownType, context: GenerateContext) {
-    const typeGenerator = context.typesMap[knownType.type]
+  const typeGenerator = context.typesMap[knownType.type]
 
-    const outputType = typeGenerator?.({ typeArguments: knownType.typeArguments, context })
+  const outputType = typeGenerator?.({ typeArguments: knownType.typeArguments, context })
 
-    if (!outputType) {
-        console.error(knownType, context.typesMap)
+  if (!outputType) {
+    console.error(knownType, context.typesMap)
 
-        throw new Error("Type not supported")
-    }
+    throw new Error("Type not supported")
+  }
 
-    return outputType
+  return outputType
 }

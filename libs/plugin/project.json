@@ -3,17 +3,23 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/plugin/src",
   "projectType": "library",
-  "tags": ["lib"],
+  "tags": [
+    "lib"
+  ],
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/libs/plugin",
         "tsConfig": "libs/plugin/tsconfig.lib.json",
         "packageJson": "libs/plugin/package.json",
         "main": "libs/plugin/src/index.ts",
-        "assets": ["libs/plugin/*.md"]
+        "assets": [
+          "libs/plugin/*.md"
+        ]
       }
     },
     "lint": {
@@ -24,7 +30,9 @@
       "options": {
         "command": "node tools/scripts/publish.mjs plugin {args.registry} {args.ver} {args.tag}"
       },
-      "dependsOn": ["build"]
+      "dependsOn": [
+        "build"
+      ]
     },
     "test": {
       "options": {
