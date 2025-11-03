@@ -31,15 +31,13 @@ function generateNamespace(generatorNamespace: GeneratorNamespace, context: Cont
     generateInterface(schemaInterface, childContext),
   )
 
-  const enumStatements = generatorNamespace.enums.map(schemaEnum => generateEnum(schemaEnum, childContext))
+  const enumStatements = generatorNamespace.enums.flatMap(schemaEnum => generateEnum(schemaEnum, childContext))
 
   const namespaceStatements = generatorNamespace.namespaces.flatMap(generatorNamespace =>
     generateNamespace(generatorNamespace, childContext),
   )
 
-  const statements = [...interfaceStatements, ...enumStatements, ...namespaceStatements].filter(
-    statement => statement !== undefined,
-  )
+  const statements = [...interfaceStatements, ...enumStatements, ...namespaceStatements]
 
   if (!generatorNamespace.name) {
     return statements
