@@ -1,7 +1,5 @@
 import ts from "typescript"
-import { leancode, SchemaType } from "@leancodepl/contractsgenerator-typescript-schema"
-
-export type NameTransform = (id: string) => string | undefined
+import { leancode, SchemaType, NameTransform } from "@leancodepl/contractsgenerator-typescript-schema"
 
 export interface GenerateContext {
   currentNamespace: string[]

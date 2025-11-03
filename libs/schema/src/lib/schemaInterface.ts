@@ -10,7 +10,7 @@ import { isSchemaInternalType } from "./types/schemaInternalType"
 import { isSchemaKnownType } from "./types/schemaKnownType"
 import { SchemaType } from "./types/schemaType"
 import { getNameFromFullName } from "./utils/getNameFromFullName"
-import { NameTransform } from "@leancodepl/contractsgenerator-typescript-types"
+import { NameTransform } from "./types/nameTransform"
 
 export class SchemaInterface {
   kind = schemaInterfaceKind

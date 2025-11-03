@@ -11,6 +11,7 @@ export * from "./lib/schemaProperty"
 export * from "./lib/schemaQuery"
 export * from "./lib/schemaTopic"
 
+export * from "./lib/types/nameTransform"
 export * from "./lib/types/schemaGenericType"
 export * from "./lib/types/schemaInternalType"
 export * from "./lib/types/schemaKnownType"
