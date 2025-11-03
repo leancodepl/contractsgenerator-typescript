@@ -6,14 +6,23 @@ Object {
     export namespace Examples {
         export namespace TestContracts {
             export namespace RemoveNamespace {
-                export interface LocationDTO {
+                export interface DTOFromRemovedNamespace {
                     Latitude: number;
                     Longitude: number;
                 }
             }
             export namespace Shared {
-                export interface KeepDTO {
-                    Keep: number;
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
                 }
                 export interface RemoveCommandDTO {
                     Name: string;
@@ -74,14 +83,23 @@ Object {
     export namespace Examples {
         export namespace TestContracts {
             export namespace RemoveNamespace {
-                export interface LocationDTO {
+                export interface DTOFromRemovedNamespace {
                     Latitude: number;
                     Longitude: number;
                 }
             }
             export namespace Shared {
-                export interface KeepDTO {
-                    Keep: number;
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
@@ -152,14 +170,23 @@ Object {
     export namespace Examples {
         export namespace TestContracts {
             export namespace RemoveNamespace {
-                export interface LocationDTO {
+                export interface DTOFromRemovedNamespace {
                     Latitude: number;
                     Longitude: number;
                 }
             }
             export namespace Shared {
-                export interface KeepDTO {
-                    Keep: number;
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
@@ -231,8 +258,17 @@ Object {
     export namespace Examples {
         export namespace TestContracts {
             export namespace Shared {
-                export interface KeepDTO {
-                    Keep: number;
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
@@ -307,14 +343,23 @@ Object {
     export namespace Examples {
         export namespace TestContracts {
             export namespace RemoveNamespace {
-                export interface LocationDTO {
+                export interface DTOFromRemovedNamespace {
                     Latitude: number;
                     Longitude: number;
                 }
             }
             export namespace Shared {
-                export interface KeepDTO {
-                    Keep: number;
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
@@ -382,14 +427,23 @@ Object {
     export namespace Examples {
         export namespace TestContracts {
             export namespace RemoveNamespace {
-                export interface LocationDTO {
+                export interface DTOFromRemovedNamespace {
                     Latitude: number;
                     Longitude: number;
                 }
             }
             export namespace Shared {
-                export interface KeepDTO {
-                    Keep: number;
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
@@ -458,14 +512,23 @@ Object {
     export namespace Examples {
         export namespace TestContracts {
             export namespace RemoveNamespace {
-                export interface LocationDTO {
+                export interface DTOFromRemovedNamespace {
                     Latitude: number;
                     Longitude: number;
                 }
             }
             export namespace Shared {
-                export interface KeepDTO {
-                    Keep: number;
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute

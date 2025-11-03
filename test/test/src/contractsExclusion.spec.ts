@@ -143,4 +143,48 @@ describe("contractsExclusion", () => {
 
     expect(result).toMatchSnapshot()
   })
+
+  it("throws an error when trying to exclude interface that is extended by another interface", async () => {
+    await expect(
+      generate({
+        generates: { "test.ts": { plugins: ["contracts", "client"] } },
+        config: {
+          input: { raw: resolve(__dirname, "../samples/contracts-exclusion.pb") },
+          nameTransform: (id: string) => {
+            const parts = id.split(".")
+
+            if (parts.includes("ExtendedInterface")) {
+              return undefined
+            }
+
+            return id
+          },
+        },
+      }),
+    ).rejects.toThrow(
+      "Cannot exclude interface ExampleApp.Examples.TestContracts.Shared.ExtendedInterface, because interface ExampleApp.Examples.TestContracts.Shared.ExtendingInterface extends it",
+    )
+  })
+
+  it("throws an error when trying to exclude interface that is nested in another interface", async () => {
+    await expect(
+      generate({
+        generates: { "test.ts": { plugins: ["contracts", "client"] } },
+        config: {
+          input: { raw: resolve(__dirname, "../samples/contracts-exclusion.pb") },
+          nameTransform: (id: string) => {
+            const parts = id.split(".")
+
+            if (parts.includes("NestedInterface")) {
+              return undefined
+            }
+
+            return id
+          },
+        },
+      }),
+    ).rejects.toThrow(
+      "Cannot exclude interface ExampleApp.Examples.TestContracts.Shared.NestedInterface, because because it is nested in interface ExampleApp.Examples.TestContracts.Shared.NestingInterface",
+    )
+  })
 })

@@ -1,12 +1,24 @@
 
-ExampleApp.Examples.Contractsj
-=ExampleApp.Examples.TestContracts.RemoveNamespace.LocationDTOR)
+ExampleApp.Examples.Contractsv
+IExampleApp.Examples.TestContracts.RemoveNamespace.DTOFromRemovedNamespaceR)
 '
 "—Latitude
-"—	LongitudeE
-0ExampleApp.Examples.TestContracts.Shared.KeepDTOR
-
-"—Keepù
+"—	LongitudeR
+:ExampleApp.Examples.TestContracts.Shared.ExtendedInterfaceR
+
+"hExtended”
+;ExampleApp.Examples.TestContracts.Shared.ExtendingInterfaceRU
+S
+><
+:ExampleApp.Examples.TestContracts.Shared.ExtendedInterface
+"h	ExtendingL
+8ExampleApp.Examples.TestContracts.Shared.NestedInterfaceR
+
+"hNest‡
+9ExampleApp.Examples.TestContracts.Shared.NestingInterfaceRJ
+HF
+<:
+8ExampleApp.Examples.TestContracts.Shared.NestedInterfaceNestedù
 6ExampleApp.Examples.TestContracts.Shared.RemoveCommand8
 6LeanCode.Contracts.Security.AllowUnauthorizedAttributej„
 i

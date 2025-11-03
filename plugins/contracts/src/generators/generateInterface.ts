@@ -15,18 +15,22 @@ export function generateInterface(schemaInterface: SchemaInterface, context: Con
   const name = schemaInterface.getName(context.nameTransform)
   if (name === undefined) return []
 
+  const fullName = schemaInterface.getFullName(context.nameTransform)
+  if (fullName === undefined) return []
+
   const typeParameters = schemaInterface.genericParameters.map(p =>
     ts.factory.createTypeParameterDeclaration(/* modifiers */ undefined, p),
   )
 
-  const extendTypes = schemaInterface.extendTypes
-    .map(type => {
-      const extendedType = generateType(type, context)
-      if (extendedType === undefined) return undefined
+  const extendTypes = schemaInterface.extendTypes.map(type => {
+    const extendedType = generateType(type, context)
 
-      return withExtends(extendedType)
-    })
-    .filter(type => type !== undefined)
+    if (extendedType === undefined) {
+      throw new Error(`Cannot exclude interface ${type.getName()}, because interface ${fullName} extends it`)
+    }
+
+    return withExtends(extendedType)
+  })
 
   const interfaceStatement = ts.factory.createInterfaceDeclaration(
     /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
@@ -35,7 +39,7 @@ export function generateInterface(schemaInterface: SchemaInterface, context: Con
     /* heritageClauses */ extendTypes.length > 0
       ? [ts.factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, extendTypes)]
       : undefined,
-    /* members */ schemaInterface.properties.map(property => generateProperty(property, context)),
+    /* members */ schemaInterface.properties.map(property => generateProperty(property, context, fullName)),
   )
 
   const jsDoc =

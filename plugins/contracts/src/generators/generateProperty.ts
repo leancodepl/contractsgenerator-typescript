@@ -5,7 +5,18 @@ import { ContractsContext } from "../contractsContext"
 import { withJsDoc } from "../utils/withJsDoc"
 import { generateAttribute } from "./generateAttribute"
 
-export function generateProperty(property: SchemaProperty, context: ContractsContext): ts.TypeElement {
+export function generateProperty(
+  property: SchemaProperty,
+  context: ContractsContext,
+  parentInterfaceFullName: string,
+): ts.TypeElement {
+  const type = generateTypeWithNullability(property.type, context, { omitUndefined: true })
+  if (type === undefined) {
+    throw new Error(
+      `Cannot exclude interface ${property.type.getName()}, because because it is nested in interface ${parentInterfaceFullName}`,
+    )
+  }
+
   const propertySignature = ts.factory.createPropertySignature(
     /* modifiers */ [],
     /* name */ property.name,

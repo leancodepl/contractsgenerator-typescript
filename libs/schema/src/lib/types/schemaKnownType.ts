@@ -23,6 +23,10 @@ export class SchemaKnownType implements SchemaType {
     this.typeArguments = known.arguments?.map(argument => createType({ type: argument })) ?? []
     this.isNullable = isNullable ?? false
   }
+
+  getName(): string {
+    return this.type.toString()
+  }
 }
 
 const schemaKnownTypeKind = "known"

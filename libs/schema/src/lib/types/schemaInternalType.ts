@@ -15,6 +15,10 @@ export class SchemaInternalType implements SchemaType {
     this.typeArguments = internal.arguments?.map(argument => createType({ type: argument })) ?? []
     this.isNullable = isNullable ?? false
   }
+
+  getName(): string {
+    return this.id
+  }
 }
 
 const schemaInternalTypeKind = "internal"

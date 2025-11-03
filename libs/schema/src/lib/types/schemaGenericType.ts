@@ -12,6 +12,10 @@ export class SchemaGenericType implements SchemaType {
     this.name = ensureNotEmpty(generic.name)
     this.isNullable = isNullable ?? false
   }
+
+  getName(): string {
+    return this.name
+  }
 }
 
 const schemaGenericTypeKind = "generic"
