@@ -13,7 +13,7 @@ export function generateProperty(
   const type = generateTypeWithNullability(property.type, context, { omitUndefined: true })
   if (type === undefined) {
     throw new Error(
-      `Cannot exclude interface ${property.type.getName()}, because because it is nested in interface ${parentInterfaceFullName}`,
+      `Cannot exclude ${property.type.getName()}, because because it is nested in interface ${parentInterfaceFullName}`,
     )
   }
 

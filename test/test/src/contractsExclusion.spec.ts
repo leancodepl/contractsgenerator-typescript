@@ -184,7 +184,7 @@ describe("contractsExclusion", () => {
         },
       }),
     ).rejects.toThrow(
-      "Cannot exclude interface ExampleApp.Examples.TestContracts.Shared.NestedInterface, because because it is nested in interface ExampleApp.Examples.TestContracts.Shared.NestingInterface",
+      "Cannot exclude ExampleApp.Examples.TestContracts.Shared.NestedInterface, because because it is nested in interface ExampleApp.Examples.TestContracts.Shared.NestingInterface",
     )
   })
 })
