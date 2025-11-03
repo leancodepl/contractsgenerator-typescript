@@ -7,12 +7,10 @@ Plugin for generating TypeScript types of contracts.
 - `input` - configuration passed to [Contracts Generator Server](https://github.com/leancodepl/contractsgenerator). All
   paths are relative to directory from your current CWD. Unless you are using JavaScript files - in that case you can
   use `__dirname` and `path.join`/`path.resolve` for paths relative to configuration file.
-
   - `base` - base path for your backend code source. If you provide that then all the other properties are relative to
     this directory.
 
   Then you can provide one of:
-
   - `file`  
     or
   - `include` and `exclude` - single globs or arrays of globs to match specific .cs files  
@@ -29,7 +27,8 @@ Plugin for generating TypeScript types of contracts.
 - `nameTransform` - function `(fullName: string) => string` which allows you to transform full name of the DTO (like
   `LeanCode.Core.Contracts.User.UserDetailsDTO`). This is especially useful when you want to map namespaces, for e.g.
   when you have conflicts, want to remove parts of the namespace (`LeanCode.Core.User.UserDetailsDTO` instead of
-  `LeanCode.Core.`**`Contracts`**`.User.UserDetailsDTO`).
+  `LeanCode.Core.`**`Contracts`**`.User.UserDetailsDTO`). If the function returns `undefined`, the DTO is not included
+  in the output.
 
 ## Example
 
@@ -49,7 +48,7 @@ module.exports = {
       nameTransform: nameWithNamespace => nameWithNamespace.split(".").at(-1),
     },
   },
-};
+}
 ```
 
 ### Output

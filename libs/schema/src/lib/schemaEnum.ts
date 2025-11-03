@@ -4,6 +4,7 @@ import { leancode } from "./protocol"
 import { SchemaAttribute } from "./schemaAttribute"
 import { SchemaEnumMember } from "./schemaEnumMember"
 import { getNameFromFullName } from "./utils/getNameFromFullName"
+import { NameTransform } from "@leancodepl/contractsgenerator-typescript-types"
 
 export class SchemaEnum {
   kind = schemaEnumKind
@@ -20,11 +21,15 @@ export class SchemaEnum {
     this.attributes = statement.attributes?.map(attribute => new SchemaAttribute({ attribute })) ?? []
   }
 
-  getFullName(nameTransform: (id: string) => string) {
+  getFullName(nameTransform: NameTransform) {
     return nameTransform(this.id)
   }
 
-  getName(nameTransform: (id: string) => string) {
+  getName(nameTransform: NameTransform) {
+    const fullName = this.getFullName(nameTransform)
+
+    if (fullName === undefined) return undefined
+
     return getNameFromFullName(this.getFullName(nameTransform))
   }
 }

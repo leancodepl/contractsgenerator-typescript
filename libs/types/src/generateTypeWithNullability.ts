@@ -8,6 +8,9 @@ export function generateTypeWithNullability(
   type: SchemaType,
   context: GenerateContext,
   params?: { omitUndefined?: boolean },
-): ts.TypeNode {
-  return withNullability(generateType(type, context), { isNullable: type.isNullable, ...(params ?? {}) })
+): ts.TypeNode | undefined {
+  const typeNode = generateType(type, context)
+  if (typeNode === undefined) return undefined
+
+  return withNullability(typeNode, { isNullable: type.isNullable, ...(params ?? {}) })
 }

@@ -1,3 +1,4 @@
+import { NameTransform } from "@leancodepl/contractsgenerator-typescript-types"
 import { z } from "zod/v4"
 
 export const generatorInputSchema = z.strictObject({
@@ -35,7 +36,7 @@ export const customTypesMapSchema = z.strictObject({
 export const clientGeneratorPluginConfigurationSchema = z.object({
   input: generatorInputSchema,
   customTypes: customTypesMapSchema.optional(),
-  nameTransform: z.custom<(name: string) => string>().optional(),
+  nameTransform: z.custom<NameTransform>().optional(),
 })
 
 export type GeneratorInput = z.infer<typeof generatorInputSchema>

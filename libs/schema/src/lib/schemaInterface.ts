@@ -10,6 +10,7 @@ import { isSchemaInternalType } from "./types/schemaInternalType"
 import { isSchemaKnownType } from "./types/schemaKnownType"
 import { SchemaType } from "./types/schemaType"
 import { getNameFromFullName } from "./utils/getNameFromFullName"
+import { NameTransform } from "@leancodepl/contractsgenerator-typescript-types"
 
 export class SchemaInterface {
   kind = schemaInterfaceKind
@@ -85,12 +86,16 @@ export class SchemaInterface {
     )
   }
 
-  getFullName(nameTransform: (id: string) => string) {
+  getFullName(nameTransform: NameTransform) {
     return nameTransform(this.id)
   }
 
-  getName(nameTransform: (id: string) => string) {
-    return getNameFromFullName(this.getFullName(nameTransform))
+  getName(nameTransform: NameTransform) {
+    const fullName = this.getFullName(nameTransform)
+
+    if (fullName === undefined) return undefined
+
+    return getNameFromFullName(fullName)
   }
 }
 

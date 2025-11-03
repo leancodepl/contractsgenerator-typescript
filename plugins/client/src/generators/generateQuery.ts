@@ -7,17 +7,23 @@ import {
 } from "@leancodepl/contractsgenerator-typescript-types"
 
 export function generateQuery(query: SchemaQuery, context: GenerateContext) {
+  const name = query.getName(context.nameTransform)
+  if (name === undefined) return undefined
+
+  const queryType = generateType(query.queryType, context)
+  if (queryType === undefined) return undefined
+
+  const returnType = generateTypeWithNullability(query.returnType, context)
+  if (returnType === undefined) return undefined
+
   return ts.factory.createPropertyAssignment(
-    /* name */ query.getName(context.nameTransform),
+    /* name */ name,
     /* initializer */ ts.factory.createCallExpression(
       /* expression */ ts.factory.createPropertyAccessExpression(
         /* expression */ ts.factory.createIdentifier("cqrsClient"),
         /* name */ "createQuery",
       ),
-      /* typeArguments */ [
-        generateType(query.queryType, context),
-        generateTypeWithNullability(query.returnType, context),
-      ],
+      /* typeArguments */ [queryType, returnType],
       /* argumentsArray */ [ts.factory.createStringLiteral(query.id)],
     ),
   )

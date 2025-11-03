@@ -75,25 +75,38 @@ export function getTypesMap({
     [leancode.contracts.KnownType.Array]: ({ typeArguments, context }) => {
       const valueType = ensureNotEmpty(typeArguments[0])
 
-      return ts.factory.createArrayTypeNode(generateTypeWithNullability(valueType, context))
+      const valueTypeNode = generateTypeWithNullability(valueType, context)
+      if (valueTypeNode === undefined) return undefined
+
+      return ts.factory.createArrayTypeNode(valueTypeNode)
     },
     [leancode.contracts.KnownType.Map]: ({ typeArguments, context }) => {
       const keyType = ensureNotEmpty(typeArguments[0])
       const valueType = ensureNotEmpty(typeArguments[1])
 
+      const keyTypeNode = generateType(keyType, context)
+      if (keyTypeNode === undefined) return undefined
+
+      const valueTypeNode = generateTypeWithNullability(valueType, context)
+      if (valueTypeNode === undefined) return undefined
+
       return ts.factory.createTypeReferenceNode(
         /* typeName */ "Record",
-        /* typeArguments */ [generateType(keyType, context), generateTypeWithNullability(valueType, context)],
+        /* typeArguments */ [keyTypeNode, valueTypeNode],
       )
     },
-    [leancode.contracts.KnownType.Query]: ({ typeArguments, context }) =>
-      ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Query"), [
-        generateType(ensureNotEmpty(typeArguments[0]), context),
-      ]),
-    [leancode.contracts.KnownType.Operation]: ({ typeArguments, context }) =>
-      ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Operation"), [
-        generateType(ensureNotEmpty(typeArguments[0]), context),
-      ]),
+    [leancode.contracts.KnownType.Query]: ({ typeArguments, context }) => {
+      const queryTypeNode = generateType(ensureNotEmpty(typeArguments[0]), context)
+      if (queryTypeNode === undefined) return undefined
+
+      return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Query"), [queryTypeNode])
+    },
+    [leancode.contracts.KnownType.Operation]: ({ typeArguments, context }) => {
+      const operationTypeNode = generateType(ensureNotEmpty(typeArguments[0]), context)
+      if (operationTypeNode === undefined) return undefined
+
+      return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Operation"), [operationTypeNode])
+    },
     [leancode.contracts.KnownType.Command]: () =>
       ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Command")),
     [leancode.contracts.KnownType.CommandResult]: () =>

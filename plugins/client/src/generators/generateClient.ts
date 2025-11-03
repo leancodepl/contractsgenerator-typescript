@@ -44,7 +44,9 @@ export function generateClient(interfaces: SchemaInterface[], context: ClientCon
       /* statements */ [
         ts.factory.createReturnStatement(
           /* expression */ ts.factory.createObjectLiteralExpression(
-            /* properties */ ts.factory.createNodeArray(/* elements */ clientProperties),
+            /* properties */ ts.factory.createNodeArray(
+              /* elements */ clientProperties.filter(property => property !== undefined),
+            ),
             /* multiline */ true,
           ),
         ),

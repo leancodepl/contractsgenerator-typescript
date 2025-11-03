@@ -12,15 +12,25 @@ import { generateProperty } from "./generateProperty"
 export function generateInterface(schemaInterface: SchemaInterface, context: ContractsContext) {
   if (schemaInterface.getIsAttribute(context.schemaEntities)) return []
 
+  const name = schemaInterface.getName(context.nameTransform)
+  if (name === undefined) return []
+
   const typeParameters = schemaInterface.genericParameters.map(p =>
     ts.factory.createTypeParameterDeclaration(/* modifiers */ undefined, p),
   )
 
-  const extendTypes = schemaInterface.extendTypes.map(type => withExtends(generateType(type, context)))
+  const extendTypes = schemaInterface.extendTypes
+    .map(type => {
+      const extendedType = generateType(type, context)
+      if (extendedType === undefined) return undefined
+
+      return withExtends(extendedType)
+    })
+    .filter(type => type !== undefined)
 
   const interfaceStatement = ts.factory.createInterfaceDeclaration(
     /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-    /* name */ schemaInterface.getName(context.nameTransform),
+    /* name */ name,
     /* typeParameters */ typeParameters,
     /* heritageClauses */ extendTypes.length > 0
       ? [ts.factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, extendTypes)]

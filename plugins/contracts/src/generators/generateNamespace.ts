@@ -37,7 +37,9 @@ function generateNamespace(generatorNamespace: GeneratorNamespace, context: Cont
     generateNamespace(generatorNamespace, childContext),
   )
 
-  const statements = [...interfaceStatements, ...enumStatements, ...namespaceStatements]
+  const statements = [...interfaceStatements, ...enumStatements, ...namespaceStatements].filter(
+    statement => statement !== undefined,
+  )
 
   if (!generatorNamespace.name) {
     return statements
@@ -69,9 +71,9 @@ function extractNamespaces(
   context: ContractsContext,
 ): GeneratorNamespace {
   const { [rootNamespace]: rootNamespaceEntities, ...namespaces } = groupBy(schemaEntities, schemaEntity => {
-    const parts = schemaEntity.getFullName(context.nameTransform).split(".").slice(0, -1)
+    const parts = schemaEntity.getFullName(context.nameTransform)?.split(".").slice(0, -1)
 
-    return parts[depth] ?? rootNamespace
+    return parts?.[depth] ?? rootNamespace
   })
 
   return {
@@ -88,7 +90,7 @@ function throwErrorForDuplicateNames(generatorNamespace: GeneratorNamespace, con
   const interfaceNames = generatorNamespace.interfaces.map(i => i.getName(context.nameTransform))
   const enumNames = generatorNamespace.enums.map(e => e.getName(context.nameTransform))
 
-  const allNames = [...interfaceNames, ...enumNames]
+  const allNames = [...interfaceNames, ...enumNames].filter(name => name !== undefined)
 
   const namesOccurrencesCounts = allNames.reduce((acc, name) => {
     acc.set(name, (acc.get(name) ?? 0) + 1)
