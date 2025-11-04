@@ -21,6 +21,7 @@ yarn add @leancodepl/contractsgenerator-typescript-plugin
 Defines the structure of a generator plugin that can process contract schemas.
 
 **Type:**
+
 ```typescript
 interface GeneratorPlugin {
   instance: (configuration: unknown, context: GeneratorContext) => GeneratorPluginInstance
@@ -32,6 +33,7 @@ interface GeneratorPlugin {
 Interface for plugin instances with lifecycle hooks for code generation.
 
 **Type:**
+
 ```typescript
 interface GeneratorPluginInstance {
   beforeAll?: () => Promise<string | undefined>
@@ -47,6 +49,7 @@ interface GeneratorPluginInstance {
 Context object provided to plugins containing session, file, and plugin-specific state.
 
 **Type:**
+
 ```typescript
 type GeneratorContext = {
   session: GeneratorSessionContext
@@ -60,6 +63,7 @@ type GeneratorContext = {
 Configuration for specifying which backend contracts to process.
 
 **Type:**
+
 ```typescript
 interface GeneratorInput {
   raw?: string
@@ -77,21 +81,25 @@ interface GeneratorInput {
 ### Creating a Custom Plugin
 
 ```typescript
-import { GeneratorPlugin, GeneratorPluginInstance, GeneratorContext } from "@leancodepl/contractsgenerator-typescript-plugin";
+import {
+  GeneratorPlugin,
+  GeneratorPluginInstance,
+  GeneratorContext,
+} from "@leancodepl/contractsgenerator-typescript-plugin"
 
 class CustomPlugin implements GeneratorPluginInstance {
   async generate() {
-    return "export const custom = true;";
+    return "export const custom = true;"
   }
 }
 
 const customPlugin: GeneratorPlugin = {
   instance(config: unknown, context: GeneratorContext) {
-    return new CustomPlugin();
+    return new CustomPlugin()
   },
-};
+}
 
-export default customPlugin;
+export default customPlugin
 ```
 
 ### Using Plugin Lifecycle Hooks
@@ -99,15 +107,15 @@ export default customPlugin;
 ```typescript
 class LifecyclePlugin implements GeneratorPluginInstance {
   async beforeAll() {
-    return "// File header\n";
+    return "// File header\n"
   }
 
   async generate() {
-    return "export const data = {};\n";
+    return "export const data = {};\n"
   }
 
   async afterAll() {
-    return "\n// File footer";
+    return "\n// File footer"
   }
 }
 ```
@@ -115,7 +123,7 @@ class LifecyclePlugin implements GeneratorPluginInstance {
 ### Accessing Schema from Context
 
 ```typescript
-import { GeneratorPlugin, GeneratorContext } from "@leancodepl/contractsgenerator-typescript-plugin";
+import { GeneratorPlugin, GeneratorContext } from "@leancodepl/contractsgenerator-typescript-plugin"
 
 class SchemaPlugin implements GeneratorPluginInstance {
   constructor(private context: GeneratorContext) {}
@@ -124,16 +132,16 @@ class SchemaPlugin implements GeneratorPluginInstance {
     const schema = await this.context.session.getSchema({
       base: "./backend",
       project: ["Project.csproj"],
-    });
-    return `// Found ${schema.components.length} components`;
+    })
+    return `// Found ${schema.components.length} components`
   }
 }
 
 const plugin: GeneratorPlugin = {
   instance(config, context) {
-    return new SchemaPlugin(context);
+    return new SchemaPlugin(context)
   },
-};
+}
 
-export default plugin;
+export default plugin
 ```
