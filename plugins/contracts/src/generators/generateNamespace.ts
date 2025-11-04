@@ -99,16 +99,18 @@ function throwErrorForDuplicateNames(generatorNamespace: GeneratorNamespace, con
     .filter(([_, count]) => count > 1)
     .map(([name]) => name)
 
-  if (duplicateNames.length > 0) {
-    const names = duplicateNames.join(", ")
+  if (duplicateNames.length === 0) {
+    return
+  }
 
-    if (context.currentNamespace.length > 0 || generatorNamespace.name) {
-      const fullNamespaceName = generatorNamespace.name
-        ? [...context.currentNamespace, generatorNamespace.name]
-        : context.currentNamespace
-      throw new Error(`Error: namespace ${fullNamespaceName.join(".")} has duplicate names: ${names}`)
-    } else {
-      throw new Error(`Error: duplicate names: ${names}`)
-    }
+  const names = duplicateNames.join(", ")
+
+  if (context.currentNamespace.length > 0 || generatorNamespace.name) {
+    const fullNamespaceName = generatorNamespace.name
+      ? [...context.currentNamespace, generatorNamespace.name]
+      : context.currentNamespace
+    throw new Error(`Error: namespace ${fullNamespaceName.join(".")} has duplicate names: ${names}`)
+  } else {
+    throw new Error(`Error: duplicate names: ${names}`)
   }
 }
