@@ -3,15 +3,21 @@ import { SchemaTopic } from "@leancodepl/contractsgenerator-typescript-schema"
 import { GenerateContext, generateType } from "@leancodepl/contractsgenerator-typescript-types"
 
 export function generateTopic(topic: SchemaTopic, context: GenerateContext) {
+  const name = topic.getName(context.nameTransform)
+  if (name === undefined) return undefined
+
+  const topicType = generateType(topic.topicType, context)
+  if (topicType === undefined) return undefined
+
   return ts.factory.createPropertyAssignment(
-    /* name */ topic.getName(context.nameTransform),
+    /* name */ name,
     /* initializer */ ts.factory.createCallExpression(
       /* expression */ ts.factory.createPropertyAccessExpression(
         /* expression */ ts.factory.createIdentifier("cqrsClient"),
         /* name */ "createTopic",
       ),
       /* typeArguments */ [
-        generateType(topic.topicType, context),
+        topicType,
         ts.factory.createTypeLiteralNode(
           /* members */ topic.notifications.map(notification =>
             ts.factory.createPropertySignature(

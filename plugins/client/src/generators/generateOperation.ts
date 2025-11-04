@@ -6,19 +6,25 @@ import {
   generateTypeWithNullability,
 } from "@leancodepl/contractsgenerator-typescript-types"
 
-export function generateOperation(query: SchemaOperation, context: GenerateContext) {
+export function generateOperation(operation: SchemaOperation, context: GenerateContext) {
+  const name = operation.getName(context.nameTransform)
+  if (name === undefined) return undefined
+
+  const operationType = generateType(operation.operationType, context)
+  if (operationType === undefined) return undefined
+
+  const returnType = generateTypeWithNullability(operation.returnType, context)
+  if (returnType === undefined) return undefined
+
   return ts.factory.createPropertyAssignment(
-    /* name */ query.getName(context.nameTransform),
+    /* name */ name,
     /* initializer */ ts.factory.createCallExpression(
       /* expression */ ts.factory.createPropertyAccessExpression(
         /* expression */ ts.factory.createIdentifier("cqrsClient"),
         /* name */ "createOperation",
       ),
-      /* typeArguments */ [
-        generateType(query.operationType, context),
-        generateTypeWithNullability(query.returnType, context),
-      ],
-      /* argumentsArray */ [ts.factory.createStringLiteral(query.id)],
+      /* typeArguments */ [operationType, returnType],
+      /* argumentsArray */ [ts.factory.createStringLiteral(operation.id)],
     ),
   )
 }

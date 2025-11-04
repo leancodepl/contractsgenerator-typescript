@@ -41,10 +41,14 @@ export function generateErrorCodes(command: SchemaCommand, context: ContractsCon
     ),
   ]
 
+  const name = command.getName(context.nameTransform)
+
+  if (name === undefined) return []
+
   return [
     ts.factory.createModuleDeclaration(
       /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-      /* name */ ts.factory.createIdentifier(command.getName(context.nameTransform)),
+      /* name */ ts.factory.createIdentifier(name),
       /* body */ ts.factory.createModuleBlock(errorCodesStatements),
       /* flags */ ts.NodeFlags.Namespace,
     ),

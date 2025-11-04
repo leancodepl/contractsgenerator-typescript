@@ -1,10 +1,10 @@
 import ts from "typescript"
-import { leancode, SchemaType } from "@leancodepl/contractsgenerator-typescript-schema"
+import { leancode, SchemaType, NameTransform } from "@leancodepl/contractsgenerator-typescript-schema"
 
 export interface GenerateContext {
   currentNamespace: string[]
   typesMap: TypesMap
-  nameTransform: (id: string) => string
+  nameTransform: NameTransform
 }
 
 export type TypesMap = Record<

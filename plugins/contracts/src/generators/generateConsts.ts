@@ -30,10 +30,13 @@ export function generateConsts(schemaInterface: SchemaInterface, context: Contra
     return withJsDoc(constStatement, jsDoc, context)
   })
 
+  const name = schemaInterface.getName(context.nameTransform)
+  if (name === undefined) return []
+
   return [
     ts.factory.createModuleDeclaration(
       /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-      /* name */ ts.factory.createIdentifier(schemaInterface.getName(context.nameTransform)),
+      /* name */ ts.factory.createIdentifier(name),
       /* body */ ts.factory.createModuleBlock(constants),
       /* flags */ ts.NodeFlags.Namespace,
     ),

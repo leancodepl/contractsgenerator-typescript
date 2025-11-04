@@ -1,0 +1,589 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`contractsExclusion can remove command 1`] = `
+Object {
+  "test.ts": "export namespace ExampleApp {
+    export namespace Examples {
+        export namespace TestContracts {
+            export namespace RemoveNamespace {
+                export interface DTOFromRemovedNamespace {
+                    Latitude: number;
+                    Longitude: number;
+                }
+            }
+            export namespace Shared {
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
+                }
+                export interface RemoveCommandDTO {
+                    Name: string;
+                }
+                export interface RemoveInterface {
+                    Remove: number;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveOperation extends Operation<RemoveOperationDTO> {
+                    ProjectId: string;
+                }
+                export interface RemoveOperationDTO {
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveQuery extends Query<RemoveQueryDTO[]> {
+                }
+                export interface RemoveQueryDTO {
+                    Id: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveTopic extends Topic {
+                    ItemId: string;
+                }
+                export interface RemoveTopicDTO {
+                    ItemId: string;
+                }
+                export enum RemoveEnum {
+                    Remove1 = 0,
+                    Remove2 = 1
+                }
+            }
+        }
+    }
+}
+export default function (cqrsClient: CQRS) {
+    return {
+        RemoveOperation: cqrsClient.createOperation<ExampleApp.Examples.TestContracts.Shared.RemoveOperation, ExampleApp.Examples.TestContracts.Shared.RemoveOperationDTO>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveOperation\\"),
+        RemoveQuery: cqrsClient.createQuery<ExampleApp.Examples.TestContracts.Shared.RemoveQuery, ExampleApp.Examples.TestContracts.Shared.RemoveQueryDTO[]>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveQuery\\"),
+        RemoveTopic: cqrsClient.createTopic<ExampleApp.Examples.TestContracts.Shared.RemoveTopic, {
+            \\"ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO\\": ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO;
+        }>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveTopic\\")
+    };
+}
+",
+}
+`;
+
+exports[`contractsExclusion can remove enum 1`] = `
+Object {
+  "test.ts": "export namespace ExampleApp {
+    export namespace Examples {
+        export namespace TestContracts {
+            export namespace RemoveNamespace {
+                export interface DTOFromRemovedNamespace {
+                    Latitude: number;
+                    Longitude: number;
+                }
+            }
+            export namespace Shared {
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveCommand extends Command {
+                    ProjectId: string;
+                    Items: RemoveCommandDTO[];
+                }
+                export namespace RemoveCommand {
+                    export const ErrorCodes = {
+                        ProjectIdNotValid: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface RemoveCommandDTO {
+                    Name: string;
+                }
+                export interface RemoveInterface {
+                    Remove: number;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveOperation extends Operation<RemoveOperationDTO> {
+                    ProjectId: string;
+                }
+                export interface RemoveOperationDTO {
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveQuery extends Query<RemoveQueryDTO[]> {
+                }
+                export interface RemoveQueryDTO {
+                    Id: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveTopic extends Topic {
+                    ItemId: string;
+                }
+                export interface RemoveTopicDTO {
+                    ItemId: string;
+                }
+            }
+        }
+    }
+}
+export default function (cqrsClient: CQRS) {
+    return {
+        RemoveCommand: cqrsClient.createCommand<ExampleApp.Examples.TestContracts.Shared.RemoveCommand, ExampleApp.Examples.TestContracts.Shared.RemoveCommand.ErrorCodes>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveCommand\\", ExampleApp.Examples.TestContracts.Shared.RemoveCommand.ErrorCodes),
+        RemoveOperation: cqrsClient.createOperation<ExampleApp.Examples.TestContracts.Shared.RemoveOperation, ExampleApp.Examples.TestContracts.Shared.RemoveOperationDTO>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveOperation\\"),
+        RemoveQuery: cqrsClient.createQuery<ExampleApp.Examples.TestContracts.Shared.RemoveQuery, ExampleApp.Examples.TestContracts.Shared.RemoveQueryDTO[]>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveQuery\\"),
+        RemoveTopic: cqrsClient.createTopic<ExampleApp.Examples.TestContracts.Shared.RemoveTopic, {
+            \\"ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO\\": ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO;
+        }>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveTopic\\")
+    };
+}
+",
+}
+`;
+
+exports[`contractsExclusion can remove interface 1`] = `
+Object {
+  "test.ts": "export namespace ExampleApp {
+    export namespace Examples {
+        export namespace TestContracts {
+            export namespace RemoveNamespace {
+                export interface DTOFromRemovedNamespace {
+                    Latitude: number;
+                    Longitude: number;
+                }
+            }
+            export namespace Shared {
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveCommand extends Command {
+                    ProjectId: string;
+                    Items: RemoveCommandDTO[];
+                }
+                export namespace RemoveCommand {
+                    export const ErrorCodes = {
+                        ProjectIdNotValid: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface RemoveCommandDTO {
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveOperation extends Operation<RemoveOperationDTO> {
+                    ProjectId: string;
+                }
+                export interface RemoveOperationDTO {
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveQuery extends Query<RemoveQueryDTO[]> {
+                }
+                export interface RemoveQueryDTO {
+                    Id: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveTopic extends Topic {
+                    ItemId: string;
+                }
+                export interface RemoveTopicDTO {
+                    ItemId: string;
+                }
+                export enum RemoveEnum {
+                    Remove1 = 0,
+                    Remove2 = 1
+                }
+            }
+        }
+    }
+}
+export default function (cqrsClient: CQRS) {
+    return {
+        RemoveCommand: cqrsClient.createCommand<ExampleApp.Examples.TestContracts.Shared.RemoveCommand, ExampleApp.Examples.TestContracts.Shared.RemoveCommand.ErrorCodes>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveCommand\\", ExampleApp.Examples.TestContracts.Shared.RemoveCommand.ErrorCodes),
+        RemoveOperation: cqrsClient.createOperation<ExampleApp.Examples.TestContracts.Shared.RemoveOperation, ExampleApp.Examples.TestContracts.Shared.RemoveOperationDTO>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveOperation\\"),
+        RemoveQuery: cqrsClient.createQuery<ExampleApp.Examples.TestContracts.Shared.RemoveQuery, ExampleApp.Examples.TestContracts.Shared.RemoveQueryDTO[]>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveQuery\\"),
+        RemoveTopic: cqrsClient.createTopic<ExampleApp.Examples.TestContracts.Shared.RemoveTopic, {
+            \\"ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO\\": ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO;
+        }>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveTopic\\")
+    };
+}
+",
+}
+`;
+
+exports[`contractsExclusion can remove namespace 1`] = `
+Object {
+  "test.ts": "export namespace ExampleApp {
+    export namespace Examples {
+        export namespace TestContracts {
+            export namespace Shared {
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveCommand extends Command {
+                    ProjectId: string;
+                    Items: RemoveCommandDTO[];
+                }
+                export namespace RemoveCommand {
+                    export const ErrorCodes = {
+                        ProjectIdNotValid: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface RemoveCommandDTO {
+                    Name: string;
+                }
+                export interface RemoveInterface {
+                    Remove: number;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveOperation extends Operation<RemoveOperationDTO> {
+                    ProjectId: string;
+                }
+                export interface RemoveOperationDTO {
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveQuery extends Query<RemoveQueryDTO[]> {
+                }
+                export interface RemoveQueryDTO {
+                    Id: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveTopic extends Topic {
+                    ItemId: string;
+                }
+                export interface RemoveTopicDTO {
+                    ItemId: string;
+                }
+                export enum RemoveEnum {
+                    Remove1 = 0,
+                    Remove2 = 1
+                }
+            }
+        }
+    }
+}
+export default function (cqrsClient: CQRS) {
+    return {
+        RemoveCommand: cqrsClient.createCommand<ExampleApp.Examples.TestContracts.Shared.RemoveCommand, ExampleApp.Examples.TestContracts.Shared.RemoveCommand.ErrorCodes>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveCommand\\", ExampleApp.Examples.TestContracts.Shared.RemoveCommand.ErrorCodes),
+        RemoveOperation: cqrsClient.createOperation<ExampleApp.Examples.TestContracts.Shared.RemoveOperation, ExampleApp.Examples.TestContracts.Shared.RemoveOperationDTO>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveOperation\\"),
+        RemoveQuery: cqrsClient.createQuery<ExampleApp.Examples.TestContracts.Shared.RemoveQuery, ExampleApp.Examples.TestContracts.Shared.RemoveQueryDTO[]>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveQuery\\"),
+        RemoveTopic: cqrsClient.createTopic<ExampleApp.Examples.TestContracts.Shared.RemoveTopic, {
+            \\"ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO\\": ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO;
+        }>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveTopic\\")
+    };
+}
+",
+}
+`;
+
+exports[`contractsExclusion can remove operation 1`] = `
+Object {
+  "test.ts": "export namespace ExampleApp {
+    export namespace Examples {
+        export namespace TestContracts {
+            export namespace RemoveNamespace {
+                export interface DTOFromRemovedNamespace {
+                    Latitude: number;
+                    Longitude: number;
+                }
+            }
+            export namespace Shared {
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveCommand extends Command {
+                    ProjectId: string;
+                    Items: RemoveCommandDTO[];
+                }
+                export namespace RemoveCommand {
+                    export const ErrorCodes = {
+                        ProjectIdNotValid: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface RemoveCommandDTO {
+                    Name: string;
+                }
+                export interface RemoveInterface {
+                    Remove: number;
+                }
+                export interface RemoveOperationDTO {
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveQuery extends Query<RemoveQueryDTO[]> {
+                }
+                export interface RemoveQueryDTO {
+                    Id: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveTopic extends Topic {
+                    ItemId: string;
+                }
+                export interface RemoveTopicDTO {
+                    ItemId: string;
+                }
+                export enum RemoveEnum {
+                    Remove1 = 0,
+                    Remove2 = 1
+                }
+            }
+        }
+    }
+}
+export default function (cqrsClient: CQRS) {
+    return {
+        RemoveCommand: cqrsClient.createCommand<ExampleApp.Examples.TestContracts.Shared.RemoveCommand, ExampleApp.Examples.TestContracts.Shared.RemoveCommand.ErrorCodes>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveCommand\\", ExampleApp.Examples.TestContracts.Shared.RemoveCommand.ErrorCodes),
+        RemoveQuery: cqrsClient.createQuery<ExampleApp.Examples.TestContracts.Shared.RemoveQuery, ExampleApp.Examples.TestContracts.Shared.RemoveQueryDTO[]>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveQuery\\"),
+        RemoveTopic: cqrsClient.createTopic<ExampleApp.Examples.TestContracts.Shared.RemoveTopic, {
+            \\"ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO\\": ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO;
+        }>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveTopic\\")
+    };
+}
+",
+}
+`;
+
+exports[`contractsExclusion can remove query 1`] = `
+Object {
+  "test.ts": "export namespace ExampleApp {
+    export namespace Examples {
+        export namespace TestContracts {
+            export namespace RemoveNamespace {
+                export interface DTOFromRemovedNamespace {
+                    Latitude: number;
+                    Longitude: number;
+                }
+            }
+            export namespace Shared {
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveCommand extends Command {
+                    ProjectId: string;
+                    Items: RemoveCommandDTO[];
+                }
+                export namespace RemoveCommand {
+                    export const ErrorCodes = {
+                        ProjectIdNotValid: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface RemoveCommandDTO {
+                    Name: string;
+                }
+                export interface RemoveInterface {
+                    Remove: number;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveOperation extends Operation<RemoveOperationDTO> {
+                    ProjectId: string;
+                }
+                export interface RemoveOperationDTO {
+                    Name: string;
+                }
+                export interface RemoveQueryDTO {
+                    Id: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveTopic extends Topic {
+                    ItemId: string;
+                }
+                export interface RemoveTopicDTO {
+                    ItemId: string;
+                }
+                export enum RemoveEnum {
+                    Remove1 = 0,
+                    Remove2 = 1
+                }
+            }
+        }
+    }
+}
+export default function (cqrsClient: CQRS) {
+    return {
+        RemoveCommand: cqrsClient.createCommand<ExampleApp.Examples.TestContracts.Shared.RemoveCommand, ExampleApp.Examples.TestContracts.Shared.RemoveCommand.ErrorCodes>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveCommand\\", ExampleApp.Examples.TestContracts.Shared.RemoveCommand.ErrorCodes),
+        RemoveOperation: cqrsClient.createOperation<ExampleApp.Examples.TestContracts.Shared.RemoveOperation, ExampleApp.Examples.TestContracts.Shared.RemoveOperationDTO>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveOperation\\"),
+        RemoveTopic: cqrsClient.createTopic<ExampleApp.Examples.TestContracts.Shared.RemoveTopic, {
+            \\"ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO\\": ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO;
+        }>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveTopic\\")
+    };
+}
+",
+}
+`;
+
+exports[`contractsExclusion can remove topic 1`] = `
+Object {
+  "test.ts": "export namespace ExampleApp {
+    export namespace Examples {
+        export namespace TestContracts {
+            export namespace RemoveNamespace {
+                export interface DTOFromRemovedNamespace {
+                    Latitude: number;
+                    Longitude: number;
+                }
+            }
+            export namespace Shared {
+                export interface ExtendedInterface {
+                    Extended: number;
+                }
+                export interface ExtendingInterface extends ExtendedInterface {
+                    Extending: number;
+                }
+                export interface NestedInterface {
+                    Nest: number;
+                }
+                export interface NestingInterface {
+                    Nested: NestedInterface;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveCommand extends Command {
+                    ProjectId: string;
+                    Items: RemoveCommandDTO[];
+                }
+                export namespace RemoveCommand {
+                    export const ErrorCodes = {
+                        ProjectIdNotValid: 1
+                    } as const;
+                    export type ErrorCodes = typeof ErrorCodes;
+                }
+                export interface RemoveCommandDTO {
+                    Name: string;
+                }
+                export interface RemoveInterface {
+                    Remove: number;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveOperation extends Operation<RemoveOperationDTO> {
+                    ProjectId: string;
+                }
+                export interface RemoveOperationDTO {
+                    Name: string;
+                }
+                /**
+                 * @attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute
+                 */
+                export interface RemoveQuery extends Query<RemoveQueryDTO[]> {
+                }
+                export interface RemoveQueryDTO {
+                    Id: string;
+                }
+                export interface RemoveTopicDTO {
+                    ItemId: string;
+                }
+                export enum RemoveEnum {
+                    Remove1 = 0,
+                    Remove2 = 1
+                }
+            }
+        }
+    }
+}
+export default function (cqrsClient: CQRS) {
+    return {
+        RemoveCommand: cqrsClient.createCommand<ExampleApp.Examples.TestContracts.Shared.RemoveCommand, ExampleApp.Examples.TestContracts.Shared.RemoveCommand.ErrorCodes>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveCommand\\", ExampleApp.Examples.TestContracts.Shared.RemoveCommand.ErrorCodes),
+        RemoveOperation: cqrsClient.createOperation<ExampleApp.Examples.TestContracts.Shared.RemoveOperation, ExampleApp.Examples.TestContracts.Shared.RemoveOperationDTO>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveOperation\\"),
+        RemoveQuery: cqrsClient.createQuery<ExampleApp.Examples.TestContracts.Shared.RemoveQuery, ExampleApp.Examples.TestContracts.Shared.RemoveQueryDTO[]>(\\"ExampleApp.Examples.TestContracts.Shared.RemoveQuery\\")
+    };
+}
+",
+}
+`;

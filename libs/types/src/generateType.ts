@@ -10,7 +10,7 @@ import { generateGenericType } from "./generateGenericType"
 import { generateInternalType } from "./generateInternalType"
 import { generateKnownType } from "./generateKnownType"
 
-export function generateType(type: SchemaType, context: GenerateContext): ts.TypeNode {
+export function generateType(type: SchemaType, context: GenerateContext): ts.TypeNode | undefined {
   if (isSchemaGenericType(type)) return generateGenericType(type, context)
   if (isSchemaInternalType(type)) return generateInternalType(type, context)
   if (isSchemaKnownType(type)) return generateKnownType(type, context)

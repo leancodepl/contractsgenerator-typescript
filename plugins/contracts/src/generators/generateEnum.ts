@@ -6,9 +6,12 @@ import { generateAttribute } from "./generateAttribute"
 import { generateEnumMember } from "./generateEnumMember"
 
 export function generateEnum(schemaEnum: SchemaEnum, context: ContractsContext) {
+  const name = schemaEnum.getName(context.nameTransform)
+  if (name === undefined) return []
+
   const enumStatement = ts.factory.createEnumDeclaration(
     /* modifiers */ [ts.factory.createModifier(ts.SyntaxKind.ExportKeyword)],
-    /* name */ schemaEnum.getName(context.nameTransform),
+    /* name */ name,
     /* members */ schemaEnum.members.map(enumMember => generateEnumMember(enumMember, context)),
   )
 
@@ -20,5 +23,5 @@ export function generateEnum(schemaEnum: SchemaEnum, context: ContractsContext) 
         )
       : undefined
 
-  return withJsDoc(enumStatement, jsDoc, context)
+  return [withJsDoc(enumStatement, jsDoc, context)]
 }
