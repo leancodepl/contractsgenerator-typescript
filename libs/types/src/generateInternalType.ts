@@ -13,6 +13,8 @@ export function generateInternalType(internalType: SchemaInternalType, context: 
 
   return ts.factory.createTypeReferenceNode(
     name,
-    internalType.typeArguments.map(type => generateTypeWithNullability(type, context)).filter(t => t !== undefined),
+    internalType.typeArguments
+      .map(type => generateTypeWithNullability(type, context))
+      .filter(type => type !== undefined),
   )
 }
