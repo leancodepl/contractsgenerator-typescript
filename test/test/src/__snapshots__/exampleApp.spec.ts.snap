@@ -2999,7 +2999,7 @@ export interface RatingAlreadySent extends Query<boolean> {
 export interface SubmitAppRating extends Command {
     Rating: number;
     AdditionalComment?: string | null;
-    Platform: PlatformDTO;
+    Platform: AppRatingPlatformDTO;
     SystemVersion: string;
     AppVersion: string;
     Metadata?: Record<string, Partial<Record<string, any>>> | null;
@@ -3060,7 +3060,7 @@ export enum ServiceProviderSortFieldsDTO {
     Type = 1,
     Ratings = 2
 }
-export enum PlatformDTO {
+export enum AppRatingPlatformDTO {
     Android = 0,
     IOS = 1
 }
