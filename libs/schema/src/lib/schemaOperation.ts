@@ -4,7 +4,7 @@ import { SchemaInterface } from "./schemaInterface"
 import { createType } from "./types"
 
 export class SchemaOperation extends SchemaInterface {
-  kind = schemaOperationKind
+  override kind = schemaOperationKind
 
   returnType
   operationType
