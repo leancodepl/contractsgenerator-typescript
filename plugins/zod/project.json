@@ -1,0 +1,34 @@
+{
+  "name": "zod",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "plugins/zod/src",
+  "projectType": "library",
+  "tags": ["plugin"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/plugins/zod",
+        "tsConfig": "plugins/zod/tsconfig.lib.json",
+        "packageJson": "plugins/zod/package.json",
+        "main": "plugins/zod/src/index.ts",
+        "assets": ["plugins/zod/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "options": {
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "coverage": true
+        }
+      }
+    }
+  }
+}
