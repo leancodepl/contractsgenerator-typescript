@@ -1,0 +1,624 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`zodPlugin generates schemas with custom types map 1`] = `
+Object {
+  "test.ts": "import { z } from \\"zod\\";
+
+export namespace ExampleApp {
+    export namespace Examples {
+        export namespace Contracts {
+            export const authSchema = z.object({});
+            export const paginatedQuerySchema = tResultSchema => z.object({
+                PageNumber: z.number(),
+                PageSize: z.number()
+            }).merge(1000Schema);
+            export const paginatedResultSchema = tResultSchema => z.object({
+                Items: z.array(tResultSchema),
+                TotalCount: z.number()
+            });
+            export const sortedQuerySchema = (tResultSchema, tSortSchema) => z.object({
+                SortBy: tSortSchema,
+                SortByDescending: z.boolean()
+            }).merge(ExampleApp.Examples.Contracts.PaginatedQuery.paginatedQuerySchema);
+            export namespace Auth {
+                export const knownClaimsSchema = z.object({});
+                export const rolesSchema = z.object({});
+            }
+            export namespace Booking {
+                export const locationDTOSchema = z.object({
+                    Latitude: z.number(),
+                    Longitude: z.number()
+                });
+                export const moneyDTOSchema = z.object({
+                    Value: z.number(),
+                    Currency: z.string()
+                });
+                export const serviceProviderTypeDTOSchema = z.nativeEnum(ServiceProviderTypeDTO);
+                export namespace Management {
+                    export const serviceProviderLogoUploadLinkDTOSchema = z.object({
+                        Link: z.string(),
+                        RequiredHeaders: z.record(z.string(), z.string())
+                    });
+                }
+                export namespace Reservations {
+                    export const myReservationDTOSchema = z.object({
+                        Id: z.string(),
+                        TimeslotId: z.string(),
+                        ServiceProviderId: z.string(),
+                        ServiceProviderName: z.string(),
+                        Type: ExampleApp.Examples.Contracts.Booking.ServiceProviderTypeDTO.serviceProviderTypeDTOSchema,
+                        Address: z.string(),
+                        Location: ExampleApp.Examples.Contracts.Booking.LocationDTO.locationDTOSchema,
+                        Date: z.string(),
+                        StartTime: z.string(),
+                        EndTime: z.string(),
+                        Price: ExampleApp.Examples.Contracts.Booking.MoneyDTO.moneyDTOSchema,
+                        Status: ExampleApp.Examples.Contracts.Booking.Reservations.ReservationStatusDTO.reservationStatusDTOSchema
+                    });
+                    export const reservationCancelledNotificationDTOSchema = z.object({
+                        ReservationId: z.string(),
+                        CalendarDayId: z.string(),
+                        TimeslotId: z.string(),
+                        ServiceProviderId: z.string(),
+                        ServiceProviderName: z.string(),
+                        Date: z.string(),
+                        StartTime: z.string(),
+                        EndTime: z.string()
+                    });
+                    export const reservationCreatedNotificationDTOSchema = z.object({
+                        ReservationId: z.string(),
+                        CalendarDayId: z.string(),
+                        TimeslotId: z.string(),
+                        ServiceProviderId: z.string(),
+                        ServiceProviderName: z.string(),
+                        Date: z.string(),
+                        StartTime: z.string(),
+                        EndTime: z.string()
+                    });
+                    export const reservationStatusDTOSchema = z.nativeEnum(ReservationStatusDTO);
+                    export namespace Authorization {
+                        export namespace AuthorizeWhenOwnsReservationAttribute {
+                            export const iReservationRelatedSchema = z.object({
+                                ReservationId: z.string()
+                            });
+                            export const iWhenOwnsReservationSchema = z.object({});
+                        }
+                    }
+                }
+                export namespace ServiceProviders {
+                    export const serviceProviderDetailsDTOSchema = z.object({
+                        Id: z.string(),
+                        Name: z.string(),
+                        Description: z.string(),
+                        Type: ExampleApp.Examples.Contracts.Booking.ServiceProviderTypeDTO.serviceProviderTypeDTOSchema,
+                        Address: z.string(),
+                        Location: ExampleApp.Examples.Contracts.Booking.LocationDTO.locationDTOSchema,
+                        IsPromotionActive: z.boolean(),
+                        Ratings: z.number(),
+                        CoverPhoto: z.string(),
+                        Thumbnail: z.string(),
+                        Timeslots: z.array(ExampleApp.Examples.Contracts.Booking.ServiceProviders.TimeslotDTO.timeslotDTOSchema)
+                    });
+                    export const serviceProviderSummaryDTOSchema = z.object({
+                        Id: z.string(),
+                        Name: z.string(),
+                        Type: ExampleApp.Examples.Contracts.Booking.ServiceProviderTypeDTO.serviceProviderTypeDTOSchema,
+                        Thumbnail: z.string(),
+                        IsPromotionActive: z.boolean(),
+                        Address: z.string(),
+                        Location: ExampleApp.Examples.Contracts.Booking.LocationDTO.locationDTOSchema,
+                        Ratings: z.number()
+                    });
+                    export const timeslotDTOSchema = z.object({
+                        Id: z.string(),
+                        CalendarDayId: z.string(),
+                        StartTime: z.string(),
+                        EndTime: z.string(),
+                        Price: ExampleApp.Examples.Contracts.Booking.MoneyDTO.moneyDTOSchema,
+                        IsReserved: z.boolean()
+                    });
+                    export const serviceProviderSortFieldsDTOSchema = z.nativeEnum(ServiceProviderSortFieldsDTO);
+                }
+            }
+            export namespace Dashboards { }
+            export namespace Employees {
+                export const adminEmployeeDTOSchema = z.object({
+                    Id: z.string(),
+                    Name: z.string()
+                });
+                export const employeeDTOSchema = z.object({
+                    Id: z.string(),
+                    Name: z.string(),
+                    Email: z.string()
+                });
+            }
+            export namespace Firebase { }
+            export namespace Identities {
+                export const kratosIdentityDTOSchema = z.object({
+                    Id: z.string(),
+                    CreatedAt: z.string(),
+                    UpdatedAt: z.string(),
+                    SchemaId: z.string(),
+                    Email: z.string()
+                });
+            }
+            export namespace Projects {
+                export const adminProjectDTOSchema = z.object({
+                    Id: z.string(),
+                    Name: z.string()
+                });
+                export const assignmentDTOSchema = z.object({
+                    Id: z.string(),
+                    AssignedEmployeeId: z.string().nullable()
+                }).merge(ExampleApp.Examples.Contracts.Projects.AssignmentWriteDTO.assignmentWriteDTOSchema);
+                export const assignmentWriteDTOSchema = z.object({
+                    Name: z.string()
+                });
+                export const employeeAssignedToAssignmentDTOSchema = z.object({
+                    AssignmentId: z.string(),
+                    EmployeeId: z.string()
+                });
+                export const employeeAssignedToProjectAssignmentDTOSchema = z.object({
+                    ProjectId: z.string(),
+                    AssignmentId: z.string()
+                });
+                export const employeeUnassignedFromAssignmentDTOSchema = z.object({
+                    AssignmentId: z.string()
+                });
+                export const employeeUnassignedFromProjectAssignmentDTOSchema = z.object({
+                    ProjectId: z.string(),
+                    AssignmentId: z.string()
+                });
+                export const projectDTOSchema = z.object({
+                    Id: z.string(),
+                    Name: z.string()
+                });
+                export const projectDetailsDTOSchema = z.object({
+                    Assignments: z.array(ExampleApp.Examples.Contracts.Projects.AssignmentDTO.assignmentDTOSchema)
+                }).merge(ExampleApp.Examples.Contracts.Projects.ProjectDTO.projectDTOSchema);
+            }
+            export namespace Users { }
+        }
+    }
+}
+export namespace LeanCode {
+    export namespace AppRating {
+        export namespace Contracts {
+            export const permissionsSchema = z.object({});
+            export const platformDTOSchema = z.nativeEnum(PlatformDTO);
+        }
+    }
+    export namespace Contracts {
+        export namespace Admin {
+            export const adminFilterRangeSchema = tSchema => z.object({
+                From: tSchema.nullable(),
+                To: tSchema.nullable()
+            });
+            export const adminQuerySchema = tResultSchema => z.object({
+                Page: z.number(),
+                PageSize: z.number(),
+                SortDescending: z.boolean().nullable(),
+                SortBy: z.string().nullable()
+            }).merge(1000Schema);
+            export const adminQueryResultSchema = tResultSchema => z.object({
+                Total: z.number(),
+                Items: z.array(tResultSchema)
+            });
+        }
+    }
+    export namespace ForceUpdate {
+        export namespace Contracts {
+            export const versionSupportDTOSchema = z.object({
+                CurrentlySupportedVersion: z.string(),
+                MinimumRequiredVersion: z.string(),
+                Result: LeanCode.ForceUpdate.Contracts.VersionSupportResultDTO.versionSupportResultDTOSchema
+            });
+            export const platformDTOSchema = z.nativeEnum(PlatformDTO);
+            export const versionSupportResultDTOSchema = z.nativeEnum(VersionSupportResultDTO);
+        }
+    }
+}
+",
+}
+`;
+
+exports[`zodPlugin generates schemas with defaults 1`] = `
+Object {
+  "test.ts": "import { z } from \\"zod\\";
+
+export namespace ExampleApp {
+    export namespace Examples {
+        export namespace Contracts {
+            export const authSchema = z.object({});
+            export const paginatedQuerySchema = tResultSchema => z.object({
+                PageNumber: z.number(),
+                PageSize: z.number()
+            }).merge(1000Schema);
+            export const paginatedResultSchema = tResultSchema => z.object({
+                Items: z.array(tResultSchema),
+                TotalCount: z.number()
+            });
+            export const sortedQuerySchema = (tResultSchema, tSortSchema) => z.object({
+                SortBy: tSortSchema,
+                SortByDescending: z.boolean()
+            }).merge(ExampleApp.Examples.Contracts.PaginatedQuery.paginatedQuerySchema);
+            export namespace Auth {
+                export const knownClaimsSchema = z.object({});
+                export const rolesSchema = z.object({});
+            }
+            export namespace Booking {
+                export const locationDTOSchema = z.object({
+                    Latitude: z.number(),
+                    Longitude: z.number()
+                });
+                export const moneyDTOSchema = z.object({
+                    Value: z.number(),
+                    Currency: z.string()
+                });
+                export const serviceProviderTypeDTOSchema = z.nativeEnum(ServiceProviderTypeDTO);
+                export namespace Management {
+                    export const serviceProviderLogoUploadLinkDTOSchema = z.object({
+                        Link: z.string(),
+                        RequiredHeaders: z.record(z.string(), z.string())
+                    });
+                }
+                export namespace Reservations {
+                    export const myReservationDTOSchema = z.object({
+                        Id: z.string(),
+                        TimeslotId: z.string(),
+                        ServiceProviderId: z.string(),
+                        ServiceProviderName: z.string(),
+                        Type: ExampleApp.Examples.Contracts.Booking.ServiceProviderTypeDTO.serviceProviderTypeDTOSchema,
+                        Address: z.string(),
+                        Location: ExampleApp.Examples.Contracts.Booking.LocationDTO.locationDTOSchema,
+                        Date: z.string(),
+                        StartTime: z.string(),
+                        EndTime: z.string(),
+                        Price: ExampleApp.Examples.Contracts.Booking.MoneyDTO.moneyDTOSchema,
+                        Status: ExampleApp.Examples.Contracts.Booking.Reservations.ReservationStatusDTO.reservationStatusDTOSchema
+                    });
+                    export const reservationCancelledNotificationDTOSchema = z.object({
+                        ReservationId: z.string(),
+                        CalendarDayId: z.string(),
+                        TimeslotId: z.string(),
+                        ServiceProviderId: z.string(),
+                        ServiceProviderName: z.string(),
+                        Date: z.string(),
+                        StartTime: z.string(),
+                        EndTime: z.string()
+                    });
+                    export const reservationCreatedNotificationDTOSchema = z.object({
+                        ReservationId: z.string(),
+                        CalendarDayId: z.string(),
+                        TimeslotId: z.string(),
+                        ServiceProviderId: z.string(),
+                        ServiceProviderName: z.string(),
+                        Date: z.string(),
+                        StartTime: z.string(),
+                        EndTime: z.string()
+                    });
+                    export const reservationStatusDTOSchema = z.nativeEnum(ReservationStatusDTO);
+                    export namespace Authorization {
+                        export namespace AuthorizeWhenOwnsReservationAttribute {
+                            export const iReservationRelatedSchema = z.object({
+                                ReservationId: z.string()
+                            });
+                            export const iWhenOwnsReservationSchema = z.object({});
+                        }
+                    }
+                }
+                export namespace ServiceProviders {
+                    export const serviceProviderDetailsDTOSchema = z.object({
+                        Id: z.string(),
+                        Name: z.string(),
+                        Description: z.string(),
+                        Type: ExampleApp.Examples.Contracts.Booking.ServiceProviderTypeDTO.serviceProviderTypeDTOSchema,
+                        Address: z.string(),
+                        Location: ExampleApp.Examples.Contracts.Booking.LocationDTO.locationDTOSchema,
+                        IsPromotionActive: z.boolean(),
+                        Ratings: z.number(),
+                        CoverPhoto: z.string(),
+                        Thumbnail: z.string(),
+                        Timeslots: z.array(ExampleApp.Examples.Contracts.Booking.ServiceProviders.TimeslotDTO.timeslotDTOSchema)
+                    });
+                    export const serviceProviderSummaryDTOSchema = z.object({
+                        Id: z.string(),
+                        Name: z.string(),
+                        Type: ExampleApp.Examples.Contracts.Booking.ServiceProviderTypeDTO.serviceProviderTypeDTOSchema,
+                        Thumbnail: z.string(),
+                        IsPromotionActive: z.boolean(),
+                        Address: z.string(),
+                        Location: ExampleApp.Examples.Contracts.Booking.LocationDTO.locationDTOSchema,
+                        Ratings: z.number()
+                    });
+                    export const timeslotDTOSchema = z.object({
+                        Id: z.string(),
+                        CalendarDayId: z.string(),
+                        StartTime: z.string(),
+                        EndTime: z.string(),
+                        Price: ExampleApp.Examples.Contracts.Booking.MoneyDTO.moneyDTOSchema,
+                        IsReserved: z.boolean()
+                    });
+                    export const serviceProviderSortFieldsDTOSchema = z.nativeEnum(ServiceProviderSortFieldsDTO);
+                }
+            }
+            export namespace Dashboards { }
+            export namespace Employees {
+                export const adminEmployeeDTOSchema = z.object({
+                    Id: z.string(),
+                    Name: z.string()
+                });
+                export const employeeDTOSchema = z.object({
+                    Id: z.string(),
+                    Name: z.string(),
+                    Email: z.string()
+                });
+            }
+            export namespace Firebase { }
+            export namespace Identities {
+                export const kratosIdentityDTOSchema = z.object({
+                    Id: z.string(),
+                    CreatedAt: z.string(),
+                    UpdatedAt: z.string(),
+                    SchemaId: z.string(),
+                    Email: z.string()
+                });
+            }
+            export namespace Projects {
+                export const adminProjectDTOSchema = z.object({
+                    Id: z.string(),
+                    Name: z.string()
+                });
+                export const assignmentDTOSchema = z.object({
+                    Id: z.string(),
+                    AssignedEmployeeId: z.string().nullable()
+                }).merge(ExampleApp.Examples.Contracts.Projects.AssignmentWriteDTO.assignmentWriteDTOSchema);
+                export const assignmentWriteDTOSchema = z.object({
+                    Name: z.string()
+                });
+                export const employeeAssignedToAssignmentDTOSchema = z.object({
+                    AssignmentId: z.string(),
+                    EmployeeId: z.string()
+                });
+                export const employeeAssignedToProjectAssignmentDTOSchema = z.object({
+                    ProjectId: z.string(),
+                    AssignmentId: z.string()
+                });
+                export const employeeUnassignedFromAssignmentDTOSchema = z.object({
+                    AssignmentId: z.string()
+                });
+                export const employeeUnassignedFromProjectAssignmentDTOSchema = z.object({
+                    ProjectId: z.string(),
+                    AssignmentId: z.string()
+                });
+                export const projectDTOSchema = z.object({
+                    Id: z.string(),
+                    Name: z.string()
+                });
+                export const projectDetailsDTOSchema = z.object({
+                    Assignments: z.array(ExampleApp.Examples.Contracts.Projects.AssignmentDTO.assignmentDTOSchema)
+                }).merge(ExampleApp.Examples.Contracts.Projects.ProjectDTO.projectDTOSchema);
+            }
+            export namespace Users { }
+        }
+    }
+}
+export namespace LeanCode {
+    export namespace AppRating {
+        export namespace Contracts {
+            export const permissionsSchema = z.object({});
+            export const platformDTOSchema = z.nativeEnum(PlatformDTO);
+        }
+    }
+    export namespace Contracts {
+        export namespace Admin {
+            export const adminFilterRangeSchema = tSchema => z.object({
+                From: tSchema.nullable(),
+                To: tSchema.nullable()
+            });
+            export const adminQuerySchema = tResultSchema => z.object({
+                Page: z.number(),
+                PageSize: z.number(),
+                SortDescending: z.boolean().nullable(),
+                SortBy: z.string().nullable()
+            }).merge(1000Schema);
+            export const adminQueryResultSchema = tResultSchema => z.object({
+                Total: z.number(),
+                Items: z.array(tResultSchema)
+            });
+        }
+    }
+    export namespace ForceUpdate {
+        export namespace Contracts {
+            export const versionSupportDTOSchema = z.object({
+                CurrentlySupportedVersion: z.string(),
+                MinimumRequiredVersion: z.string(),
+                Result: LeanCode.ForceUpdate.Contracts.VersionSupportResultDTO.versionSupportResultDTOSchema
+            });
+            export const platformDTOSchema = z.nativeEnum(PlatformDTO);
+            export const versionSupportResultDTOSchema = z.nativeEnum(VersionSupportResultDTO);
+        }
+    }
+}
+",
+}
+`;
+
+exports[`zodPlugin generates schemas with nameTransform 1`] = `
+Object {
+  "test.ts": "import { z } from \\"zod\\";
+
+export const authSchema = z.object({});
+export const knownClaimsSchema = z.object({});
+export const rolesSchema = z.object({});
+export const locationDTOSchema = z.object({
+    Latitude: z.number(),
+    Longitude: z.number()
+});
+export const serviceProviderLogoUploadLinkDTOSchema = z.object({
+    Link: z.string(),
+    RequiredHeaders: z.record(z.string(), z.string())
+});
+export const moneyDTOSchema = z.object({
+    Value: z.number(),
+    Currency: z.string()
+});
+export const iReservationRelatedSchema = z.object({
+    ReservationId: z.string()
+});
+export const iWhenOwnsReservationSchema = z.object({});
+export const myReservationDTOSchema = z.object({
+    Id: z.string(),
+    TimeslotId: z.string(),
+    ServiceProviderId: z.string(),
+    ServiceProviderName: z.string(),
+    Type: serviceProviderTypeDTOSchema,
+    Address: z.string(),
+    Location: locationDTOSchema,
+    Date: z.string(),
+    StartTime: z.string(),
+    EndTime: z.string(),
+    Price: moneyDTOSchema,
+    Status: reservationStatusDTOSchema
+});
+export const reservationCancelledNotificationDTOSchema = z.object({
+    ReservationId: z.string(),
+    CalendarDayId: z.string(),
+    TimeslotId: z.string(),
+    ServiceProviderId: z.string(),
+    ServiceProviderName: z.string(),
+    Date: z.string(),
+    StartTime: z.string(),
+    EndTime: z.string()
+});
+export const reservationCreatedNotificationDTOSchema = z.object({
+    ReservationId: z.string(),
+    CalendarDayId: z.string(),
+    TimeslotId: z.string(),
+    ServiceProviderId: z.string(),
+    ServiceProviderName: z.string(),
+    Date: z.string(),
+    StartTime: z.string(),
+    EndTime: z.string()
+});
+export const serviceProviderDetailsDTOSchema = z.object({
+    Id: z.string(),
+    Name: z.string(),
+    Description: z.string(),
+    Type: serviceProviderTypeDTOSchema,
+    Address: z.string(),
+    Location: locationDTOSchema,
+    IsPromotionActive: z.boolean(),
+    Ratings: z.number(),
+    CoverPhoto: z.string(),
+    Thumbnail: z.string(),
+    Timeslots: z.array(timeslotDTOSchema)
+});
+export const serviceProviderSummaryDTOSchema = z.object({
+    Id: z.string(),
+    Name: z.string(),
+    Type: serviceProviderTypeDTOSchema,
+    Thumbnail: z.string(),
+    IsPromotionActive: z.boolean(),
+    Address: z.string(),
+    Location: locationDTOSchema,
+    Ratings: z.number()
+});
+export const timeslotDTOSchema = z.object({
+    Id: z.string(),
+    CalendarDayId: z.string(),
+    StartTime: z.string(),
+    EndTime: z.string(),
+    Price: moneyDTOSchema,
+    IsReserved: z.boolean()
+});
+export const adminEmployeeDTOSchema = z.object({
+    Id: z.string(),
+    Name: z.string()
+});
+export const employeeDTOSchema = z.object({
+    Id: z.string(),
+    Name: z.string(),
+    Email: z.string()
+});
+export const kratosIdentityDTOSchema = z.object({
+    Id: z.string(),
+    CreatedAt: z.string(),
+    UpdatedAt: z.string(),
+    SchemaId: z.string(),
+    Email: z.string()
+});
+export const paginatedQuerySchema = tResultSchema => z.object({
+    PageNumber: z.number(),
+    PageSize: z.number()
+}).merge(1000Schema);
+export const paginatedResultSchema = tResultSchema => z.object({
+    Items: z.array(tResultSchema),
+    TotalCount: z.number()
+});
+export const adminProjectDTOSchema = z.object({
+    Id: z.string(),
+    Name: z.string()
+});
+export const assignmentDTOSchema = z.object({
+    Id: z.string(),
+    AssignedEmployeeId: z.string().nullable()
+}).merge(assignmentWriteDTOSchema);
+export const assignmentWriteDTOSchema = z.object({
+    Name: z.string()
+});
+export const employeeAssignedToAssignmentDTOSchema = z.object({
+    AssignmentId: z.string(),
+    EmployeeId: z.string()
+});
+export const employeeAssignedToProjectAssignmentDTOSchema = z.object({
+    ProjectId: z.string(),
+    AssignmentId: z.string()
+});
+export const employeeUnassignedFromAssignmentDTOSchema = z.object({
+    AssignmentId: z.string()
+});
+export const employeeUnassignedFromProjectAssignmentDTOSchema = z.object({
+    ProjectId: z.string(),
+    AssignmentId: z.string()
+});
+export const projectDTOSchema = z.object({
+    Id: z.string(),
+    Name: z.string()
+});
+export const projectDetailsDTOSchema = z.object({
+    Assignments: z.array(assignmentDTOSchema)
+}).merge(projectDTOSchema);
+export const sortedQuerySchema = (tResultSchema, tSortSchema) => z.object({
+    SortBy: tSortSchema,
+    SortByDescending: z.boolean()
+}).merge(paginatedQuerySchema);
+export const permissionsSchema = z.object({});
+export const adminFilterRangeSchema = tSchema => z.object({
+    From: tSchema.nullable(),
+    To: tSchema.nullable()
+});
+export const adminQuerySchema = tResultSchema => z.object({
+    Page: z.number(),
+    PageSize: z.number(),
+    SortDescending: z.boolean().nullable(),
+    SortBy: z.string().nullable()
+}).merge(1000Schema);
+export const adminQueryResultSchema = tResultSchema => z.object({
+    Total: z.number(),
+    Items: z.array(tResultSchema)
+});
+export const versionSupportDTOSchema = z.object({
+    CurrentlySupportedVersion: z.string(),
+    MinimumRequiredVersion: z.string(),
+    Result: versionSupportResultDTOSchema
+});
+export const reservationStatusDTOSchema = z.nativeEnum(ReservationStatusDTO);
+export const serviceProviderTypeDTOSchema = z.nativeEnum(ServiceProviderTypeDTO);
+export const serviceProviderSortFieldsDTOSchema = z.nativeEnum(ServiceProviderSortFieldsDTO);
+export const appRatingPlatformDTOSchema = z.nativeEnum(AppRatingPlatformDTO);
+export const platformDTOSchema = z.nativeEnum(PlatformDTO);
+export const versionSupportResultDTOSchema = z.nativeEnum(VersionSupportResultDTO);
+",
+}
+`;
