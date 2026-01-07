@@ -92,7 +92,7 @@ export namespace ExampleApp {
         })
 
         export const ServiceProviderTypeDTOSchema = z.enum({ Hairdresser: 0, BarberShop: 1, Groomer: 2 }).meta({
-          "enum:meta": { Hairdresser: 0, BarberShop: 1, Groomer: 2 },
+          "meta:enum": { Hairdresser: 0, BarberShop: 1, Groomer: 2 },
         })
 
         export const MyReservationDTOSchema = z.object({
@@ -142,7 +142,7 @@ export const MoneyDTOSchema = z.object({
 })
 
 export const ServiceProviderTypeDTOSchema = z.enum({ Hairdresser: 0, BarberShop: 1, Groomer: 2 }).meta({
-  "enum:meta": { Hairdresser: 0, BarberShop: 1, Groomer: 2 },
+  "meta:enum": { Hairdresser: 0, BarberShop: 1, Groomer: 2 },
 })
 
 export const MyReservationDTOSchema = z.object({

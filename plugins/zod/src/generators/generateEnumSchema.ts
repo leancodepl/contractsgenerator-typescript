@@ -46,7 +46,7 @@ function createEnumSchema(valuesObject: ts.ObjectLiteralExpression): ts.CallExpr
 function applyMeta(schema: ts.Expression, valuesObject: ts.ObjectLiteralExpression): ts.Expression {
   return ts.factory.createCallExpression(ts.factory.createPropertyAccessExpression(schema, "meta"), undefined, [
     ts.factory.createObjectLiteralExpression(
-      [ts.factory.createPropertyAssignment(ts.factory.createStringLiteral("enum:meta"), valuesObject)],
+      [ts.factory.createPropertyAssignment(ts.factory.createStringLiteral("meta:enum"), valuesObject)],
       true,
     ),
   ])

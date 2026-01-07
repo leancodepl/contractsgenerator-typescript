@@ -31,7 +31,7 @@ export const ServiceProviderTypeDTOSchema = z.enum({
     \\"BarberShop\\": 1,
     \\"Groomer\\": 2
 }).meta({
-    \\"enum:meta\\": {
+    \\"meta:enum\\": {
         \\"Hairdresser\\": 0,
         \\"BarberShop\\": 1,
         \\"Groomer\\": 2
@@ -71,7 +71,7 @@ export const ReservationStatusDTOSchema = z.enum({
     \\"Cancelled\\": 4,
     \\"Completed\\": 5
 }).meta({
-    \\"enum:meta\\": {
+    \\"meta:enum\\": {
         \\"Pending\\": 0,
         \\"Confirmed\\": 1,
         \\"Rejected\\": 2,
@@ -158,7 +158,7 @@ export const ServiceProviderSortFieldsDTOSchema = z.enum({
     \\"Type\\": 1,
     \\"Ratings\\": 2
 }).meta({
-    \\"enum:meta\\": {
+    \\"meta:enum\\": {
         \\"Name\\": 0,
         \\"Type\\": 1,
         \\"Ratings\\": 2
@@ -346,7 +346,7 @@ export const AppRatingPlatformDTOSchema = z.enum({
     \\"Android\\": 0,
     \\"IOS\\": 1
 }).meta({
-    \\"enum:meta\\": {
+    \\"meta:enum\\": {
         \\"Android\\": 0,
         \\"IOS\\": 1
     }
@@ -369,7 +369,7 @@ export const PlatformDTOSchema = z.enum({
     \\"Android\\": 0,
     \\"IOS\\": 1
 }).meta({
-    \\"enum:meta\\": {
+    \\"meta:enum\\": {
         \\"Android\\": 0,
         \\"IOS\\": 1
     }
@@ -379,7 +379,7 @@ export const VersionSupportResultDTOSchema = z.enum({
     \\"UpdateSuggested\\": 1,
     \\"UpToDate\\": 2
 }).meta({
-    \\"enum:meta\\": {
+    \\"meta:enum\\": {
         \\"UpdateRequired\\": 0,
         \\"UpdateSuggested\\": 1,
         \\"UpToDate\\": 2
@@ -459,7 +459,7 @@ export namespace ExampleApp {
                     \\"Remove1\\": 0,
                     \\"Remove2\\": 1
                 }).meta({
-                    \\"enum:meta\\": {
+                    \\"meta:enum\\": {
                         \\"Remove1\\": 0,
                         \\"Remove2\\": 1
                     }
@@ -821,7 +821,7 @@ The (three letter) currency name, e.g. PLN, USD.",
           1,
           2,
         ],
-        "enum:meta": Object {
+        "meta:enum": Object {
           "Name": 0,
           "Ratings": 2,
           "Type": 1,
@@ -839,7 +839,7 @@ The (three letter) currency name, e.g. PLN, USD.",
               1,
               2,
             ],
-            "enum:meta": Object {
+            "meta:enum": Object {
               "BarberShop": 1,
               "Groomer": 2,
               "Hairdresser": 0,
@@ -869,7 +869,7 @@ The (three letter) currency name, e.g. PLN, USD.",
       0,
       1,
     ],
-    "enum:meta": Object {
+    "meta:enum": Object {
       "Android": 0,
       "IOS": 1,
     },
@@ -1039,7 +1039,7 @@ The (three letter) currency name, e.g. PLN, USD.",
           1,
           2,
         ],
-        "enum:meta": Object {
+        "meta:enum": Object {
           "BarberShop": 1,
           "Groomer": 2,
           "Hairdresser": 0,
@@ -1354,7 +1354,7 @@ The (three letter) currency name, e.g. PLN, USD.",
           4,
           5,
         ],
-        "enum:meta": Object {
+        "meta:enum": Object {
           "Cancelled": 4,
           "Completed": 5,
           "Confirmed": 1,
@@ -1373,7 +1373,7 @@ The (three letter) currency name, e.g. PLN, USD.",
           1,
           2,
         ],
-        "enum:meta": Object {
+        "meta:enum": Object {
           "BarberShop": 1,
           "Groomer": 2,
           "Hairdresser": 0,
@@ -1462,7 +1462,7 @@ The (three letter) currency name, e.g. PLN, USD.",
       0,
       1,
     ],
-    "enum:meta": Object {
+    "meta:enum": Object {
       "Android": 0,
       "IOS": 1,
     },
@@ -1660,7 +1660,7 @@ The (three letter) currency name, e.g. PLN, USD.",
       4,
       5,
     ],
-    "enum:meta": Object {
+    "meta:enum": Object {
       "Cancelled": 4,
       "Completed": 5,
       "Confirmed": 1,
@@ -1882,7 +1882,7 @@ The (three letter) currency name, e.g. PLN, USD.",
           1,
           2,
         ],
-        "enum:meta": Object {
+        "meta:enum": Object {
           "BarberShop": 1,
           "Groomer": 2,
           "Hairdresser": 0,
@@ -1963,7 +1963,7 @@ to
       1,
       2,
     ],
-    "enum:meta": Object {
+    "meta:enum": Object {
       "Name": 0,
       "Ratings": 2,
       "Type": 1,
@@ -2014,7 +2014,7 @@ to
           1,
           2,
         ],
-        "enum:meta": Object {
+        "meta:enum": Object {
           "BarberShop": 1,
           "Groomer": 2,
           "Hairdresser": 0,
@@ -2041,7 +2041,7 @@ to
       1,
       2,
     ],
-    "enum:meta": Object {
+    "meta:enum": Object {
       "BarberShop": 1,
       "Groomer": 2,
       "Hairdresser": 0,
@@ -2085,7 +2085,7 @@ to
           0,
           1,
         ],
-        "enum:meta": Object {
+        "meta:enum": Object {
           "Android": 0,
           "IOS": 1,
         },
@@ -2187,7 +2187,7 @@ The (three letter) currency name, e.g. PLN, USD.",
           1,
           2,
         ],
-        "enum:meta": Object {
+        "meta:enum": Object {
           "UpToDate": 2,
           "UpdateRequired": 0,
           "UpdateSuggested": 1,
@@ -2209,7 +2209,7 @@ The (three letter) currency name, e.g. PLN, USD.",
       1,
       2,
     ],
-    "enum:meta": Object {
+    "meta:enum": Object {
       "UpToDate": 2,
       "UpdateRequired": 0,
       "UpdateSuggested": 1,
@@ -2225,7 +2225,7 @@ The (three letter) currency name, e.g. PLN, USD.",
           0,
           1,
         ],
-        "enum:meta": Object {
+        "meta:enum": Object {
           "Android": 0,
           "IOS": 1,
         },
@@ -2259,7 +2259,7 @@ export namespace LeanCode {
                 \\"Android\\": 0,
                 \\"IOS\\": 1
             }).meta({
-                \\"enum:meta\\": {
+                \\"meta:enum\\": {
                     \\"Android\\": 0,
                     \\"IOS\\": 1
                 }
@@ -2300,7 +2300,7 @@ export namespace LeanCode {
                 \\"Android\\": 0,
                 \\"IOS\\": 1
             }).meta({
-                \\"enum:meta\\": {
+                \\"meta:enum\\": {
                     \\"Android\\": 0,
                     \\"IOS\\": 1
                 }
@@ -2310,7 +2310,7 @@ export namespace LeanCode {
                 \\"UpdateSuggested\\": 1,
                 \\"UpToDate\\": 2
             }).meta({
-                \\"enum:meta\\": {
+                \\"meta:enum\\": {
                     \\"UpdateRequired\\": 0,
                     \\"UpdateSuggested\\": 1,
                     \\"UpToDate\\": 2
@@ -2364,7 +2364,7 @@ export namespace ExampleApp {
                     \\"BarberShop\\": 1,
                     \\"Groomer\\": 2
                 }).meta({
-                    \\"enum:meta\\": {
+                    \\"meta:enum\\": {
                         \\"Hairdresser\\": 0,
                         \\"BarberShop\\": 1,
                         \\"Groomer\\": 2
@@ -2412,7 +2412,7 @@ export namespace ExampleApp {
                         \\"Cancelled\\": 4,
                         \\"Completed\\": 5
                     }).meta({
-                        \\"enum:meta\\": {
+                        \\"meta:enum\\": {
                             \\"Pending\\": 0,
                             \\"Confirmed\\": 1,
                             \\"Rejected\\": 2,
@@ -2497,7 +2497,7 @@ export namespace ExampleApp {
                         \\"Type\\": 1,
                         \\"Ratings\\": 2
                     }).meta({
-                        \\"enum:meta\\": {
+                        \\"meta:enum\\": {
                             \\"Name\\": 0,
                             \\"Type\\": 1,
                             \\"Ratings\\": 2
@@ -2703,7 +2703,7 @@ export namespace LeanCode {
                 \\"Android\\": 0,
                 \\"IOS\\": 1
             }).meta({
-                \\"enum:meta\\": {
+                \\"meta:enum\\": {
                     \\"Android\\": 0,
                     \\"IOS\\": 1
                 }
@@ -2744,7 +2744,7 @@ export namespace LeanCode {
                 \\"Android\\": 0,
                 \\"IOS\\": 1
             }).meta({
-                \\"enum:meta\\": {
+                \\"meta:enum\\": {
                     \\"Android\\": 0,
                     \\"IOS\\": 1
                 }
@@ -2754,7 +2754,7 @@ export namespace LeanCode {
                 \\"UpdateSuggested\\": 1,
                 \\"UpToDate\\": 2
             }).meta({
-                \\"enum:meta\\": {
+                \\"meta:enum\\": {
                     \\"UpdateRequired\\": 0,
                     \\"UpdateSuggested\\": 1,
                     \\"UpToDate\\": 2
@@ -2808,7 +2808,7 @@ export namespace ExampleApp {
                     \\"BarberShop\\": 1,
                     \\"Groomer\\": 2
                 }).meta({
-                    \\"enum:meta\\": {
+                    \\"meta:enum\\": {
                         \\"Hairdresser\\": 0,
                         \\"BarberShop\\": 1,
                         \\"Groomer\\": 2
@@ -2856,7 +2856,7 @@ export namespace ExampleApp {
                         \\"Cancelled\\": 4,
                         \\"Completed\\": 5
                     }).meta({
-                        \\"enum:meta\\": {
+                        \\"meta:enum\\": {
                             \\"Pending\\": 0,
                             \\"Confirmed\\": 1,
                             \\"Rejected\\": 2,
@@ -2941,7 +2941,7 @@ export namespace ExampleApp {
                         \\"Type\\": 1,
                         \\"Ratings\\": 2
                     }).meta({
-                        \\"enum:meta\\": {
+                        \\"meta:enum\\": {
                             \\"Name\\": 0,
                             \\"Type\\": 1,
                             \\"Ratings\\": 2
@@ -3163,7 +3163,7 @@ export const ServiceProviderTypeDTOSchema = z.enum({
     \\"BarberShop\\": 1,
     \\"Groomer\\": 2
 }).meta({
-    \\"enum:meta\\": {
+    \\"meta:enum\\": {
         \\"Hairdresser\\": 0,
         \\"BarberShop\\": 1,
         \\"Groomer\\": 2
@@ -3203,7 +3203,7 @@ export const ReservationStatusDTOSchema = z.enum({
     \\"Cancelled\\": 4,
     \\"Completed\\": 5
 }).meta({
-    \\"enum:meta\\": {
+    \\"meta:enum\\": {
         \\"Pending\\": 0,
         \\"Confirmed\\": 1,
         \\"Rejected\\": 2,
@@ -3290,7 +3290,7 @@ export const ServiceProviderSortFieldsDTOSchema = z.enum({
     \\"Type\\": 1,
     \\"Ratings\\": 2
 }).meta({
-    \\"enum:meta\\": {
+    \\"meta:enum\\": {
         \\"Name\\": 0,
         \\"Type\\": 1,
         \\"Ratings\\": 2
@@ -3478,7 +3478,7 @@ export const AppRatingPlatformDTOSchema = z.enum({
     \\"Android\\": 0,
     \\"IOS\\": 1
 }).meta({
-    \\"enum:meta\\": {
+    \\"meta:enum\\": {
         \\"Android\\": 0,
         \\"IOS\\": 1
     }
@@ -3501,7 +3501,7 @@ export const PlatformDTOSchema = z.enum({
     \\"Android\\": 0,
     \\"IOS\\": 1
 }).meta({
-    \\"enum:meta\\": {
+    \\"meta:enum\\": {
         \\"Android\\": 0,
         \\"IOS\\": 1
     }
@@ -3511,7 +3511,7 @@ export const VersionSupportResultDTOSchema = z.enum({
     \\"UpdateSuggested\\": 1,
     \\"UpToDate\\": 2
 }).meta({
-    \\"enum:meta\\": {
+    \\"meta:enum\\": {
         \\"UpdateRequired\\": 0,
         \\"UpdateSuggested\\": 1,
         \\"UpToDate\\": 2
