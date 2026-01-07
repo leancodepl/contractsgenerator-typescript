@@ -9,41 +9,52 @@ export async function generateFile(
   configl2: Record<string, unknown>,
   plugins: ContractsGeneratorPluginConfiguration[],
   sessionContext: GeneratorSessionContext,
+  logger,
 ) {
   const fileContext: GeneratorFileContext = {
     metadata: {},
   }
 
-  let prepend = ""
-  let fileOutput = ""
-  let append = ""
+  const prepend: string[] = []
+  const output: string[] = []
+  const append: string[] = []
 
-  for (const pluginConfiguration of plugins) {
-    let configl3, pluginName
+  await Promise.all(
+    plugins.map(async (pluginConfiguration, i) => {
+      let configl3, pluginName
 
-    if (typeof pluginConfiguration === "string") {
-      pluginName = pluginConfiguration
-      configl3 = {}
-    } else {
-      pluginName = Object.keys(pluginConfiguration)[0]
-      configl3 = pluginConfiguration[pluginName]
-    }
+      if (typeof pluginConfiguration === "string") {
+        pluginName = pluginConfiguration
+        configl3 = {}
+      } else {
+        pluginName = Object.keys(pluginConfiguration)[0]
+        configl3 = pluginConfiguration[pluginName]
+      }
 
-    const plugin: GeneratorPlugin = await import(`@leancodepl/contractsgenerator-typescript-plugin-${pluginName}`).then(
-      plugin => plugin.default ?? plugin,
-    )
+      const plugin: GeneratorPlugin = await import(
+        `@leancodepl/contractsgenerator-typescript-plugin-${pluginName}`
+      ).then(plugin => plugin.default ?? plugin)
 
-    const pluginInstance = plugin.instance(
-      { ...configl2, ...configl3 },
-      { session: sessionContext, file: fileContext, plugin: fileContext },
-    )
+      const pluginInstance = plugin.instance(
+        { ...configl2, ...configl3 },
+        { session: sessionContext, file: fileContext, plugin: fileContext },
+      )
 
-    prepend += (await pluginInstance.beforeAll?.()) ?? ""
-    fileOutput += (await pluginInstance.before?.()) ?? ""
-    fileOutput += (await pluginInstance.generate?.()) ?? ""
-    fileOutput += (await pluginInstance.after?.()) ?? ""
-    append += (await pluginInstance.afterAll?.()) ?? ""
-  }
+      const [beforeAll, before, generate, after, afterAll] = await Promise.all([
+        pluginInstance.beforeAll?.(),
+        pluginInstance.before?.(),
+        pluginInstance.generate?.(),
+        pluginInstance.after?.(),
+        pluginInstance.afterAll?.(),
+      ])
 
-  return prepend + fileOutput + append
+      prepend[i] = beforeAll ?? ""
+      output[i] = before ?? ""
+      output[i] = generate ?? ""
+      output[i] = after ?? ""
+      append[i] = afterAll ?? ""
+    }),
+  )
+
+  return prepend.join() + output.join() + append.join()
 }
