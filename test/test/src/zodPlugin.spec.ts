@@ -132,7 +132,7 @@ describe("zodPlugin", () => {
             return ".refine(val => val >= 0 && val <= 5)"
           }
 
-          if (property.name === "RequiredHeaders" && property.type === "object") {
+          if (property.name === "RequiredHeaders" && property.type === "record") {
             return '.refine(val => { const test = {test: { test: 5 }}; return typeof val === "object" && val !== null) }'
           }
 

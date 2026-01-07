@@ -326,116 +326,73 @@ export const VersionSupportDTOSchema = z.object({
     MinimumRequiredVersion: z.string(),
     Result: VersionSupportResultDTOSchema
 });
-export const ReservationStatusDTOSchema = z.number().refine(val => [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5
-].includes(val), {
-    message: \\"Invalid enum value\\"
+export const ReservationStatusDTOSchema = z.enum({
+    \\"Pending\\": 0,
+    \\"Confirmed\\": 1,
+    \\"Rejected\\": 2,
+    \\"Paid\\": 3,
+    \\"Cancelled\\": 4,
+    \\"Completed\\": 5
 }).meta({
-    values: {
+    \\"enum:meta\\": {
         \\"Pending\\": 0,
         \\"Confirmed\\": 1,
         \\"Rejected\\": 2,
         \\"Paid\\": 3,
         \\"Cancelled\\": 4,
         \\"Completed\\": 5
-    },
-    enum: [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5
-    ]
+    }
 });
-export const ServiceProviderTypeDTOSchema = z.number().refine(val => [
-    0,
-    1,
-    2
-].includes(val), {
-    message: \\"Invalid enum value\\"
+export const ServiceProviderTypeDTOSchema = z.enum({
+    \\"Hairdresser\\": 0,
+    \\"BarberShop\\": 1,
+    \\"Groomer\\": 2
 }).meta({
-    values: {
+    \\"enum:meta\\": {
         \\"Hairdresser\\": 0,
         \\"BarberShop\\": 1,
         \\"Groomer\\": 2
-    },
-    enum: [
-        0,
-        1,
-        2
-    ]
+    }
 });
-export const ServiceProviderSortFieldsDTOSchema = z.number().refine(val => [
-    0,
-    1,
-    2
-].includes(val), {
-    message: \\"Invalid enum value\\"
+export const ServiceProviderSortFieldsDTOSchema = z.enum({
+    \\"Name\\": 0,
+    \\"Type\\": 1,
+    \\"Ratings\\": 2
 }).meta({
-    values: {
+    \\"enum:meta\\": {
         \\"Name\\": 0,
         \\"Type\\": 1,
         \\"Ratings\\": 2
-    },
-    enum: [
-        0,
-        1,
-        2
-    ]
+    }
 });
-export const AppRatingPlatformDTOSchema = z.number().refine(val => [
-    0,
-    1
-].includes(val), {
-    message: \\"Invalid enum value\\"
+export const AppRatingPlatformDTOSchema = z.enum({
+    \\"Android\\": 0,
+    \\"IOS\\": 1
 }).meta({
-    values: {
+    \\"enum:meta\\": {
         \\"Android\\": 0,
         \\"IOS\\": 1
-    },
-    enum: [
-        0,
-        1
-    ]
+    }
 });
-export const PlatformDTOSchema = z.number().refine(val => [
-    0,
-    1
-].includes(val), {
-    message: \\"Invalid enum value\\"
+export const PlatformDTOSchema = z.enum({
+    \\"Android\\": 0,
+    \\"IOS\\": 1
 }).meta({
-    values: {
+    \\"enum:meta\\": {
         \\"Android\\": 0,
         \\"IOS\\": 1
-    },
-    enum: [
-        0,
-        1
-    ]
+    }
 });
-export const VersionSupportResultDTOSchema = z.number().refine(val => [
-    0,
-    1,
-    2
-].includes(val), {
-    message: \\"Invalid enum value\\"
+export const VersionSupportResultDTOSchema = z.enum({
+    \\"UpdateRequired\\": 0,
+    \\"UpdateSuggested\\": 1,
+    \\"UpToDate\\": 2
 }).meta({
-    values: {
+    \\"enum:meta\\": {
         \\"UpdateRequired\\": 0,
         \\"UpdateSuggested\\": 1,
         \\"UpToDate\\": 2
-    },
-    enum: [
-        0,
-        1,
-        2
-    ]
+    }
 });
 ",
 }
@@ -498,20 +455,14 @@ export namespace ExampleApp {
                 export const RemoveTopicDTOSchema = z.object({
                     ItemId: z.string()
                 });
-                export const RemoveEnumSchema = z.number().refine(val => [
-                    0,
-                    1
-                ].includes(val), {
-                    message: \\"Invalid enum value\\"
+                export const RemoveEnumSchema = z.enum({
+                    \\"Remove1\\": 0,
+                    \\"Remove2\\": 1
                 }).meta({
-                    values: {
+                    \\"enum:meta\\": {
                         \\"Remove1\\": 0,
                         \\"Remove2\\": 1
-                    },
-                    enum: [
-                        0,
-                        1
-                    ]
+                    }
                 });
             }
         }
@@ -556,23 +507,16 @@ export namespace ExampleApp {
                 }).meta({
                     comment: \\"The DTO representing a monetary value, e.g. amount with a currency.\\\\nThe amount of money, in the smallest currency unit (e.g. grosz, cent).\\\\nThe (three letter) currency name, e.g. PLN, USD.\\"
                 });
-                export const ServiceProviderTypeDTOSchema = z.number().refine(val => [
-                    0,
-                    1,
-                    2
-                ].includes(val), {
-                    message: \\"Invalid enum value\\"
+                export const ServiceProviderTypeDTOSchema = z.enum({
+                    \\"Hairdresser\\": 0,
+                    \\"BarberShop\\": 1,
+                    \\"Groomer\\": 2
                 }).meta({
-                    values: {
+                    \\"enum:meta\\": {
                         \\"Hairdresser\\": 0,
                         \\"BarberShop\\": 1,
                         \\"Groomer\\": 2
-                    },
-                    enum: [
-                        0,
-                        1,
-                        2
-                    ]
+                    }
                 });
                 export namespace Management {
                     export const AddTimeslotSchema = z.object({
@@ -659,32 +603,22 @@ export namespace ExampleApp {
                     }).meta({
                         comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
                     });
-                    export const ReservationStatusDTOSchema = z.number().refine(val => [
-                        0,
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                    ].includes(val), {
-                        message: \\"Invalid enum value\\"
+                    export const ReservationStatusDTOSchema = z.enum({
+                        \\"Pending\\": 0,
+                        \\"Confirmed\\": 1,
+                        \\"Rejected\\": 2,
+                        \\"Paid\\": 3,
+                        \\"Cancelled\\": 4,
+                        \\"Completed\\": 5
                     }).meta({
-                        values: {
+                        \\"enum:meta\\": {
                             \\"Pending\\": 0,
                             \\"Confirmed\\": 1,
                             \\"Rejected\\": 2,
                             \\"Paid\\": 3,
                             \\"Cancelled\\": 4,
                             \\"Completed\\": 5
-                        },
-                        enum: [
-                            0,
-                            1,
-                            2,
-                            3,
-                            4,
-                            5
-                        ]
+                        }
                     });
                     export namespace Authorization {
                         export namespace AuthorizeWhenOwnsReservationAttribute {
@@ -740,23 +674,16 @@ export namespace ExampleApp {
                         Price: ExampleApp.Examples.Contracts.Booking.MoneyDTOSchema,
                         IsReserved: z.boolean()
                     });
-                    export const ServiceProviderSortFieldsDTOSchema = z.number().refine(val => [
-                        0,
-                        1,
-                        2
-                    ].includes(val), {
-                        message: \\"Invalid enum value\\"
+                    export const ServiceProviderSortFieldsDTOSchema = z.enum({
+                        \\"Name\\": 0,
+                        \\"Type\\": 1,
+                        \\"Ratings\\": 2
                     }).meta({
-                        values: {
+                        \\"enum:meta\\": {
                             \\"Name\\": 0,
                             \\"Type\\": 1,
                             \\"Ratings\\": 2
-                        },
-                        enum: [
-                            0,
-                            1,
-                            2
-                        ]
+                        }
                     });
                 }
             }
@@ -922,20 +849,14 @@ export namespace LeanCode {
             }).meta({
                 comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"RateApp\\\\\\")\\"
             });
-            export const PlatformDTOSchema = z.number().refine(val => [
-                0,
-                1
-            ].includes(val), {
-                message: \\"Invalid enum value\\"
+            export const PlatformDTOSchema = z.enum({
+                \\"Android\\": 0,
+                \\"IOS\\": 1
             }).meta({
-                values: {
+                \\"enum:meta\\": {
                     \\"Android\\": 0,
                     \\"IOS\\": 1
-                },
-                enum: [
-                    0,
-                    1
-                ]
+                }
             });
         }
     }
@@ -968,38 +889,25 @@ export namespace LeanCode {
                 MinimumRequiredVersion: z.string(),
                 Result: LeanCode.ForceUpdate.Contracts.VersionSupportResultDTOSchema
             });
-            export const PlatformDTOSchema = z.number().refine(val => [
-                0,
-                1
-            ].includes(val), {
-                message: \\"Invalid enum value\\"
+            export const PlatformDTOSchema = z.enum({
+                \\"Android\\": 0,
+                \\"IOS\\": 1
             }).meta({
-                values: {
+                \\"enum:meta\\": {
                     \\"Android\\": 0,
                     \\"IOS\\": 1
-                },
-                enum: [
-                    0,
-                    1
-                ]
+                }
             });
-            export const VersionSupportResultDTOSchema = z.number().refine(val => [
-                0,
-                1,
-                2
-            ].includes(val), {
-                message: \\"Invalid enum value\\"
+            export const VersionSupportResultDTOSchema = z.enum({
+                \\"UpdateRequired\\": 0,
+                \\"UpdateSuggested\\": 1,
+                \\"UpToDate\\": 2
             }).meta({
-                values: {
+                \\"enum:meta\\": {
                     \\"UpdateRequired\\": 0,
                     \\"UpdateSuggested\\": 1,
                     \\"UpToDate\\": 2
-                },
-                enum: [
-                    0,
-                    1,
-                    2
-                ]
+                }
             });
         }
     }
@@ -1043,23 +951,16 @@ export namespace ExampleApp {
                 }).meta({
                     comment: \\"The DTO representing a monetary value, e.g. amount with a currency.\\\\nThe amount of money, in the smallest currency unit (e.g. grosz, cent).\\\\nThe (three letter) currency name, e.g. PLN, USD.\\"
                 });
-                export const ServiceProviderTypeDTOSchema = z.number().refine(val => [
-                    0,
-                    1,
-                    2
-                ].includes(val), {
-                    message: \\"Invalid enum value\\"
+                export const ServiceProviderTypeDTOSchema = z.enum({
+                    \\"Hairdresser\\": 0,
+                    \\"BarberShop\\": 1,
+                    \\"Groomer\\": 2
                 }).meta({
-                    values: {
+                    \\"enum:meta\\": {
                         \\"Hairdresser\\": 0,
                         \\"BarberShop\\": 1,
                         \\"Groomer\\": 2
-                    },
-                    enum: [
-                        0,
-                        1,
-                        2
-                    ]
+                    }
                 });
                 export namespace Management {
                     export const AddTimeslotSchema = z.object({
@@ -1146,32 +1047,22 @@ export namespace ExampleApp {
                     }).meta({
                         comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
                     });
-                    export const ReservationStatusDTOSchema = z.number().refine(val => [
-                        0,
-                        1,
-                        2,
-                        3,
-                        4,
-                        5
-                    ].includes(val), {
-                        message: \\"Invalid enum value\\"
+                    export const ReservationStatusDTOSchema = z.enum({
+                        \\"Pending\\": 0,
+                        \\"Confirmed\\": 1,
+                        \\"Rejected\\": 2,
+                        \\"Paid\\": 3,
+                        \\"Cancelled\\": 4,
+                        \\"Completed\\": 5
                     }).meta({
-                        values: {
+                        \\"enum:meta\\": {
                             \\"Pending\\": 0,
                             \\"Confirmed\\": 1,
                             \\"Rejected\\": 2,
                             \\"Paid\\": 3,
                             \\"Cancelled\\": 4,
                             \\"Completed\\": 5
-                        },
-                        enum: [
-                            0,
-                            1,
-                            2,
-                            3,
-                            4,
-                            5
-                        ]
+                        }
                     });
                     export namespace Authorization {
                         export namespace AuthorizeWhenOwnsReservationAttribute {
@@ -1227,23 +1118,16 @@ export namespace ExampleApp {
                         Price: ExampleApp.Examples.Contracts.Booking.MoneyDTOSchema,
                         IsReserved: z.boolean()
                     });
-                    export const ServiceProviderSortFieldsDTOSchema = z.number().refine(val => [
-                        0,
-                        1,
-                        2
-                    ].includes(val), {
-                        message: \\"Invalid enum value\\"
+                    export const ServiceProviderSortFieldsDTOSchema = z.enum({
+                        \\"Name\\": 0,
+                        \\"Type\\": 1,
+                        \\"Ratings\\": 2
                     }).meta({
-                        values: {
+                        \\"enum:meta\\": {
                             \\"Name\\": 0,
                             \\"Type\\": 1,
                             \\"Ratings\\": 2
-                        },
-                        enum: [
-                            0,
-                            1,
-                            2
-                        ]
+                        }
                     });
                 }
             }
@@ -1409,20 +1293,14 @@ export namespace LeanCode {
             }).meta({
                 comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"RateApp\\\\\\")\\"
             });
-            export const PlatformDTOSchema = z.number().refine(val => [
-                0,
-                1
-            ].includes(val), {
-                message: \\"Invalid enum value\\"
+            export const PlatformDTOSchema = z.enum({
+                \\"Android\\": 0,
+                \\"IOS\\": 1
             }).meta({
-                values: {
+                \\"enum:meta\\": {
                     \\"Android\\": 0,
                     \\"IOS\\": 1
-                },
-                enum: [
-                    0,
-                    1
-                ]
+                }
             });
         }
     }
@@ -1455,38 +1333,25 @@ export namespace LeanCode {
                 MinimumRequiredVersion: z.string(),
                 Result: LeanCode.ForceUpdate.Contracts.VersionSupportResultDTOSchema
             });
-            export const PlatformDTOSchema = z.number().refine(val => [
-                0,
-                1
-            ].includes(val), {
-                message: \\"Invalid enum value\\"
+            export const PlatformDTOSchema = z.enum({
+                \\"Android\\": 0,
+                \\"IOS\\": 1
             }).meta({
-                values: {
+                \\"enum:meta\\": {
                     \\"Android\\": 0,
                     \\"IOS\\": 1
-                },
-                enum: [
-                    0,
-                    1
-                ]
+                }
             });
-            export const VersionSupportResultDTOSchema = z.number().refine(val => [
-                0,
-                1,
-                2
-            ].includes(val), {
-                message: \\"Invalid enum value\\"
+            export const VersionSupportResultDTOSchema = z.enum({
+                \\"UpdateRequired\\": 0,
+                \\"UpdateSuggested\\": 1,
+                \\"UpToDate\\": 2
             }).meta({
-                values: {
+                \\"enum:meta\\": {
                     \\"UpdateRequired\\": 0,
                     \\"UpdateSuggested\\": 1,
                     \\"UpToDate\\": 2
-                },
-                enum: [
-                    0,
-                    1,
-                    2
-                ]
+                }
             });
         }
     }
@@ -1821,116 +1686,73 @@ export const VersionSupportDTOSchema = z.object({
     MinimumRequiredVersion: z.string(),
     Result: VersionSupportResultDTOSchema
 });
-export const ReservationStatusDTOSchema = z.number().refine(val => [
-    0,
-    1,
-    2,
-    3,
-    4,
-    5
-].includes(val), {
-    message: \\"Invalid enum value\\"
+export const ReservationStatusDTOSchema = z.enum({
+    \\"Pending\\": 0,
+    \\"Confirmed\\": 1,
+    \\"Rejected\\": 2,
+    \\"Paid\\": 3,
+    \\"Cancelled\\": 4,
+    \\"Completed\\": 5
 }).meta({
-    values: {
+    \\"enum:meta\\": {
         \\"Pending\\": 0,
         \\"Confirmed\\": 1,
         \\"Rejected\\": 2,
         \\"Paid\\": 3,
         \\"Cancelled\\": 4,
         \\"Completed\\": 5
-    },
-    enum: [
-        0,
-        1,
-        2,
-        3,
-        4,
-        5
-    ]
+    }
 });
-export const ServiceProviderTypeDTOSchema = z.number().refine(val => [
-    0,
-    1,
-    2
-].includes(val), {
-    message: \\"Invalid enum value\\"
+export const ServiceProviderTypeDTOSchema = z.enum({
+    \\"Hairdresser\\": 0,
+    \\"BarberShop\\": 1,
+    \\"Groomer\\": 2
 }).meta({
-    values: {
+    \\"enum:meta\\": {
         \\"Hairdresser\\": 0,
         \\"BarberShop\\": 1,
         \\"Groomer\\": 2
-    },
-    enum: [
-        0,
-        1,
-        2
-    ]
+    }
 });
-export const ServiceProviderSortFieldsDTOSchema = z.number().refine(val => [
-    0,
-    1,
-    2
-].includes(val), {
-    message: \\"Invalid enum value\\"
+export const ServiceProviderSortFieldsDTOSchema = z.enum({
+    \\"Name\\": 0,
+    \\"Type\\": 1,
+    \\"Ratings\\": 2
 }).meta({
-    values: {
+    \\"enum:meta\\": {
         \\"Name\\": 0,
         \\"Type\\": 1,
         \\"Ratings\\": 2
-    },
-    enum: [
-        0,
-        1,
-        2
-    ]
+    }
 });
-export const AppRatingPlatformDTOSchema = z.number().refine(val => [
-    0,
-    1
-].includes(val), {
-    message: \\"Invalid enum value\\"
+export const AppRatingPlatformDTOSchema = z.enum({
+    \\"Android\\": 0,
+    \\"IOS\\": 1
 }).meta({
-    values: {
+    \\"enum:meta\\": {
         \\"Android\\": 0,
         \\"IOS\\": 1
-    },
-    enum: [
-        0,
-        1
-    ]
+    }
 });
-export const PlatformDTOSchema = z.number().refine(val => [
-    0,
-    1
-].includes(val), {
-    message: \\"Invalid enum value\\"
+export const PlatformDTOSchema = z.enum({
+    \\"Android\\": 0,
+    \\"IOS\\": 1
 }).meta({
-    values: {
+    \\"enum:meta\\": {
         \\"Android\\": 0,
         \\"IOS\\": 1
-    },
-    enum: [
-        0,
-        1
-    ]
+    }
 });
-export const VersionSupportResultDTOSchema = z.number().refine(val => [
-    0,
-    1,
-    2
-].includes(val), {
-    message: \\"Invalid enum value\\"
+export const VersionSupportResultDTOSchema = z.enum({
+    \\"UpdateRequired\\": 0,
+    \\"UpdateSuggested\\": 1,
+    \\"UpToDate\\": 2
 }).meta({
-    values: {
+    \\"enum:meta\\": {
         \\"UpdateRequired\\": 0,
         \\"UpdateSuggested\\": 1,
         \\"UpToDate\\": 2
-    },
-    enum: [
-        0,
-        1,
-        2
-    ]
+    }
 });
 ",
 }

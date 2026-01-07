@@ -5,7 +5,7 @@ export type ZodGeneratorPluginConfiguration = z.infer<typeof zodGeneratorPluginC
 export type FieldValidationContext = {
   name: string
   isNullable: boolean
-  type: "array" | "boolean" | "enum" | "number" | "object" | "string" | "unknown"
+  type: "array" | "boolean" | "enum" | "number" | "object" | "record" | "string" | "unknown"
 }
 
 export type FieldValidationFunction = (fieldPath: string, property: FieldValidationContext) => string | undefined
