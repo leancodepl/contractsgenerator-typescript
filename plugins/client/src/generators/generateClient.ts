@@ -22,7 +22,7 @@ export function generateClient(interfaces: SchemaInterface[], context: ClientCon
   })
 
   const factoryName = context.configuration.clientFactoryName
-  const factoryTypeName = context.configuration.clientTypeName ?? "CQRS"
+  const factoryTypeName = context.configuration.clientTypeName
 
   return ts.factory.createFunctionDeclaration(
     /* modifiers */ [

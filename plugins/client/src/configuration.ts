@@ -38,7 +38,7 @@ export const clientGeneratorPluginConfigurationSchema = z.object({
   customTypes: customTypesMapSchema.optional(),
   nameTransform: z.custom<NameTransform>().optional(),
   clientFactoryName: z.string().optional(),
-  clientTypeName: z.string().optional(),
+  clientTypeName: z.string().optional().default("CQRS"),
 })
 
 export type GeneratorInput = z.infer<typeof generatorInputSchema>
