@@ -27,7 +27,7 @@ export function generateClient(interfaces: SchemaInterface[], context: ClientCon
   return ts.factory.createFunctionDeclaration(
     /* modifiers */ [
       ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
-      ...(!!factoryName ? [ts.factory.createModifier(ts.SyntaxKind.DefaultKeyword)] : []),
+      ...(!factoryName ? [ts.factory.createModifier(ts.SyntaxKind.DefaultKeyword)] : []),
     ],
     /* asteriskToken */ undefined,
     /* name */ factoryName ? ts.factory.createIdentifier(factoryName) : undefined,
