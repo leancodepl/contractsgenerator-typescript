@@ -9,7 +9,6 @@ export async function generateFile(
   configl2: Record<string, unknown>,
   plugins: ContractsGeneratorPluginConfiguration[],
   sessionContext: GeneratorSessionContext,
-  logger,
 ) {
   const fileContext: GeneratorFileContext = {
     metadata: {},
