@@ -48,12 +48,10 @@ export async function generateFile(
       ])
 
       prepend[i] = beforeAll ?? ""
-      output[i] = before ?? ""
-      output[i] = generate ?? ""
-      output[i] = after ?? ""
+      output[i] = (before ?? "") + (generate ?? "") + (after ?? "")
       append[i] = afterAll ?? ""
     }),
   )
 
-  return prepend.join() + output.join() + append.join()
+  return prepend.join("") + output.join("") + append.join("")
 }
