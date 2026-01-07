@@ -1,3 +1,4 @@
+import { concat } from "lodash"
 import {
   GeneratorFileContext,
   GeneratorPlugin,
@@ -39,19 +40,18 @@ export async function generateFile(
         { session: sessionContext, file: fileContext, plugin: fileContext },
       )
 
-      const [beforeAll, before, generate, after, afterAll] = await Promise.all([
+      const [beforeAll = "", before = "", generate = "", after = "", afterAll = ""] = await Promise.all([
         pluginInstance.beforeAll?.(),
         pluginInstance.before?.(),
         pluginInstance.generate?.(),
         pluginInstance.after?.(),
         pluginInstance.afterAll?.(),
       ])
-
-      prepend[i] = beforeAll ?? ""
-      output[i] = (before ?? "") + (generate ?? "") + (after ?? "")
-      append[i] = afterAll ?? ""
+      prepend[i] = beforeAll
+      output[i] = before + generate + after
+      append[i] = afterAll
     }),
   )
 
-  return prepend.join("") + output.join("") + append.join("")
+  return concat(prepend, output, append).join("")
 }
