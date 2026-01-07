@@ -3,9 +3,12 @@ import ts from "typescript"
 import {
   isSchemaEnum,
   isSchemaInterface,
+  isSchemaInternalType,
+  isSchemaKnownType,
   SchemaEntity,
   SchemaEnum,
   SchemaInterface,
+  SchemaType,
 } from "@leancodepl/contractsgenerator-typescript-schema"
 import { ZodContext } from "../zodContext"
 import { generateEnumSchema } from "./generateEnumSchema"
@@ -27,17 +30,19 @@ function generateNamespace(generatorNamespace: GeneratorNamespace, context: ZodC
       : context.currentNamespace,
   }
 
-  const interfaceStatements = generatorNamespace.interfaces.flatMap(schemaInterface =>
-    generateInterfaceSchema(schemaInterface, childContext),
+  const allEntities: SchemaEntity[] = [...generatorNamespace.interfaces, ...generatorNamespace.enums]
+  const sortedEntities = topologicalSortEntities(allEntities)
+
+  const entityStatements = sortedEntities.flatMap(entity =>
+    isSchemaInterface(entity)
+      ? generateInterfaceSchema(entity, childContext)
+      : generateEnumSchema(entity, childContext),
   )
 
-  const enumStatements = generatorNamespace.enums.flatMap(schemaEnum => generateEnumSchema(schemaEnum, childContext))
+  const sortedNamespaces = topologicalSortNamespaces(generatorNamespace.namespaces)
+  const namespaceStatements = sortedNamespaces.flatMap(ns => generateNamespace(ns, childContext))
 
-  const namespaceStatements = generatorNamespace.namespaces.flatMap(generatorNamespace =>
-    generateNamespace(generatorNamespace, childContext),
-  )
-
-  const statements = [...interfaceStatements, ...enumStatements, ...namespaceStatements]
+  const statements = [...entityStatements, ...namespaceStatements]
 
   if (!generatorNamespace.name) {
     return statements
@@ -51,6 +56,174 @@ function generateNamespace(generatorNamespace: GeneratorNamespace, context: ZodC
       ts.NodeFlags.Namespace,
     ),
   ]
+}
+
+function collectInternalTypeIds(type: SchemaType): string[] {
+  const ids: string[] = []
+
+  if (isSchemaInternalType(type)) {
+    ids.push(type.id)
+    for (const arg of type.typeArguments) {
+      ids.push(...collectInternalTypeIds(arg))
+    }
+  } else if (isSchemaKnownType(type)) {
+    for (const arg of type.typeArguments) {
+      ids.push(...collectInternalTypeIds(arg))
+    }
+  }
+
+  return ids
+}
+
+function getEntityDependencies(entity: SchemaEntity): string[] {
+  if (isSchemaEnum(entity)) {
+    return []
+  }
+
+  const deps: string[] = []
+
+  for (const property of entity.properties) {
+    deps.push(...collectInternalTypeIds(property.type))
+  }
+
+  for (const extendType of entity.extendTypes) {
+    deps.push(...collectInternalTypeIds(extendType))
+  }
+
+  return [...new Set(deps)]
+}
+
+function topologicalSortEntities(entities: SchemaEntity[]): SchemaEntity[] {
+  const entityMap = new Map(entities.map(e => [e.id, e]))
+  const dependencies = new Map<string, Set<string>>()
+
+  for (const entity of entities) {
+    const deps = new Set<string>()
+    for (const depId of getEntityDependencies(entity)) {
+      if (entityMap.has(depId)) {
+        deps.add(depId)
+      }
+    }
+    dependencies.set(entity.id, deps)
+  }
+
+  const visited = new Set<string>()
+  const result: SchemaEntity[] = []
+
+  function visit(id: string, visiting: Set<string>): void {
+    if (visited.has(id)) return
+    if (visiting.has(id)) return
+
+    visiting.add(id)
+    const deps = dependencies.get(id) ?? new Set()
+    for (const depId of deps) {
+      visit(depId, visiting)
+    }
+    visiting.delete(id)
+
+    visited.add(id)
+    const entity = entityMap.get(id)
+    if (entity) result.push(entity)
+  }
+
+  for (const entity of entities) {
+    visit(entity.id, new Set())
+  }
+
+  return result
+}
+
+function getNamespaceDependencyIds(namespace: GeneratorNamespace): Set<string> {
+  const deps = new Set<string>()
+
+  for (const iface of namespace.interfaces) {
+    for (const depId of getEntityDependencies(iface)) {
+      deps.add(depId)
+    }
+  }
+
+  for (const childNs of namespace.namespaces) {
+    for (const depId of getNamespaceDependencyIds(childNs)) {
+      deps.add(depId)
+    }
+  }
+
+  return deps
+}
+
+function getNamespaceEntityIds(namespace: GeneratorNamespace): Set<string> {
+  const ids = new Set<string>()
+
+  for (const iface of namespace.interfaces) {
+    ids.add(iface.id)
+  }
+
+  for (const e of namespace.enums) {
+    ids.add(e.id)
+  }
+
+  for (const childNs of namespace.namespaces) {
+    for (const id of getNamespaceEntityIds(childNs)) {
+      ids.add(id)
+    }
+  }
+
+  return ids
+}
+
+function topologicalSortNamespaces(namespaces: GeneratorNamespace[]): GeneratorNamespace[] {
+  if (namespaces.length <= 1) return namespaces
+
+  const nsWithName = namespaces.filter((ns): ns is GeneratorNamespace & { name: string } => ns.name !== undefined)
+  const nsMap = new Map(nsWithName.map(ns => [ns.name, ns]))
+  const nsEntityIds = new Map(nsWithName.map(ns => [ns.name, getNamespaceEntityIds(ns)]))
+  const nsDependencies = new Map<string, Set<string>>()
+
+  for (const ns of nsWithName) {
+    const deps = new Set<string>()
+    const dependencyIds = getNamespaceDependencyIds(ns)
+
+    for (const otherNs of nsWithName) {
+      if (otherNs.name === ns.name) continue
+      const otherEntityIds = nsEntityIds.get(otherNs.name)
+
+      if (otherEntityIds) {
+        for (const depId of dependencyIds) {
+          if (otherEntityIds.has(depId)) {
+            deps.add(otherNs.name)
+            break
+          }
+        }
+      }
+    }
+
+    nsDependencies.set(ns.name, deps)
+  }
+
+  const visited = new Set<string>()
+  const result: GeneratorNamespace[] = []
+
+  function visit(name: string, visiting: Set<string>): void {
+    if (visited.has(name)) return
+    if (visiting.has(name)) return
+
+    visiting.add(name)
+    const deps = nsDependencies.get(name) ?? new Set()
+    for (const depName of deps) {
+      visit(depName, visiting)
+    }
+    visiting.delete(name)
+
+    visited.add(name)
+    const ns = nsMap.get(name)
+    if (ns) result.push(ns)
+  }
+
+  for (const ns of nsWithName) {
+    visit(ns.name, new Set())
+  }
+
+  return result
 }
 
 type GeneratorNamespace = {

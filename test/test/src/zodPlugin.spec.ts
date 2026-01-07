@@ -1,4 +1,7 @@
 import { resolve } from "path"
+import ts from "typescript"
+import vm from "vm"
+import z from "zod"
 import { generate } from "@leancodepl/contractsgenerator-typescript"
 import type {
   FieldValidationContext,
@@ -143,4 +146,64 @@ describe("zodPlugin", () => {
 
     expect(result).toMatchSnapshot()
   })
+
+  it("generates JSON schemas from zod schemas with defaults", async () => {
+    const result = await generate({
+      generates: { "test.ts": { plugins: ["zod"] } },
+      config: {
+        input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") },
+        customTypes: { DateTimeOffset: "ApiDateTimeOffset", DateOnly: "ApiDate", TimeOnly: "ApiTime" },
+        nameTransform: (id: string) => {
+          const parts = id.split(".")
+
+          if (parts.includes("AppRating") && parts.at(-1) === "PlatformDTO") {
+            return `AppRating${parts.at(-1)}`
+          }
+
+          return parts.at(-1)
+        },
+      },
+    })
+
+    const generatedCode = result["test.ts"]
+
+    const schemas = evaluateZodSchemas(generatedCode)
+    const jsonSchemas = schemasToJsonSchemas(schemas)
+
+    expect(jsonSchemas).toMatchSnapshot()
+  })
 })
+
+function evaluateZodSchemas(code: string): Record<string, z.ZodTypeAny> {
+  const exports: Record<string, z.ZodTypeAny> = {}
+
+  const codeWithoutImportsx = code.replace(/^import .+$/gm, "")
+  const jsCode = ts.transpileModule(codeWithoutImportsx, {
+    compilerOptions: { module: ts.ModuleKind.NodeNext },
+  }).outputText
+
+  vm.runInNewContext(jsCode, { z, exports })
+
+  return exports
+}
+
+function schemasToJsonSchemas(schemas: Record<string, z.ZodTypeAny>): Record<string, unknown> {
+  const result: Record<string, unknown> = {}
+
+  for (const [name, schema] of Object.entries(schemas)) {
+    try {
+      if (typeof schema === "function") {
+        const instantiated = (schema as (arg: z.ZodTypeAny) => z.ZodTypeAny)(z.any())
+        if (instantiated) {
+          result[name] = z.toJSONSchema(instantiated)
+        }
+      } else if (schema) {
+        result[name] = z.toJSONSchema(schema)
+      }
+    } catch {
+      // Skip schemas that can't be converted
+    }
+  }
+
+  return result
+}

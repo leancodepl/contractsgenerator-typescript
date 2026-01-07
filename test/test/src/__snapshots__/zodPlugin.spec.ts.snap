@@ -11,6 +11,12 @@ export const LocationDTOSchema = z.object({
     Latitude: z.number().positive().max(90),
     Longitude: z.number().positive().max(90)
 });
+export const MoneyDTOSchema = z.object({
+    Value: z.number().refine(val => val > 0, { message: \\"Must be positive\\" }),
+    Currency: z.string().refine(val => (val ? val.length === 3 : false))
+}).meta({
+    comment: \\"The DTO representing a monetary value, e.g. amount with a currency.\\\\nThe amount of money, in the smallest currency unit (e.g. grosz, cent).\\\\nThe (three letter) currency name, e.g. PLN, USD.\\"
+});
 export const AddTimeslotSchema = z.object({
     ServiceProviderId: z.string().refine(val => val.length > 0),
     Date: z.string().refine(val => (val ? val.length === 10 : false)),
@@ -19,6 +25,17 @@ export const AddTimeslotSchema = z.object({
     Price: MoneyDTOSchema
 }).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
+});
+export const ServiceProviderTypeDTOSchema = z.enum({
+    \\"Hairdresser\\": 0,
+    \\"BarberShop\\": 1,
+    \\"Groomer\\": 2
+}).meta({
+    \\"enum:meta\\": {
+        \\"Hairdresser\\": 0,
+        \\"BarberShop\\": 1,
+        \\"Groomer\\": 2
+    }
 });
 export const CreateServiceProviderSchema = z.object({
     Name: z.string().min(1),
@@ -32,33 +49,36 @@ export const CreateServiceProviderSchema = z.object({
 }).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
 });
-export const ServiceProviderLogoUploadLinkSchema = z.object({}).meta({
-    comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
-});
 export const ServiceProviderLogoUploadLinkDTOSchema = z.object({
     Link: z.string(),
     RequiredHeaders: z.record(z.string(), z.string()).refine(val => { const test = { test: { test: 5 } }; return typeof val === \\"object\\" && val !== null; })
 });
-export const MoneyDTOSchema = z.object({
-    Value: z.number().refine(val => val > 0, { message: \\"Must be positive\\" }),
-    Currency: z.string().refine(val => (val ? val.length === 3 : false))
-}).meta({
-    comment: \\"The DTO representing a monetary value, e.g. amount with a currency.\\\\nThe amount of money, in the smallest currency unit (e.g. grosz, cent).\\\\nThe (three letter) currency name, e.g. PLN, USD.\\"
+export const ServiceProviderLogoUploadLinkSchema = z.object({}).meta({
+    comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
 });
 export const IReservationRelatedSchema = z.object({
     ReservationId: z.string()
 });
 export const IWhenOwnsReservationSchema = z.object({});
-export const CancelReservationSchema = z.object({}).extend(IReservationRelatedSchema).meta({
+export const CancelReservationSchema = z.object({}).extend(IReservationRelatedSchema.shape).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\\\n@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute\\"
 });
-export const MyReservationByIdSchema = z.object({}).extend(IReservationRelatedSchema).meta({
-    comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\\\n@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute\\"
-});
-export const MyReservationByTimeslotIdSchema = z.object({
-    TimeslotId: z.string()
+export const ReservationStatusDTOSchema = z.enum({
+    \\"Pending\\": 0,
+    \\"Confirmed\\": 1,
+    \\"Rejected\\": 2,
+    \\"Paid\\": 3,
+    \\"Cancelled\\": 4,
+    \\"Completed\\": 5
 }).meta({
-    comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
+    \\"enum:meta\\": {
+        \\"Pending\\": 0,
+        \\"Confirmed\\": 1,
+        \\"Rejected\\": 2,
+        \\"Paid\\": 3,
+        \\"Cancelled\\": 4,
+        \\"Completed\\": 5
+    }
 });
 export const MyReservationDTOSchema = z.object({
     Id: z.string(),
@@ -73,6 +93,22 @@ export const MyReservationDTOSchema = z.object({
     EndTime: z.string().refine(val => !isNaN(Number(val))),
     Price: MoneyDTOSchema,
     Status: ReservationStatusDTOSchema
+});
+export const MyReservationByIdSchema = z.object({}).extend(IReservationRelatedSchema.shape).meta({
+    comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\\\n@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute\\"
+});
+export const MyReservationByTimeslotIdSchema = z.object({
+    TimeslotId: z.string()
+}).meta({
+    comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
+});
+export const PaginatedResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
+    Items: z.array(TResultSchema),
+    TotalCount: z.number()
+});
+export const PaginatedQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
+    PageNumber: z.number(),
+    PageSize: z.number()
 });
 export const MyReservationsSchema = z.object({}).extend(PaginatedQuerySchema(MyReservationDTOSchema).shape).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
@@ -103,6 +139,31 @@ export const ReserveTimeslotSchema = z.object({
 }).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
 });
+export const SortedQuerySchema = (TResultSchema: z.ZodTypeAny, TSortSchema: z.ZodTypeAny) => z.object({
+    SortBy: TSortSchema,
+    SortByDescending: z.boolean()
+}).extend(PaginatedQuerySchema(TResultSchema).shape);
+export const ServiceProviderSummaryDTOSchema = z.object({
+    Id: z.string(),
+    Name: z.string().min(1),
+    Type: ServiceProviderTypeDTOSchema,
+    Thumbnail: z.string().min(1).max(500),
+    IsPromotionActive: z.boolean(),
+    Address: z.string().refine(val => val !== undefined),
+    Location: LocationDTOSchema,
+    Ratings: z.number().refine(val => val >= 0 && val <= 5)
+});
+export const ServiceProviderSortFieldsDTOSchema = z.enum({
+    \\"Name\\": 0,
+    \\"Type\\": 1,
+    \\"Ratings\\": 2
+}).meta({
+    \\"enum:meta\\": {
+        \\"Name\\": 0,
+        \\"Type\\": 1,
+        \\"Ratings\\": 2
+    }
+});
 export const AllServiceProvidersSchema = z.object({
     NameFilter: z.string().nullable(),
     TypeFilter: ServiceProviderTypeDTOSchema.nullable(),
@@ -110,11 +171,13 @@ export const AllServiceProvidersSchema = z.object({
 }).extend(SortedQuerySchema(ServiceProviderSummaryDTOSchema, ServiceProviderSortFieldsDTOSchema).shape).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
 });
-export const ServiceProviderDetailsSchema = z.object({
-    ServiceProviderId: z.string().refine(val => val.length > 0),
-    CalendarDate: z.string()
-}).meta({
-    comment: \\"The query will return details about service provider and all available timeslots from\\\\nto\\\\n    +X days (configurable on query level).\\\\n@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
+export const TimeslotDTOSchema = z.object({
+    Id: z.string(),
+    CalendarDayId: z.string(),
+    StartTime: z.string().refine(val => val.startsWith(\`0\`) || val.startsWith(\`1\`)),
+    EndTime: z.string().refine(val => !isNaN(Number(val))),
+    Price: MoneyDTOSchema,
+    IsReserved: z.boolean()
 });
 export const ServiceProviderDetailsDTOSchema = z.object({
     Id: z.string(),
@@ -129,23 +192,11 @@ export const ServiceProviderDetailsDTOSchema = z.object({
     Thumbnail: z.string().min(1).max(500),
     Timeslots: z.array(TimeslotDTOSchema)
 });
-export const ServiceProviderSummaryDTOSchema = z.object({
-    Id: z.string(),
-    Name: z.string().min(1),
-    Type: ServiceProviderTypeDTOSchema,
-    Thumbnail: z.string().min(1).max(500),
-    IsPromotionActive: z.boolean(),
-    Address: z.string().refine(val => val !== undefined),
-    Location: LocationDTOSchema,
-    Ratings: z.number().refine(val => val >= 0 && val <= 5)
-});
-export const TimeslotDTOSchema = z.object({
-    Id: z.string(),
-    CalendarDayId: z.string(),
-    StartTime: z.string().refine(val => val.startsWith(\`0\`) || val.startsWith(\`1\`)),
-    EndTime: z.string().refine(val => !isNaN(Number(val))),
-    Price: MoneyDTOSchema,
-    IsReserved: z.boolean()
+export const ServiceProviderDetailsSchema = z.object({
+    ServiceProviderId: z.string().refine(val => val.length > 0),
+    CalendarDate: z.string()
+}).meta({
+    comment: \\"The query will return details about service provider and all available timeslots from\\\\nto\\\\n    +X days (configurable on query level).\\\\n@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
 });
 export const AssignmentEmployerEmbedSchema = z.object({}).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
@@ -154,8 +205,23 @@ export const AdminEmployeeDTOSchema = z.object({
     Id: z.string(),
     Name: z.string().min(1)
 });
+export const EmployeeDTOSchema = z.object({
+    Id: z.string(),
+    Name: z.string().min(1),
+    Email: z.string()
+});
 export const AllEmployeesSchema = z.object({}).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
+});
+export const AdminQueryResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
+    Total: z.number(),
+    Items: z.array(TResultSchema)
+});
+export const AdminQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
+    Page: z.number(),
+    PageSize: z.number(),
+    SortDescending: z.boolean().nullable(),
+    SortBy: z.string().nullable()
 });
 export const AllEmployeesAdminSchema = z.object({
     NameFilter: z.string().nullable()
@@ -167,11 +233,6 @@ export const CreateEmployeeSchema = z.object({
     Email: z.string()
 }).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
-});
-export const EmployeeDTOSchema = z.object({
-    Id: z.string(),
-    Name: z.string().min(1),
-    Email: z.string()
 });
 export const SendCustomNotificationSchema = z.object({
     Content: z.string(),
@@ -194,13 +255,8 @@ export const SearchIdentitiesSchema = z.object({
 }).extend(PaginatedQuerySchema(KratosIdentityDTOSchema).shape).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
 });
-export const PaginatedQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
-    PageNumber: z.number(),
-    PageSize: z.number()
-});
-export const PaginatedResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
-    Items: z.array(TResultSchema),
-    TotalCount: z.number()
+export const AssignmentWriteDTOSchema = z.object({
+    Name: z.string().min(1)
 });
 export const AddAssignmentsToProjectSchema = z.object({
     ProjectId: z.string(),
@@ -209,6 +265,10 @@ export const AddAssignmentsToProjectSchema = z.object({
     comment: \\"@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute\\"
 });
 export const AdminProjectDTOSchema = z.object({
+    Id: z.string(),
+    Name: z.string().min(1)
+});
+export const ProjectDTOSchema = z.object({
     Id: z.string(),
     Name: z.string().min(1)
 });
@@ -231,10 +291,7 @@ export const AssignEmployeeToAssignmentSchema = z.object({
 export const AssignmentDTOSchema = z.object({
     Id: z.string(),
     AssignedEmployeeId: z.string().nullable()
-}).extend(AssignmentWriteDTOSchema);
-export const AssignmentWriteDTOSchema = z.object({
-    Name: z.string().min(1)
-});
+}).extend(AssignmentWriteDTOSchema.shape);
 export const CreateProjectSchema = z.object({
     Name: z.string().min(1)
 }).meta({
@@ -260,18 +317,14 @@ export const EmployeeUnassignedFromProjectAssignmentDTOSchema = z.object({
     ProjectId: z.string(),
     AssignmentId: z.string()
 });
-export const ProjectDTOSchema = z.object({
-    Id: z.string(),
-    Name: z.string().min(1)
-});
+export const ProjectDetailsDTOSchema = z.object({
+    Assignments: z.array(AssignmentDTOSchema)
+}).extend(ProjectDTOSchema.shape);
 export const ProjectDetailsSchema = z.object({
     Id: z.string()
 }).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute\\"
 });
-export const ProjectDetailsDTOSchema = z.object({
-    Assignments: z.array(AssignmentDTOSchema)
-}).extend(ProjectDTOSchema);
 export const ProjectEmployeesAssignmentsTopicSchema = z.object({
     ProjectId: z.string()
 }).meta({
@@ -282,16 +335,21 @@ export const UnassignEmployeeFromAssignmentSchema = z.object({
 }).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
 });
-export const SortedQuerySchema = (TResultSchema: z.ZodTypeAny, TSortSchema: z.ZodTypeAny) => z.object({
-    SortBy: TSortSchema,
-    SortByDescending: z.boolean()
-}).extend(PaginatedQuerySchema(TResultSchema).shape);
 export const DeleteOwnAccountSchema = z.object({}).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
 });
 export const PermissionsSchema = z.object({});
 export const RatingAlreadySentSchema = z.object({}).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"RateApp\\\\\\")\\"
+});
+export const AppRatingPlatformDTOSchema = z.enum({
+    \\"Android\\": 0,
+    \\"IOS\\": 1
+}).meta({
+    \\"enum:meta\\": {
+        \\"Android\\": 0,
+        \\"IOS\\": 1
+    }
 });
 export const SubmitAppRatingSchema = z.object({
     Rating: z.number(),
@@ -306,73 +364,6 @@ export const SubmitAppRatingSchema = z.object({
 export const AdminFilterRangeSchema = (TSchema: z.ZodTypeAny) => z.object({
     From: TSchema.nullable(),
     To: TSchema.nullable()
-});
-export const AdminQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
-    Page: z.number(),
-    PageSize: z.number(),
-    SortDescending: z.boolean().nullable(),
-    SortBy: z.string().nullable()
-});
-export const AdminQueryResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
-    Total: z.number(),
-    Items: z.array(TResultSchema)
-});
-export const VersionSupportSchema = z.object({
-    Platform: PlatformDTOSchema,
-    Version: z.string()
-});
-export const VersionSupportDTOSchema = z.object({
-    CurrentlySupportedVersion: z.string(),
-    MinimumRequiredVersion: z.string(),
-    Result: VersionSupportResultDTOSchema
-});
-export const ReservationStatusDTOSchema = z.enum({
-    \\"Pending\\": 0,
-    \\"Confirmed\\": 1,
-    \\"Rejected\\": 2,
-    \\"Paid\\": 3,
-    \\"Cancelled\\": 4,
-    \\"Completed\\": 5
-}).meta({
-    \\"enum:meta\\": {
-        \\"Pending\\": 0,
-        \\"Confirmed\\": 1,
-        \\"Rejected\\": 2,
-        \\"Paid\\": 3,
-        \\"Cancelled\\": 4,
-        \\"Completed\\": 5
-    }
-});
-export const ServiceProviderTypeDTOSchema = z.enum({
-    \\"Hairdresser\\": 0,
-    \\"BarberShop\\": 1,
-    \\"Groomer\\": 2
-}).meta({
-    \\"enum:meta\\": {
-        \\"Hairdresser\\": 0,
-        \\"BarberShop\\": 1,
-        \\"Groomer\\": 2
-    }
-});
-export const ServiceProviderSortFieldsDTOSchema = z.enum({
-    \\"Name\\": 0,
-    \\"Type\\": 1,
-    \\"Ratings\\": 2
-}).meta({
-    \\"enum:meta\\": {
-        \\"Name\\": 0,
-        \\"Type\\": 1,
-        \\"Ratings\\": 2
-    }
-});
-export const AppRatingPlatformDTOSchema = z.enum({
-    \\"Android\\": 0,
-    \\"IOS\\": 1
-}).meta({
-    \\"enum:meta\\": {
-        \\"Android\\": 0,
-        \\"IOS\\": 1
-    }
 });
 export const PlatformDTOSchema = z.enum({
     \\"Android\\": 0,
@@ -393,6 +384,15 @@ export const VersionSupportResultDTOSchema = z.enum({
         \\"UpdateSuggested\\": 1,
         \\"UpToDate\\": 2
     }
+});
+export const VersionSupportDTOSchema = z.object({
+    CurrentlySupportedVersion: z.string(),
+    MinimumRequiredVersion: z.string(),
+    Result: VersionSupportResultDTOSchema
+});
+export const VersionSupportSchema = z.object({
+    Platform: PlatformDTOSchema,
+    Version: z.string()
 });
 ",
 }
@@ -417,12 +417,15 @@ export namespace ExampleApp {
                 });
                 export const ExtendingInterfaceSchema = z.object({
                     Extending: z.number()
-                }).extend(ExampleApp.Examples.TestContracts.Shared.ExtendedInterfaceSchema);
+                }).extend(ExampleApp.Examples.TestContracts.Shared.ExtendedInterfaceSchema.shape);
                 export const NestedInterfaceSchema = z.object({
                     Nest: z.number()
                 });
                 export const NestingInterfaceSchema = z.object({
                     Nested: ExampleApp.Examples.TestContracts.Shared.NestedInterfaceSchema
+                });
+                export const RemoveCommandDTOSchema = z.object({
+                    Name: z.string()
                 });
                 export const RemoveCommandSchema = z.object({
                     ProjectId: z.string(),
@@ -430,7 +433,7 @@ export namespace ExampleApp {
                 }).meta({
                     comment: \\"@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute\\"
                 });
-                export const RemoveCommandDTOSchema = z.object({
+                export const RemoveOperationDTOSchema = z.object({
                     Name: z.string()
                 });
                 export const RemoveOperationSchema = z.object({
@@ -438,14 +441,11 @@ export namespace ExampleApp {
                 }).meta({
                     comment: \\"@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute\\"
                 });
-                export const RemoveOperationDTOSchema = z.object({
-                    Name: z.string()
+                export const RemoveQueryDTOSchema = z.object({
+                    Id: z.string()
                 });
                 export const RemoveQuerySchema = z.object({}).meta({
                     comment: \\"@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute\\"
-                });
-                export const RemoveQueryDTOSchema = z.object({
-                    Id: z.string()
                 });
                 export const RemoveTopicSchema = z.object({
                     ItemId: z.string()
@@ -472,21 +472,1873 @@ export namespace ExampleApp {
 }
 `;
 
+exports[`zodPlugin generates JSON schemas from zod schemas with defaults 1`] = `
+Object {
+  "AddAssignmentsToProjectSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute",
+    "properties": Object {
+      "Assignments": Object {
+        "items": Object {
+          "additionalProperties": false,
+          "properties": Object {
+            "Name": Object {
+              "type": "string",
+            },
+          },
+          "required": Array [
+            "Name",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "ProjectId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "ProjectId",
+      "Assignments",
+    ],
+    "type": "object",
+  },
+  "AddTimeslotSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")",
+    "properties": Object {
+      "Date": Object {
+        "type": "string",
+      },
+      "EndTime": Object {
+        "type": "string",
+      },
+      "Price": Object {
+        "additionalProperties": false,
+        "comment": "The DTO representing a monetary value, e.g. amount with a currency.
+The amount of money, in the smallest currency unit (e.g. grosz, cent).
+The (three letter) currency name, e.g. PLN, USD.",
+        "properties": Object {
+          "Currency": Object {
+            "type": "string",
+          },
+          "Value": Object {
+            "type": "number",
+          },
+        },
+        "required": Array [
+          "Value",
+          "Currency",
+        ],
+        "type": "object",
+      },
+      "ServiceProviderId": Object {
+        "type": "string",
+      },
+      "StartTime": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "ServiceProviderId",
+      "Date",
+      "StartTime",
+      "EndTime",
+      "Price",
+    ],
+    "type": "object",
+  },
+  "AdminEmployeeDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Id": Object {
+        "type": "string",
+      },
+      "Name": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Id",
+      "Name",
+    ],
+    "type": "object",
+  },
+  "AdminFilterRangeSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "From": Object {
+        "anyOf": Array [
+          Object {},
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "To": Object {
+        "anyOf": Array [
+          Object {},
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+    },
+    "required": Array [
+      "From",
+      "To",
+    ],
+    "type": "object",
+  },
+  "AdminProjectDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Id": Object {
+        "type": "string",
+      },
+      "Name": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Id",
+      "Name",
+    ],
+    "type": "object",
+  },
+  "AdminQueryResultSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Items": Object {
+        "items": Object {},
+        "type": "array",
+      },
+      "Total": Object {
+        "type": "number",
+      },
+    },
+    "required": Array [
+      "Total",
+      "Items",
+    ],
+    "type": "object",
+  },
+  "AdminQuerySchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Page": Object {
+        "type": "number",
+      },
+      "PageSize": Object {
+        "type": "number",
+      },
+      "SortBy": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "SortDescending": Object {
+        "anyOf": Array [
+          Object {
+            "type": "boolean",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+    },
+    "required": Array [
+      "Page",
+      "PageSize",
+      "SortDescending",
+      "SortBy",
+    ],
+    "type": "object",
+  },
+  "AllEmployeesAdminSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")",
+    "properties": Object {
+      "NameFilter": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "Page": Object {
+        "type": "number",
+      },
+      "PageSize": Object {
+        "type": "number",
+      },
+      "SortBy": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "SortDescending": Object {
+        "anyOf": Array [
+          Object {
+            "type": "boolean",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+    },
+    "required": Array [
+      "NameFilter",
+      "Page",
+      "PageSize",
+      "SortDescending",
+      "SortBy",
+    ],
+    "type": "object",
+  },
+  "AllEmployeesSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")",
+    "properties": Object {},
+    "type": "object",
+  },
+  "AllProjectsAdminSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")",
+    "properties": Object {
+      "NameFilter": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "Page": Object {
+        "type": "number",
+      },
+      "PageSize": Object {
+        "type": "number",
+      },
+      "SortBy": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "SortDescending": Object {
+        "anyOf": Array [
+          Object {
+            "type": "boolean",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+    },
+    "required": Array [
+      "NameFilter",
+      "Page",
+      "PageSize",
+      "SortDescending",
+      "SortBy",
+    ],
+    "type": "object",
+  },
+  "AllProjectsSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute",
+    "properties": Object {
+      "SortByNameDescending": Object {
+        "type": "boolean",
+      },
+    },
+    "required": Array [
+      "SortByNameDescending",
+    ],
+    "type": "object",
+  },
+  "AllServiceProvidersSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"user\\")",
+    "properties": Object {
+      "NameFilter": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "PageNumber": Object {
+        "type": "number",
+      },
+      "PageSize": Object {
+        "type": "number",
+      },
+      "PromotedOnly": Object {
+        "type": "boolean",
+      },
+      "SortBy": Object {
+        "enum": Array [
+          0,
+          1,
+          2,
+        ],
+        "enum:meta": Object {
+          "Name": 0,
+          "Ratings": 2,
+          "Type": 1,
+        },
+        "type": "number",
+      },
+      "SortByDescending": Object {
+        "type": "boolean",
+      },
+      "TypeFilter": Object {
+        "anyOf": Array [
+          Object {
+            "enum": Array [
+              0,
+              1,
+              2,
+            ],
+            "enum:meta": Object {
+              "BarberShop": 1,
+              "Groomer": 2,
+              "Hairdresser": 0,
+            },
+            "type": "number",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+    },
+    "required": Array [
+      "NameFilter",
+      "TypeFilter",
+      "PromotedOnly",
+      "SortBy",
+      "SortByDescending",
+      "PageNumber",
+      "PageSize",
+    ],
+    "type": "object",
+  },
+  "AppRatingPlatformDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "enum": Array [
+      0,
+      1,
+    ],
+    "enum:meta": Object {
+      "Android": 0,
+      "IOS": 1,
+    },
+    "type": "number",
+  },
+  "AssignEmployeeToAssignmentSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")",
+    "properties": Object {
+      "AssignmentId": Object {
+        "type": "string",
+      },
+      "EmployeeId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "AssignmentId",
+      "EmployeeId",
+    ],
+    "type": "object",
+  },
+  "AssignmentDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "AssignedEmployeeId": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "Id": Object {
+        "type": "string",
+      },
+      "Name": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Id",
+      "AssignedEmployeeId",
+      "Name",
+    ],
+    "type": "object",
+  },
+  "AssignmentEmployerEmbedSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")",
+    "properties": Object {},
+    "type": "object",
+  },
+  "AssignmentWriteDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Name": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Name",
+    ],
+    "type": "object",
+  },
+  "AuthSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {},
+    "type": "object",
+  },
+  "CancelReservationSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"user\\")
+@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute",
+    "properties": Object {
+      "ReservationId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "ReservationId",
+    ],
+    "type": "object",
+  },
+  "CreateEmployeeSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")",
+    "properties": Object {
+      "Email": Object {
+        "type": "string",
+      },
+      "Name": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Name",
+      "Email",
+    ],
+    "type": "object",
+  },
+  "CreateProjectSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute",
+    "properties": Object {
+      "Name": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Name",
+    ],
+    "type": "object",
+  },
+  "CreateServiceProviderSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")",
+    "properties": Object {
+      "Address": Object {
+        "type": "string",
+      },
+      "CoverPhoto": Object {
+        "type": "string",
+      },
+      "Description": Object {
+        "type": "string",
+      },
+      "Location": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "Latitude": Object {
+            "type": "number",
+          },
+          "Longitude": Object {
+            "type": "number",
+          },
+        },
+        "required": Array [
+          "Latitude",
+          "Longitude",
+        ],
+        "type": "object",
+      },
+      "Name": Object {
+        "type": "string",
+      },
+      "Ratings": Object {
+        "type": "number",
+      },
+      "Thumbnail": Object {
+        "type": "string",
+      },
+      "Type": Object {
+        "enum": Array [
+          0,
+          1,
+          2,
+        ],
+        "enum:meta": Object {
+          "BarberShop": 1,
+          "Groomer": 2,
+          "Hairdresser": 0,
+        },
+        "type": "number",
+      },
+    },
+    "required": Array [
+      "Name",
+      "Type",
+      "Description",
+      "CoverPhoto",
+      "Thumbnail",
+      "Address",
+      "Location",
+      "Ratings",
+    ],
+    "type": "object",
+  },
+  "DeleteOwnAccountSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"user\\")",
+    "properties": Object {},
+    "type": "object",
+  },
+  "EmployeeAssignedToAssignmentDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "AssignmentId": Object {
+        "type": "string",
+      },
+      "EmployeeId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "AssignmentId",
+      "EmployeeId",
+    ],
+    "type": "object",
+  },
+  "EmployeeAssignedToProjectAssignmentDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "AssignmentId": Object {
+        "type": "string",
+      },
+      "ProjectId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "ProjectId",
+      "AssignmentId",
+    ],
+    "type": "object",
+  },
+  "EmployeeAssignmentsTopicSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute",
+    "properties": Object {
+      "EmployeeId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "EmployeeId",
+    ],
+    "type": "object",
+  },
+  "EmployeeDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Email": Object {
+        "type": "string",
+      },
+      "Id": Object {
+        "type": "string",
+      },
+      "Name": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Id",
+      "Name",
+      "Email",
+    ],
+    "type": "object",
+  },
+  "EmployeeUnassignedFromAssignmentDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "AssignmentId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "AssignmentId",
+    ],
+    "type": "object",
+  },
+  "EmployeeUnassignedFromProjectAssignmentDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "AssignmentId": Object {
+        "type": "string",
+      },
+      "ProjectId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "ProjectId",
+      "AssignmentId",
+    ],
+    "type": "object",
+  },
+  "IReservationRelatedSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "ReservationId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "ReservationId",
+    ],
+    "type": "object",
+  },
+  "IWhenOwnsReservationSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {},
+    "type": "object",
+  },
+  "KnownClaimsSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {},
+    "type": "object",
+  },
+  "KratosIdentityDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "CreatedAt": Object {
+        "type": "string",
+      },
+      "Email": Object {
+        "type": "string",
+      },
+      "Id": Object {
+        "type": "string",
+      },
+      "SchemaId": Object {
+        "type": "string",
+      },
+      "UpdatedAt": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Id",
+      "CreatedAt",
+      "UpdatedAt",
+      "SchemaId",
+      "Email",
+    ],
+    "type": "object",
+  },
+  "LocationDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Latitude": Object {
+        "type": "number",
+      },
+      "Longitude": Object {
+        "type": "number",
+      },
+    },
+    "required": Array [
+      "Latitude",
+      "Longitude",
+    ],
+    "type": "object",
+  },
+  "MoneyDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "The DTO representing a monetary value, e.g. amount with a currency.
+The amount of money, in the smallest currency unit (e.g. grosz, cent).
+The (three letter) currency name, e.g. PLN, USD.",
+    "properties": Object {
+      "Currency": Object {
+        "type": "string",
+      },
+      "Value": Object {
+        "type": "number",
+      },
+    },
+    "required": Array [
+      "Value",
+      "Currency",
+    ],
+    "type": "object",
+  },
+  "MyReservationByIdSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"user\\")
+@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute",
+    "properties": Object {
+      "ReservationId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "ReservationId",
+    ],
+    "type": "object",
+  },
+  "MyReservationByTimeslotIdSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"user\\")",
+    "properties": Object {
+      "TimeslotId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "TimeslotId",
+    ],
+    "type": "object",
+  },
+  "MyReservationDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Address": Object {
+        "type": "string",
+      },
+      "Date": Object {
+        "type": "string",
+      },
+      "EndTime": Object {
+        "type": "string",
+      },
+      "Id": Object {
+        "type": "string",
+      },
+      "Location": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "Latitude": Object {
+            "type": "number",
+          },
+          "Longitude": Object {
+            "type": "number",
+          },
+        },
+        "required": Array [
+          "Latitude",
+          "Longitude",
+        ],
+        "type": "object",
+      },
+      "Price": Object {
+        "additionalProperties": false,
+        "comment": "The DTO representing a monetary value, e.g. amount with a currency.
+The amount of money, in the smallest currency unit (e.g. grosz, cent).
+The (three letter) currency name, e.g. PLN, USD.",
+        "properties": Object {
+          "Currency": Object {
+            "type": "string",
+          },
+          "Value": Object {
+            "type": "number",
+          },
+        },
+        "required": Array [
+          "Value",
+          "Currency",
+        ],
+        "type": "object",
+      },
+      "ServiceProviderId": Object {
+        "type": "string",
+      },
+      "ServiceProviderName": Object {
+        "type": "string",
+      },
+      "StartTime": Object {
+        "type": "string",
+      },
+      "Status": Object {
+        "enum": Array [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+        ],
+        "enum:meta": Object {
+          "Cancelled": 4,
+          "Completed": 5,
+          "Confirmed": 1,
+          "Paid": 3,
+          "Pending": 0,
+          "Rejected": 2,
+        },
+        "type": "number",
+      },
+      "TimeslotId": Object {
+        "type": "string",
+      },
+      "Type": Object {
+        "enum": Array [
+          0,
+          1,
+          2,
+        ],
+        "enum:meta": Object {
+          "BarberShop": 1,
+          "Groomer": 2,
+          "Hairdresser": 0,
+        },
+        "type": "number",
+      },
+    },
+    "required": Array [
+      "Id",
+      "TimeslotId",
+      "ServiceProviderId",
+      "ServiceProviderName",
+      "Type",
+      "Address",
+      "Location",
+      "Date",
+      "StartTime",
+      "EndTime",
+      "Price",
+      "Status",
+    ],
+    "type": "object",
+  },
+  "MyReservationsSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"user\\")",
+    "properties": Object {
+      "PageNumber": Object {
+        "type": "number",
+      },
+      "PageSize": Object {
+        "type": "number",
+      },
+    },
+    "required": Array [
+      "PageNumber",
+      "PageSize",
+    ],
+    "type": "object",
+  },
+  "PaginatedQuerySchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "PageNumber": Object {
+        "type": "number",
+      },
+      "PageSize": Object {
+        "type": "number",
+      },
+    },
+    "required": Array [
+      "PageNumber",
+      "PageSize",
+    ],
+    "type": "object",
+  },
+  "PaginatedResultSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Items": Object {
+        "items": Object {},
+        "type": "array",
+      },
+      "TotalCount": Object {
+        "type": "number",
+      },
+    },
+    "required": Array [
+      "Items",
+      "TotalCount",
+    ],
+    "type": "object",
+  },
+  "PermissionsSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {},
+    "type": "object",
+  },
+  "PlatformDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "enum": Array [
+      0,
+      1,
+    ],
+    "enum:meta": Object {
+      "Android": 0,
+      "IOS": 1,
+    },
+    "type": "number",
+  },
+  "ProjectDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Id": Object {
+        "type": "string",
+      },
+      "Name": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Id",
+      "Name",
+    ],
+    "type": "object",
+  },
+  "ProjectDetailsDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Assignments": Object {
+        "items": Object {
+          "additionalProperties": false,
+          "properties": Object {
+            "AssignedEmployeeId": Object {
+              "anyOf": Array [
+                Object {
+                  "type": "string",
+                },
+                Object {
+                  "type": "null",
+                },
+              ],
+            },
+            "Id": Object {
+              "type": "string",
+            },
+            "Name": Object {
+              "type": "string",
+            },
+          },
+          "required": Array [
+            "Id",
+            "AssignedEmployeeId",
+            "Name",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "Id": Object {
+        "type": "string",
+      },
+      "Name": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Assignments",
+      "Id",
+      "Name",
+    ],
+    "type": "object",
+  },
+  "ProjectDetailsSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute",
+    "properties": Object {
+      "Id": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Id",
+    ],
+    "type": "object",
+  },
+  "ProjectEmployeesAssignmentsTopicSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")",
+    "properties": Object {
+      "ProjectId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "ProjectId",
+    ],
+    "type": "object",
+  },
+  "RatingAlreadySentSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"RateApp\\")",
+    "properties": Object {},
+    "type": "object",
+  },
+  "ReservationCancelledNotificationDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "CalendarDayId": Object {
+        "type": "string",
+      },
+      "Date": Object {
+        "type": "string",
+      },
+      "EndTime": Object {
+        "type": "string",
+      },
+      "ReservationId": Object {
+        "type": "string",
+      },
+      "ServiceProviderId": Object {
+        "type": "string",
+      },
+      "ServiceProviderName": Object {
+        "type": "string",
+      },
+      "StartTime": Object {
+        "type": "string",
+      },
+      "TimeslotId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "ReservationId",
+      "CalendarDayId",
+      "TimeslotId",
+      "ServiceProviderId",
+      "ServiceProviderName",
+      "Date",
+      "StartTime",
+      "EndTime",
+    ],
+    "type": "object",
+  },
+  "ReservationCreatedNotificationDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "CalendarDayId": Object {
+        "type": "string",
+      },
+      "Date": Object {
+        "type": "string",
+      },
+      "EndTime": Object {
+        "type": "string",
+      },
+      "ReservationId": Object {
+        "type": "string",
+      },
+      "ServiceProviderId": Object {
+        "type": "string",
+      },
+      "ServiceProviderName": Object {
+        "type": "string",
+      },
+      "StartTime": Object {
+        "type": "string",
+      },
+      "TimeslotId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "ReservationId",
+      "CalendarDayId",
+      "TimeslotId",
+      "ServiceProviderId",
+      "ServiceProviderName",
+      "Date",
+      "StartTime",
+      "EndTime",
+    ],
+    "type": "object",
+  },
+  "ReservationStatusDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "enum": Array [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+    ],
+    "enum:meta": Object {
+      "Cancelled": 4,
+      "Completed": 5,
+      "Confirmed": 1,
+      "Paid": 3,
+      "Pending": 0,
+      "Rejected": 2,
+    },
+    "type": "number",
+  },
+  "ReserveTimeslotSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"user\\")",
+    "properties": Object {
+      "CalendarDayId": Object {
+        "type": "string",
+      },
+      "TimeslotId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "CalendarDayId",
+      "TimeslotId",
+    ],
+    "type": "object",
+  },
+  "RolesSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {},
+    "type": "object",
+  },
+  "SearchIdentitiesSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")",
+    "properties": Object {
+      "EmailPattern": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "FamilyNamePattern": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "GivenNamePattern": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "PageNumber": Object {
+        "type": "number",
+      },
+      "PageSize": Object {
+        "type": "number",
+      },
+      "SchemaId": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+    },
+    "required": Array [
+      "SchemaId",
+      "EmailPattern",
+      "GivenNamePattern",
+      "FamilyNamePattern",
+      "PageNumber",
+      "PageSize",
+    ],
+    "type": "object",
+  },
+  "SendCustomNotificationSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"user\\")",
+    "properties": Object {
+      "Content": Object {
+        "type": "string",
+      },
+      "ImageUrl": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+    },
+    "required": Array [
+      "Content",
+      "ImageUrl",
+    ],
+    "type": "object",
+  },
+  "ServiceProviderDetailsDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Address": Object {
+        "type": "string",
+      },
+      "CoverPhoto": Object {
+        "type": "string",
+      },
+      "Description": Object {
+        "type": "string",
+      },
+      "Id": Object {
+        "type": "string",
+      },
+      "IsPromotionActive": Object {
+        "type": "boolean",
+      },
+      "Location": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "Latitude": Object {
+            "type": "number",
+          },
+          "Longitude": Object {
+            "type": "number",
+          },
+        },
+        "required": Array [
+          "Latitude",
+          "Longitude",
+        ],
+        "type": "object",
+      },
+      "Name": Object {
+        "type": "string",
+      },
+      "Ratings": Object {
+        "type": "number",
+      },
+      "Thumbnail": Object {
+        "type": "string",
+      },
+      "Timeslots": Object {
+        "items": Object {
+          "additionalProperties": false,
+          "properties": Object {
+            "CalendarDayId": Object {
+              "type": "string",
+            },
+            "EndTime": Object {
+              "type": "string",
+            },
+            "Id": Object {
+              "type": "string",
+            },
+            "IsReserved": Object {
+              "type": "boolean",
+            },
+            "Price": Object {
+              "additionalProperties": false,
+              "comment": "The DTO representing a monetary value, e.g. amount with a currency.
+The amount of money, in the smallest currency unit (e.g. grosz, cent).
+The (three letter) currency name, e.g. PLN, USD.",
+              "properties": Object {
+                "Currency": Object {
+                  "type": "string",
+                },
+                "Value": Object {
+                  "type": "number",
+                },
+              },
+              "required": Array [
+                "Value",
+                "Currency",
+              ],
+              "type": "object",
+            },
+            "StartTime": Object {
+              "type": "string",
+            },
+          },
+          "required": Array [
+            "Id",
+            "CalendarDayId",
+            "StartTime",
+            "EndTime",
+            "Price",
+            "IsReserved",
+          ],
+          "type": "object",
+        },
+        "type": "array",
+      },
+      "Type": Object {
+        "enum": Array [
+          0,
+          1,
+          2,
+        ],
+        "enum:meta": Object {
+          "BarberShop": 1,
+          "Groomer": 2,
+          "Hairdresser": 0,
+        },
+        "type": "number",
+      },
+    },
+    "required": Array [
+      "Id",
+      "Name",
+      "Description",
+      "Type",
+      "Address",
+      "Location",
+      "IsPromotionActive",
+      "Ratings",
+      "CoverPhoto",
+      "Thumbnail",
+      "Timeslots",
+    ],
+    "type": "object",
+  },
+  "ServiceProviderDetailsSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "The query will return details about service provider and all available timeslots from
+to
+    +X days (configurable on query level).
+@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"user\\")",
+    "properties": Object {
+      "CalendarDate": Object {
+        "type": "string",
+      },
+      "ServiceProviderId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "ServiceProviderId",
+      "CalendarDate",
+    ],
+    "type": "object",
+  },
+  "ServiceProviderLogoUploadLinkDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Link": Object {
+        "type": "string",
+      },
+      "RequiredHeaders": Object {
+        "additionalProperties": Object {
+          "type": "string",
+        },
+        "propertyNames": Object {
+          "type": "string",
+        },
+        "type": "object",
+      },
+    },
+    "required": Array [
+      "Link",
+      "RequiredHeaders",
+    ],
+    "type": "object",
+  },
+  "ServiceProviderLogoUploadLinkSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")",
+    "properties": Object {},
+    "type": "object",
+  },
+  "ServiceProviderSortFieldsDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "enum": Array [
+      0,
+      1,
+      2,
+    ],
+    "enum:meta": Object {
+      "Name": 0,
+      "Ratings": 2,
+      "Type": 1,
+    },
+    "type": "number",
+  },
+  "ServiceProviderSummaryDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Address": Object {
+        "type": "string",
+      },
+      "Id": Object {
+        "type": "string",
+      },
+      "IsPromotionActive": Object {
+        "type": "boolean",
+      },
+      "Location": Object {
+        "additionalProperties": false,
+        "properties": Object {
+          "Latitude": Object {
+            "type": "number",
+          },
+          "Longitude": Object {
+            "type": "number",
+          },
+        },
+        "required": Array [
+          "Latitude",
+          "Longitude",
+        ],
+        "type": "object",
+      },
+      "Name": Object {
+        "type": "string",
+      },
+      "Ratings": Object {
+        "type": "number",
+      },
+      "Thumbnail": Object {
+        "type": "string",
+      },
+      "Type": Object {
+        "enum": Array [
+          0,
+          1,
+          2,
+        ],
+        "enum:meta": Object {
+          "BarberShop": 1,
+          "Groomer": 2,
+          "Hairdresser": 0,
+        },
+        "type": "number",
+      },
+    },
+    "required": Array [
+      "Id",
+      "Name",
+      "Type",
+      "Thumbnail",
+      "IsPromotionActive",
+      "Address",
+      "Location",
+      "Ratings",
+    ],
+    "type": "object",
+  },
+  "ServiceProviderTypeDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "enum": Array [
+      0,
+      1,
+      2,
+    ],
+    "enum:meta": Object {
+      "BarberShop": 1,
+      "Groomer": 2,
+      "Hairdresser": 0,
+    },
+    "type": "number",
+  },
+  "SubmitAppRatingSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"RateApp\\")",
+    "properties": Object {
+      "AdditionalComment": Object {
+        "anyOf": Array [
+          Object {
+            "type": "string",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "AppVersion": Object {
+        "type": "string",
+      },
+      "Metadata": Object {
+        "anyOf": Array [
+          Object {
+            "additionalProperties": Object {},
+            "propertyNames": Object {
+              "type": "string",
+            },
+            "type": "object",
+          },
+          Object {
+            "type": "null",
+          },
+        ],
+      },
+      "Platform": Object {
+        "enum": Array [
+          0,
+          1,
+        ],
+        "enum:meta": Object {
+          "Android": 0,
+          "IOS": 1,
+        },
+        "type": "number",
+      },
+      "Rating": Object {
+        "type": "number",
+      },
+      "SystemVersion": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Rating",
+      "AdditionalComment",
+      "Platform",
+      "SystemVersion",
+      "AppVersion",
+      "Metadata",
+    ],
+    "type": "object",
+  },
+  "TimeslotDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "CalendarDayId": Object {
+        "type": "string",
+      },
+      "EndTime": Object {
+        "type": "string",
+      },
+      "Id": Object {
+        "type": "string",
+      },
+      "IsReserved": Object {
+        "type": "boolean",
+      },
+      "Price": Object {
+        "additionalProperties": false,
+        "comment": "The DTO representing a monetary value, e.g. amount with a currency.
+The amount of money, in the smallest currency unit (e.g. grosz, cent).
+The (three letter) currency name, e.g. PLN, USD.",
+        "properties": Object {
+          "Currency": Object {
+            "type": "string",
+          },
+          "Value": Object {
+            "type": "number",
+          },
+        },
+        "required": Array [
+          "Value",
+          "Currency",
+        ],
+        "type": "object",
+      },
+      "StartTime": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Id",
+      "CalendarDayId",
+      "StartTime",
+      "EndTime",
+      "Price",
+      "IsReserved",
+    ],
+    "type": "object",
+  },
+  "UnassignEmployeeFromAssignmentSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "comment": "@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")",
+    "properties": Object {
+      "AssignmentId": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "AssignmentId",
+    ],
+    "type": "object",
+  },
+  "VersionSupportDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "CurrentlySupportedVersion": Object {
+        "type": "string",
+      },
+      "MinimumRequiredVersion": Object {
+        "type": "string",
+      },
+      "Result": Object {
+        "enum": Array [
+          0,
+          1,
+          2,
+        ],
+        "enum:meta": Object {
+          "UpToDate": 2,
+          "UpdateRequired": 0,
+          "UpdateSuggested": 1,
+        },
+        "type": "number",
+      },
+    },
+    "required": Array [
+      "CurrentlySupportedVersion",
+      "MinimumRequiredVersion",
+      "Result",
+    ],
+    "type": "object",
+  },
+  "VersionSupportResultDTOSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "enum": Array [
+      0,
+      1,
+      2,
+    ],
+    "enum:meta": Object {
+      "UpToDate": 2,
+      "UpdateRequired": 0,
+      "UpdateSuggested": 1,
+    },
+    "type": "number",
+  },
+  "VersionSupportSchema": Object {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": false,
+    "properties": Object {
+      "Platform": Object {
+        "enum": Array [
+          0,
+          1,
+        ],
+        "enum:meta": Object {
+          "Android": 0,
+          "IOS": 1,
+        },
+        "type": "number",
+      },
+      "Version": Object {
+        "type": "string",
+      },
+    },
+    "required": Array [
+      "Platform",
+      "Version",
+    ],
+    "type": "object",
+  },
+}
+`;
+
 exports[`zodPlugin generates schemas with custom types map 1`] = `
 Object {
   "test.ts": "import { z } from \\"zod\\";
 
+export namespace LeanCode {
+    export namespace AppRating {
+        export namespace Contracts {
+            export const PermissionsSchema = z.object({});
+            export const RatingAlreadySentSchema = z.object({}).meta({
+                comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"RateApp\\\\\\")\\"
+            });
+            export const PlatformDTOSchema = z.enum({
+                \\"Android\\": 0,
+                \\"IOS\\": 1
+            }).meta({
+                \\"enum:meta\\": {
+                    \\"Android\\": 0,
+                    \\"IOS\\": 1
+                }
+            });
+            export const SubmitAppRatingSchema = z.object({
+                Rating: z.number(),
+                AdditionalComment: z.string().nullable(),
+                Platform: LeanCode.AppRating.Contracts.PlatformDTOSchema,
+                SystemVersion: z.string(),
+                AppVersion: z.string(),
+                Metadata: z.record(z.string(), z.any()).nullable()
+            }).meta({
+                comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"RateApp\\\\\\")\\"
+            });
+        }
+    }
+    export namespace Contracts {
+        export namespace Admin {
+            export const AdminFilterRangeSchema = (TSchema: z.ZodTypeAny) => z.object({
+                From: TSchema.nullable(),
+                To: TSchema.nullable()
+            });
+            export const AdminQueryResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
+                Total: z.number(),
+                Items: z.array(TResultSchema)
+            });
+            export const AdminQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
+                Page: z.number(),
+                PageSize: z.number(),
+                SortDescending: z.boolean().nullable(),
+                SortBy: z.string().nullable()
+            });
+        }
+    }
+    export namespace ForceUpdate {
+        export namespace Contracts {
+            export const PlatformDTOSchema = z.enum({
+                \\"Android\\": 0,
+                \\"IOS\\": 1
+            }).meta({
+                \\"enum:meta\\": {
+                    \\"Android\\": 0,
+                    \\"IOS\\": 1
+                }
+            });
+            export const VersionSupportResultDTOSchema = z.enum({
+                \\"UpdateRequired\\": 0,
+                \\"UpdateSuggested\\": 1,
+                \\"UpToDate\\": 2
+            }).meta({
+                \\"enum:meta\\": {
+                    \\"UpdateRequired\\": 0,
+                    \\"UpdateSuggested\\": 1,
+                    \\"UpToDate\\": 2
+                }
+            });
+            export const VersionSupportDTOSchema = z.object({
+                CurrentlySupportedVersion: z.string(),
+                MinimumRequiredVersion: z.string(),
+                Result: LeanCode.ForceUpdate.Contracts.VersionSupportResultDTOSchema
+            });
+            export const VersionSupportSchema = z.object({
+                Platform: LeanCode.ForceUpdate.Contracts.PlatformDTOSchema,
+                Version: z.string()
+            });
+        }
+    }
+}
 export namespace ExampleApp {
     export namespace Examples {
         export namespace Contracts {
             export const AuthSchema = z.object({});
-            export const PaginatedQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
-                PageNumber: z.number(),
-                PageSize: z.number()
-            });
             export const PaginatedResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
                 Items: z.array(TResultSchema),
                 TotalCount: z.number()
+            });
+            export const PaginatedQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
+                PageNumber: z.number(),
+                PageSize: z.number()
             });
             export const SortedQuerySchema = (TResultSchema: z.ZodTypeAny, TSortSchema: z.ZodTypeAny) => z.object({
                 SortBy: TSortSchema,
@@ -540,25 +2392,34 @@ export namespace ExampleApp {
                     }).meta({
                         comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
                     });
-                    export const ServiceProviderLogoUploadLinkSchema = z.object({}).meta({
-                        comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
-                    });
                     export const ServiceProviderLogoUploadLinkDTOSchema = z.object({
                         Link: z.string(),
                         RequiredHeaders: z.record(z.string(), z.string())
                     });
+                    export const ServiceProviderLogoUploadLinkSchema = z.object({}).meta({
+                        comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
+                    });
                 }
                 export namespace Reservations {
-                    export const CancelReservationSchema = z.object({}).extend(ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelatedSchema).meta({
+                    export const CancelReservationSchema = z.object({}).extend(ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelatedSchema.shape).meta({
                         comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\\\n@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute\\"
                     });
-                    export const MyReservationByIdSchema = z.object({}).extend(ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelatedSchema).meta({
-                        comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\\\n@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute\\"
-                    });
-                    export const MyReservationByTimeslotIdSchema = z.object({
-                        TimeslotId: z.string()
+                    export const ReservationStatusDTOSchema = z.enum({
+                        \\"Pending\\": 0,
+                        \\"Confirmed\\": 1,
+                        \\"Rejected\\": 2,
+                        \\"Paid\\": 3,
+                        \\"Cancelled\\": 4,
+                        \\"Completed\\": 5
                     }).meta({
-                        comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
+                        \\"enum:meta\\": {
+                            \\"Pending\\": 0,
+                            \\"Confirmed\\": 1,
+                            \\"Rejected\\": 2,
+                            \\"Paid\\": 3,
+                            \\"Cancelled\\": 4,
+                            \\"Completed\\": 5
+                        }
                     });
                     export const MyReservationDTOSchema = z.object({
                         Id: z.string(),
@@ -573,6 +2434,14 @@ export namespace ExampleApp {
                         EndTime: z.string(),
                         Price: ExampleApp.Examples.Contracts.Booking.MoneyDTOSchema,
                         Status: ExampleApp.Examples.Contracts.Booking.Reservations.ReservationStatusDTOSchema
+                    });
+                    export const MyReservationByIdSchema = z.object({}).extend(ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelatedSchema.shape).meta({
+                        comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\\\n@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute\\"
+                    });
+                    export const MyReservationByTimeslotIdSchema = z.object({
+                        TimeslotId: z.string()
+                    }).meta({
+                        comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
                     });
                     export const MyReservationsSchema = z.object({}).extend(ExampleApp.Examples.Contracts.PaginatedQuerySchema(ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTOSchema).shape).meta({
                         comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
@@ -603,23 +2472,6 @@ export namespace ExampleApp {
                     }).meta({
                         comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
                     });
-                    export const ReservationStatusDTOSchema = z.enum({
-                        \\"Pending\\": 0,
-                        \\"Confirmed\\": 1,
-                        \\"Rejected\\": 2,
-                        \\"Paid\\": 3,
-                        \\"Cancelled\\": 4,
-                        \\"Completed\\": 5
-                    }).meta({
-                        \\"enum:meta\\": {
-                            \\"Pending\\": 0,
-                            \\"Confirmed\\": 1,
-                            \\"Rejected\\": 2,
-                            \\"Paid\\": 3,
-                            \\"Cancelled\\": 4,
-                            \\"Completed\\": 5
-                        }
-                    });
                     export namespace Authorization {
                         export namespace AuthorizeWhenOwnsReservationAttribute {
                             export const IReservationRelatedSchema = z.object({
@@ -630,6 +2482,27 @@ export namespace ExampleApp {
                     }
                 }
                 export namespace ServiceProviders {
+                    export const ServiceProviderSummaryDTOSchema = z.object({
+                        Id: z.string(),
+                        Name: z.string(),
+                        Type: ExampleApp.Examples.Contracts.Booking.ServiceProviderTypeDTOSchema,
+                        Thumbnail: z.string(),
+                        IsPromotionActive: z.boolean(),
+                        Address: z.string(),
+                        Location: ExampleApp.Examples.Contracts.Booking.LocationDTOSchema,
+                        Ratings: z.number()
+                    });
+                    export const ServiceProviderSortFieldsDTOSchema = z.enum({
+                        \\"Name\\": 0,
+                        \\"Type\\": 1,
+                        \\"Ratings\\": 2
+                    }).meta({
+                        \\"enum:meta\\": {
+                            \\"Name\\": 0,
+                            \\"Type\\": 1,
+                            \\"Ratings\\": 2
+                        }
+                    });
                     export const AllServiceProvidersSchema = z.object({
                         NameFilter: z.string().nullable(),
                         TypeFilter: ExampleApp.Examples.Contracts.Booking.ServiceProviderTypeDTOSchema.nullable(),
@@ -637,11 +2510,13 @@ export namespace ExampleApp {
                     }).extend(ExampleApp.Examples.Contracts.SortedQuerySchema(ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderSummaryDTOSchema, ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderSortFieldsDTOSchema).shape).meta({
                         comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
                     });
-                    export const ServiceProviderDetailsSchema = z.object({
-                        ServiceProviderId: z.string(),
-                        CalendarDate: z.string()
-                    }).meta({
-                        comment: \\"The query will return details about service provider and all available timeslots from\\\\nto\\\\n    +X days (configurable on query level).\\\\n@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
+                    export const TimeslotDTOSchema = z.object({
+                        Id: z.string(),
+                        CalendarDayId: z.string(),
+                        StartTime: z.string(),
+                        EndTime: z.string(),
+                        Price: ExampleApp.Examples.Contracts.Booking.MoneyDTOSchema,
+                        IsReserved: z.boolean()
                     });
                     export const ServiceProviderDetailsDTOSchema = z.object({
                         Id: z.string(),
@@ -656,34 +2531,11 @@ export namespace ExampleApp {
                         Thumbnail: z.string(),
                         Timeslots: z.array(ExampleApp.Examples.Contracts.Booking.ServiceProviders.TimeslotDTOSchema)
                     });
-                    export const ServiceProviderSummaryDTOSchema = z.object({
-                        Id: z.string(),
-                        Name: z.string(),
-                        Type: ExampleApp.Examples.Contracts.Booking.ServiceProviderTypeDTOSchema,
-                        Thumbnail: z.string(),
-                        IsPromotionActive: z.boolean(),
-                        Address: z.string(),
-                        Location: ExampleApp.Examples.Contracts.Booking.LocationDTOSchema,
-                        Ratings: z.number()
-                    });
-                    export const TimeslotDTOSchema = z.object({
-                        Id: z.string(),
-                        CalendarDayId: z.string(),
-                        StartTime: z.string(),
-                        EndTime: z.string(),
-                        Price: ExampleApp.Examples.Contracts.Booking.MoneyDTOSchema,
-                        IsReserved: z.boolean()
-                    });
-                    export const ServiceProviderSortFieldsDTOSchema = z.enum({
-                        \\"Name\\": 0,
-                        \\"Type\\": 1,
-                        \\"Ratings\\": 2
+                    export const ServiceProviderDetailsSchema = z.object({
+                        ServiceProviderId: z.string(),
+                        CalendarDate: z.string()
                     }).meta({
-                        \\"enum:meta\\": {
-                            \\"Name\\": 0,
-                            \\"Type\\": 1,
-                            \\"Ratings\\": 2
-                        }
+                        comment: \\"The query will return details about service provider and all available timeslots from\\\\nto\\\\n    +X days (configurable on query level).\\\\n@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
                     });
                 }
             }
@@ -696,6 +2548,11 @@ export namespace ExampleApp {
                 export const AdminEmployeeDTOSchema = z.object({
                     Id: z.string(),
                     Name: z.string()
+                });
+                export const EmployeeDTOSchema = z.object({
+                    Id: z.string(),
+                    Name: z.string(),
+                    Email: z.string()
                 });
                 export const AllEmployeesSchema = z.object({}).meta({
                     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
@@ -710,11 +2567,6 @@ export namespace ExampleApp {
                     Email: z.string()
                 }).meta({
                     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
-                });
-                export const EmployeeDTOSchema = z.object({
-                    Id: z.string(),
-                    Name: z.string(),
-                    Email: z.string()
                 });
             }
             export namespace Firebase {
@@ -743,6 +2595,9 @@ export namespace ExampleApp {
                 });
             }
             export namespace Projects {
+                export const AssignmentWriteDTOSchema = z.object({
+                    Name: z.string()
+                });
                 export const AddAssignmentsToProjectSchema = z.object({
                     ProjectId: z.string(),
                     Assignments: z.array(ExampleApp.Examples.Contracts.Projects.AssignmentWriteDTOSchema)
@@ -750,6 +2605,10 @@ export namespace ExampleApp {
                     comment: \\"@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute\\"
                 });
                 export const AdminProjectDTOSchema = z.object({
+                    Id: z.string(),
+                    Name: z.string()
+                });
+                export const ProjectDTOSchema = z.object({
                     Id: z.string(),
                     Name: z.string()
                 });
@@ -772,10 +2631,7 @@ export namespace ExampleApp {
                 export const AssignmentDTOSchema = z.object({
                     Id: z.string(),
                     AssignedEmployeeId: z.string().nullable()
-                }).extend(ExampleApp.Examples.Contracts.Projects.AssignmentWriteDTOSchema);
-                export const AssignmentWriteDTOSchema = z.object({
-                    Name: z.string()
-                });
+                }).extend(ExampleApp.Examples.Contracts.Projects.AssignmentWriteDTOSchema.shape);
                 export const CreateProjectSchema = z.object({
                     Name: z.string()
                 }).meta({
@@ -801,18 +2657,14 @@ export namespace ExampleApp {
                     ProjectId: z.string(),
                     AssignmentId: z.string()
                 });
-                export const ProjectDTOSchema = z.object({
-                    Id: z.string(),
-                    Name: z.string()
-                });
+                export const ProjectDetailsDTOSchema = z.object({
+                    Assignments: z.array(ExampleApp.Examples.Contracts.Projects.AssignmentDTOSchema)
+                }).extend(ExampleApp.Examples.Contracts.Projects.ProjectDTOSchema.shape);
                 export const ProjectDetailsSchema = z.object({
                     Id: z.string()
                 }).meta({
                     comment: \\"@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute\\"
                 });
-                export const ProjectDetailsDTOSchema = z.object({
-                    Assignments: z.array(ExampleApp.Examples.Contracts.Projects.AssignmentDTOSchema)
-                }).extend(ExampleApp.Examples.Contracts.Projects.ProjectDTOSchema);
                 export const ProjectEmployeesAssignmentsTopicSchema = z.object({
                     ProjectId: z.string()
                 }).meta({
@@ -829,86 +2681,6 @@ export namespace ExampleApp {
                     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
                 });
             }
-        }
-    }
-}
-export namespace LeanCode {
-    export namespace AppRating {
-        export namespace Contracts {
-            export const PermissionsSchema = z.object({});
-            export const RatingAlreadySentSchema = z.object({}).meta({
-                comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"RateApp\\\\\\")\\"
-            });
-            export const SubmitAppRatingSchema = z.object({
-                Rating: z.number(),
-                AdditionalComment: z.string().nullable(),
-                Platform: LeanCode.AppRating.Contracts.PlatformDTOSchema,
-                SystemVersion: z.string(),
-                AppVersion: z.string(),
-                Metadata: z.record(z.string(), z.any()).nullable()
-            }).meta({
-                comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"RateApp\\\\\\")\\"
-            });
-            export const PlatformDTOSchema = z.enum({
-                \\"Android\\": 0,
-                \\"IOS\\": 1
-            }).meta({
-                \\"enum:meta\\": {
-                    \\"Android\\": 0,
-                    \\"IOS\\": 1
-                }
-            });
-        }
-    }
-    export namespace Contracts {
-        export namespace Admin {
-            export const AdminFilterRangeSchema = (TSchema: z.ZodTypeAny) => z.object({
-                From: TSchema.nullable(),
-                To: TSchema.nullable()
-            });
-            export const AdminQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
-                Page: z.number(),
-                PageSize: z.number(),
-                SortDescending: z.boolean().nullable(),
-                SortBy: z.string().nullable()
-            });
-            export const AdminQueryResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
-                Total: z.number(),
-                Items: z.array(TResultSchema)
-            });
-        }
-    }
-    export namespace ForceUpdate {
-        export namespace Contracts {
-            export const VersionSupportSchema = z.object({
-                Platform: LeanCode.ForceUpdate.Contracts.PlatformDTOSchema,
-                Version: z.string()
-            });
-            export const VersionSupportDTOSchema = z.object({
-                CurrentlySupportedVersion: z.string(),
-                MinimumRequiredVersion: z.string(),
-                Result: LeanCode.ForceUpdate.Contracts.VersionSupportResultDTOSchema
-            });
-            export const PlatformDTOSchema = z.enum({
-                \\"Android\\": 0,
-                \\"IOS\\": 1
-            }).meta({
-                \\"enum:meta\\": {
-                    \\"Android\\": 0,
-                    \\"IOS\\": 1
-                }
-            });
-            export const VersionSupportResultDTOSchema = z.enum({
-                \\"UpdateRequired\\": 0,
-                \\"UpdateSuggested\\": 1,
-                \\"UpToDate\\": 2
-            }).meta({
-                \\"enum:meta\\": {
-                    \\"UpdateRequired\\": 0,
-                    \\"UpdateSuggested\\": 1,
-                    \\"UpToDate\\": 2
-                }
-            });
         }
     }
 }
@@ -920,17 +2692,97 @@ exports[`zodPlugin generates schemas with defaults 1`] = `
 Object {
   "test.ts": "import { z } from \\"zod\\";
 
+export namespace LeanCode {
+    export namespace AppRating {
+        export namespace Contracts {
+            export const PermissionsSchema = z.object({});
+            export const RatingAlreadySentSchema = z.object({}).meta({
+                comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"RateApp\\\\\\")\\"
+            });
+            export const PlatformDTOSchema = z.enum({
+                \\"Android\\": 0,
+                \\"IOS\\": 1
+            }).meta({
+                \\"enum:meta\\": {
+                    \\"Android\\": 0,
+                    \\"IOS\\": 1
+                }
+            });
+            export const SubmitAppRatingSchema = z.object({
+                Rating: z.number(),
+                AdditionalComment: z.string().nullable(),
+                Platform: LeanCode.AppRating.Contracts.PlatformDTOSchema,
+                SystemVersion: z.string(),
+                AppVersion: z.string(),
+                Metadata: z.record(z.string(), z.any()).nullable()
+            }).meta({
+                comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"RateApp\\\\\\")\\"
+            });
+        }
+    }
+    export namespace Contracts {
+        export namespace Admin {
+            export const AdminFilterRangeSchema = (TSchema: z.ZodTypeAny) => z.object({
+                From: TSchema.nullable(),
+                To: TSchema.nullable()
+            });
+            export const AdminQueryResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
+                Total: z.number(),
+                Items: z.array(TResultSchema)
+            });
+            export const AdminQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
+                Page: z.number(),
+                PageSize: z.number(),
+                SortDescending: z.boolean().nullable(),
+                SortBy: z.string().nullable()
+            });
+        }
+    }
+    export namespace ForceUpdate {
+        export namespace Contracts {
+            export const PlatformDTOSchema = z.enum({
+                \\"Android\\": 0,
+                \\"IOS\\": 1
+            }).meta({
+                \\"enum:meta\\": {
+                    \\"Android\\": 0,
+                    \\"IOS\\": 1
+                }
+            });
+            export const VersionSupportResultDTOSchema = z.enum({
+                \\"UpdateRequired\\": 0,
+                \\"UpdateSuggested\\": 1,
+                \\"UpToDate\\": 2
+            }).meta({
+                \\"enum:meta\\": {
+                    \\"UpdateRequired\\": 0,
+                    \\"UpdateSuggested\\": 1,
+                    \\"UpToDate\\": 2
+                }
+            });
+            export const VersionSupportDTOSchema = z.object({
+                CurrentlySupportedVersion: z.string(),
+                MinimumRequiredVersion: z.string(),
+                Result: LeanCode.ForceUpdate.Contracts.VersionSupportResultDTOSchema
+            });
+            export const VersionSupportSchema = z.object({
+                Platform: LeanCode.ForceUpdate.Contracts.PlatformDTOSchema,
+                Version: z.string()
+            });
+        }
+    }
+}
 export namespace ExampleApp {
     export namespace Examples {
         export namespace Contracts {
             export const AuthSchema = z.object({});
-            export const PaginatedQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
-                PageNumber: z.number(),
-                PageSize: z.number()
-            });
             export const PaginatedResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
                 Items: z.array(TResultSchema),
                 TotalCount: z.number()
+            });
+            export const PaginatedQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
+                PageNumber: z.number(),
+                PageSize: z.number()
             });
             export const SortedQuerySchema = (TResultSchema: z.ZodTypeAny, TSortSchema: z.ZodTypeAny) => z.object({
                 SortBy: TSortSchema,
@@ -984,25 +2836,34 @@ export namespace ExampleApp {
                     }).meta({
                         comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
                     });
-                    export const ServiceProviderLogoUploadLinkSchema = z.object({}).meta({
-                        comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
-                    });
                     export const ServiceProviderLogoUploadLinkDTOSchema = z.object({
                         Link: z.string(),
                         RequiredHeaders: z.record(z.string(), z.string())
                     });
+                    export const ServiceProviderLogoUploadLinkSchema = z.object({}).meta({
+                        comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
+                    });
                 }
                 export namespace Reservations {
-                    export const CancelReservationSchema = z.object({}).extend(ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelatedSchema).meta({
+                    export const CancelReservationSchema = z.object({}).extend(ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelatedSchema.shape).meta({
                         comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\\\n@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute\\"
                     });
-                    export const MyReservationByIdSchema = z.object({}).extend(ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelatedSchema).meta({
-                        comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\\\n@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute\\"
-                    });
-                    export const MyReservationByTimeslotIdSchema = z.object({
-                        TimeslotId: z.string()
+                    export const ReservationStatusDTOSchema = z.enum({
+                        \\"Pending\\": 0,
+                        \\"Confirmed\\": 1,
+                        \\"Rejected\\": 2,
+                        \\"Paid\\": 3,
+                        \\"Cancelled\\": 4,
+                        \\"Completed\\": 5
                     }).meta({
-                        comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
+                        \\"enum:meta\\": {
+                            \\"Pending\\": 0,
+                            \\"Confirmed\\": 1,
+                            \\"Rejected\\": 2,
+                            \\"Paid\\": 3,
+                            \\"Cancelled\\": 4,
+                            \\"Completed\\": 5
+                        }
                     });
                     export const MyReservationDTOSchema = z.object({
                         Id: z.string(),
@@ -1017,6 +2878,14 @@ export namespace ExampleApp {
                         EndTime: z.string(),
                         Price: ExampleApp.Examples.Contracts.Booking.MoneyDTOSchema,
                         Status: ExampleApp.Examples.Contracts.Booking.Reservations.ReservationStatusDTOSchema
+                    });
+                    export const MyReservationByIdSchema = z.object({}).extend(ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute.IReservationRelatedSchema.shape).meta({
+                        comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\\\n@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute\\"
+                    });
+                    export const MyReservationByTimeslotIdSchema = z.object({
+                        TimeslotId: z.string()
+                    }).meta({
+                        comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
                     });
                     export const MyReservationsSchema = z.object({}).extend(ExampleApp.Examples.Contracts.PaginatedQuerySchema(ExampleApp.Examples.Contracts.Booking.Reservations.MyReservationDTOSchema).shape).meta({
                         comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
@@ -1047,23 +2916,6 @@ export namespace ExampleApp {
                     }).meta({
                         comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
                     });
-                    export const ReservationStatusDTOSchema = z.enum({
-                        \\"Pending\\": 0,
-                        \\"Confirmed\\": 1,
-                        \\"Rejected\\": 2,
-                        \\"Paid\\": 3,
-                        \\"Cancelled\\": 4,
-                        \\"Completed\\": 5
-                    }).meta({
-                        \\"enum:meta\\": {
-                            \\"Pending\\": 0,
-                            \\"Confirmed\\": 1,
-                            \\"Rejected\\": 2,
-                            \\"Paid\\": 3,
-                            \\"Cancelled\\": 4,
-                            \\"Completed\\": 5
-                        }
-                    });
                     export namespace Authorization {
                         export namespace AuthorizeWhenOwnsReservationAttribute {
                             export const IReservationRelatedSchema = z.object({
@@ -1074,6 +2926,27 @@ export namespace ExampleApp {
                     }
                 }
                 export namespace ServiceProviders {
+                    export const ServiceProviderSummaryDTOSchema = z.object({
+                        Id: z.string(),
+                        Name: z.string(),
+                        Type: ExampleApp.Examples.Contracts.Booking.ServiceProviderTypeDTOSchema,
+                        Thumbnail: z.string(),
+                        IsPromotionActive: z.boolean(),
+                        Address: z.string(),
+                        Location: ExampleApp.Examples.Contracts.Booking.LocationDTOSchema,
+                        Ratings: z.number()
+                    });
+                    export const ServiceProviderSortFieldsDTOSchema = z.enum({
+                        \\"Name\\": 0,
+                        \\"Type\\": 1,
+                        \\"Ratings\\": 2
+                    }).meta({
+                        \\"enum:meta\\": {
+                            \\"Name\\": 0,
+                            \\"Type\\": 1,
+                            \\"Ratings\\": 2
+                        }
+                    });
                     export const AllServiceProvidersSchema = z.object({
                         NameFilter: z.string().nullable(),
                         TypeFilter: ExampleApp.Examples.Contracts.Booking.ServiceProviderTypeDTOSchema.nullable(),
@@ -1081,11 +2954,13 @@ export namespace ExampleApp {
                     }).extend(ExampleApp.Examples.Contracts.SortedQuerySchema(ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderSummaryDTOSchema, ExampleApp.Examples.Contracts.Booking.ServiceProviders.ServiceProviderSortFieldsDTOSchema).shape).meta({
                         comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
                     });
-                    export const ServiceProviderDetailsSchema = z.object({
-                        ServiceProviderId: z.string(),
-                        CalendarDate: z.string()
-                    }).meta({
-                        comment: \\"The query will return details about service provider and all available timeslots from\\\\nto\\\\n    +X days (configurable on query level).\\\\n@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
+                    export const TimeslotDTOSchema = z.object({
+                        Id: z.string(),
+                        CalendarDayId: z.string(),
+                        StartTime: z.string(),
+                        EndTime: z.string(),
+                        Price: ExampleApp.Examples.Contracts.Booking.MoneyDTOSchema,
+                        IsReserved: z.boolean()
                     });
                     export const ServiceProviderDetailsDTOSchema = z.object({
                         Id: z.string(),
@@ -1100,34 +2975,11 @@ export namespace ExampleApp {
                         Thumbnail: z.string(),
                         Timeslots: z.array(ExampleApp.Examples.Contracts.Booking.ServiceProviders.TimeslotDTOSchema)
                     });
-                    export const ServiceProviderSummaryDTOSchema = z.object({
-                        Id: z.string(),
-                        Name: z.string(),
-                        Type: ExampleApp.Examples.Contracts.Booking.ServiceProviderTypeDTOSchema,
-                        Thumbnail: z.string(),
-                        IsPromotionActive: z.boolean(),
-                        Address: z.string(),
-                        Location: ExampleApp.Examples.Contracts.Booking.LocationDTOSchema,
-                        Ratings: z.number()
-                    });
-                    export const TimeslotDTOSchema = z.object({
-                        Id: z.string(),
-                        CalendarDayId: z.string(),
-                        StartTime: z.string(),
-                        EndTime: z.string(),
-                        Price: ExampleApp.Examples.Contracts.Booking.MoneyDTOSchema,
-                        IsReserved: z.boolean()
-                    });
-                    export const ServiceProviderSortFieldsDTOSchema = z.enum({
-                        \\"Name\\": 0,
-                        \\"Type\\": 1,
-                        \\"Ratings\\": 2
+                    export const ServiceProviderDetailsSchema = z.object({
+                        ServiceProviderId: z.string(),
+                        CalendarDate: z.string()
                     }).meta({
-                        \\"enum:meta\\": {
-                            \\"Name\\": 0,
-                            \\"Type\\": 1,
-                            \\"Ratings\\": 2
-                        }
+                        comment: \\"The query will return details about service provider and all available timeslots from\\\\nto\\\\n    +X days (configurable on query level).\\\\n@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
                     });
                 }
             }
@@ -1140,6 +2992,11 @@ export namespace ExampleApp {
                 export const AdminEmployeeDTOSchema = z.object({
                     Id: z.string(),
                     Name: z.string()
+                });
+                export const EmployeeDTOSchema = z.object({
+                    Id: z.string(),
+                    Name: z.string(),
+                    Email: z.string()
                 });
                 export const AllEmployeesSchema = z.object({}).meta({
                     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
@@ -1154,11 +3011,6 @@ export namespace ExampleApp {
                     Email: z.string()
                 }).meta({
                     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
-                });
-                export const EmployeeDTOSchema = z.object({
-                    Id: z.string(),
-                    Name: z.string(),
-                    Email: z.string()
                 });
             }
             export namespace Firebase {
@@ -1187,6 +3039,9 @@ export namespace ExampleApp {
                 });
             }
             export namespace Projects {
+                export const AssignmentWriteDTOSchema = z.object({
+                    Name: z.string()
+                });
                 export const AddAssignmentsToProjectSchema = z.object({
                     ProjectId: z.string(),
                     Assignments: z.array(ExampleApp.Examples.Contracts.Projects.AssignmentWriteDTOSchema)
@@ -1194,6 +3049,10 @@ export namespace ExampleApp {
                     comment: \\"@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute\\"
                 });
                 export const AdminProjectDTOSchema = z.object({
+                    Id: z.string(),
+                    Name: z.string()
+                });
+                export const ProjectDTOSchema = z.object({
                     Id: z.string(),
                     Name: z.string()
                 });
@@ -1216,10 +3075,7 @@ export namespace ExampleApp {
                 export const AssignmentDTOSchema = z.object({
                     Id: z.string(),
                     AssignedEmployeeId: z.string().nullable()
-                }).extend(ExampleApp.Examples.Contracts.Projects.AssignmentWriteDTOSchema);
-                export const AssignmentWriteDTOSchema = z.object({
-                    Name: z.string()
-                });
+                }).extend(ExampleApp.Examples.Contracts.Projects.AssignmentWriteDTOSchema.shape);
                 export const CreateProjectSchema = z.object({
                     Name: z.string()
                 }).meta({
@@ -1245,18 +3101,14 @@ export namespace ExampleApp {
                     ProjectId: z.string(),
                     AssignmentId: z.string()
                 });
-                export const ProjectDTOSchema = z.object({
-                    Id: z.string(),
-                    Name: z.string()
-                });
+                export const ProjectDetailsDTOSchema = z.object({
+                    Assignments: z.array(ExampleApp.Examples.Contracts.Projects.AssignmentDTOSchema)
+                }).extend(ExampleApp.Examples.Contracts.Projects.ProjectDTOSchema.shape);
                 export const ProjectDetailsSchema = z.object({
                     Id: z.string()
                 }).meta({
                     comment: \\"@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute\\"
                 });
-                export const ProjectDetailsDTOSchema = z.object({
-                    Assignments: z.array(ExampleApp.Examples.Contracts.Projects.AssignmentDTOSchema)
-                }).extend(ExampleApp.Examples.Contracts.Projects.ProjectDTOSchema);
                 export const ProjectEmployeesAssignmentsTopicSchema = z.object({
                     ProjectId: z.string()
                 }).meta({
@@ -1273,86 +3125,6 @@ export namespace ExampleApp {
                     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
                 });
             }
-        }
-    }
-}
-export namespace LeanCode {
-    export namespace AppRating {
-        export namespace Contracts {
-            export const PermissionsSchema = z.object({});
-            export const RatingAlreadySentSchema = z.object({}).meta({
-                comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"RateApp\\\\\\")\\"
-            });
-            export const SubmitAppRatingSchema = z.object({
-                Rating: z.number(),
-                AdditionalComment: z.string().nullable(),
-                Platform: LeanCode.AppRating.Contracts.PlatformDTOSchema,
-                SystemVersion: z.string(),
-                AppVersion: z.string(),
-                Metadata: z.record(z.string(), z.any()).nullable()
-            }).meta({
-                comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"RateApp\\\\\\")\\"
-            });
-            export const PlatformDTOSchema = z.enum({
-                \\"Android\\": 0,
-                \\"IOS\\": 1
-            }).meta({
-                \\"enum:meta\\": {
-                    \\"Android\\": 0,
-                    \\"IOS\\": 1
-                }
-            });
-        }
-    }
-    export namespace Contracts {
-        export namespace Admin {
-            export const AdminFilterRangeSchema = (TSchema: z.ZodTypeAny) => z.object({
-                From: TSchema.nullable(),
-                To: TSchema.nullable()
-            });
-            export const AdminQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
-                Page: z.number(),
-                PageSize: z.number(),
-                SortDescending: z.boolean().nullable(),
-                SortBy: z.string().nullable()
-            });
-            export const AdminQueryResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
-                Total: z.number(),
-                Items: z.array(TResultSchema)
-            });
-        }
-    }
-    export namespace ForceUpdate {
-        export namespace Contracts {
-            export const VersionSupportSchema = z.object({
-                Platform: LeanCode.ForceUpdate.Contracts.PlatformDTOSchema,
-                Version: z.string()
-            });
-            export const VersionSupportDTOSchema = z.object({
-                CurrentlySupportedVersion: z.string(),
-                MinimumRequiredVersion: z.string(),
-                Result: LeanCode.ForceUpdate.Contracts.VersionSupportResultDTOSchema
-            });
-            export const PlatformDTOSchema = z.enum({
-                \\"Android\\": 0,
-                \\"IOS\\": 1
-            }).meta({
-                \\"enum:meta\\": {
-                    \\"Android\\": 0,
-                    \\"IOS\\": 1
-                }
-            });
-            export const VersionSupportResultDTOSchema = z.enum({
-                \\"UpdateRequired\\": 0,
-                \\"UpdateSuggested\\": 1,
-                \\"UpToDate\\": 2
-            }).meta({
-                \\"enum:meta\\": {
-                    \\"UpdateRequired\\": 0,
-                    \\"UpdateSuggested\\": 1,
-                    \\"UpToDate\\": 2
-                }
-            });
         }
     }
 }
@@ -1371,6 +3143,12 @@ export const LocationDTOSchema = z.object({
     Latitude: z.number(),
     Longitude: z.number()
 });
+export const MoneyDTOSchema = z.object({
+    Value: z.number(),
+    Currency: z.string()
+}).meta({
+    comment: \\"The DTO representing a monetary value, e.g. amount with a currency.\\\\nThe amount of money, in the smallest currency unit (e.g. grosz, cent).\\\\nThe (three letter) currency name, e.g. PLN, USD.\\"
+});
 export const AddTimeslotSchema = z.object({
     ServiceProviderId: z.string(),
     Date: z.string(),
@@ -1379,6 +3157,17 @@ export const AddTimeslotSchema = z.object({
     Price: MoneyDTOSchema
 }).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
+});
+export const ServiceProviderTypeDTOSchema = z.enum({
+    \\"Hairdresser\\": 0,
+    \\"BarberShop\\": 1,
+    \\"Groomer\\": 2
+}).meta({
+    \\"enum:meta\\": {
+        \\"Hairdresser\\": 0,
+        \\"BarberShop\\": 1,
+        \\"Groomer\\": 2
+    }
 });
 export const CreateServiceProviderSchema = z.object({
     Name: z.string(),
@@ -1392,33 +3181,36 @@ export const CreateServiceProviderSchema = z.object({
 }).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
 });
-export const ServiceProviderLogoUploadLinkSchema = z.object({}).meta({
-    comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
-});
 export const ServiceProviderLogoUploadLinkDTOSchema = z.object({
     Link: z.string(),
     RequiredHeaders: z.record(z.string(), z.string())
 });
-export const MoneyDTOSchema = z.object({
-    Value: z.number(),
-    Currency: z.string()
-}).meta({
-    comment: \\"The DTO representing a monetary value, e.g. amount with a currency.\\\\nThe amount of money, in the smallest currency unit (e.g. grosz, cent).\\\\nThe (three letter) currency name, e.g. PLN, USD.\\"
+export const ServiceProviderLogoUploadLinkSchema = z.object({}).meta({
+    comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
 });
 export const IReservationRelatedSchema = z.object({
     ReservationId: z.string()
 });
 export const IWhenOwnsReservationSchema = z.object({});
-export const CancelReservationSchema = z.object({}).extend(IReservationRelatedSchema).meta({
+export const CancelReservationSchema = z.object({}).extend(IReservationRelatedSchema.shape).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\\\n@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute\\"
 });
-export const MyReservationByIdSchema = z.object({}).extend(IReservationRelatedSchema).meta({
-    comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\\\n@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute\\"
-});
-export const MyReservationByTimeslotIdSchema = z.object({
-    TimeslotId: z.string()
+export const ReservationStatusDTOSchema = z.enum({
+    \\"Pending\\": 0,
+    \\"Confirmed\\": 1,
+    \\"Rejected\\": 2,
+    \\"Paid\\": 3,
+    \\"Cancelled\\": 4,
+    \\"Completed\\": 5
 }).meta({
-    comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
+    \\"enum:meta\\": {
+        \\"Pending\\": 0,
+        \\"Confirmed\\": 1,
+        \\"Rejected\\": 2,
+        \\"Paid\\": 3,
+        \\"Cancelled\\": 4,
+        \\"Completed\\": 5
+    }
 });
 export const MyReservationDTOSchema = z.object({
     Id: z.string(),
@@ -1433,6 +3225,22 @@ export const MyReservationDTOSchema = z.object({
     EndTime: z.string(),
     Price: MoneyDTOSchema,
     Status: ReservationStatusDTOSchema
+});
+export const MyReservationByIdSchema = z.object({}).extend(IReservationRelatedSchema.shape).meta({
+    comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\\\n@attribute ExampleApp.Examples.Contracts.Booking.Reservations.Authorization.AuthorizeWhenOwnsReservationAttribute\\"
+});
+export const MyReservationByTimeslotIdSchema = z.object({
+    TimeslotId: z.string()
+}).meta({
+    comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
+});
+export const PaginatedResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
+    Items: z.array(TResultSchema),
+    TotalCount: z.number()
+});
+export const PaginatedQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
+    PageNumber: z.number(),
+    PageSize: z.number()
 });
 export const MyReservationsSchema = z.object({}).extend(PaginatedQuerySchema(MyReservationDTOSchema).shape).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
@@ -1463,6 +3271,31 @@ export const ReserveTimeslotSchema = z.object({
 }).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
 });
+export const SortedQuerySchema = (TResultSchema: z.ZodTypeAny, TSortSchema: z.ZodTypeAny) => z.object({
+    SortBy: TSortSchema,
+    SortByDescending: z.boolean()
+}).extend(PaginatedQuerySchema(TResultSchema).shape);
+export const ServiceProviderSummaryDTOSchema = z.object({
+    Id: z.string(),
+    Name: z.string(),
+    Type: ServiceProviderTypeDTOSchema,
+    Thumbnail: z.string(),
+    IsPromotionActive: z.boolean(),
+    Address: z.string(),
+    Location: LocationDTOSchema,
+    Ratings: z.number()
+});
+export const ServiceProviderSortFieldsDTOSchema = z.enum({
+    \\"Name\\": 0,
+    \\"Type\\": 1,
+    \\"Ratings\\": 2
+}).meta({
+    \\"enum:meta\\": {
+        \\"Name\\": 0,
+        \\"Type\\": 1,
+        \\"Ratings\\": 2
+    }
+});
 export const AllServiceProvidersSchema = z.object({
     NameFilter: z.string().nullable(),
     TypeFilter: ServiceProviderTypeDTOSchema.nullable(),
@@ -1470,11 +3303,13 @@ export const AllServiceProvidersSchema = z.object({
 }).extend(SortedQuerySchema(ServiceProviderSummaryDTOSchema, ServiceProviderSortFieldsDTOSchema).shape).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
 });
-export const ServiceProviderDetailsSchema = z.object({
-    ServiceProviderId: z.string(),
-    CalendarDate: z.string()
-}).meta({
-    comment: \\"The query will return details about service provider and all available timeslots from\\\\nto\\\\n    +X days (configurable on query level).\\\\n@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
+export const TimeslotDTOSchema = z.object({
+    Id: z.string(),
+    CalendarDayId: z.string(),
+    StartTime: z.string(),
+    EndTime: z.string(),
+    Price: MoneyDTOSchema,
+    IsReserved: z.boolean()
 });
 export const ServiceProviderDetailsDTOSchema = z.object({
     Id: z.string(),
@@ -1489,23 +3324,11 @@ export const ServiceProviderDetailsDTOSchema = z.object({
     Thumbnail: z.string(),
     Timeslots: z.array(TimeslotDTOSchema)
 });
-export const ServiceProviderSummaryDTOSchema = z.object({
-    Id: z.string(),
-    Name: z.string(),
-    Type: ServiceProviderTypeDTOSchema,
-    Thumbnail: z.string(),
-    IsPromotionActive: z.boolean(),
-    Address: z.string(),
-    Location: LocationDTOSchema,
-    Ratings: z.number()
-});
-export const TimeslotDTOSchema = z.object({
-    Id: z.string(),
-    CalendarDayId: z.string(),
-    StartTime: z.string(),
-    EndTime: z.string(),
-    Price: MoneyDTOSchema,
-    IsReserved: z.boolean()
+export const ServiceProviderDetailsSchema = z.object({
+    ServiceProviderId: z.string(),
+    CalendarDate: z.string()
+}).meta({
+    comment: \\"The query will return details about service provider and all available timeslots from\\\\nto\\\\n    +X days (configurable on query level).\\\\n@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
 });
 export const AssignmentEmployerEmbedSchema = z.object({}).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
@@ -1514,8 +3337,23 @@ export const AdminEmployeeDTOSchema = z.object({
     Id: z.string(),
     Name: z.string()
 });
+export const EmployeeDTOSchema = z.object({
+    Id: z.string(),
+    Name: z.string(),
+    Email: z.string()
+});
 export const AllEmployeesSchema = z.object({}).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
+});
+export const AdminQueryResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
+    Total: z.number(),
+    Items: z.array(TResultSchema)
+});
+export const AdminQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
+    Page: z.number(),
+    PageSize: z.number(),
+    SortDescending: z.boolean().nullable(),
+    SortBy: z.string().nullable()
 });
 export const AllEmployeesAdminSchema = z.object({
     NameFilter: z.string().nullable()
@@ -1527,11 +3365,6 @@ export const CreateEmployeeSchema = z.object({
     Email: z.string()
 }).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
-});
-export const EmployeeDTOSchema = z.object({
-    Id: z.string(),
-    Name: z.string(),
-    Email: z.string()
 });
 export const SendCustomNotificationSchema = z.object({
     Content: z.string(),
@@ -1554,13 +3387,8 @@ export const SearchIdentitiesSchema = z.object({
 }).extend(PaginatedQuerySchema(KratosIdentityDTOSchema).shape).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
 });
-export const PaginatedQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
-    PageNumber: z.number(),
-    PageSize: z.number()
-});
-export const PaginatedResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
-    Items: z.array(TResultSchema),
-    TotalCount: z.number()
+export const AssignmentWriteDTOSchema = z.object({
+    Name: z.string()
 });
 export const AddAssignmentsToProjectSchema = z.object({
     ProjectId: z.string(),
@@ -1569,6 +3397,10 @@ export const AddAssignmentsToProjectSchema = z.object({
     comment: \\"@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute\\"
 });
 export const AdminProjectDTOSchema = z.object({
+    Id: z.string(),
+    Name: z.string()
+});
+export const ProjectDTOSchema = z.object({
     Id: z.string(),
     Name: z.string()
 });
@@ -1591,10 +3423,7 @@ export const AssignEmployeeToAssignmentSchema = z.object({
 export const AssignmentDTOSchema = z.object({
     Id: z.string(),
     AssignedEmployeeId: z.string().nullable()
-}).extend(AssignmentWriteDTOSchema);
-export const AssignmentWriteDTOSchema = z.object({
-    Name: z.string()
-});
+}).extend(AssignmentWriteDTOSchema.shape);
 export const CreateProjectSchema = z.object({
     Name: z.string()
 }).meta({
@@ -1620,18 +3449,14 @@ export const EmployeeUnassignedFromProjectAssignmentDTOSchema = z.object({
     ProjectId: z.string(),
     AssignmentId: z.string()
 });
-export const ProjectDTOSchema = z.object({
-    Id: z.string(),
-    Name: z.string()
-});
+export const ProjectDetailsDTOSchema = z.object({
+    Assignments: z.array(AssignmentDTOSchema)
+}).extend(ProjectDTOSchema.shape);
 export const ProjectDetailsSchema = z.object({
     Id: z.string()
 }).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AllowUnauthorizedAttribute\\"
 });
-export const ProjectDetailsDTOSchema = z.object({
-    Assignments: z.array(AssignmentDTOSchema)
-}).extend(ProjectDTOSchema);
 export const ProjectEmployeesAssignmentsTopicSchema = z.object({
     ProjectId: z.string()
 }).meta({
@@ -1642,16 +3467,21 @@ export const UnassignEmployeeFromAssignmentSchema = z.object({
 }).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"admin\\\\\\")\\"
 });
-export const SortedQuerySchema = (TResultSchema: z.ZodTypeAny, TSortSchema: z.ZodTypeAny) => z.object({
-    SortBy: TSortSchema,
-    SortByDescending: z.boolean()
-}).extend(PaginatedQuerySchema(TResultSchema).shape);
 export const DeleteOwnAccountSchema = z.object({}).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"user\\\\\\")\\"
 });
 export const PermissionsSchema = z.object({});
 export const RatingAlreadySentSchema = z.object({}).meta({
     comment: \\"@attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\\\\\"RateApp\\\\\\")\\"
+});
+export const AppRatingPlatformDTOSchema = z.enum({
+    \\"Android\\": 0,
+    \\"IOS\\": 1
+}).meta({
+    \\"enum:meta\\": {
+        \\"Android\\": 0,
+        \\"IOS\\": 1
+    }
 });
 export const SubmitAppRatingSchema = z.object({
     Rating: z.number(),
@@ -1666,73 +3496,6 @@ export const SubmitAppRatingSchema = z.object({
 export const AdminFilterRangeSchema = (TSchema: z.ZodTypeAny) => z.object({
     From: TSchema.nullable(),
     To: TSchema.nullable()
-});
-export const AdminQuerySchema = (TResultSchema: z.ZodTypeAny) => z.object({
-    Page: z.number(),
-    PageSize: z.number(),
-    SortDescending: z.boolean().nullable(),
-    SortBy: z.string().nullable()
-});
-export const AdminQueryResultSchema = (TResultSchema: z.ZodTypeAny) => z.object({
-    Total: z.number(),
-    Items: z.array(TResultSchema)
-});
-export const VersionSupportSchema = z.object({
-    Platform: PlatformDTOSchema,
-    Version: z.string()
-});
-export const VersionSupportDTOSchema = z.object({
-    CurrentlySupportedVersion: z.string(),
-    MinimumRequiredVersion: z.string(),
-    Result: VersionSupportResultDTOSchema
-});
-export const ReservationStatusDTOSchema = z.enum({
-    \\"Pending\\": 0,
-    \\"Confirmed\\": 1,
-    \\"Rejected\\": 2,
-    \\"Paid\\": 3,
-    \\"Cancelled\\": 4,
-    \\"Completed\\": 5
-}).meta({
-    \\"enum:meta\\": {
-        \\"Pending\\": 0,
-        \\"Confirmed\\": 1,
-        \\"Rejected\\": 2,
-        \\"Paid\\": 3,
-        \\"Cancelled\\": 4,
-        \\"Completed\\": 5
-    }
-});
-export const ServiceProviderTypeDTOSchema = z.enum({
-    \\"Hairdresser\\": 0,
-    \\"BarberShop\\": 1,
-    \\"Groomer\\": 2
-}).meta({
-    \\"enum:meta\\": {
-        \\"Hairdresser\\": 0,
-        \\"BarberShop\\": 1,
-        \\"Groomer\\": 2
-    }
-});
-export const ServiceProviderSortFieldsDTOSchema = z.enum({
-    \\"Name\\": 0,
-    \\"Type\\": 1,
-    \\"Ratings\\": 2
-}).meta({
-    \\"enum:meta\\": {
-        \\"Name\\": 0,
-        \\"Type\\": 1,
-        \\"Ratings\\": 2
-    }
-});
-export const AppRatingPlatformDTOSchema = z.enum({
-    \\"Android\\": 0,
-    \\"IOS\\": 1
-}).meta({
-    \\"enum:meta\\": {
-        \\"Android\\": 0,
-        \\"IOS\\": 1
-    }
 });
 export const PlatformDTOSchema = z.enum({
     \\"Android\\": 0,
@@ -1753,6 +3516,15 @@ export const VersionSupportResultDTOSchema = z.enum({
         \\"UpdateSuggested\\": 1,
         \\"UpToDate\\": 2
     }
+});
+export const VersionSupportDTOSchema = z.object({
+    CurrentlySupportedVersion: z.string(),
+    MinimumRequiredVersion: z.string(),
+    Result: VersionSupportResultDTOSchema
+});
+export const VersionSupportSchema = z.object({
+    Platform: PlatformDTOSchema,
+    Version: z.string()
 });
 ",
 }

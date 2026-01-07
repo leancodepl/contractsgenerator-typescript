@@ -87,11 +87,12 @@ function applyExtends(
     if (extendType.typeArguments.length > 0) {
       const typeArgs = extendType.typeArguments.map(arg => generateZodSchemaForType(arg, context))
       extendedSchemaRef = ts.factory.createCallExpression(extendedSchemaRef, undefined, typeArgs)
-      extendedSchemaRef = ts.factory.createPropertyAccessExpression(extendedSchemaRef, "shape")
     }
 
+    const shapeAccess = ts.factory.createPropertyAccessExpression(extendedSchemaRef, "shape")
+
     result = ts.factory.createCallExpression(ts.factory.createPropertyAccessExpression(result, "extend"), undefined, [
-      extendedSchemaRef,
+      shapeAccess,
     ])
   }
 
