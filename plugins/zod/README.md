@@ -30,9 +30,8 @@ Plugin for generating Zod schemas for DTOs (Data Transfer Objects), Commands, Qu
   of `LeanCode.Core.`**`Contracts`**`.User.UserDetailsDTO`). If the function returns `undefined`, the DTO is not
   included in the output.
 
-- `fieldValidation` - function
-  `(fieldPath: string, property: FieldValidationContext) => string | undefined`
-  which allows you to provide custom validation logic for specific fields. The function receives:
+- `fieldValidation` - function `(fieldPath: string, property: FieldValidationContext) => string | undefined` which
+  allows you to provide custom validation logic for specific fields. The function receives:
   - `fieldPath`: Full path to the field (e.g., `"ExampleApp.Examples.Contracts.Booking.LocationDTO.Latitude"`)
   - `property`: An object containing:
     - `name`: Name of the property (e.g., `"Latitude"`)
@@ -49,7 +48,7 @@ Plugin for generating Zod schemas for DTOs (Data Transfer Objects), Commands, Qu
 - Handles nullable properties with `.nullable()`
 - Supports interface inheritance with `.extend()`
 - Handles generic types and arrays
-- Generates enum schemas as `z.number().refine()` with metadata (values mapping, enum array, and comments)
+- Generates enum schemas as `z.enum()` with metadata (values mapping and comments)
 - Adds comments and attributes to `.meta()` for interfaces and enums
 - Validates duplicate names in namespaces (same as contracts plugin)
 
@@ -92,13 +91,9 @@ export namespace ExampleApp {
           Currency: z.string(),
         })
 
-        export const ServiceProviderTypeDTOSchema = z
-          .number()
-          .refine(val => [0, 1, 2].includes(val), { message: "Invalid enum value" })
-          .meta({
-            values: { Hairdresser: 0, BarberShop: 1, Groomer: 2 },
-            enum: [0, 1, 2],
-          })
+        export const ServiceProviderTypeDTOSchema = z.enum({ Hairdresser: 0, BarberShop: 1, Groomer: 2 }).meta({
+          "enum:meta": { Hairdresser: 0, BarberShop: 1, Groomer: 2 },
+        })
 
         export const MyReservationDTOSchema = z.object({
           Id: z.string(),
@@ -146,13 +141,9 @@ export const MoneyDTOSchema = z.object({
   Currency: z.string(),
 })
 
-export const ServiceProviderTypeDTOSchema = z
-  .number()
-  .refine(val => [0, 1, 2].includes(val), { message: "Invalid enum value" })
-  .meta({
-    values: { Hairdresser: 0, BarberShop: 1, Groomer: 2 },
-    enum: [0, 1, 2],
-  })
+export const ServiceProviderTypeDTOSchema = z.enum({ Hairdresser: 0, BarberShop: 1, Groomer: 2 }).meta({
+  "enum:meta": { Hairdresser: 0, BarberShop: 1, Groomer: 2 },
+})
 
 export const MyReservationDTOSchema = z.object({
   Id: z.string(),
