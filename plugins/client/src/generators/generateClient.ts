@@ -21,13 +21,16 @@ export function generateClient(interfaces: SchemaInterface[], context: ClientCon
     return []
   })
 
+  const factoryName = context.configuration.clientFactoryName
+  const factoryTypeName = context.configuration.clientTypeName ?? "CQRS"
+
   return ts.factory.createFunctionDeclaration(
     /* modifiers */ [
       ts.factory.createModifier(ts.SyntaxKind.ExportKeyword),
-      ts.factory.createModifier(ts.SyntaxKind.DefaultKeyword),
+      ...(!!factoryName ? [ts.factory.createModifier(ts.SyntaxKind.DefaultKeyword)] : []),
     ],
     /* asteriskToken */ undefined,
-    /* name */ undefined,
+    /* name */ factoryName ? ts.factory.createIdentifier(factoryName) : undefined,
     /* typeParameters */ undefined,
     /* parameters */ [
       ts.factory.createParameterDeclaration(
@@ -35,7 +38,7 @@ export function generateClient(interfaces: SchemaInterface[], context: ClientCon
         /* dotDotDotToken */ undefined,
         /* name */ ts.factory.createIdentifier("cqrsClient"),
         /* questionToken */ undefined,
-        /* type */ ts.factory.createTypeReferenceNode("CQRS"),
+        /* type */ ts.factory.createTypeReferenceNode(factoryTypeName),
         /* initializer */ undefined,
       ),
     ],
