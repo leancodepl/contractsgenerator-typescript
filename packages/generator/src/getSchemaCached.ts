@@ -1,21 +1,25 @@
-import NodeCache from "node-cache"
 import hash from "object-hash"
 import { GeneratorInput } from "@leancodepl/contractsgenerator-typescript-plugin"
 import { GeneratorSchema } from "@leancodepl/contractsgenerator-typescript-schema"
 import { getSchema } from "./getSchema"
 
-export function getSchemaCached(cache: NodeCache) {
-  return async (input: GeneratorInput) => {
+export function getSchemaCached() {
+  const promises = new Map<string, Promise<GeneratorSchema>>()
+
+  return (input: GeneratorInput) => {
     const inputHash = hash(input)
 
-    const cachedSchema = cache.get<GeneratorSchema>(inputHash)
+    const existingPromise = promises.get(inputHash)
 
-    if (cachedSchema) return cachedSchema
+    if (existingPromise) return existingPromise
 
-    const schema = await getSchema(input)
+    const promise = getSchema(input).catch(error => {
+      promises.delete(inputHash)
+      throw error
+    })
 
-    cache.set(inputHash, schema)
+    promises.set(inputHash, promise)
 
-    return schema
+    return promise
   }
 }

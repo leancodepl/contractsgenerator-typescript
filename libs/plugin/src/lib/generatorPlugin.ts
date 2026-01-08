@@ -1,4 +1,3 @@
-import NodeCache from "node-cache"
 import { GeneratorSchema } from "@leancodepl/contractsgenerator-typescript-schema"
 import { GeneratorPluginInstance } from "./generatorPluginInstance"
 
@@ -14,7 +13,6 @@ export interface GeneratorInput {
 
 export type GeneratorSessionContext = {
   getSchema(input: GeneratorInput): Promise<GeneratorSchema>
-  cache: NodeCache
   metadata: any
 }
 
