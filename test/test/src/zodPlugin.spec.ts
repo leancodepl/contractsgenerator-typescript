@@ -1,7 +1,7 @@
 import { resolve } from "path"
 import ts from "typescript"
 import vm from "vm"
-import z from "zod"
+import { z } from "zod"
 import { generate } from "@leancodepl/contractsgenerator-typescript"
 import type {
   FieldValidationContext,
@@ -49,6 +49,15 @@ describe("zodPlugin", () => {
     })
 
     expect(result).toMatchSnapshot()
+  })
+
+  it("throws exception when contracts contains circular references", async () => {
+    await expect(
+      generate({
+        generates: { "test.ts": { plugins: ["zod"] } },
+        config: { input: { raw: resolve(__dirname, "../samples/circular.pb") } },
+      }),
+    ).rejects.toThrow(/Error: circular references detected in contracts: .+/)
   })
 
   it("can exclude DTOs via nameTransform", async () => {

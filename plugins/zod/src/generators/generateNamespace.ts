@@ -1,4 +1,6 @@
+import { AssertionError } from "assert"
 import { groupBy, toPairs } from "lodash"
+import { TopologicalSort } from "topological-sort"
 import ts from "typescript"
 import {
   isSchemaEnum,
@@ -58,6 +60,17 @@ function generateNamespace(generatorNamespace: GeneratorNamespace, context: ZodC
   ]
 }
 
+function trySortNodes<T>(sortOp: TopologicalSort<string, T>): T[] {
+  try {
+    return [...sortOp.sort().values()].map(node => node.node)
+  } catch (error) {
+    if (error instanceof AssertionError && /Node .+ forms circular dependency: .+/.test(error.message)) {
+      throw new Error(`Error: circular references detected in contracts: ${error.message}`)
+    }
+    throw error
+  }
+}
+
 function collectInternalTypeIds(type: SchemaType): string[] {
   const ids: string[] = []
 
@@ -95,42 +108,17 @@ function getEntityDependencies(entity: SchemaEntity): string[] {
 
 function topologicalSortEntities(entities: SchemaEntity[]): SchemaEntity[] {
   const entityMap = new Map(entities.map(e => [e.id, e]))
-  const dependencies = new Map<string, Set<string>>()
+  const sortOp = new TopologicalSort<string, SchemaEntity>(new Map(entities.map(e => [e.id, e])))
 
   for (const entity of entities) {
-    const deps = new Set<string>()
     for (const depId of getEntityDependencies(entity)) {
       if (entityMap.has(depId)) {
-        deps.add(depId)
+        sortOp.addEdge(depId, entity.id)
       }
     }
-    dependencies.set(entity.id, deps)
   }
 
-  const visited = new Set<string>()
-  const result: SchemaEntity[] = []
-
-  function visit(id: string, visiting: Set<string>): void {
-    if (visited.has(id)) return
-    if (visiting.has(id)) return
-
-    visiting.add(id)
-    const deps = dependencies.get(id) ?? new Set()
-    for (const depId of deps) {
-      visit(depId, visiting)
-    }
-    visiting.delete(id)
-
-    visited.add(id)
-    const entity = entityMap.get(id)
-    if (entity) result.push(entity)
-  }
-
-  for (const entity of entities) {
-    visit(entity.id, new Set())
-  }
-
-  return result
+  return trySortNodes(sortOp)
 }
 
 function getNamespaceDependencyIds(namespace: GeneratorNamespace): Set<string> {
@@ -175,12 +163,13 @@ function topologicalSortNamespaces(namespaces: GeneratorNamespace[]): GeneratorN
   if (namespaces.length <= 1) return namespaces
 
   const nsWithName = namespaces.filter((ns): ns is GeneratorNamespace & { name: string } => ns.name !== undefined)
-  const nsMap = new Map(nsWithName.map(ns => [ns.name, ns]))
   const nsEntityIds = new Map(nsWithName.map(ns => [ns.name, getNamespaceEntityIds(ns)]))
-  const nsDependencies = new Map<string, Set<string>>()
+
+  const sortOp = new TopologicalSort<string, GeneratorNamespace & { name: string }>(
+    new Map(nsWithName.map(ns => [ns.name, ns])),
+  )
 
   for (const ns of nsWithName) {
-    const deps = new Set<string>()
     const dependencyIds = getNamespaceDependencyIds(ns)
 
     for (const otherNs of nsWithName) {
@@ -190,40 +179,15 @@ function topologicalSortNamespaces(namespaces: GeneratorNamespace[]): GeneratorN
       if (otherEntityIds) {
         for (const depId of dependencyIds) {
           if (otherEntityIds.has(depId)) {
-            deps.add(otherNs.name)
+            sortOp.addEdge(otherNs.name, ns.name)
             break
           }
         }
       }
     }
-
-    nsDependencies.set(ns.name, deps)
   }
 
-  const visited = new Set<string>()
-  const result: GeneratorNamespace[] = []
-
-  function visit(name: string, visiting: Set<string>): void {
-    if (visited.has(name)) return
-    if (visiting.has(name)) return
-
-    visiting.add(name)
-    const deps = nsDependencies.get(name) ?? new Set()
-    for (const depName of deps) {
-      visit(depName, visiting)
-    }
-    visiting.delete(name)
-
-    visited.add(name)
-    const ns = nsMap.get(name)
-    if (ns) result.push(ns)
-  }
-
-  for (const ns of nsWithName) {
-    visit(ns.name, new Set())
-  }
-
-  return result
+  return trySortNodes(sortOp)
 }
 
 type GeneratorNamespace = {
