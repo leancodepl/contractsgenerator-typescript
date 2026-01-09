@@ -1,5 +1,5 @@
 import ts from "typescript"
-import { isSchemaCommand, SchemaInterface } from "@leancodepl/contractsgenerator-typescript-schema"
+import { isSchemaCommand, isSchemaTopic, SchemaInterface } from "@leancodepl/contractsgenerator-typescript-schema"
 import { generateType } from "@leancodepl/contractsgenerator-typescript-types"
 import { ContractsContext } from "../contractsContext"
 import { withExtends } from "../utils/withExtends"
@@ -8,6 +8,7 @@ import { generateAttribute } from "./generateAttribute"
 import { generateConsts } from "./generateConsts"
 import { generateErrorCodes } from "./generateErrorCodes"
 import { generateProperty } from "./generateProperty"
+import { generateTopicConsts } from "./generateTopicConsts"
 
 export function generateInterface(schemaInterface: SchemaInterface, context: ContractsContext) {
   if (schemaInterface.getIsAttribute(context.schemaEntities)) return []
@@ -52,6 +53,14 @@ export function generateInterface(schemaInterface: SchemaInterface, context: Con
 
   const constStatement = generateConsts(schemaInterface, context)
   const errorCodesStatement = isSchemaCommand(schemaInterface) ? generateErrorCodes(schemaInterface, context) : []
+  const topicNotificationTypesStatement = isSchemaTopic(schemaInterface)
+    ? generateTopicConsts(schemaInterface, context)
+    : []
 
-  return [withJsDoc(interfaceStatement, jsDoc, context), ...constStatement, ...errorCodesStatement]
+  return [
+    withJsDoc(interfaceStatement, jsDoc, context),
+    ...constStatement,
+    ...errorCodesStatement,
+    ...topicNotificationTypesStatement,
+  ]
 }
