@@ -1,16 +1,17 @@
 import z from "zod"
+import { PropertyTypeCategory } from "./utils/getPropertyTypeCategory"
 
 export type ZodGeneratorPluginConfiguration = z.infer<typeof zodGeneratorPluginConfigurationSchema>
 
 export type FieldValidationContext = {
   name: string
   isNullable: boolean
-  type: "array" | "boolean" | "enum" | "number" | "object" | "record" | "string" | "unknown"
+  type: PropertyTypeCategory
 }
 
 export type FieldValidationFunction = (fieldPath: string, property: FieldValidationContext) => string | undefined
 
-export const fieldValidationReturnSchema = z.union([z.string(), z.undefined()])
+export const fieldValidationReturnSchema = z.string().optional()
 
 export type GeneratorInput = z.infer<typeof generatorInputSchema>
 
