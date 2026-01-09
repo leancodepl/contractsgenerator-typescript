@@ -53,6 +53,9 @@ Object {
                 export interface RemoveTopic extends Topic {
                     ItemId: string;
                 }
+                export namespace RemoveTopic {
+                    export const RemoveTopicDTO = \\"ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO\\";
+                }
                 export interface RemoveTopicDTO {
                     ItemId: string;
                 }
@@ -143,6 +146,9 @@ Object {
                 export interface RemoveTopic extends Topic {
                     ItemId: string;
                 }
+                export namespace RemoveTopic {
+                    export const RemoveTopicDTO = \\"ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO\\";
+                }
                 export interface RemoveTopicDTO {
                     ItemId: string;
                 }
@@ -226,6 +232,9 @@ Object {
                  */
                 export interface RemoveTopic extends Topic {
                     ItemId: string;
+                }
+                export namespace RemoveTopic {
+                    export const RemoveTopicDTO = \\"ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO\\";
                 }
                 export interface RemoveTopicDTO {
                     ItemId: string;
@@ -312,6 +321,9 @@ Object {
                 export interface RemoveTopic extends Topic {
                     ItemId: string;
                 }
+                export namespace RemoveTopic {
+                    export const RemoveTopicDTO = \\"ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO\\";
+                }
                 export interface RemoveTopicDTO {
                     ItemId: string;
                 }
@@ -397,6 +409,9 @@ Object {
                 export interface RemoveTopic extends Topic {
                     ItemId: string;
                 }
+                export namespace RemoveTopic {
+                    export const RemoveTopicDTO = \\"ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO\\";
+                }
                 export interface RemoveTopicDTO {
                     ItemId: string;
                 }
@@ -481,6 +496,9 @@ Object {
                  */
                 export interface RemoveTopic extends Topic {
                     ItemId: string;
+                }
+                export namespace RemoveTopic {
+                    export const RemoveTopicDTO = \\"ExampleApp.Examples.TestContracts.Shared.RemoveTopicDTO\\";
                 }
                 export interface RemoveTopicDTO {
                     ItemId: string;

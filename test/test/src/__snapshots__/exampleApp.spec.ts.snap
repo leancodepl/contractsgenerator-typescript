@@ -764,6 +764,10 @@ Object {
                 export interface EmployeeAssignmentsTopic extends Topic {
                     EmployeeId: string;
                 }
+                export namespace EmployeeAssignmentsTopic {
+                    export const EmployeeAssignedToProjectAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\";
+                    export const EmployeeUnassignedFromProjectAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\";
+                }
                 export interface EmployeeUnassignedFromAssignmentDTO {
                     AssignmentId: string;
                 }
@@ -789,6 +793,10 @@ Object {
                  */
                 export interface ProjectEmployeesAssignmentsTopic extends Topic {
                     ProjectId: string;
+                }
+                export namespace ProjectEmployeesAssignmentsTopic {
+                    export const EmployeeAssignedToAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\";
+                    export const EmployeeUnassignedFromAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\";
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")
@@ -1365,6 +1373,10 @@ Object {
                 export interface EmployeeAssignmentsTopic extends Topic {
                     EmployeeId: string;
                 }
+                export namespace EmployeeAssignmentsTopic {
+                    export const EmployeeAssignedToProjectAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\";
+                    export const EmployeeUnassignedFromProjectAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\";
+                }
                 export interface EmployeeUnassignedFromAssignmentDTO {
                     AssignmentId: string;
                 }
@@ -1390,6 +1402,10 @@ Object {
                  */
                 export interface ProjectEmployeesAssignmentsTopic extends Topic {
                     ProjectId: string;
+                }
+                export namespace ProjectEmployeesAssignmentsTopic {
+                    export const EmployeeAssignedToAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\";
+                    export const EmployeeUnassignedFromAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\";
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")
@@ -1966,6 +1982,10 @@ Object {
                 export interface EmployeeAssignmentsTopic extends Topic {
                     EmployeeId: string;
                 }
+                export namespace EmployeeAssignmentsTopic {
+                    export const EmployeeAssignedToProjectAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\";
+                    export const EmployeeUnassignedFromProjectAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\";
+                }
                 export interface EmployeeUnassignedFromAssignmentDTO {
                     AssignmentId: string;
                 }
@@ -1991,6 +2011,10 @@ Object {
                  */
                 export interface ProjectEmployeesAssignmentsTopic extends Topic {
                     ProjectId: string;
+                }
+                export namespace ProjectEmployeesAssignmentsTopic {
+                    export const EmployeeAssignedToAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\";
+                    export const EmployeeUnassignedFromAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\";
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")
@@ -2547,6 +2571,10 @@ Object {
                 export interface EmployeeAssignmentsTopic extends Topic {
                     EmployeeId: string;
                 }
+                export namespace EmployeeAssignmentsTopic {
+                    export const EmployeeAssignedToProjectAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\";
+                    export const EmployeeUnassignedFromProjectAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\";
+                }
                 export interface EmployeeUnassignedFromAssignmentDTO {
                     AssignmentId: string;
                 }
@@ -2572,6 +2600,10 @@ Object {
                  */
                 export interface ProjectEmployeesAssignmentsTopic extends Topic {
                     ProjectId: string;
+                }
+                export namespace ProjectEmployeesAssignmentsTopic {
+                    export const EmployeeAssignedToAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\";
+                    export const EmployeeUnassignedFromAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\";
                 }
                 /**
                  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")
@@ -3103,6 +3135,10 @@ export interface EmployeeAssignedToProjectAssignmentDTO {
 export interface EmployeeAssignmentsTopic extends Topic {
     EmployeeId: string;
 }
+export namespace EmployeeAssignmentsTopic {
+    export const EmployeeAssignedToProjectAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToProjectAssignmentDTO\\";
+    export const EmployeeUnassignedFromProjectAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromProjectAssignmentDTO\\";
+}
 export interface EmployeeUnassignedFromAssignmentDTO {
     AssignmentId: string;
 }
@@ -3128,6 +3164,10 @@ export interface ProjectDetailsDTO extends ProjectDTO {
  */
 export interface ProjectEmployeesAssignmentsTopic extends Topic {
     ProjectId: string;
+}
+export namespace ProjectEmployeesAssignmentsTopic {
+    export const EmployeeAssignedToAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeAssignedToAssignmentDTO\\";
+    export const EmployeeUnassignedFromAssignmentDTO = \\"ExampleApp.Examples.Contracts.Projects.EmployeeUnassignedFromAssignmentDTO\\";
 }
 /**
  * @attribute LeanCode.Contracts.Security.AuthorizeWhenHasAnyOfAttribute(\\"admin\\")
