@@ -1,11 +1,16 @@
+import { AssertionError } from "assert"
 import { groupBy, toPairs } from "lodash"
+import { TopologicalSort } from "topological-sort"
 import ts from "typescript"
 import {
   isSchemaEnum,
   isSchemaInterface,
+  isSchemaInternalType,
+  isSchemaKnownType,
   SchemaEntity,
   SchemaEnum,
   SchemaInterface,
+  SchemaType,
 } from "@leancodepl/contractsgenerator-typescript-schema"
 import { ZodContext } from "../zodContext"
 import { generateEnumSchema } from "./generateEnumSchema"
@@ -27,17 +32,19 @@ function generateNamespace(generatorNamespace: GeneratorNamespace, context: ZodC
       : context.currentNamespace,
   }
 
-  const interfaceStatements = generatorNamespace.interfaces.flatMap(schemaInterface =>
-    generateInterfaceSchema(schemaInterface, childContext),
+  const allEntities: SchemaEntity[] = [...generatorNamespace.interfaces, ...generatorNamespace.enums]
+  const sortedEntities = topologicalSortEntities(allEntities)
+
+  const entityStatements = sortedEntities.flatMap(entity =>
+    isSchemaInterface(entity)
+      ? generateInterfaceSchema(entity, childContext)
+      : generateEnumSchema(entity, childContext),
   )
 
-  const enumStatements = generatorNamespace.enums.flatMap(schemaEnum => generateEnumSchema(schemaEnum, childContext))
+  const sortedNamespaces = topologicalSortNamespaces(generatorNamespace.namespaces)
+  const namespaceStatements = sortedNamespaces.flatMap(ns => generateNamespace(ns, childContext))
 
-  const namespaceStatements = generatorNamespace.namespaces.flatMap(generatorNamespace =>
-    generateNamespace(generatorNamespace, childContext),
-  )
-
-  const statements = [...interfaceStatements, ...enumStatements, ...namespaceStatements]
+  const statements = [...entityStatements, ...namespaceStatements]
 
   if (!generatorNamespace.name) {
     return statements
@@ -51,6 +58,136 @@ function generateNamespace(generatorNamespace: GeneratorNamespace, context: ZodC
       ts.NodeFlags.Namespace,
     ),
   ]
+}
+
+function trySortNodes<T>(sortOp: TopologicalSort<string, T>): T[] {
+  try {
+    return [...sortOp.sort().values()].map(node => node.node)
+  } catch (error) {
+    if (error instanceof AssertionError && /Node .+ forms circular dependency: .+/.test(error.message)) {
+      throw new Error(`Error: circular references detected in contracts: ${error.message}`)
+    }
+    throw error
+  }
+}
+
+function collectInternalTypeIds(type: SchemaType): string[] {
+  const ids: string[] = []
+
+  if (isSchemaInternalType(type)) {
+    ids.push(type.id)
+    for (const arg of type.typeArguments) {
+      ids.push(...collectInternalTypeIds(arg))
+    }
+  } else if (isSchemaKnownType(type)) {
+    for (const arg of type.typeArguments) {
+      ids.push(...collectInternalTypeIds(arg))
+    }
+  }
+
+  return ids
+}
+
+function getEntityDependencies(entity: SchemaEntity): string[] {
+  if (isSchemaEnum(entity)) {
+    return []
+  }
+
+  const deps: string[] = []
+
+  for (const property of entity.properties) {
+    deps.push(...collectInternalTypeIds(property.type))
+  }
+
+  for (const extendType of entity.extendTypes) {
+    deps.push(...collectInternalTypeIds(extendType))
+  }
+
+  return [...new Set(deps)]
+}
+
+function topologicalSortEntities(entities: SchemaEntity[]): SchemaEntity[] {
+  const entityMap = new Map(entities.map(e => [e.id, e]))
+  const sortOp = new TopologicalSort<string, SchemaEntity>(new Map(entities.map(e => [e.id, e])))
+
+  for (const entity of entities) {
+    for (const depId of getEntityDependencies(entity)) {
+      if (entityMap.has(depId)) {
+        sortOp.addEdge(depId, entity.id)
+      }
+    }
+  }
+
+  return trySortNodes(sortOp)
+}
+
+function getNamespaceDependencyIds(namespace: GeneratorNamespace): Set<string> {
+  const deps = new Set<string>()
+
+  for (const iface of namespace.interfaces) {
+    for (const depId of getEntityDependencies(iface)) {
+      deps.add(depId)
+    }
+  }
+
+  for (const childNs of namespace.namespaces) {
+    for (const depId of getNamespaceDependencyIds(childNs)) {
+      deps.add(depId)
+    }
+  }
+
+  return deps
+}
+
+function getNamespaceEntityIds(namespace: GeneratorNamespace): Set<string> {
+  const ids = new Set<string>()
+
+  for (const iface of namespace.interfaces) {
+    ids.add(iface.id)
+  }
+
+  for (const e of namespace.enums) {
+    ids.add(e.id)
+  }
+
+  for (const childNs of namespace.namespaces) {
+    for (const id of getNamespaceEntityIds(childNs)) {
+      ids.add(id)
+    }
+  }
+
+  return ids
+}
+
+function topologicalSortNamespaces(namespaces: GeneratorNamespace[]): GeneratorNamespace[] {
+  if (namespaces.length <= 1) return namespaces
+
+  const nsWithName = namespaces.filter((ns): ns is GeneratorNamespace & { name: string } => ns.name !== undefined)
+  const nsEntityIds = new Map(nsWithName.map(ns => [ns.name, getNamespaceEntityIds(ns)]))
+
+  const sortOp = new TopologicalSort<string, GeneratorNamespace & { name: string }>(
+    new Map(nsWithName.map(ns => [ns.name, ns])),
+  )
+
+  for (const ns of nsWithName) {
+    const dependencyIds = getNamespaceDependencyIds(ns)
+
+    for (const otherNs of nsWithName) {
+      if (otherNs.name === ns.name) continue
+      const otherEntityIds = nsEntityIds.get(otherNs.name)
+
+      if (otherEntityIds) {
+        for (const depId of dependencyIds) {
+          if (otherEntityIds.has(depId)) {
+            sortOp.addEdge(otherNs.name, ns.name)
+            break
+          }
+        }
+      }
+    }
+  }
+
+  return trySortNodes(sortOp)
 }
 
 type GeneratorNamespace = {

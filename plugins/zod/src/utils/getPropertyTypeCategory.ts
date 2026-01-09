@@ -4,12 +4,12 @@ import {
   isSchemaInternalType,
   isSchemaKnownType,
   leancode,
-  SchemaEntity,
-  SchemaType,
+  type SchemaEntity,
+  type SchemaType,
 } from "@leancodepl/contractsgenerator-typescript-schema"
-import { GenerateContext } from "@leancodepl/contractsgenerator-typescript-types"
+import type { GenerateContext } from "@leancodepl/contractsgenerator-typescript-types"
 
-export type PropertyTypeCategory = "array" | "boolean" | "enum" | "number" | "object" | "string" | "unknown"
+export type PropertyTypeCategory = "array" | "boolean" | "enum" | "number" | "object" | "record" | "string" | "unknown"
 
 export const knownTypeToCategory: Record<number, PropertyTypeCategory> = {
   [leancode.contracts.KnownType.String]: "string",
@@ -32,7 +32,7 @@ export const knownTypeToCategory: Record<number, PropertyTypeCategory> = {
   [leancode.contracts.KnownType.Float32]: "number",
   [leancode.contracts.KnownType.Float64]: "number",
   [leancode.contracts.KnownType.Array]: "array",
-  [leancode.contracts.KnownType.Map]: "object",
+  [leancode.contracts.KnownType.Map]: "record",
   [leancode.contracts.KnownType.Object]: "object",
 }
 
