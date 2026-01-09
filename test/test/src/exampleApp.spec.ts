@@ -87,6 +87,39 @@ describe("exampleApp", () => {
     expect(result).toMatchSnapshot()
   })
 
+  it("generates client with custom factory name and type name", async () => {
+    const result = await generate({
+      generates: { "test.ts": { plugins: [{
+        client: {
+          clientFactoryName: "TestCQRSFactory",
+          clientTypeName: "TestCQRS",
+        }
+      }] } },
+      config: { input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") } },
+    })
+
+    expect(result).toMatchSnapshot()
+  })
+
+  it("Can generate multiple clients with custom factory names + default exported client", async () => {
+    const result = await generate({
+      generates: { "test.ts": { plugins: [{
+        client: {
+          clientFactoryName: "TestCQRSFactory1",
+          clientTypeName: "TestCQRS1",
+        }
+      }, {
+        client: {
+          clientFactoryName: "TestCQRSFactory2",
+          clientTypeName: "TestCQRS2",
+        }
+      }, "client"] } },
+      config: { input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") } },
+    })
+
+    expect(result).toMatchSnapshot()
+  })
+
   it("generates contracts with datetime extension", async () => {
     const result = await generate({
       generates: { "test.ts": { plugins: ["contracts"] } },
