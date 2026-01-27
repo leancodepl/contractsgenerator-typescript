@@ -52,6 +52,12 @@ export const customTypesMapSchema = z.strictObject({
 export const zodGeneratorPluginConfigurationSchema = z.object({
   input: generatorInputSchema,
   customTypes: customTypesMapSchema.optional(),
-  nameTransform: z.custom<(name: string) => string | undefined>().optional(),
+  nameTransform: z
+
+    .function({
+      input: [z.string()],
+      output: z.string().optional(),
+    })
+    .optional(),
   fieldValidation: z.custom<FieldValidationFunction>().optional(),
 })
