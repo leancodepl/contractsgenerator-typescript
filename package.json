@@ -10,7 +10,8 @@
     "object-hash": "3.0.0",
     "tslib": "^2.3.0",
     "yaml": "2.8.0",
-    "yargs": "18.0.0"
+    "yargs": "18.0.0",
+    "zod": ">=3.22.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
@@ -24,6 +25,9 @@
     "@nx/js": "21.6.4",
     "@nx/node": "21.6.4",
     "@nx/workspace": "21.6.4",
+    "@swc-node/register": "~1.9.1",
+    "@swc/core": "~1.5.7",
+    "@swc/helpers": "~0.5.11",
     "@types/jest": "30.0.0",
     "@types/lodash": "4.17.17",
     "@types/node": "^24.0.3",
