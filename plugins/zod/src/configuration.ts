@@ -1,4 +1,4 @@
-import z from "zod"
+import z from "zod/v4"
 import { PropertyTypeCategory } from "./utils/getPropertyTypeCategory"
 
 export type ZodGeneratorPluginConfiguration = z.infer<typeof zodGeneratorPluginConfigurationSchema>
@@ -53,7 +53,6 @@ export const zodGeneratorPluginConfigurationSchema = z.object({
   input: generatorInputSchema,
   customTypes: customTypesMapSchema.optional(),
   nameTransform: z
-
     .function({
       input: [z.string()],
       output: z.string().optional(),

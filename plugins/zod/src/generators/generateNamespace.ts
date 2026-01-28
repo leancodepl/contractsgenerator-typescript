@@ -27,9 +27,7 @@ function generateNamespace(generatorNamespace: GeneratorNamespace, context: ZodC
 
   const childContext = {
     ...context,
-    currentNamespace: generatorNamespace.name
-      ? [...context.currentNamespace, generatorNamespace.name]
-      : context.currentNamespace,
+    currentNamespace: [...context.currentNamespace, ...(generatorNamespace.name ? [generatorNamespace.name] : [])],
   }
 
   const allEntities: SchemaEntity[] = [...generatorNamespace.interfaces, ...generatorNamespace.enums]
