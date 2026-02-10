@@ -5,12 +5,16 @@ import {
   GeneratorSessionContext,
 } from "@leancodepl/contractsgenerator-typescript-plugin"
 import { ContractsGeneratorPluginConfiguration } from "./generate"
+import { logger } from "./logger"
 
 export async function generateFile(
   configl2: Record<string, unknown>,
   plugins: ContractsGeneratorPluginConfiguration[],
   sessionContext: GeneratorSessionContext,
 ) {
+  const pluginNames = plugins.map(p => (typeof p === "string" ? p : Object.keys(p)[0]))
+  logger.info("Generating file with plugins:", pluginNames.join(", "))
+
   const fileContext: GeneratorFileContext = {
     metadata: {},
   }

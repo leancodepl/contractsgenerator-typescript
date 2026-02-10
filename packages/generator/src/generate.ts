@@ -2,6 +2,7 @@ import { z } from "zod/v4"
 import { GeneratorSessionContext } from "@leancodepl/contractsgenerator-typescript-plugin"
 import { generateFile } from "./generateFile"
 import { getSchemaCached } from "./getSchemaCached"
+import { logger } from "./logger"
 
 export type ContractsGeneratorPluginConfiguration = z.infer<typeof contractsGeneratorPluginConfigurationSchema>
 
@@ -24,6 +25,9 @@ const contractsGeneratorConfigurationSchema = z.object({
 
 export async function generate(unsafeConfig: unknown) {
   const config = contractsGeneratorConfigurationSchema.parse(unsafeConfig)
+
+  const fileCount = Object.keys(config.generates).length
+  logger.info("Generating", fileCount, "file(s):", Object.keys(config.generates).join(", "))
 
   const sessionContext: GeneratorSessionContext = { getSchema: getSchemaCached(), metadata: {} }
 
