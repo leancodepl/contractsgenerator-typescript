@@ -4,6 +4,7 @@ import yaml from "yaml"
 import { hideBin } from "yargs/helpers"
 import yargs from "yargs/yargs"
 import { generate } from "./generate"
+import { logger } from "./logger"
 import { saveOutputs } from "./saveOutputs"
 
 function loadYaml(filepath: string, content: string) {
@@ -31,4 +32,18 @@ const config = (
   argv.config ? lilconfigSync(moduleName, options).load(argv.config) : lilconfigSync(moduleName, options).search()
 )?.config
 
-generate(config).then(saveOutputs)
+if (!config) {
+  logger.error("No config found")
+  process.exit(1)
+}
+
+logger.info("Starting code generation")
+generate(config)
+  .then(async outputs => {
+    await saveOutputs(outputs)
+    logger.success("Generated", Object.keys(outputs).length, "file(s)")
+  })
+  .catch(err => {
+    logger.error("Generation failed:", err)
+    process.exit(1)
+  })
