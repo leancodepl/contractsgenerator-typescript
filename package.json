@@ -30,7 +30,7 @@
     "@swc/helpers": "0.5.23",
     "@types/jest": "30.0.0",
     "@types/lodash": "4.17.24",
-    "@types/node": "^26.1.0",
+    "@types/node": "^24.13.2",
     "@types/object-hash": "3.0.6",
     "download": "8.0.0",
     "download-cli": "1.1.1",
