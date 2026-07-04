@@ -40,7 +40,7 @@
     "jest-environment-jsdom": "30.4.1",
     "jest-util": "30.4.1",
     "jiti": "2.7.0",
-    "jsdom": "26.1.0",
+    "jsdom": "^29.1.1",
     "lerna": "^9.0.7",
     "nx": "23.0.1",
     "protobufjs": "7.6.5",
