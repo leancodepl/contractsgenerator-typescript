@@ -1,4 +1,4 @@
-import z from "zod/v4"
+import z from "zod"
 import { PropertyTypeCategory } from "./utils/getPropertyTypeCategory"
 
 export type ZodGeneratorPluginConfiguration = z.infer<typeof zodGeneratorPluginConfigurationSchema>

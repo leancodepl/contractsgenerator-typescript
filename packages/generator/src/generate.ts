@@ -1,4 +1,4 @@
-import { z } from "zod/v4"
+import { z } from "zod"
 import { GeneratorSessionContext } from "@leancodepl/contractsgenerator-typescript-plugin"
 import { generateFile } from "./generateFile"
 import { getSchemaCached } from "./getSchemaCached"
