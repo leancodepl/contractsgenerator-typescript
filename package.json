@@ -14,8 +14,8 @@
     "zod": ">=3.22.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
+    "@commitlint/cli": "^21.2.0",
+    "@commitlint/config-conventional": "^21.2.0",
     "@leancodepl/eslint-config": "9.6.3",
     "@leancodepl/prettier-config": "9.6.3",
     "@leancodepl/resolve-eslint-flat-config": "9.6.3",
