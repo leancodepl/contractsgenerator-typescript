@@ -1,4 +1,4 @@
-import { resolve } from "path"
+import { resolve } from "node:path"
 import { generate } from "@leancodepl/contractsgenerator-typescript"
 import "@leancodepl/contractsgenerator-typescript-plugin-client"
 import "@leancodepl/contractsgenerator-typescript-plugin-contracts"

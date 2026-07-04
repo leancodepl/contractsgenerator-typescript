@@ -8,13 +8,13 @@ import {
 
 export function generateQuery(query: SchemaQuery, context: GenerateContext) {
   const name = query.getName(context.nameTransform)
-  if (name === undefined) return undefined
+  if (name === undefined) return
 
   const queryType = generateType(query.queryType, context)
-  if (queryType === undefined) return undefined
+  if (queryType === undefined) return
 
   const returnType = generateTypeWithNullability(query.returnType, context)
-  if (returnType === undefined) return undefined
+  if (returnType === undefined) return
 
   return ts.factory.createPropertyAssignment(
     /* name */ name,

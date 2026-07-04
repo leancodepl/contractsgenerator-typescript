@@ -1,4 +1,3 @@
-/* eslint-disable */
 module.exports = {
   displayName: "raw",
   preset: "../../jest.preset.js",

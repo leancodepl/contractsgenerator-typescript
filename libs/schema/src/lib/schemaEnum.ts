@@ -3,8 +3,8 @@ import { SchemaEntity } from "./parseSchema"
 import { leancode } from "./protocol"
 import { SchemaAttribute } from "./schemaAttribute"
 import { SchemaEnumMember } from "./schemaEnumMember"
-import { getNameFromFullName } from "./utils/getNameFromFullName"
 import { NameTransform } from "./types/nameTransform"
+import { getNameFromFullName } from "./utils/getNameFromFullName"
 
 export class SchemaEnum {
   kind = schemaEnumKind
@@ -28,7 +28,7 @@ export class SchemaEnum {
   getName(nameTransform: NameTransform) {
     const fullName = this.getFullName(nameTransform)
 
-    if (fullName === undefined) return undefined
+    if (fullName === undefined) return
 
     return getNameFromFullName(this.getFullName(nameTransform))
   }

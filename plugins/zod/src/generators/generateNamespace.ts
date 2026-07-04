@@ -1,5 +1,5 @@
-import { AssertionError } from "assert"
 import { groupBy, toPairs } from "lodash"
+import { AssertionError } from "node:assert"
 import { TopologicalSort } from "topological-sort"
 import ts from "typescript"
 import {
@@ -60,6 +60,8 @@ function generateNamespace(generatorNamespace: GeneratorNamespace, context: ZodC
 
 function trySortNodes<T>(sortOp: TopologicalSort<string, T>): T[] {
   try {
+    // sortOp is a TopologicalSort; `.sort()` returns a Map, not an Array
+    // eslint-disable-next-line unicorn/no-array-sort
     return [...sortOp.sort().values()].map(node => node.node)
   } catch (error) {
     if (error instanceof AssertionError && /Node .+ forms circular dependency: .+/.test(error.message)) {
@@ -200,7 +202,7 @@ const rootNamespace = "0 root namespace 0"
 function extractNamespaces(
   schemaEntities: SchemaEntity[],
   depth = 0,
-  name: string | undefined = undefined,
+  name: string | undefined,
   context: ZodContext,
 ): GeneratorNamespace {
   const { [rootNamespace]: rootNamespaceEntities, ...namespaces } = groupBy(schemaEntities, schemaEntity => {
@@ -230,9 +232,7 @@ function throwErrorForDuplicateNames(generatorNamespace: GeneratorNamespace, con
     return acc
   }, new Map<string, number>())
 
-  const duplicateNames = Array.from(namesOccurrencesCounts.entries())
-    .filter(([_, count]) => count > 1)
-    .map(([name]) => name)
+  const duplicateNames = [...namesOccurrencesCounts.entries()].filter(([_, count]) => count > 1).map(([name]) => name)
 
   if (duplicateNames.length === 0) {
     return

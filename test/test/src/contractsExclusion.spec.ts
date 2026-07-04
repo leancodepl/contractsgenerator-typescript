@@ -1,4 +1,4 @@
-import { resolve } from "path"
+import { resolve } from "node:path"
 import { generate } from "@leancodepl/contractsgenerator-typescript"
 import "@leancodepl/contractsgenerator-typescript-plugin-client"
 import "@leancodepl/contractsgenerator-typescript-plugin-contracts"
@@ -13,7 +13,7 @@ describe("contractsExclusion", () => {
           const parts = id.split(".")
 
           if (parts.includes("RemoveQuery")) {
-            return undefined
+            return
           }
 
           return id
@@ -33,7 +33,7 @@ describe("contractsExclusion", () => {
           const parts = id.split(".")
 
           if (parts.includes("RemoveCommand")) {
-            return undefined
+            return
           }
 
           return id
@@ -53,7 +53,7 @@ describe("contractsExclusion", () => {
           const parts = id.split(".")
 
           if (parts.includes("RemoveOperation")) {
-            return undefined
+            return
           }
 
           return id
@@ -73,7 +73,7 @@ describe("contractsExclusion", () => {
           const parts = id.split(".")
 
           if (parts.includes("RemoveTopic")) {
-            return undefined
+            return
           }
 
           return id
@@ -93,7 +93,7 @@ describe("contractsExclusion", () => {
           const parts = id.split(".")
 
           if (parts.includes("RemoveEnum")) {
-            return undefined
+            return
           }
 
           return id
@@ -113,7 +113,7 @@ describe("contractsExclusion", () => {
           const parts = id.split(".")
 
           if (parts.includes("RemoveInterface")) {
-            return undefined
+            return
           }
 
           return id
@@ -133,7 +133,7 @@ describe("contractsExclusion", () => {
           const parts = id.split(".")
 
           if (parts.includes("RemoveNamespace")) {
-            return undefined
+            return
           }
 
           return id
@@ -154,7 +154,7 @@ describe("contractsExclusion", () => {
             const parts = id.split(".")
 
             if (parts.includes("ExtendedInterface")) {
-              return undefined
+              return
             }
 
             return id
@@ -176,7 +176,7 @@ describe("contractsExclusion", () => {
             const parts = id.split(".")
 
             if (parts.includes("NestedInterface")) {
-              return undefined
+              return
             }
 
             return id

@@ -7,6 +7,7 @@ import {
   SchemaProperty,
   SchemaType,
 } from "@leancodepl/contractsgenerator-typescript-schema"
+import type { FieldValidationContext } from "../configuration"
 import { fieldValidationReturnSchema } from "../configuration"
 import { zodIdentifier } from "../utils/consts"
 import {
@@ -17,7 +18,6 @@ import {
 import { getSchemaName } from "../utils/getSchemaName"
 import { parseZodCode } from "../utils/parseZodCode"
 import { ZodContext } from "../zodContext"
-import type { FieldValidationContext } from "../configuration"
 
 export function generatePropertySchema(
   property: SchemaProperty,
@@ -133,10 +133,6 @@ function generateZodSchemaFromCategory(category: PropertyTypeCategory): ts.Expre
     case "number":
     case "boolean":
       return createZodCall(category)
-    case "array":
-    case "object":
-    case "enum":
-    case "unknown":
     default:
       return createZodCall("any")
   }

@@ -4,10 +4,10 @@ import { GenerateContext, generateType } from "@leancodepl/contractsgenerator-ty
 
 export function generateTopic(topic: SchemaTopic, context: GenerateContext) {
   const name = topic.getName(context.nameTransform)
-  if (name === undefined) return undefined
+  if (name === undefined) return
 
   const topicType = generateType(topic.topicType, context)
-  if (topicType === undefined) return undefined
+  if (topicType === undefined) return
 
   return ts.factory.createPropertyAssignment(
     /* name */ name,

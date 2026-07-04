@@ -8,13 +8,13 @@ import {
 
 export function generateCommand(command: SchemaCommand, context: GenerateContext) {
   const name = command.getName(context.nameTransform)
-  if (name === undefined) return undefined
+  if (name === undefined) return
 
   const fullName = command.getFullName(context.nameTransform)
-  if (fullName === undefined) return undefined
+  if (fullName === undefined) return
 
   const commandType = generateType(command.commandType, context)
-  if (commandType === undefined) return undefined
+  if (commandType === undefined) return
 
   const errorCodesType = command.errorCodes.hasErrors
     ? ts.factory.createTypeReferenceNode(

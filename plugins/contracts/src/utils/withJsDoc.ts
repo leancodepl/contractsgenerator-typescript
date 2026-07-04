@@ -13,7 +13,7 @@ export function withJsDoc<TNode extends ts.Node>(
   return ts.addSyntheticLeadingComment(
     /* node */ node,
     /* kind */ ts.SyntaxKind.MultiLineCommentTrivia,
-    /* text */ comment.substr(2, comment.length - 4),
+    /* text */ comment.slice(2, -2),
     /* hasTrailingNewLine */ true,
   )
 }
