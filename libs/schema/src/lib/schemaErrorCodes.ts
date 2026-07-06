@@ -79,9 +79,6 @@ export class SchemaErrorCodes {
     // eslint-disable-next-line no-empty
     while (resolveConflicts()) {}
 
-    // `codes` is a fresh array produced by lodash above, so in-place sort is safe;
-    // `toSorted` is unavailable under this package's TS `lib` target.
-    // eslint-disable-next-line unicorn/no-array-sort
-    return codes.sort(({ code: a }, { code: b }) => a - b)
+    return codes.toSorted(({ code: a }, { code: b }) => a - b)
   }
 }
