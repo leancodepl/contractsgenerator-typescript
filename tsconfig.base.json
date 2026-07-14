@@ -4,7 +4,7 @@
     "rootDir": ".",
     "sourceMap": true,
     "declaration": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -21,18 +21,17 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "baseUrl": ".",
     "paths": {
-      "@leancodepl/contractsgenerator-typescript": ["packages/generator/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-contracts": ["plugins/contracts/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-plugin": ["libs/plugin/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-plugin-client": ["plugins/client/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-plugin-contracts": ["plugins/contracts/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-plugin-raw": ["plugins/raw/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-plugin-zod": ["plugins/zod/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-schema": ["libs/schema/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-types": ["libs/types/src/index.ts"],
-      "@leancodepl/contractsgenerator-typescript-values": ["libs/values/src/index.ts"]
+      "@leancodepl/contractsgenerator-typescript": ["./packages/generator/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-contracts": ["./plugins/contracts/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin": ["./libs/plugin/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin-client": ["./plugins/client/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin-contracts": ["./plugins/contracts/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin-raw": ["./plugins/raw/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-plugin-zod": ["./plugins/zod/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-schema": ["./libs/schema/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-types": ["./libs/types/src/index.ts"],
+      "@leancodepl/contractsgenerator-typescript-values": ["./libs/values/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
