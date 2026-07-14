@@ -79,6 +79,6 @@ export class SchemaErrorCodes {
     // eslint-disable-next-line no-empty
     while (resolveConflicts()) {}
 
-    return codes.sort(({ code: a }, { code: b }) => a - b)
+    return codes.toSorted(({ code: a }, { code: b }) => a - b)
   }
 }

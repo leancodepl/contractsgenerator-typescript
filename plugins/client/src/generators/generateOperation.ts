@@ -8,13 +8,13 @@ import {
 
 export function generateOperation(operation: SchemaOperation, context: GenerateContext) {
   const name = operation.getName(context.nameTransform)
-  if (name === undefined) return undefined
+  if (name === undefined) return
 
   const operationType = generateType(operation.operationType, context)
-  if (operationType === undefined) return undefined
+  if (operationType === undefined) return
 
   const returnType = generateTypeWithNullability(operation.returnType, context)
-  if (returnType === undefined) return undefined
+  if (returnType === undefined) return
 
   return ts.factory.createPropertyAssignment(
     /* name */ name,

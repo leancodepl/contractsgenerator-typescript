@@ -1,6 +1,6 @@
-import { resolve } from "path"
+import { resolve } from "node:path"
+import vm from "node:vm"
 import ts from "typescript"
-import vm from "vm"
 import { z } from "zod"
 import { generate } from "@leancodepl/contractsgenerator-typescript"
 import type {
@@ -69,7 +69,7 @@ describe("zodPlugin", () => {
           const parts = id.split(".")
 
           if (parts.includes("RemoveInterface")) {
-            return undefined
+            return
           }
 
           return id
@@ -148,7 +148,7 @@ describe("zodPlugin", () => {
             return '.refine(val => { const test = {test: { test: 5 }}; return typeof val === "object" && val !== null) }'
           }
 
-          return undefined
+          return
         }) satisfies FieldValidationFunction,
       },
     })
@@ -186,7 +186,7 @@ describe("zodPlugin", () => {
 function evaluateZodSchemas(code: string): Record<string, z.ZodTypeAny> {
   const exports: Record<string, z.ZodTypeAny> = {}
 
-  const codeWithoutImportsx = code.replace(/^import .+$/gm, "")
+  const codeWithoutImportsx = code.replaceAll(/^import .+$/gm, "")
   const jsCode = ts.transpileModule(codeWithoutImportsx, {
     compilerOptions: { module: ts.ModuleKind.NodeNext },
   }).outputText

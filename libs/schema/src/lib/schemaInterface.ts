@@ -6,11 +6,11 @@ import { SchemaConstant } from "./schemaConstant"
 import { isSchemaEnum } from "./schemaEnum"
 import { SchemaProperty } from "./schemaProperty"
 import { createType } from "./types"
+import { NameTransform } from "./types/nameTransform"
 import { isSchemaInternalType } from "./types/schemaInternalType"
 import { isSchemaKnownType } from "./types/schemaKnownType"
 import { SchemaType } from "./types/schemaType"
 import { getNameFromFullName } from "./utils/getNameFromFullName"
-import { NameTransform } from "./types/nameTransform"
 
 export class SchemaInterface {
   kind = schemaInterfaceKind
@@ -47,13 +47,13 @@ export class SchemaInterface {
   ): T | undefined {
     for (const t of this.extendTypes) {
       const relatedInterface = (() => {
-        if (!isSchemaInternalType(t)) return undefined
+        if (!isSchemaInternalType(t)) return
 
         const relatedEntity = schemaEntities.find(e => e.id === t.id)
 
         if (relatedEntity && isSchemaInterface(relatedEntity)) return relatedEntity
 
-        return undefined
+        return
       })()
 
       let result = predicate(t, relatedInterface)
@@ -81,7 +81,7 @@ export class SchemaInterface {
       this.findInInheritanceTree(t => {
         if (isSchemaKnownType(t) && t.isAttribute) return true
 
-        return undefined
+        return
       }, schemaEntities) ?? false
     )
   }
@@ -93,7 +93,7 @@ export class SchemaInterface {
   getName(nameTransform: NameTransform) {
     const fullName = this.getFullName(nameTransform)
 
-    if (fullName === undefined) return undefined
+    if (fullName === undefined) return
 
     return getNameFromFullName(fullName)
   }

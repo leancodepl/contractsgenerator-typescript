@@ -76,7 +76,7 @@ export function getTypesMap({
       const valueType = ensureNotEmpty(typeArguments[0])
 
       const valueTypeNode = generateTypeWithNullability(valueType, context)
-      if (valueTypeNode === undefined) return undefined
+      if (valueTypeNode === undefined) return
 
       return ts.factory.createArrayTypeNode(valueTypeNode)
     },
@@ -85,10 +85,10 @@ export function getTypesMap({
       const valueType = ensureNotEmpty(typeArguments[1])
 
       const keyTypeNode = generateType(keyType, context)
-      if (keyTypeNode === undefined) return undefined
+      if (keyTypeNode === undefined) return
 
       const valueTypeNode = generateTypeWithNullability(valueType, context)
-      if (valueTypeNode === undefined) return undefined
+      if (valueTypeNode === undefined) return
 
       return ts.factory.createTypeReferenceNode(
         /* typeName */ "Record",
@@ -97,13 +97,13 @@ export function getTypesMap({
     },
     [leancode.contracts.KnownType.Query]: ({ typeArguments, context }) => {
       const queryTypeNode = generateType(ensureNotEmpty(typeArguments[0]), context)
-      if (queryTypeNode === undefined) return undefined
+      if (queryTypeNode === undefined) return
 
       return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Query"), [queryTypeNode])
     },
     [leancode.contracts.KnownType.Operation]: ({ typeArguments, context }) => {
       const operationTypeNode = generateType(ensureNotEmpty(typeArguments[0]), context)
-      if (operationTypeNode === undefined) return undefined
+      if (operationTypeNode === undefined) return
 
       return ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Operation"), [operationTypeNode])
     },
@@ -114,10 +114,15 @@ export function getTypesMap({
         /* typeName */ ts.factory.createIdentifier("CommandResult"),
         /* typeArguments */ [ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)],
       ),
+    // These known types intentionally map to no type node (return `undefined`);
+    // an empty arrow body would return `void`, which is not assignable to `TypesMap`.
+    // eslint-disable-next-line unicorn/no-useless-undefined
     [leancode.contracts.KnownType.AuthorizeWhenAttribute]: () => undefined,
+    // eslint-disable-next-line unicorn/no-useless-undefined
     [leancode.contracts.KnownType.AuthorizeWhenHasAnyOfAttribute]: () => undefined,
     [leancode.contracts.KnownType.Topic]: () =>
       ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("Topic")),
+    // eslint-disable-next-line unicorn/no-useless-undefined
     [leancode.contracts.KnownType.Attribute]: () => undefined,
   }
 

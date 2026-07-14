@@ -1,5 +1,5 @@
+import { z } from "zod"
 import { NameTransform } from "@leancodepl/contractsgenerator-typescript-schema"
-import { z } from "zod/v4"
 
 export const generatorInputSchema = z.strictObject({
   raw: z.string().optional(),

@@ -1,5 +1,4 @@
-/* eslint-disable */
-export default {
+module.exports = {
   displayName: "zod",
   preset: "../../jest.preset.js",
   globals: {},

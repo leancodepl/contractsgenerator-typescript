@@ -65,7 +65,7 @@ const rootNamespace = "0 root namespace 0"
 function extractNamespaces(
   schemaEntities: SchemaEntity[],
   depth = 0,
-  name: string | undefined = undefined,
+  name: string | undefined,
   context: ContractsContext,
 ): GeneratorNamespace {
   const { [rootNamespace]: rootNamespaceEntities, ...namespaces } = groupBy(schemaEntities, schemaEntity => {
@@ -95,9 +95,7 @@ function throwErrorForDuplicateNames(generatorNamespace: GeneratorNamespace, con
     return acc
   }, new Map<string, number>())
 
-  const duplicateNames = Array.from(namesOccurrencesCounts.entries())
-    .filter(([_, count]) => count > 1)
-    .map(([name]) => name)
+  const duplicateNames = [...namesOccurrencesCounts.entries()].filter(([_, count]) => count > 1).map(([name]) => name)
 
   if (duplicateNames.length === 0) {
     return

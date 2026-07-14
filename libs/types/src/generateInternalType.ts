@@ -7,7 +7,7 @@ import { extractMinimalReferenceTypeName } from "./utils/extractMinimalReference
 export function generateInternalType(internalType: SchemaInternalType, context: GenerateContext) {
   const transformedName = context.nameTransform(internalType.id)
 
-  if (transformedName === undefined) return undefined
+  if (transformedName === undefined) return
 
   const name = extractMinimalReferenceTypeName(transformedName, context.currentNamespace)
 

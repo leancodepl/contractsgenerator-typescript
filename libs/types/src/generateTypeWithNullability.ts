@@ -12,5 +12,5 @@ export function generateTypeWithNullability(
   const typeNode = generateType(type, context)
   if (typeNode === undefined) return undefined
 
-  return withNullability(typeNode, { isNullable: type.isNullable, ...(params ?? {}) })
+  return withNullability(typeNode, { isNullable: type.isNullable, ...params })
 }

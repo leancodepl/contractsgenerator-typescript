@@ -12,4 +12,8 @@ module.exports = {
    * More info: https://jestjs.io/docs/upgrading-to-jest29#snapshot-format
    */
   snapshotFormat: { escapeString: true, printBasicPrototype: true },
+  // `@leancodepl/*` packages (and their deps such as `tiny-invariant`) ship pure
+  // ESM ("type": "module"), which Jest does not transform by default because
+  // node_modules is ignored. Allow ts-jest to transpile them to CJS.
+  transformIgnorePatterns: ["node_modules/(?!(?:@leancodepl/.*|tiny-invariant)/)"],
 }

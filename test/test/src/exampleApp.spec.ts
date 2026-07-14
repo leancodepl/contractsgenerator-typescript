@@ -1,4 +1,4 @@
-import { resolve } from "path"
+import { resolve } from "node:path"
 import { generate } from "@leancodepl/contractsgenerator-typescript"
 import "@leancodepl/contractsgenerator-typescript-plugin-client"
 import "@leancodepl/contractsgenerator-typescript-plugin-contracts"
@@ -89,12 +89,18 @@ describe("exampleApp", () => {
 
   it("generates client with custom factory name and type name", async () => {
     const result = await generate({
-      generates: { "test.ts": { plugins: [{
-        client: {
-          clientFactoryName: "TestCQRSFactory",
-          clientTypeName: "TestCQRS",
-        }
-      }] } },
+      generates: {
+        "test.ts": {
+          plugins: [
+            {
+              client: {
+                clientFactoryName: "TestCQRSFactory",
+                clientTypeName: "TestCQRS",
+              },
+            },
+          ],
+        },
+      },
       config: { input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") } },
     })
 
@@ -103,17 +109,25 @@ describe("exampleApp", () => {
 
   it("Can generate multiple clients with custom factory names + default exported client", async () => {
     const result = await generate({
-      generates: { "test.ts": { plugins: [{
-        client: {
-          clientFactoryName: "TestCQRSFactory1",
-          clientTypeName: "TestCQRS1",
-        }
-      }, {
-        client: {
-          clientFactoryName: "TestCQRSFactory2",
-          clientTypeName: "TestCQRS2",
-        }
-      }, "client"] } },
+      generates: {
+        "test.ts": {
+          plugins: [
+            {
+              client: {
+                clientFactoryName: "TestCQRSFactory1",
+                clientTypeName: "TestCQRS1",
+              },
+            },
+            {
+              client: {
+                clientFactoryName: "TestCQRSFactory2",
+                clientTypeName: "TestCQRS2",
+              },
+            },
+            "client",
+          ],
+        },
+      },
       config: { input: { raw: resolve(__dirname, "../samples/ExampleApp-1.0.pb") } },
     })
 
